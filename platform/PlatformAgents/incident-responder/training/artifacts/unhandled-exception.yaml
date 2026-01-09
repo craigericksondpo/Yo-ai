@@ -1,0 +1,19 @@
+# 1. Core event: unhandled exception on the platform
+# This is the canonical event that every runtime / executor must emit on a catch all failure.
+# 1.1 Event type
+# event-types/unhandled-exception.yaml
+name: platform.unhandled_exception.detected
+version: 1
+producer_roles:
+  - runtime.executor
+  - workflow.engine
+  - sandbox.vm
+description: >
+  Emitted when any code executing on the platform throws an unhandled exception
+  or is terminated by a catch-all handler indicating non-recoverable error.
+category: anomaly
+criticality: high
+partitioning_key: execution_id
+retention:
+  decision_trace: 365d
+  raw_payload: 30d
