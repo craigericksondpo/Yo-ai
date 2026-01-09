@@ -1,0 +1,61 @@
+1. ServiceAccount table schema with IAM/Lattice fields
+Assume a relational DB (Postgres/MySQL). You can adapt to Dynamo later.
+1.1. Subscriber table
+CREATE TABLE subscribers (
+    id                  UUID PRIMARY KEY,
+    external_ref        TEXT UNIQUE, -- e.g., tenant slug or external ID
+    name                TEXT NOT NULL,
+    email               TEXT NOT NULL,
+    status              TEXT NOT NULL CHECK (status IN ('active','suspended','closed')),
+    created_at          TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at          TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+1.2. ServiceAccount table
+CREATE TABLE service_accounts (
+    id                      UUID PRIMARY KEY,
+    subscriber_id           UUID NOT NULL REFERENCES subscribers(id),
+    -- Human & logical identity
+    name                    TEXT NOT NULL,         -- "HubSpot Integration", "Risk Scoring Agent"
+    description             TEXT,
+    environment             TEXT NOT NULL CHECK (environment IN ('dev','staging','prod')),
+    tags                    JSONB NOT NULL DEFAULT '{}'::jsonb, -- free-form labels: { "zone": "a2a-regulated", "data_class": "pci" }
+
+    -- AWS identity binding
+    iam_principal_arn       TEXT NOT NULL UNIQUE,  -- ARN of IAM role/user used for Lattice calls
+    lattice_allowed_services TEXT[] NOT NULL DEFAULT '{}', -- list of Lattice service ARNs or names this account is allowed to access (your view)
+
+    -- Lifecycle & security
+    status                  TEXT NOT NULL CHECK (status IN ('pending','active','suspended','revoked')),
+    created_by_user_id      TEXT,                  -- internal operator ID (optional)
+    created_at              TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at              TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    last_used_at            TIMESTAMPTZ,           -- last observed use (from logs/metrics)
+
+    -- Optional: explicit expiry/rotation windows
+    expires_at              TIMESTAMPTZ,
+    rotation_policy         JSONB NOT NULL DEFAULT '{}'::jsonb  -- e.g. { "rotate_every_days": 90 }
+);
+1.3. Audit / accounting table (optional but useful)
+This is your “flattened” view of S2S activity for analytics:
+CREATE TABLE service_account_activity (
+    id                      BIGSERIAL PRIMARY KEY,
+    occurred_at             TIMESTAMPTZ NOT NULL,
+    trace_id                TEXT,
+    subscriber_id           UUID NOT NULL,
+    service_account_id      UUID NOT NULL REFERENCES service_accounts(id),
+
+    -- What happened
+    lattice_service_id      TEXT NOT NULL,     -- your internal name or ARN of Lattice service
+    lattice_service_network_id TEXT NOT NULL,  -- service network identifier
+    http_method             TEXT,
+    http_path               TEXT,
+    status_code             INT,
+    latency_ms              INT,
+
+    -- Raw AWS identity for cross-check
+    iam_principal_arn       TEXT NOT NULL,
+
+    -- Free-form context from headers/body
+    metadata                JSONB NOT NULL DEFAULT '{}'::jsonb
+);
+
