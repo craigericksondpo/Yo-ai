@@ -1,0 +1,106 @@
+# Decision-Master DSL (Domain Specific Language) for expressing decision workflows
+# This DSL is declarative: you define steps, inputs, policies, and bindings between step outputs and later inputs. It’s designed so your Decision-Master agent can compile it into a DAG.
+# Core DSL concepts
+# •	workflow: Named decision workflow with version.
+# •	inputs: Contract for external inputs.
+# •	steps: Ordered or DAG-style nodes with typed actions.
+# •	bindings: References from prior step outputs, e.g. steps.load_profile.outputs.agent_profile.
+# •	decision: How to compute the final decision from step outputs.
+# Example: access-rights-evaluation
+
+version: "1.0"
+kind: DecisionWorkflow
+metadata:
+  name: "access-rights-evaluation"
+  workflow_id: "wf-access-eval"
+  revision: 7
+inputs:
+  request:
+    schema: "a2a.access-request.v1"
+    fields:
+      - name: request_id
+        type: string
+      - name: requested_by_agent_id
+        type: string
+      - name: target_registered_agent_id
+        type: string
+      - name: requested_access_rights
+        type: string[]
+      - name: context_snapshot_ref
+        type: string?
+steps:
+  - id: validate_request
+    action: validate-request
+    input_binding:
+      request: "$.inputs.request"
+    output_contract:
+      fields:
+        - name: is_valid
+          type: boolean
+    on_failure:
+      decision:
+        type: "denial"
+        reason: "invalid request schema or missing fields"
+
+  - id: load_profile
+    action: load-agent-profile
+    depends_on: [validate_request]
+    input_binding:
+      registered_agent_id: "$.inputs.request.target_registered_agent_id"
+    output_contract:
+      fields:
+        - name: agent_profile
+          type: object
+
+  - id: evaluate_policy
+    action: evaluate-policy
+    depends_on: [load_profile]
+    config:
+      policy_id: "policy-access-matrix-v7"
+    input_binding:
+      requested_access_rights: "$.inputs.request.requested_access_rights"
+      agent_profile: "$.steps.load_profile.outputs.agent_profile"
+    output_contract:
+      fields:
+        - name: allowed
+          type: string[]
+        - name: denied
+          type: object[]   # {right, reason}
+
+  - id: risk_evaluation
+    action: risk-evaluation
+    depends_on: [evaluate_policy]
+    input_binding:
+      agent_profile: "$.steps.load_profile.outputs.agent_profile"
+      requested_rights: "$.steps.evaluate_policy.outputs.denied[*].right"
+    output_contract:
+      fields:
+        - name: risk_score
+          type: number
+        - name: risk_threshold
+          type: number
+        - name: risk_outcome
+          type: string   # "allow" | "deny"
+
+  - id: finalize_decision
+    action: finalize-decision
+    depends_on: [evaluate_policy, risk_evaluation]
+    input_binding:
+      allowed: "$.steps.evaluate_policy.outputs.allowed"
+      denied: "$.steps.evaluate_policy.outputs.denied"
+      risk_outcome: "$.steps.risk_evaluation.outputs.risk_outcome"
+    output_contract:
+      fields:
+        - name: decision
+          type: string    # "approval" | "denial" | "partial-approval"
+        - name: approval_set
+          type: string[]
+        - name: denial_set
+          type: object[]  # {right, reason}
+
+decision:
+  from_step: "finalize_decision"
+  mapping:
+    decision: "$.steps.finalize_decision.outputs.decision"
+    approved_rights: "$.steps.finalize_decision.outputs.approval_set"
+    denied_rights: "$.steps.finalize_decision.outputs.denial_set"

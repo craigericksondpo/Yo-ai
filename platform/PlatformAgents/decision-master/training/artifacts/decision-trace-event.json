@@ -1,0 +1,175 @@
+// JSON Schema for decision.trace events
+{
+  "$id": "https://fasta2a.dev/schemas/decision.trace.v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Decision Trace Event",
+  "type": "object",
+  "required": [
+    "event_version",
+    "event_type",
+    "event_id",
+    "timestamp",
+    "decision_master",
+    "request",
+    "decision_steps",
+    "final_decision",
+    "audit"
+  ],
+  "properties": {
+    "event_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "event_type": {
+      "type": "string",
+      "const": "decision.trace"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^evt-[a-zA-Z0-9-]+$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "decision_master": {
+      "type": "object",
+      "required": ["agent_id", "workflow_id", "correlation_id"],
+      "properties": {
+        "agent_id": { "type": "string" },
+        "workflow_id": { "type": "string" },
+        "correlation_id": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "request": {
+      "type": "object",
+      "required": [
+        "request_id",
+        "requested_by_agent_id",
+        "target_registered_agent_id",
+        "requested_access_rights"
+      ],
+      "properties": {
+        "request_id": { "type": "string" },
+        "requested_by_agent_id": { "type": "string" },
+        "target_registered_agent_id": { "type": "string" },
+        "requested_access_rights": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "context_snapshot_ref": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "decision_steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "step",
+          "timestamp",
+          "action",
+          "inputs",
+          "outputs"
+        ],
+        "properties": {
+          "step": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "action": {
+            "type": "string"
+          },
+          "policy_id": {
+            "type": "string"
+          },
+          "inputs": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "outputs": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "final_decision": {
+      "type": "object",
+      "required": [
+        "decision",
+        "approved_rights",
+        "denied_rights"
+      ],
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": [
+            "approval",
+            "denial",
+            "partial-approval"
+          ]
+        },
+        "approved_rights": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "denied_rights": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["right", "reason"],
+            "properties": {
+              "right": { "type": "string" },
+              "reason": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "emitted_events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "topic",
+          "event_type",
+          "payload_ref"
+        ],
+        "properties": {
+          "topic": { "type": "string" },
+          "event_type": { "type": "string" },
+          "payload_ref": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "audit": {
+      "type": "object",
+      "required": [
+        "hash_chain_prev",
+        "hash_chain_current",
+        "signature"
+      ],
+      "properties": {
+        "hash_chain_prev": { "type": "string" },
+        "hash_chain_current": { "type": "string" },
+        "signature": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

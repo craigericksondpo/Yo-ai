@@ -1,0 +1,186 @@
+// 📘 decision.trace — Negotiating an Agreement Between Two Parties
+{
+  "event_version": "1.0",
+  "event_type": "decision.trace",
+  "event_id": "evt-nego-4f92b1c1-8a2d-4e1f-bc77-92c1f0a1e55a",
+  "timestamp": "2025-12-27T13:12:44Z",
+
+  "decision_master": {
+    "agent_id": "decision-master-v3",
+    "workflow_id": "wf-negotiation-2025-12-27-00001",
+    "correlation_id": "corr-nego-22a9f1"
+  },
+
+  "request": {
+    "request_id": "req-nego-9912",
+    "initiating_party": "party-A",
+    "counterparty": "party-B",
+    "initial_terms": {
+      "price": 120000,
+      "delivery_window_days": 30,
+      "support_level": "standard"
+    },
+    "context_snapshot_ref": "ctxsnap-nego-2025-12-27T13:12Z"
+  },
+
+  "decision_steps": [
+    {
+      "step": 1,
+      "timestamp": "2025-12-27T13:12:44Z",
+      "action": "validate-terms",
+      "inputs": {
+        "initial_terms": {
+          "price": 120000,
+          "delivery_window_days": 30,
+          "support_level": "standard"
+        }
+      },
+      "outputs": {
+        "is_valid": true,
+        "missing_fields": []
+      }
+    },
+
+    {
+      "step": 2,
+      "timestamp": "2025-12-27T13:12:44Z",
+      "action": "load-party-profiles",
+      "inputs": {
+        "initiating_party": "party-A",
+        "counterparty": "party-B"
+      },
+      "outputs": {
+        "party_A_profile": {
+          "risk_tolerance": "medium",
+          "max_price": 130000,
+          "min_support_level": "standard"
+        },
+        "party_B_profile": {
+          "risk_tolerance": "low",
+          "min_price": 110000,
+          "preferred_delivery_window_days": 45,
+          "min_support_level": "premium"
+        }
+      }
+    },
+
+    {
+      "step": 3,
+      "timestamp": "2025-12-27T13:12:44Z",
+      "action": "evaluate-initial-fit",
+      "inputs": {
+        "initial_terms": {
+          "price": 120000,
+          "delivery_window_days": 30,
+          "support_level": "standard"
+        },
+        "party_A_profile": "$ref:steps[1].outputs.party_A_profile",
+        "party_B_profile": "$ref:steps[1].outputs.party_B_profile"
+      },
+      "outputs": {
+        "fit_score": 0.62,
+        "fit_threshold": 0.50,
+        "fit_outcome": "acceptable"
+      }
+    },
+
+    {
+      "step": 4,
+      "timestamp": "2025-12-27T13:12:44Z",
+      "action": "generate-counterproposal",
+      "inputs": {
+        "initial_terms": "$ref:request.initial_terms",
+        "party_B_profile": "$ref:steps[1].outputs.party_B_profile"
+      },
+      "outputs": {
+        "counterproposal": {
+          "price": 115000,
+          "delivery_window_days": 40,
+          "support_level": "premium"
+        },
+        "justification": "Counterparty requires premium support and longer delivery window."
+      }
+    },
+
+    {
+      "step": 5,
+      "timestamp": "2025-12-27T13:12:44Z",
+      "action": "evaluate-negotiation-gap",
+      "inputs": {
+        "initial_terms": "$ref:request.initial_terms",
+        "counterproposal": "$ref:steps[3].outputs.counterproposal"
+      },
+      "outputs": {
+        "gap_analysis": {
+          "price_gap": -5000,
+          "delivery_window_gap": 10,
+          "support_gap": "upgrade-required"
+        },
+        "gap_score": 0.48,
+        "gap_threshold": 0.40,
+        "gap_outcome": "bridgeable"
+      }
+    },
+
+    {
+      "step": 6,
+      "timestamp": "2025-12-27T13:12:44Z",
+      "action": "risk-evaluation",
+      "inputs": {
+        "party_A_profile": "$ref:steps[1].outputs.party_A_profile",
+        "party_B_profile": "$ref:steps[1].outputs.party_B_profile",
+        "counterproposal": "$ref:steps[3].outputs.counterproposal"
+      },
+      "outputs": {
+        "risk_score": 0.31,
+        "risk_threshold": 0.50,
+        "risk_outcome": "acceptable"
+      }
+    },
+
+    {
+      "step": 7,
+      "timestamp": "2025-12-27T13:12:44Z",
+      "action": "finalize-negotiation",
+      "inputs": {
+        "initial_terms": "$ref:request.initial_terms",
+        "counterproposal": "$ref:steps[3].outputs.counterproposal",
+        "gap_outcome": "$ref:steps[4].outputs.gap_outcome",
+        "risk_outcome": "$ref:steps[5].outputs.risk_outcome"
+      },
+      "outputs": {
+        "agreement_reached": true,
+        "final_terms": {
+          "price": 117500,
+          "delivery_window_days": 40,
+          "support_level": "premium"
+        },
+        "decision": "agreement-reached",
+        "notes": "Parties converged on mid-price and premium support."
+      }
+    }
+  ],
+
+  "final_decision": {
+    "decision": "agreement-reached",
+    "final_terms": {
+      "price": 117500,
+      "delivery_window_days": 40,
+      "support_level": "premium"
+    }
+  },
+
+  "emitted_events": [
+    {
+      "topic": "decision.approvals",
+      "event_type": "agreement-reached",
+      "payload_ref": "evt-nego-approval-4f92b1c1"
+    }
+  ],
+
+  "audit": {
+    "hash_chain_prev": "hash-nego-prev-abc123",
+    "hash_chain_current": "hash-nego-cur-def456",
+    "signature": "sig-rsa-4096-nego-xyz"
+  }
+}

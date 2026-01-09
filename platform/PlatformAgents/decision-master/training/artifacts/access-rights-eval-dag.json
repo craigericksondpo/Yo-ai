@@ -1,0 +1,88 @@
+// DAG compiler representation of this decision trace
+// This is an internal representation your DAG compiler (Directed Acyclic Graph) might produce by combining the DSL and a concrete execution (the trace). Use node IDs and edge lists so it’s portable to various engines.
+{
+  "dag_version": "1.0",
+  "workflow_id": "wf-access-eval",
+  "instance_id": "wf-access-eval-2025-12-27-00012",
+  "nodes": [
+    {
+      "id": "validate_request",
+      "type": "task",
+      "action": "validate-request",
+      "status": "completed",
+      "started_at": "2025-12-27T12:52:14Z",
+      "finished_at": "2025-12-27T12:52:14Z",
+      "inputs_ref": "$.trace.decision_steps[0].inputs",
+      "outputs_ref": "$.trace.decision_steps[0].outputs"
+    },
+    {
+      "id": "load_profile",
+      "type": "task",
+      "action": "load-agent-profile",
+      "status": "completed",
+      "started_at": "2025-12-27T12:52:14Z",
+      "finished_at": "2025-12-27T12:52:14Z",
+      "inputs_ref": "$.trace.decision_steps[1].inputs",
+      "outputs_ref": "$.trace.decision_steps[1].outputs"
+    },
+    {
+      "id": "evaluate_policy",
+      "type": "task",
+      "action": "evaluate-policy",
+      "status": "completed",
+      "started_at": "2025-12-27T12:52:14Z",
+      "finished_at": "2025-12-27T12:52:14Z",
+      "policy_id": "policy-access-matrix-v7",
+      "inputs_ref": "$.trace.decision_steps[2].inputs",
+      "outputs_ref": "$.trace.decision_steps[2].outputs"
+    },
+    {
+      "id": "risk_evaluation",
+      "type": "task",
+      "action": "risk-evaluation",
+      "status": "completed",
+      "started_at": "2025-12-27T12:52:14Z",
+      "finished_at": "2025-12-27T12:52:14Z",
+      "inputs_ref": "$.trace.decision_steps[3].inputs",
+      "outputs_ref": "$.trace.decision_steps[3].outputs"
+    },
+    {
+      "id": "finalize_decision",
+      "type": "task",
+      "action": "finalize-decision",
+      "status": "completed",
+      "started_at": "2025-12-27T12:52:14Z",
+      "finished_at": "2025-12-27T12:52:14Z",
+      "inputs_ref": "$.trace.decision_steps[4].inputs",
+      "outputs_ref": "$.trace.decision_steps[4].outputs"
+    }
+  ],
+  "edges": [
+    {
+      "from": "validate_request",
+      "to": "load_profile",
+      "condition": "outputs.is_valid == true"
+    },
+    {
+      "from": "load_profile",
+      "to": "evaluate_policy",
+      "condition": "always"
+    },
+    {
+      "from": "evaluate_policy",
+      "to": "risk_evaluation",
+      "condition": "len(outputs.denied) > 0"
+    },
+    {
+      "from": "evaluate_policy",
+      "to": "finalize_decision",
+      "condition": "len(outputs.denied) == 0"
+    },
+    {
+      "from": "risk_evaluation",
+      "to": "finalize_decision",
+      "condition": "always"
+    }
+  ],
+  "final_node": "finalize_decision"
+}

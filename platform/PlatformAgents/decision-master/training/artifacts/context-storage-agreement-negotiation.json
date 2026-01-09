@@ -1,0 +1,75 @@
+// 🧠 Context Storage Representation
+// (Opaque, agent specific internal state — stored in FastA2A Context Storage)
+// This is where your Decision Master stores:
+// •	internal messages
+// •	tool calls
+// •	intermediate reasoning
+// •	DSL → DAG compilation artifacts
+// •	step execution logs
+// •	partial results
+// •	retry metadata
+// This is NOT A2A compliant and is intentionally opaque.
+{
+  "context_id": "ctx-nego-9912",
+  "agent_id": "decision-master-v3",
+  "workflow_id": "wf-negotiation",
+  "request_id": "req-nego-9912",
+
+  "internal_messages": [
+    {
+      "role": "system",
+      "content": "Loaded negotiation DSL v1.0 for workflow wf-negotiation."
+    },
+    {
+      "role": "planner",
+      "content": "Compiled DSL to DAG with 7 nodes and 6 edges."
+    },
+    {
+      "role": "executor",
+      "content": "Executing step validate_terms."
+    },
+    {
+      "role": "executor",
+      "content": "Executing step load_party_profiles."
+    },
+    {
+      "role": "executor",
+      "content": "Executing step evaluate_initial_fit."
+    }
+  ],
+
+  "tool_calls": [
+    {
+      "tool": "profile-service.lookup",
+      "args": { "party_id": "party-A" },
+      "result": { "risk_tolerance": "medium", "max_price": 130000 }
+    },
+    {
+      "tool": "profile-service.lookup",
+      "args": { "party_id": "party-B" },
+      "result": { "risk_tolerance": "low", "min_price": 110000 }
+    }
+  ],
+
+  "intermediate_state": {
+    "fit_score": 0.62,
+    "gap_score": 0.48,
+    "risk_score": 0.31
+  },
+
+  "execution_trace": [
+    { "step": "validate_terms", "status": "completed" },
+    { "step": "load_party_profiles", "status": "completed" },
+    { "step": "evaluate_initial_fit", "status": "completed" },
+    { "step": "generate_counterproposal", "status": "completed" },
+    { "step": "evaluate_negotiation_gap", "status": "completed" },
+    { "step": "risk_evaluation", "status": "completed" },
+    { "step": "finalize_negotiation", "status": "completed" }
+  ],
+
+  "diagnostics": {
+    "retries": 0,
+    "policy_version": "policy-negotiation-v3",
+    "dag_hash": "hash-dag-abc123"
+  }
+}

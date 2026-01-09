@@ -1,0 +1,57 @@
+// decision.denials_kafka-topic-schema
+{
+  "$id": "https://fasta2a.dev/schemas/decision.denial.v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Decision Denial Event",
+  "type": "object",
+  "required": [
+    "event_type",
+    "event_id",
+    "timestamp",
+    "correlation_id",
+    "request_id",
+    "target_registered_agent_id",
+    "denied_rights",
+    "source_decision_trace_id"
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "const": "access-rights-denied"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^evt-denials-[a-zA-Z0-9-]+$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "correlation_id": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "target_registered_agent_id": {
+      "type": "string"
+    },
+    "denied_rights": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["right", "reason"],
+        "properties": {
+          "right": { "type": "string" },
+          "reason": { "type": "string" }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "source_decision_trace_id": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false
+}
