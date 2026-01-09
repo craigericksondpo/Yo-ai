@@ -1,0 +1,108 @@
+/**
+ * This Incident-Responder AuthenticatedExtendedCard conveys:
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ * - Tasks, messages, and tools for Registered Agents.
+ */
+
+/**
+* Incident-Responder Authenticated Extended Agent Card¶
+*/
+{
+  "name": "Incident-Responder",
+  "description": "Handles all unhandled exceptions and responds to platform incidents. (aka Agent-terminator, Kill-switch, etc)",
+  "url": "https://privacyportfolio.com/agent-registry/incident-responder/auth/agent.json",
+  "provider": {
+    "organization": "PrivacyPortfolio",
+    "url": "https://www.PrivacyPortfolio.com"
+    },
+  "iconUrl": "https://privacyportfolio.com/agent-registry/incident-responder/incident-responder-agent-icon.png",
+  "version": "1.0.0",
+  "documentationUrl": "https://privacyportfolio.com/agent-registry/incident-responder/auth/v1-Incident-Responder-AuthenticatedExtendedAgentCard.md",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "stateTransitionHistory": true,
+    "exposesTasks": true,
+    "exposesMessages": true,
+    "exposesArtifacts": false,
+    "exposesTools": false
+  },
+  "securitySchemes": {
+    "yo-ai": {
+      "type": "apiKey",
+      "name": "yo-api",
+      "in": "header"
+    }
+  },
+  "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json", "text/plain"],
+  "skills": [
+      {
+      "id": "handle-exception",
+      "name": "handle-exception",
+      "description": "Handle unhandled exception.",
+      "tags": ["issue", "anomaly", "falsePositive", "warning"],
+      "examples": [
+        "Identify the code module",
+        "Evaluate impact",
+        "Build remediation workflow"
+      ],
+      "inputModes": ["application/json", "text/plain"],
+      "outputModes": ["application/json", "text/plain"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "code_module": {
+            "type": "string",
+            "description": "file or component source of exception."
+          },
+          "operation": {
+            "type": "enum",
+            "enum": [
+              "Identify the code module",
+              "Evaluate impact",
+              "Build remediation workflow"
+            ]
+          },
+          "payload": {
+            "type": "object",
+            "description": "Operation-specific data."
+          }
+        },
+        "required": ["code_module", "operation"]
+      }
+    }
+  ],
+  "x-tasks": [
+    {
+      "taskType": "artifact.validate",
+      "description": "Validate an artifact and produce a compliance-grade validation report.",
+      "inputSchema": { "$ref": "#/schemas/ArtifactValidationInput" },
+      "outputSchema": { "$ref": "#/schemas/ArtifactValidationOutput" }
+    },
+    {
+      "taskType": "evidence.publish",
+      "description": "Publish a signed evidence manifest for downstream agents.",
+      "inputSchema": { "$ref": "#/schemas/EvidenceManifestInput" },
+      "outputSchema": { "$ref": "#/schemas/EvidenceManifestOutput" }
+    }
+  ],
+  "x-messages": [
+    {
+      "messageType": "artifact.validated",
+      "direction": "emit",
+      "description": "Emitted when an artifact has been validated.",
+      "schema": { "$ref": "#/schemas/ArtifactValidatedEvent" }
+    },
+    {
+      "messageType": "evidence.published",
+      "direction": "emit",
+      "description": "Emitted when an evidence manifest is published.",
+      "schema": { "$ref": "#/schemas/EvidencePublishedEvent" }
+    }
+  ],
+  "supportsAuthenticatedExtendedCard": true
+}
