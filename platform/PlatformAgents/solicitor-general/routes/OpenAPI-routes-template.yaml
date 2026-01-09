@@ -1,0 +1,108 @@
+openapi: 3.1.0
+info:
+  title: FastA2A API Routes
+  version: 1.0.0
+  description: >
+    Compliance‑grade documentation for FastA2A HTTP routes.
+    Includes audit metadata, retention policies, and route provenance.
+
+x-audit:
+  spec_version: 1.0.0
+  generated_at: "{{ timestamp }}"
+  generated_by: "Solicitor-General Root Agent"
+  retention_policy: "7y-regulatory"
+  classification: "internal-regulated"
+  provenance_chain:
+    - source: "Workflow-Builder"
+      version: "{{ builder_version }}"
+    - source: "TaskManager"
+      version: "{{ task_manager_version }}"
+
+servers:
+  - url: https://api.fasta2a.internal
+    description: Internal service mesh endpoint
+
+paths:
+  /tasks:
+    post:
+      summary: Create a new FastA2A task
+      operationId: createTask
+      x-route-metadata:
+        owner: "TaskManager"
+        pii: false
+        retention: "task-lifecycle"
+        audit_event_type: "task.created"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTaskRequest"
+      responses:
+        "201":
+          description: Task created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskRecord"
+
+  /tasks/{task_id}/events:
+    get:
+      summary: Retrieve event-sourced history for a task
+      operationId: getTaskEvents
+      x-route-metadata:
+        owner: "Storage"
+        pii: true
+        retention: "7y-regulatory"
+        audit_event_type: "task.events.read"
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Event stream
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventRecord"
+
+components:
+  schemas:
+    CreateTaskRequest:
+      type: object
+      properties:
+        workflow:
+          type: string
+        input:
+          type: object
+
+    TaskRecord:
+      type: object
+      properties:
+        task_id:
+          type: string
+        status:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    EventRecord:
+      type: object
+      properties:
+        event_id:
+          type: string
+        type:
+          type: string
+        timestamp:
+          type: string
+          format: date-time
+        payload:
+          type: object
+
+          

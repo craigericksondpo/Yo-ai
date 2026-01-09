@@ -1,0 +1,64 @@
+asyncapi: 3.0.0
+info:
+  title: FastA2A Event Channels
+  version: 1.0.0
+  description: >
+    Event-driven channels for task updates, worker heartbeats,
+    pruning events, and workflow orchestration.
+
+x-audit:
+  spec_version: 1.0.0
+  generated_at: "{{ timestamp }}"
+  classification: "internal-regulated"
+  retention_policy: "7y-regulatory"
+
+channels:
+  task.events.{task_id}:
+    description: Event stream for a specific task
+    parameters:
+      task_id:
+        description: Task identifier
+        schema:
+          type: string
+    subscribe:
+      summary: Worker or dashboard subscribes to task events
+      message:
+        $ref: "#/components/messages/TaskEvent"
+
+  pruning.events:
+    description: Emitted when pruning daemon deletes or retains events
+    subscribe:
+      message:
+        $ref: "#/components/messages/PruningEvent"
+
+components:
+  messages:
+    TaskEvent:
+      payload:
+        type: object
+        properties:
+          event_id:
+            type: string
+          type:
+            type: string
+          timestamp:
+            type: string
+            format: date-time
+          payload:
+            type: object
+
+    PruningEvent:
+      payload:
+        type: object
+        properties:
+          task_id:
+            type: string
+          pruned_count:
+            type: integer
+          kept_count:
+            type: integer
+          timestamp:
+            type: string
+            format: date-time
+
+

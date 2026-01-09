@@ -1,0 +1,47 @@
+{
+  "graph_version": "1.0.0",
+  "generated_at": "{{ timestamp }}",
+  "nodes": [
+    { "id": "SolicitorGeneral", "type": "root-agent" },
+    { "id": "WorkflowBuilder", "type": "compiler" },
+    { "id": "TaskManager", "type": "broker" },
+    { "id": "WorkerPool", "type": "execution" },
+    { "id": "Storage", "type": "event-store" },
+    { "id": "PruningDaemon", "type": "maintenance" }
+  ],
+  "edges": [
+    {
+      "from": "SolicitorGeneral",
+      "to": "WorkflowBuilder",
+      "route": "/compile",
+      "method": "POST",
+      "audit": { "event": "workflow.compiled" }
+    },
+    {
+      "from": "WorkflowBuilder",
+      "to": "TaskManager",
+      "route": "/tasks",
+      "method": "POST",
+      "audit": { "event": "task.created" }
+    },
+    {
+      "from": "TaskManager",
+      "to": "WorkerPool",
+      "channel": "task.events.{task_id}",
+      "audit": { "event": "task.dispatched" }
+    },
+    {
+      "from": "WorkerPool",
+      "to": "Storage",
+      "route": "/tasks/{task_id}/events",
+      "method": "POST",
+      "audit": { "event": "event.appended" }
+    },
+    {
+      "from": "PruningDaemon",
+      "to": "Storage",
+      "channel": "pruning.events",
+      "audit": { "event": "events.pruned" }
+    }
+  ]
+}
