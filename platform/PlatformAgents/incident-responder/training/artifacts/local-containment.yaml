@@ -1,0 +1,59 @@
+# 5. Containment subworkflows & remedial workflow generator
+# You can stub these and let them evolve as the platform learns.
+# 5.1 Local containment workflow (no full shutdown)
+# workflows/incident-responder/local-containment.yaml
+workflow_id: incident_responder.workflow.local_containment.v1
+description: "Contain unhandled exception impact at local component/workflow level."
+
+inputs:
+  - name: incident_id
+    type: string
+  - name: context
+    type: object
+  - name: risk_actions
+    type: object
+
+steps:
+  - id: identify-scope
+    type: task
+    agent: scope.analyzer
+    inputs:
+      context: "{{ inputs.context }}"
+    outputs:
+      affected_workflows: affected_workflows
+      affected_services: affected_services
+
+  - id: terminate-affected-executions
+    type: task
+    agent: platform.controller
+    inputs:
+      action: "terminate_workflow_execution"
+      workflow_execution_ids: "{{ outputs.affected_workflows.execution_ids }}"
+    outputs:
+      terminated: terminated
+
+  - id: pause-problematic-workflow-defs
+    type: task
+    agent: platform.controller
+    when: 'inputs.risk_actions.pause_definitions == true'
+    inputs:
+      action: "pause_workflow_definition"
+      workflow_ids: "{{ outputs.affected_workflows.workflow_ids }}"
+    outputs:
+      paused: paused
+
+  - id: log-local-containment
+    type: task
+    agent: incident.logger
+    inputs:
+      incident_id: "{{ inputs.incident_id }}"
+      actions:
+        terminated: "{{ outputs.terminated }}"
+        paused: "{{ outputs.paused | default(null) }}"
+    outputs:
+      local_actions: actions
+
+  - id: completion
+    type: end
+    outputs:
+      local_actions: "{{ outputs.local_actions }}"

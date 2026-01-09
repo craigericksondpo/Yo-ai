@@ -1,0 +1,146 @@
+4. Incident-Responder workflow: from alert to action
+This is the high level workflow/DAG that responds, decides, and executes.
+4.1 Workflow definition (DSL / YAML)
+# workflows/incident-responder/unhandled-exception-response.yaml
+workflow_id: incident_responder.workflow.unhandled_exception_response.v1
+name: "Unhandled Exception Incident Response"
+description: >
+  Evaluate unhandled exceptions, decide on containment, take action, and generate a remedial workflow template.
+
+inputs:
+  - name: incident_id
+    type: string
+  - name: severity
+    type: string
+  - name: classification
+    type: object
+  - name: recommendation
+    type: object
+  - name: source_event_id
+    type: string
+  - name: source_event_type
+    type: string
+  - name: trace_links
+    type: object
+
+outputs:
+  - name: actions_taken
+    type: object
+  - name: remedial_workflow_id
+    type: string
+  - name: decision_trace_id
+    type: string
+
+steps:
+  - id: fetch-context
+    type: task
+    agent: decision-trace.retriever
+    inputs:
+      source_event_id: "{{ inputs.source_event_id }}"
+      trace_links: "{{ inputs.trace_links }}"
+    outputs:
+      context: ctx
+
+  - id: classify-risk
+    type: task
+    agent: risk.classifier
+    inputs:
+      severity: "{{ inputs.severity }}"
+      classification: "{{ inputs.classification }}"
+      context: "{{ steps.fetch-context.outputs.ctx }}"
+    outputs:
+      risk_score: risk_score
+      risk_level: risk_level
+      recommended_actions: risk_actions
+
+  - id: decide-containment
+    type: decision
+    inputs:
+      risk_level: "{{ steps.classify-risk.outputs.risk_level }}"
+      recommendation: "{{ inputs.recommendation }}"
+    branches:
+      - when: 'risk_level in ["medium", "high"]'
+        next: contain-local
+      - when: 'risk_level == "critical"'
+        next: escalate-critical
+      - when: 'true'
+        next: observe-only
+
+  - id: contain-local
+    type: subworkflow
+    workflow_id: incident_responder.workflow.local_containment.v1
+    inputs:
+      incident_id: "{{ inputs.incident_id }}"
+      context: "{{ steps.fetch-context.outputs.ctx }}"
+      risk_actions: "{{ steps.classify-risk.outputs.risk_actions }}"
+    outputs:
+      local_actions: local_actions
+    next: propose-remediation
+
+  - id: escalate-critical
+    type: subworkflow
+    workflow_id: incident_responder.workflow.critical_containment.v1
+    inputs:
+      incident_id: "{{ inputs.incident_id }}"
+      context: "{{ steps.fetch-context.outputs.ctx }}"
+      risk_actions: "{{ steps.classify-risk.outputs.risk_actions }}"
+    outputs:
+      critical_actions: critical_actions
+    next: propose-remediation
+
+  - id: observe-only
+    type: task
+    agent: incident.logger
+    inputs:
+      incident_id: "{{ inputs.incident_id }}"
+      note: "Observation only; no containment taken."
+    outputs:
+      observation_record: observation
+    next: propose-remediation
+
+  - id: propose-remediation
+    type: task
+    agent: remedial-workflow.generator
+    inputs:
+      incident_id: "{{ inputs.incident_id }}"
+      context: "{{ steps.fetch-context.outputs.ctx }}"
+      risk_level: "{{ steps.classify-risk.outputs.risk_level }}"
+      source_event_type: "{{ inputs.source_event_type }}"
+    outputs:
+      remedial_workflow_draft: remedial_draft
+
+  - id: persist-remediation
+    type: task
+    agent: workflow.registry
+    inputs:
+      workflow_draft: "{{ steps.propose-remediation.outputs.remedial_draft }}"
+      owner: "incident_responder"
+      labels:
+        - "auto-generated"
+        - "remediation"
+    outputs:
+      remedial_workflow_id: remedial_id
+
+  - id: record-decision-trace
+    type: task
+    agent: decision-trace.recorder
+    inputs:
+      incident_id: "{{ inputs.incident_id }}"
+      steps:
+        fetch_context: "{{ steps.fetch-context }}"
+        classify_risk: "{{ steps.classify-risk }}"
+        containment_decision: "{{ steps.decide-containment }}"
+        remedial_workflow: "{{ steps.propose-remediation }}"
+      policies:
+        incident_responder_authority: "policies/incident-responder/authority.yaml"
+    outputs:
+      decision_trace_id: dt_id
+
+  - id: completion
+    type: end
+    outputs:
+      actions_taken:
+        local: "{{ steps.contain-local.outputs.local_actions | default(null) }}"
+        critical: "{{ steps.escalate-critical.outputs.critical_actions | default(null) }}"
+      remedial_workflow_id: "{{ steps.persist-remediation.outputs.remedial_id }}"
+      decision_trace_id: "{{ steps.record-decision-trace.outputs.dt_id }}"
