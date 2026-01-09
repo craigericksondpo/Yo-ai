@@ -1,0 +1,34 @@
+// 2. Agent JWT (A2A Agent)
+{
+  "iss": "https://auth.fasta2a.example.com/agents",
+  "sub": "agent:AGENT-abc123",
+  "aud": "fasta2a-api",
+  "exp": 1735689600,
+  "iat": 1735686000,
+  "jti": "uuid-4-jwt-id",
+
+  "scope": "workflow:execute task:read",
+  "role": "agent",
+  "agent_id": "AGENT-abc123",
+  "agent_version": "1.2.3",
+  "agent_kind": "data-steward",
+
+  "rh": {
+    "responsible_human_id": "RH-123",
+    "org_id": "ORG001",
+    "delegation": "full | limited"
+  },
+
+  "yo": {
+    "yo_api": "AGENT-abc123",
+    "agent_card_id": "AGCARD-xyz789",
+    "tenant": "TENANT-42"
+  },
+
+  "ctx": {
+    "env": "prod",
+    "region": "us-west-2",
+    "session_id": "session-uuid",
+    "source": "kafka:topic/agents.incoming"
+  }
+}

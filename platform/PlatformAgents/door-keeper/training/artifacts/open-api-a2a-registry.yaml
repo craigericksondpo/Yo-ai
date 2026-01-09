@@ -1,0 +1,71 @@
+# 🌐 OpenAPI Spec (Excerpt)
+openapi: 3.0.3
+info:
+  title: A2A Agent Registry API
+  version: 1.0.0
+paths:
+  /agents/register:
+    post:
+      summary: Register a new agent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentRegistration'
+      responses:
+        '201':
+          description: Agent registered
+  /agents/{agent_id}/revoke:
+    post:
+      summary: Revoke agent access
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentAccessRevocation'
+      responses:
+        '200':
+          description: Access revoked
+  /agents/{agent_id}/capabilities:
+    put:
+      summary: Update agent capabilities
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentCapabilityUpdate'
+      responses:
+        '200':
+          description: Capabilities updated
+  /agents/{agent_id}/trust-score:
+    post:
+      summary: Submit trust score
+      parameters:
+        - name: agent_id
+          in: path
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgentTrustScore'
+      responses:
+        '200':
+          description: Trust score submitted
+components:
+  schemas:
+    AgentRegistration: { ... } # Use your earlier schema
+    AgentAccessRevocation: { ... }
+    AgentCapabilityUpdate: { ... }
+    AgentTrustScore: { ... }

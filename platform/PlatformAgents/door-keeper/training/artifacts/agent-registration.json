@@ -1,0 +1,71 @@
+// 🧠 A2A Agent Registration Interface (JSON Schema)
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "A2A Agent Registration",
+  "type": "object",
+  "required": ["agent_id", "public_key", "contact", "capabilities", "auth"],
+  "properties": {
+    "agent_id": {
+      "type": "string",
+      "description": "Globally unique agent identifier (UUID or DID)"
+    },
+    "public_key": {
+      "type": "string",
+      "description": "Base64-encoded public key for signature verification"
+    },
+    "contact": {
+      "type": "object",
+      "required": ["endpoint", "email"],
+      "properties": {
+        "endpoint": { "type": "string", "format": "uri" },
+        "email": { "type": "string", "format": "email" }
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Declared agent capabilities (e.g., ingest, query, relay)"
+    },
+    "auth": {
+      "type": "object",
+      "required": ["method", "token_endpoint"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["OAuth2", "JWT", "APIKey", "MutualTLS"]
+        },
+        "token_endpoint": { "type": "string", "format": "uri" },
+        "scopes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Requested access scopes"
+        }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "properties": {
+        "regimes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Declared compliance regimes (e.g., CPRA, HIPAA)"
+        },
+        "evidence_url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Link to compliance evidence or audit trail"
+        }
+      }
+    },
+    "logo": {
+      "type": "string",
+      "format": "uri",
+      "description": "Optional logo for UI display"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Custom tags for filtering or grouping"
+    }
+  }
+}
