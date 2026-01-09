@@ -1,0 +1,53 @@
+# 3.2 Authority/policy manifest for Incident-Responder
+# This is the guardrail on what Incident-Responder can do.
+# policies/incident-responder/authority.yaml
+principal: agent.incident_responder
+version: 1
+description: >
+  Permissions and constraints for Incident-Responder when handling platform incidents.
+
+capabilities:
+  - id: terminate_workflow_execution
+    resources: ["workflow-execution:*"]
+    constraints:
+      severity_min: "medium"
+
+  - id: pause_workflow_definition
+    resources: ["workflow-definition:*"]
+    constraints:
+      severity_min: "high"
+
+  - id: shutdown_service
+    resources: ["service:*"]
+    constraints:
+      severity_min: "high"
+      require_human_ack_for:
+        - "auth-service"
+        - "billing-service"
+
+  - id: shutdown_platform
+    resources: ["platform:core"]
+    constraints:
+      severity_min: "critical"
+      require_quorum_signoff: true
+      quorum:
+        roles:
+          - "SRE"
+          - "security_officer"
+        min_approvals: 2
+
+  - id: restart_service
+    resources: ["service:*"]
+    constraints:
+      severity_min: "medium"
+
+  - id: restart_platform
+    resources: ["platform:core"]
+    constraints:
+      severity_min: "critical"
+      require_quorum_signoff: true
+
+audit:
+  log_decision_traces: true
+  store_policy_hash: true
+  include_rationale: true
