@@ -1,0 +1,107 @@
+{
+  "name": "The-Sentinel",
+  "description": "Listens for dangerous incidents and trends, and issues alerts.",
+  "url": "https://privacyportfolio.com/agent-registry/the-sentinel/auth/agent.json",
+  "provider": {
+    "organization": "PrivacyPortfolio",
+    "url": "https://www.PrivacyPortfolio.com"
+    },
+  "iconUrl": "https://privacyportfolio.com/agent-registry/the-sentinel/the-sentinel-agent-icon.png",
+  "version": "1.0.0",
+  "documentationUrl": "https://privacyportfolio.com/agent-registry/auth/v1-The-Sentinel-AuthenticatedExtendedAgentCard.md",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "stateTransitionHistory": true,
+    "exposesTasks": true,
+    "exposesMessages": true,
+    "exposesArtifacts": false,
+    "exposesTools": false
+  },
+  "securitySchemes": {
+    "yo-ai": {
+      "type": "apiKey",
+      "name": "yo-api",
+      "in": "header"
+    }
+  },
+  "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json", "text/plain"],
+  "skills": [
+     {
+      "id": "monitor-Platform",
+      "name": "monitor-Platform",
+      "description": "Monitor platform for adverse events.",
+      "tags": ["adverseEvent", "Listening"],
+      "examples": [
+        "Listening",
+        "Get adverseEvent"
+      ],
+      "inputModes": ["application/json", "text/plain"],
+      "outputModes": ["application/json", "text/plain"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "log_ref": {
+            "type": "string",
+            "description": "Log record of adverseEvent."
+          },
+          "operation": {
+            "type": "string"            ]
+          },
+          "payload": {
+            "type": "object",
+            "description": "Operation-specific data."
+          }
+        },
+        "required": ["log_ref", "operation"]
+      }
+    }
+  ],
+  "x-tools": [
+  {
+    "name": "http.get",
+    "description": "Performs authenticated GET requests to fetch external resources.",
+    "inputSchema": { "$ref": "#/schemas/HttpGetInput" },
+    "outputSchema": { "$ref": "#/schemas/HttpGetOutput" },
+    "auth": "apiKey"
+  },
+  {
+    "name": "crypto.sign",
+    "description": "Signs payloads using the agent's internal key material.",
+    "inputSchema": { "$ref": "#/schemas/CryptoSignInput" },
+    "outputSchema": { "$ref": "#/schemas/CryptoSignOutput" },
+    "auth": "none"
+  }
+],
+"x-messages": [
+  {
+    "messageType": "artifact.validated",
+    "direction": "emit",
+    "description": "Emitted when an artifact has been validated.",
+    "schema": { "$ref": "#/schemas/ArtifactValidatedEvent" }
+  },
+  {
+    "messageType": "evidence.published",
+    "direction": "emit",
+    "description": "Emitted when an evidence manifest is published.",
+    "schema": { "$ref": "#/schemas/EvidencePublishedEvent" }
+  }
+],
+"x-artifacts": [
+  {
+    "artifactType": "evidence.manifest",
+    "description": "A cryptographically signed manifest describing evidence, lineage, and provenance.",
+    "schema": { "$ref": "#/schemas/EvidenceManifest" },
+    "mediaType": "application/json"
+  },
+  {
+    "artifactType": "validation.report",
+    "description": "A compliance-grade validation report for artifacts.",
+    "schema": { "$ref": "#/schemas/ValidationReport" },
+    "mediaType": "application/json"
+  }
+],
+"supportsAuthenticatedExtendedCard": true
+}
