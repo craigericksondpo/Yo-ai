@@ -1,0 +1,9 @@
+/api/
+  openapi.yaml
+  asyncapi.yaml
+  graphql/
+    schema.graphql
+  route-graph.json
+  router-map.yaml
+  audit-metadata.json
+  bundle-manifest.json
