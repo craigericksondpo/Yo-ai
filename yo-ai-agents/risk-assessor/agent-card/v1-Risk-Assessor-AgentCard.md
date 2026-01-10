@@ -1,0 +1,153 @@
+/**
+ * This Risk-Assessor AgentCard conveys:
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ * - Authentication requirements
+ */
+
+/**
+* Risk-Assessor AgentCard¶
+*/
+{
+  "name": "Risk-Assessor",
+  "description": "Builds, conducts, and maintains risk assessments.",
+  "url": "https://privacyportfolio.com/agent-registry/risk-assessor/agent.json",
+  "provider": {
+    "organization": "PrivacyPortfolio",
+    "url": "https://www.PrivacyPortfolio.com"
+    },
+  "iconUrl": "https://privacyportfolio.com/agent-registry/risk-assessor/risk-assessor-agent-icon.png",
+  "version": "1.0.0",
+  "documentationUrl": "https://privacyportfolio.com/agent-registry/risk-assessor/v1-Risk-Assessor-AgentCard.md",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "stateTransitionHistory": true
+  },
+  "securitySchemes": {
+    "yo-ai": {
+      "type": "apiKey",
+      "name": "yo-api",
+      "in": "header"
+    }
+  },
+  "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json", "text/plain"],
+  "skills": [
+    {
+      "id": "AssessRisks",
+      "name": "AssessRisks",
+      "description": "Conducts a structured risk assessment for a given organization using specified standards, evidence sources, and assessment models.",
+      "tags": [
+        "riskAssessment",
+        "fraudDetection",
+        "complianceSupport",
+        "bulkOperations",
+        "orgAnalysis"
+      ],
+      "examples": [
+        "Assess risk of ACME Corp using NIST AI RMF",
+        "Evaluate fraud indicators for vendor:123",
+        "Perform bulk risk assessment for all cloud providers"
+      ],
+
+      "inputModes": ["application/json", "text/plain"],
+      "outputModes": ["application/json", "text/plain"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "org_ref": {
+            "type": "string",
+            "description": "Opaque identifier for the organization being assessed."
+          },
+          "standards": {
+            "type": "array",
+            "description": "Risk or compliance frameworks to apply (e.g., NIST-AI-RMF, ISO27001, SOC2).",
+            "items": { "type": "string" }
+          },
+          "evidence": {
+            "type": "object",
+            "description": "Optional evidence bundles from other agents (Profile-Builder, IP-Inspector, Tech-Inspector, Vendor-Manager, Complaint-Manager).",
+            "properties": {
+              "org_profile": { "type": "object" },
+              "ip_assets": { "type": "object" },
+              "tech_stack": { "type": "object" },
+              "complaints": { "type": "object" },
+              "external_signals": { "type": "object" }
+            },
+            "additionalProperties": true
+          },
+          "assessment_mode": {
+            "type": "string",
+            "enum": ["full", "incremental", "fraud_only", "tech_only"],
+            "description": "Controls the depth and scope of the assessment."
+          },
+          "bulk_scope": {
+            "type": "array",
+            "description": "Optional list of org_refs for bulk assessments.",
+            "items": { "type": "string" }
+          },
+          "caller_context": {
+            "type": "object",
+            "description": "Information about the invoking agent for policy enforcement.",
+            "properties": {
+              "agent_id": { "type": "string" },
+              "roles": { "type": "array", "items": { "type": "string" } },
+              "allowed_org_refs": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        },
+        "required": ["org_ref", "standards"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "assessment_id": {
+            "type": "string",
+            "description": "Unique identifier for this risk assessment."
+          },
+          "org_ref": {
+            "type": "string"
+          },
+          "risk_score": {
+            "type": "number",
+            "description": "Normalized risk score between 0 and 1."
+          },
+          "risk_level": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "fraud_indicator": {
+            "type": "boolean",
+            "description": "Whether fraud signals were detected."
+          },
+          "fraud_evidence_refs": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "standard_results": {
+            "type": "array",
+            "description": "Per-standard evaluation results.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "standard_ref": { "type": "string" },
+                "score": { "type": "number" },
+                "findings": { "type": "array", "items": { "type": "string" } }
+              }
+            }
+          },
+          "recommendations": {
+            "type": "array",
+            "description": "Actionable recommendations for the caller (Data-Steward, Vendor-Manager, etc.).",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["assessment_id", "org_ref", "risk_score", "risk_level"]
+      }
+    }
+  ],
+  "supportsAuthenticatedExtendedCard": true
+}
