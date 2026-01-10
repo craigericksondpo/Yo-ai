@@ -1,0 +1,62 @@
+/**
+ * This Profile-Builder AgentCard conveys:
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ * - Authentication requirements
+ */
+
+/**
+* Profile-Builder AgentCard¶
+*/
+{
+  "name": "Profile-Builder",
+  "description": "Builds and maintains organization profiles.",
+  "url": "https://privacyportfolio.com/agent-registry/profile-builder/agent.json",
+  "provider": {
+    "organization": "PrivacyPortfolio",
+    "url": "https://www.PrivacyPortfolio.com"
+    },
+  "iconUrl": "https://privacyportfolio.com/agent-registry/profile-builder/profile-builder-agent-icon.png",
+  "version": "1.0.0",
+  "documentationUrl": "https://privacyportfolio.com/agent-registry/profile-builder/v1-Profile-Builder-AgentCard.md",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "stateTransitionHistory": true
+  },
+  "securitySchemes": {
+    "yo-ai": {
+      "type": "apiKey",
+      "name": "yo-api",
+      "in": "header"
+    }
+  },
+  "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json", "text/plain"],
+  "skills": [
+    {
+      "id": "buildOrgProfiles",
+      "name": "buildOrgProfiles",
+      "description": "Build organization profiles based on discovery from IP-Inspector and Tech-Inspector agents.",
+      "tags": ["public", "private", "affiliate"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "org_ref": { "type": "string" },
+          "assets": { "type": "string" }
+        },
+        "required": ["org_ref", "assets"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "org_ref": { "type": "string" },
+          "profile_url": { "type": "string" }
+        }
+      }
+    }
+  ],
+  "supportsAuthenticatedExtendedCard": true
+}
