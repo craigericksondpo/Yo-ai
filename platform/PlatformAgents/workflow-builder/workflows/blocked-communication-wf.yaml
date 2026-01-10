@@ -1,0 +1,171 @@
+Craig, let’s build this as if your Data Steward were a regulator grade incident response system for blocked communications, fully aligned with your behavioral risk model, your multi agent ecosystem, and your Twilio enabled A2A architecture.
+Below is a complete, end to end package:
+•	A Blocked Communications Detection Workflow
+•	A DAG for your compiler
+•	A template message your Data Steward sends to stakeholders
+•	A risk scoring extension for block events
+•	A regulator ready evidence manifest
+•	A full simulation of the campaign against a real vendor (Accenture)
+Everything is written so you can drop it directly into your Data Steward, Risk Assessor, Complaint Manager, and Vendor Manager agents.
+________________________________________
+✔ 1. Blocked Communications Detection Workflow
+This is the full lifecycle your Data Steward should execute whenever an organization blocks email, phone, or network traffic.
+PHASE 1 — Detection
+Your Data Steward continuously monitors:
+Email
+•	SMTP 550/554 rejections
+•	Greylisting
+•	Silent drops
+•	DMARC/DKIM/SPF failures
+•	Proofpoint/Mimecast/Barracuda/EOP blocks
+•	“Suspicious content” flags
+•	No response within expected SLA
+Phone
+•	Immediate disconnect
+•	“This number is not accepting calls”
+•	Carrier level blocking
+•	Reputation score too low
+•	IVR loops with no human escalation
+Network / Portal
+•	403 Forbidden
+•	429 Too Many Requests
+•	451 Unavailable for Legal Reasons
+•	CAPTCHA loops
+•	WAF blocks
+•	Bot detection
+•	Rate limiting
+•	Session invalidation
+Social / API
+•	Shadowbans
+•	API key throttling
+•	“Suspicious activity” flags
+Each detection triggers a BlockedCommunicationEvent.
+________________________________________
+PHASE 2 — Classification
+Your Data Steward classifies the block:
+A. Automated Security Block
+•	Spam/phishing detection
+•	Fraud scoring
+•	Bot detection
+•	IP/phone reputation
+•	APWG feed match
+•	Vendor’s internal threat intel
+B. Policy Block
+•	“We do not respond to agents”
+•	“We do not respond to automated requests”
+•	“We do not respond to repeated requests”
+C. Retaliatory Block
+•	After a complaint
+•	After escalation
+•	After regulatory involvement
+D. Operational Block
+•	Misconfiguration
+•	Outage
+•	Rate limit
+•	Human error
+________________________________________
+PHASE 3 — Attribution
+Your Data Steward attempts to determine:
+•	Which system blocked you
+•	Which vendor provided the threat intel
+•	Whether APWG was involved
+•	Whether a third party fraud vendor was involved
+•	Whether the block is reversible
+•	Whether the block is retaliatory
+•	Whether the block is automated
+•	Whether the block is human initiated
+This uses:
+•	DarkWeb Checker
+•	DataBroker Monitor
+•	SocialMedia Checker
+•	Vendor Manager
+•	Risk Assessor
+________________________________________
+PHASE 4 — Response
+Your Data Steward sends a non accusatory, security aligned message (template below).
+________________________________________
+PHASE 5 — Evidence Collection
+Your Data Steward generates:
+•	Timeline
+•	SMTP logs
+•	Phone logs
+•	Network logs
+•	Risk scores
+•	Vendor behavior patterns
+•	Identity verification history
+•	Evidence of legitimate purpose
+•	Evidence of retaliation (if applicable)
+________________________________________
+PHASE 6 — Escalation
+If the organization refuses to acknowledge the block:
+•	Complaint Manager files a complaint
+•	Evidence manifest is attached
+•	Risk Assessor updates risk score
+•	Vendor Manager updates vendor profile
+•	Data Steward continues periodic testing
+
+# ✔ 2. DAG for the Blocked Communications Campaign
+dag_id: blocked_communications_campaign
+description: "Detect, classify, attribute, and escalate blocked communications."
+
+nodes:
+
+  - id: detect_email_block
+    type: source
+    outputs: [raw_email_block]
+    function: detect_email_block
+
+  - id: detect_phone_block
+    type: source
+    outputs: [raw_phone_block]
+    function: detect_phone_block
+
+  - id: detect_network_block
+    type: source
+    outputs: [raw_network_block]
+    function: detect_network_block
+
+  - id: classify_block
+    type: transform
+    inputs: [raw_email_block, raw_phone_block, raw_network_block]
+    outputs: [classified_block]
+    function: classify_block_event
+
+  - id: attribute_block
+    type: transform
+    inputs: [classified_block]
+    outputs: [attributed_block]
+    function: attribute_block_cause
+
+  - id: compute_risk
+    type: transform
+    inputs: [attributed_block]
+    outputs: [risk_enriched_block]
+    function: compute_behavioral_risk_for_block
+
+  - id: persist_block_event
+    type: sink
+    inputs: [risk_enriched_block]
+    function: append_to_audit_log
+
+  - id: send_stakeholder_message
+    type: transform
+    inputs: [risk_enriched_block]
+    outputs: [outbound_message]
+    function: generate_stakeholder_notification
+
+  - id: escalate_if_needed
+    type: transform
+    inputs: [risk_enriched_block]
+    outputs: [complaint_event]
+    function: escalate_to_regulator_if_required
+
+edges:
+  - [detect_email_block, classify_block]
+  - [detect_phone_block, classify_block]
+  - [detect_network_block, classify_block]
+  - [classify_block, attribute_block]
+  - [attribute_block, compute_risk]
+  - [compute_risk, persist_block_event]
+  - [compute_risk, send_stakeholder_message]
+  - [compute_risk, escalate_if_needed]
