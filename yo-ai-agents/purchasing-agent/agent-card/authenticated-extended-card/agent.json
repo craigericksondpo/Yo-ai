@@ -1,0 +1,289 @@
+{
+  "name": "Purchasing-Agent",
+  "description": "Agent responsible for managing purchases and any follow-up actions if needed.",
+  "url": "https://privacyportfolio.com/agent-registry/purchasing-agent/auth/agent.json",
+  "provider": {
+    "organization": "PrivacyPortfolio",
+    "url": "https://www.PrivacyPortfolio.com"
+    },
+  "iconUrl": "https://privacyportfolio.com/agent-registry/purchasing-agent/purchasing-agent-agent-icon.png",
+  "version": "1.0.0",
+  "documentationUrl": "https://privacyportfolio.com/agent-registry/purchasing-agent/auth/v1-Purchasing-Agent-AuthenticatedExtendedAgentCard.md",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "stateTransitionHistory": true,
+    "exposesTasks": true,
+    "exposesMessages": true,
+    "exposesArtifacts": true,
+    "exposesTools": true
+  },
+  "securitySchemes": {
+    "yo-ai": {
+      "type": "apiKey",
+      "name": "yo-api",
+      "in": "header"
+    }
+  },
+  "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json", "text/plain"],
+    "skills": [
+     {
+      "name": "check-purchasing-budget",
+      "description": "Retrieves the current balance of the dedicated checking account and determines available purchasing power for online purchases.",
+      "tags": ["budget", "accountBalance", "spendingLimit", "financialGovernance"],
+      "input_modes": ["application/json", "text/plain"],
+      "output_modes": ["application/json"],
+      "examples": [
+        "What is my available purchasing budget",
+        "Can I afford this $129 purchase"
+      ]
+    },
+    {
+      "name": "validate-purchase-eligibility",
+      "description": "Confirms that a purchase is allowed based on budget, risk score, vendor trust tier, and user policy before creating an AP2 purchase intent.",
+      "tags": ["riskAssessment", "budgetCheck", "vendorTrust", "policyEnforcement"],
+      "input_modes": ["application/json"],
+      "output_modes": ["application/json"],
+      "examples": [
+        "Validate eligibility for this $300 purchase",
+        "Is it safe to buy from this seller"
+      ]
+    },
+    {
+      "name": "initiate-purchase",
+      "description": "Creates and submits an AP2 purchase intent and executes the purchase via Stripe, PayPal, or vendor checkout flows.",
+      "tags": ["checkout", "payment", "transaction", "AP2"],
+      "input_modes": ["application/json"],
+      "output_modes": ["application/json"],
+      "examples": [
+        "Buy this item from Vendor X",
+        "Complete checkout for this cart"
+      ]
+    },
+    {
+      "name": "verify-transaction-completion",
+      "description": "Verifies AP2 transaction states, confirms that funds were transferred, and that the vendor acknowledged the order.",
+      "tags": ["transactionVerification", "paymentConfirmation", "audit"],
+      "input_modes": ["application/json"],
+      "output_modes": ["application/json"],
+      "examples": [
+        "Verify that this payment went through",
+        "Confirm the vendor accepted the order"
+      ]
+    },
+    {
+      "name": "update-budget-after-purchase",
+      "description": "Updates the purchasing budget by deducting completed AP2 transaction amounts from the dedicated checking account balance.",
+      "tags": ["budgetUpdate", "accounting", "spendingTracking"],
+      "input_modes": ["application/json"],
+      "output_modes": ["application/json"],
+      "examples": [
+        "Update budget after this $45 purchase",
+        "Reflect this transaction in my spending balance"
+      ]
+    },
+    {
+      "name": "track-order-status",
+      "description": "Monitors order status, shipping updates, delivery confirmations, and vendor notifications linked to AP2 transactions.",
+      "tags": ["orderTracking", "shipping", "delivery", "notifications"],
+      "input_modes": ["application/json", "text/plain"],
+      "output_modes": ["application/json"],
+      "examples": [
+        "Track my order from Vendor Y",
+        "Notify me when this item ships"
+      ]
+    },
+    {
+      "name": "initiate-return-or-refund",
+      "description": "Creates AP2-compatible return/refund intents, starts vendor workflows, and tracks their progress.",
+      "tags": ["returns", "refunds", "postPurchase", "vendorInteraction", "AP2"],
+      "input_modes": ["application/json"],
+      "output_modes": ["application/json"],
+      "examples": [
+        "Start a return for this defective item",
+        "Request a refund from Vendor Z"
+      ]
+    },
+    {
+      "name": "resolve-purchase-issues",
+      "description": "Handles vendor disputes, missing items, incorrect shipments, or billing errors, and anchors all interactions to the AP2 transaction record.",
+      "tags": ["disputeResolution", "postPurchase", "vendorSupport"],
+      "input_modes": ["application/json", "text/plain"],
+      "output_modes": ["application/json"],
+      "examples": [
+        "Resolve a missing item issue",
+        "Fix a double charge from Vendor X"
+      ]
+    },
+    {
+      "name": "generate-purchase-receipt",
+      "description": "Produces an AP2-compatible receipt artifact with transaction details, vendor metadata, and evidence for auditability.",
+      "tags": ["receipt", "audit", "documentation", "evidence", "AP2"],
+      "input_modes": ["application/json"],
+      "output_modes": ["application/json", "text/plain"],
+      "examples": [
+        "Generate a receipt for yesterday’s purchase",
+        "Provide documentation for this transaction"
+      ]
+    },
+    {
+      "name": "generate-purchase-history",
+      "description": "Generates an AP2-aligned history of past purchases, including receipts, vendor interactions, and follow-up actions.",
+      "tags": ["history", "audit", "documentation", "spendingAnalysis"],
+      "input_modes": ["application/json"],
+      "output_modes": ["application/json", "text/plain"],
+      "examples": [
+        "Show my last 10 purchases",
+        "Generate a spending summary for this month"
+      ]
+    },
+    {
+      "name": "evaluate-purchase-risk",
+      "description": "Assesses fraud risk, vendor legitimacy, unusual pricing, and suspicious patterns before allowing an AP2 purchase intent to proceed.",
+      "tags": ["fraudDetection", "riskAssessment", "vendorLegitimacy"],
+      "input_modes": ["application/json", "text/plain"],
+      "output_modes": ["application/json"],
+      "examples": [
+        "Is this vendor trustworthy",
+        "Evaluate risk for this high-value purchase"
+      ]
+    },
+    {
+      "name": "recommend-purchase-options",
+      "description": "Suggests alternative vendors, better prices, or safer purchasing paths consistent with budget and AP2-compatible channels.",
+      "tags": ["recommendations", "priceComparison", "vendorAlternatives"],
+      "input_modes": ["application/json", "text/plain"],
+      "output_modes": ["application/json", "text/plain"],
+      "examples": [
+        "Find a cheaper option for this product",
+        "Recommend a safer vendor for this purchase"
+      ]
+    }
+  ],
+  "x-tasks": [
+    {
+      "name": "ap2-purchase-flow-task",
+      "description": "Runs the full AP2 purchase flow: validate eligibility, create intent, execute transaction, verify completion, and update budget.",
+      "produces": [
+        "ap2_intent",
+        "ap2_transaction",
+        "ap2_state",
+        "purchase_receipt",
+        "evidence_manifest"
+      ]
+    },
+    {
+      "name": "ap2-refund-flow-task",
+      "description": "Runs an AP2-compatible return/refund flow, including vendor communication and transaction state updates.",
+      "produces": [
+        "ap2_refund_intent",
+        "ap2_refund_transaction",
+        "refund_receipt",
+        "evidence_manifest"
+      ]
+    },
+    {
+      "name": "purchase-history-report-task",
+      "description": "Generates an AP2-aligned purchase history, grouped by vendor, category, or time period.",
+      "produces": [
+        "purchase_history",
+        "spending_summary",
+        "evidence_manifest"
+      ]
+    }
+  ],
+
+  "x-tools": [
+    {
+      "name": "ap2-client",
+      "description": "Internal client for creating, signing, submitting, and tracking AP2 intents and transactions."
+    },
+    {
+      "name": "budget-engine",
+      "description": "Computes available purchasing power from the dedicated checking account and enforces budget constraints."
+    },
+    {
+      "name": "risk-engine",
+      "description": "Evaluates vendor trust, fraud risk, and anomaly detection for purchases."
+    },
+    {
+      "name": "order-tracking-adapter",
+      "description": "Integrates with vendor APIs and tracking services to monitor order and shipment status."
+    }
+  ],
+
+  "x-messages": [
+    {
+      "name": "ap2-intent-created",
+      "description": "Emitted when a new AP2 purchase intent is created."
+    },
+    {
+      "name": "ap2-transaction-updated",
+      "description": "Emitted when an AP2 transaction changes state (pending, completed, failed, refunded)."
+    },
+    {
+      "name": "budget-threshold-alert",
+      "description": "Push notification when the purchasing budget drops below a configured threshold."
+    },
+    {
+      "name": "order-status-updated",
+      "description": "Signals changes in order/shipping status for a purchase."
+    }
+  ],
+
+  "x-artifacts": [
+    {
+      "name": "ap2-intent",
+      "description": "AP2-compatible intent artifact capturing purchase details, vendor, amount, and policy constraints.",
+      "content_type": "application/vnd.ap2.intent+json"
+    },
+    {
+      "name": "ap2-transaction",
+      "description": "AP2 transaction artifact capturing payment state, timestamps, channels, and cryptographic references.",
+      "content_type": "application/vnd.ap2.transaction+json"
+    },
+    {
+      "name": "ap2-state",
+      "description": "Snapshot of the AP2 transaction lifecycle, including transitions and error states.",
+      "content_type": "application/vnd.ap2.state+json"
+    },
+    {
+      "name": "ap2-refund-intent",
+      "description": "AP2-compatible intent artifact for initiating refund or return actions tied to a prior transaction.",
+      "content_type": "application/vnd.ap2.refund-intent+json"
+    },
+    {
+      "name": "ap2-refund-transaction",
+      "description": "AP2 transaction artifact capturing refund state, amounts, and linked original transaction.",
+      "content_type": "application/vnd.ap2.refund-transaction+json"
+    },
+    {
+      "name": "purchase-receipt",
+      "description": "Receipt artifact containing itemized details, AP2 transaction references, vendor metadata, and evidence links.",
+      "content_type": "application/json"
+    },
+    {
+      "name": "refund-receipt",
+      "description": "Receipt artifact summarizing refund or return outcomes with AP2 linkage to original transactions.",
+      "content_type": "application/json"
+    },
+    {
+      "name": "purchase-history",
+      "description": "Aggregated, AP2-linked history of purchases, including receipts and transaction references.",
+      "content_type": "application/json"
+    },
+    {
+      "name": "spending-summary",
+      "description": "Summary artifact of spending over a period, tied back to AP2 transactions for auditability.",
+      "content_type": "application/json"
+    },
+    {
+      "name": "evidence-manifest",
+      "description": "Cryptographically signed manifest of AP2 intents, transactions, and receipts related to a purchase or refund flow.",
+      "content_type": "application/json"
+    }
+  ],
+  "supportsAuthenticatedExtendedCard": true
+}
