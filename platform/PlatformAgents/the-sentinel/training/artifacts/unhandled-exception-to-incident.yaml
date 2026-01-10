@@ -1,0 +1,51 @@
+# 2.3 Sentinel rule to transform unhandled exceptions into alerts
+# Assuming a high-level Sentinel DSL:
+# sentinel/rules/unhandled-exception-to-incident.yaml
+rule_id: sentinel.rule.unhandled_exception_incident.v1
+description: >
+  Convert any platform.unhandled_exception.detected event into a sentinel.incident.alert
+  with initial severity and recommended actions.
+
+input_event:
+  type: platform.unhandled_exception.detected
+  version: 1
+
+conditions:
+  - id: critical-runtime-fault
+    expression: >
+      event.severity in ["high", "critical"]
+      or event.runtime.executor_type in ["workflow-engine", "platform-core"]
+      or event.origin.component_type in ["service", "agent"] and
+         event.origin.component_name in ["auth-service", "billing-service"]
+
+actions:
+  - id: emit-incident-alert
+    type: emit_event
+    event_type: sentinel.incident.alert
+    payload_template:
+      incident_id: "{{ uuid() }}"
+      alert_type: "unhandled_exception"
+      timestamp: "{{ now() }}"
+      source_event_type: "{{ event.event_type }}"
+      source_event_id: "{{ event.event_id }}"
+      severity: "{{ derive_severity(event) }}"
+      classification:
+        category: "runtime_fault"
+        sub_category: "{{ classify_subcategory(event) }}"
+        confidence: "{{ classify_confidence(event) }}"
+      recommendation:
+        proposed_actions: "{{ recommend_actions(event) }}"
+        reasoning_summary: "{{ summarize_reasoning(event) }}"
+      policy_snapshot:
+        rule_id: "sentinel.rule.unhandled_exception_incident.v1"
+        rule_version: "1"
+        hash: "{{ policy_hash() }}"
+      trace_links:
+        decision_trace_id: "{{ event.trace_links.decision_trace_id }}"
+        related_execution_ids:
+          - "{{ event.execution_id }}"
+      meta:
+        tags:
+          - "unhandled_exception"
+          - "runtime_fault"
+        originating_component: "{{ event.origin.component_name }}"
