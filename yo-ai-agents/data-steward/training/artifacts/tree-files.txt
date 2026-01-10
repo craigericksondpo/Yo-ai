@@ -1,0 +1,30 @@
+Folder PATH listing for volume Windows
+Volume serial number is DB6F-D6AA
+C:.
+¦   tree-files.txt
+¦   
++---Personal-Profile-Template
+    +---Accounts
+    +---Analytics
+    +---Behavioral Events
+    +---Content Context
+    +---Demographics
+    +---Devices
+    +---Education
+    +---Employment
+    +---Filtering
+    ¦   +---OpportunitySignals
+    ¦   +---RiskSignals
+    +---Identity
+    +---Interactions
+    +---Interests
+    +---Location
+    +---Purchase Intent
+    +---Sensitive
+    ¦   +---Background-Checks
+    ¦   +---Connections
+    ¦   +---Financial
+    ¦   +---Health
+    +---SocialMedia
+    +---Subscriptions
+    +---Transactions
