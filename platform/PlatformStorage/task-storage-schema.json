@@ -1,0 +1,65 @@
+// 🧱 1A. JSON Schema — Task Storage (A2A Compliant)
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/a2a-task.json",
+  "title": "A2A Task Storage Record",
+  "type": "object",
+  "required": ["task_id", "status", "messages", "artifacts", "created_at"],
+  "properties": {
+    "task_id": { "type": "string" },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "running", "completed", "failed"]
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["role", "content", "timestamp"],
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": ["user", "assistant", "system", "tool"]
+          },
+          "content": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" },
+
+          "tool_call": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "name": { "type": "string" },
+              "arguments": { "type": "object" }
+            }
+          },
+
+          "tool_result": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "output": {},
+              "metadata": { "type": "object" }
+            }
+          }
+        }
+      }
+    },
+
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact_id", "type", "uri"],
+        "properties": {
+          "artifact_id": { "type": "string" },
+          "type": { "type": "string" },
+          "uri": { "type": "string" },
+          "metadata": { "type": "object" }
+        }
+      }
+    }
+  }
+}
