@@ -1,0 +1,194 @@
+{
+  "name": "Complaint-Manager",
+  "description": "Manages discovery, generation, submission, stakeholder notification, and publication of complaints to regulators, organizations, and named stakeholders.",
+  "url": "https://privacyportfolio.com/agent-registry/complaint-manager/agent.json",
+  "provider": {
+    "organization": "PrivacyPortfolio",
+    "url": "https://www.PrivacyPortfolio.com"
+    },
+  "iconUrl": "https://privacyportfolio.com/agent-registry/complaint-manager/complaint-manager-agent-icon.png",
+  "version": "1.0.0",
+  "documentationUrl": "https://privacyportfolio.com/agent-registry/complaint-manager/v1-Complaint-Manager-AgentCard.md",
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "stateTransitionHistory": true
+  },
+  "securitySchemes": {
+    "yo-ai": {
+      "type": "apiKey",
+      "name": "yo-api",
+      "in": "header"
+    }
+  },
+  "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+  "defaultInputModes": ["application/json", "text/plain"],
+  "defaultOutputModes": ["application/json", "text/plain"],
+    "skills": [
+    {
+      "id": "discoverLiability",
+      "name": "discoverLiability",
+      "description": "Identifies potential liability, obligations, or violations based on facts, evidence, and applicable mandates.",
+      "tags": ["liability", "compliance", "complaints"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "org_ref": { "type": "string" },
+          "facts": { "type": "object" },
+          "mandates": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["org_ref", "facts"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "liability_findings": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "recommended_actions": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    {
+      "id": "generateComplaint",
+      "name": "generateComplaint",
+      "description": "Generates a structured complaint document based on findings, facts, and applicable mandates.",
+      "tags": ["complaints", "documents"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "org_ref": { "type": "string" },
+          "liability_findings": { "type": "array", "items": { "type": "string" } },
+          "facts": { "type": "object" },
+          "mandates": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["org_ref", "facts"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "complaint_id": { "type": "string" },
+          "complaint_document": { "type": "object" }
+        }
+      }
+    },
+    {
+      "id": "submitComplaint",
+      "name": "submitComplaint",
+      "description": "Submits a complaint to the appropriate enforcement agency or organization.",
+      "tags": ["submission", "regulators"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "complaint_id": { "type": "string" },
+          "enforcement_agency": { "type": "string" }
+        },
+        "required": ["complaint_id", "enforcement_agency"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "submission_id": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    {
+      "id": "getStakeholders",
+      "name": "getStakeholders",
+      "description": "Retrieves stakeholders who must be notified or included in the complaint lifecycle.",
+      "tags": ["stakeholders"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "org_ref": { "type": "string" }
+        },
+        "required": ["org_ref"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "stakeholders": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    {
+      "id": "publishComplaint",
+      "name": "publishComplaint",
+      "description": "Publishes a complaint to designated stakeholders or public registries.",
+      "tags": ["publication"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "complaint_id": { "type": "string" },
+          "audience": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["complaint_id"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "publication_id": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    },
+    {
+      "id": "getEnforcementAgency",
+      "name": "getEnforcementAgency",
+      "description": "Determines the appropriate enforcement agency based on the mandate, jurisdiction, and organization.",
+      "tags": ["regulators", "routing"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "org_ref": { "type": "string" },
+          "mandate": { "type": "string" }
+        },
+        "required": ["org_ref", "mandate"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "agency": { "type": "string" },
+          "contact_url": { "type": "string" }
+        }
+      }
+    },
+    {
+      "id": "notifyStakeholder",
+      "name": "notifyStakeholder",
+      "description": "Sends a notification to a stakeholder regarding a complaint or enforcement action.",
+      "tags": ["notifications"],
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "stakeholder": { "type": "string" },
+          "complaint_id": { "type": "string" },
+          "message": { "type": "string" }
+        },
+        "required": ["stakeholder", "complaint_id"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "notification_id": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    }
+  ],
+  "supportsAuthenticatedExtendedCard": true
+}
