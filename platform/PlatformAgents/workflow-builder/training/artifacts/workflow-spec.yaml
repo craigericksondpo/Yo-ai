@@ -1,0 +1,73 @@
+# 2. Task orchestration DSL (config driven workflows)
+# You can store workflows as YAML or JSON and load them into WorkflowSpec. Here’s a YAML DSL:
+
+id: "wf-data-pipeline-001"
+name: "Daily ETL for analytics"
+description: "Extract, transform, and load data into analytics warehouse"
+
+metadata:
+  owner: "analytics-team"
+  created_by_agent: "Workflow-Builder"
+  labels:
+    env: "prod"
+    domain: "analytics"
+
+default_retry_policy:
+  max_attempts: 3
+  backoff_strategy: "exponential"
+  initial_delay_seconds: 10
+  max_delay_seconds: 600
+
+default_timeout_policy:
+  soft_timeout_seconds: 300
+  hard_timeout_seconds: 1800
+
+tasks:
+  - id: "extract_source"
+    type: "extract"
+    name: "Extract source data"
+    description: "Pull raw data from source system"
+    depends_on: []
+    input_template:
+      source_system: "system_A"
+      date: "{{ workflow.runtime.date }}"
+    tags:
+      worker_group: "extractors"
+
+  - id: "transform_data"
+    type: "transform"
+    name: "Transform data"
+    depends_on: ["extract_source"]
+    input_template:
+      transform_script: "scripts/transform_v2.sql"
+      inputs:
+        from_task: "extract_source"
+        artifact_key: "raw_data"
+    retry_policy:
+      max_attempts: 5
+      backoff_strategy: "fixed"
+      initial_delay_seconds: 30
+      max_delay_seconds: 300
+    tags:
+      worker_group: "transformers"
+
+  - id: "load_warehouse"
+    type: "load"
+    name: "Load to warehouse"
+    depends_on: ["transform_data"]
+    input_template:
+      target: "analytics_warehouse"
+      inputs:
+        from_task: "transform_data"
+        artifact_key: "clean_data"
+    tags:
+      worker_group: "loaders"
+
+# You can parse it like:
+
+# import yaml
+#
+# with open("workflow_etl.yaml") as f:
+#     spec_dict = yaml.safe_load(f)
+# 
+# workflow_spec = WorkflowSpec(**spec_dict)
