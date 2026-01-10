@@ -1,0 +1,59 @@
+# 3. Opportunity-aware decision logic
+# We extend the decision tree you already have with opportunity nodes.
+# Conceptual YAML:
+
+govern_data_request_decision_tree:
+  node: start
+  next:
+    - condition: "request.purpose_category in ['core_service', 'fraud_prevention', 'compliance']"
+      goto: evaluate_risk_first
+    - condition: "request.purpose_category in ['rewards', 'shopping', 'career']"
+      goto: evaluate_opportunity_and_risk
+
+  nodes:
+
+    evaluate_risk_first:
+      description: "Risk-dominant flows (verification, fraud, compliance)"
+      # same as before, risk/consent anchored
+      next:
+        - condition: "risk_score > threshold"
+          goto: outcome_high_risk
+        - condition: "risk_score <= threshold"
+          goto: outcome_allowed
+
+    evaluate_opportunity_and_risk:
+      description: "Flows where subject might gain benefits (rewards, purchases, talent)"
+      actions:
+        - "risk_score := policyEngine.classify_risk(request, subject_profile)"
+        - "benefit_score := estimate_benefit(request, subject_profile)"
+        - "consent := consent_prefs[purpose_category] or default"
+      next:
+        - condition: "consent explicitly denied"
+          goto: outcome_denied
+        - condition: "risk_score > risk_prefs.max_risk_score_overall"
+          goto: outcome_high_risk
+        - condition: "benefit_score is high AND risk_score acceptable"
+          goto: outcome_allowed
+        - condition: "benefit_score unclear OR risk borderline"
+          goto: outcome_require_additional_info
+
+# Implementation detail:
+# estimate_benefit can be a simple heuristic at first (e.g., “known vendor + cashback + low data exposure → high benefit”).
+
+
+# 5. Audit: marking opportunity vs risk flows
+# In your audit schema, add an benefit_score and flow_type:
+{
+  "flow_type": {
+    "type": ["string", "null"],
+    "enum": ["risk_mitigation", "opportunity_seeking", "mixed", null],
+    "description": "Whether the primary intent was risk mitigation, opportunity seeking, or mixed."
+  },
+  "benefit_score": {
+    "type": ["number", "null"],
+    "description": "Estimated benefit score for the subject in opportunity flows."
+  }
+}
+# Then, in govern_data_request, you can add:
+# flow_type = "opportunity_seeking" if request.purpose_category in ["rewards", "shopping", "career"] else "risk_mitigation"
+# and log it.
