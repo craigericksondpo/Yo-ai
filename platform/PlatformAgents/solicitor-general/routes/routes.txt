@@ -1,0 +1,175 @@
+Every agent exposes the same predictable routes:
+/                → human landing page
+/.well-known/agent-card.json
+/.well-known/documentation.md
+
+/api/card        → GET (machine-friendly)
+/api/register    → POST
+/api/auth        → POST
+/api/permissions → GET/POST
+/api/extended    → GET
+/api/talk        → POST (machine-to-agent chat)
+/human/talk      → GET (human chat UI)
+
+You can detect machine callers by:
+•	Presence of yo-api: <agent-id> header
+•	Presence of Accept: application/json
+•	Absence of browser-like headers
+•	Or explicit query param ?machine=true
+A decorator makes this trivial:
+def agent_endpoint(fn):
+    def wrapper(request, *args, **kwargs):
+        is_machine = (
+            request.headers.get("yo-api") is not None or
+            "application/json" in request.headers.get("Accept", "")
+        )
+        request.context.is_machine = is_machine
+        return fn(request, *args, **kwargs)
+    return wrapper
+Then:
+@app.get("/api/card")
+@agent_endpoint
+def get_card(request):
+    if request.context.is_machine:
+        return FileResponse("agent.json")
+    return RedirectResponse("/")
+This gives you a uniform pattern across all agents.
+
+
+// serve static files:
+app.mount("/.well-known", StaticFiles(directory="well-known"), name="well-known")
+
+
+Your landing pages become thin clients:
+•	They POST to /api/register
+•	They POST to /api/auth
+•	They GET /api/card
+•	They POST to /api/talk
+This ensures:
+•	No duplication
+•	No special human-only logic
+•	Everything is testable by agents and humans
+Your red/yellow/green pages simply call the same APIs the agents use.
+
+
+🗣️ 5. Add a Universal “Talk to My Agent / Operator” Action
+This is a brilliant UX move. Every agent should expose:
+Machine-to-Agent
+POST /api/talk
+{
+  "message": "hello",
+  "yo-api": "caller-agent-id"
+}
+Human-to-Agent
+GET /human/talk
+The human version loads a chat UI (iframe, widget, or your Solicitor-General chat component).
+This gives both humans and agents a single, predictable affordance.
+
+
+🧱 6. Recommended Pattern for All Agents
+Here’s the cleanest, most uniform pattern I’ve seen for A2A ecosystems:
+Static
+•	/.well-known/agent-card.json
+•	/.well-known/documentation.md
+Human
+•	/ → landing page (red/yellow/green/default)
+•	/human/talk → chat UI
+•	/human/next-steps → training, risk assessment, etc.
+Machine
+•	/api/card → GET
+•	/api/register → POST
+•	/api/auth → POST
+•	/api/permissions → GET/POST
+•	/api/extended → GET
+•	/api/talk → POST
+Optional
+•	/api/health → GET (for uptime monitoring)
+•	/api/metrics → GET (for trust scoring, rate limits)
+
+
+🧪 4. Machine Endpoints (Uniform Across All Agents)
+/api/card — GET
+Returns the agent card.
+/api/register — POST
+Handles guest registration, subscriber creation, or agent onboarding.
+/api/auth — POST
+Validates subscription keys, tokens, or identity headers.
+/api/permissions — GET/POST
+Returns or updates trust scoring, access rights, or capability flags.
+/api/extended — GET
+Returns extended metadata (risk signals, opportunity signals, NEV scoring).
+/api/talk — POST
+Machine to agent conversation endpoint.
+
+
+🧑‍🤝‍🧑 5. Human Endpoints
+/
+Landing page (default, red, yellow, or green depending on validation state).
+/human/talk
+Chat UI for humans.
+/human/next-steps
+Training Academy, Risk Assessment, Negotiation Workshop.
+
+
+🗣️ 6. Universal “Talk to My Agent / Operator”
+Machine
+POST /api/talk
+{
+  "message": "hello",
+  "yo-api": "caller-agent-id"
+}
+Human
+GET /human/talk
+This gives both humans and agents a single, predictable affordance.
+________________________________________
+
+
+🧩 API Gateway Routing Template (Uniform for All Agents)
+This template assumes:
+•	REST API or HTTP API in API Gateway
+•	Static files served from S3 or API Gateway’s static integration
+•	Dynamic routes forwarded to Lambda or your backend service
+•	Consistent naming across all agents
+________________________________________
+🧭 1. Canonical URL Structure
+Every agent exposes the same predictable routes:
+/                                 → Human landing page (default/red/yellow/green)
+/human/talk                       → Human chat UI
+/human/next-steps                 → Training, risk assessment, negotiation
+
+/.well-known/agent-card.json      → Static agent card
+/.well-known/documentation.md     → Static documentation
+
+/api/card                         → GET agent card (machine)
+/api/register                     → POST onboarding/guest registration
+/api/auth                         → POST authentication
+/api/permissions                  → GET/POST trust scoring + access rights
+/api/extended                     → GET extended metadata
+/api/talk                         → POST machine-to-agent conversation
+/api/health                       → GET health check
+This is the backbone of your entire A2A ecosystem.
+________________________________________
+🧱 2. API Gateway Route Table (Template)
+Below is the routing template you can drop into API Gateway (HTTP API or REST API). It’s backend agnostic.
+Static Routes (S3 or API Gateway Static Integration)
+Method	Path	Integration Type	Target
+GET	/.well-known/agent-card.json	S3 / Static	well-known/agent-card.json
+GET	/.well-known/documentation.md	S3 / Static	well-known/documentation.md
+GET	/human/*	S3 / Static	human/ directory
+GET	/	S3 / Static	human/default-landing-page.html
+Dynamic Machine Endpoints (Lambda or Backend Service)
+Method	Path	Integration Type	Target
+GET	/api/card	Lambda / HTTP	getCardHandler
+POST	/api/register	Lambda / HTTP	registerHandler
+POST	/api/auth	Lambda / HTTP	authHandler
+GET	/api/permissions	Lambda / HTTP	permissionsGetHandler
+POST	/api/permissions	Lambda / HTTP	permissionsPostHandler
+GET	/api/extended	Lambda / HTTP	extendedHandler
+POST	/api/talk	Lambda / HTTP	talkHandler
+GET	/api/health	Lambda / HTTP	healthHandler
+Human Interaction Routes
+Method	Path	Integration Type	Target
+GET	/human/talk	S3 / Static	human/talk.html
+GET	/human/next-steps	S3 / Static	human/next-steps.html
+
+
