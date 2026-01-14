@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yo.ai/schemas/event-envelope.json",
+  "title": "Yo-ai Unified Event Envelope",
+  "type": "object",
+  "required": [
+    "eventId",
+    "eventType",
+    "eventSource",
+    "timestamp",
+    "version"
+  ],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "description": "Globally unique identifier for this event (UUID or ULID)."
+    },
+    "eventType": {
+      "type": "string",
+      "description": "Domain-specific type, e.g., agent.negotiation.started, provider.call.completed."
+    },
+    "eventSource": {
+      "type": "string",
+      "description": "System of origin, e.g., aws.apigateway, yo.agent.door-keeper, provider.openai."
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the event occurred at source."
+    },
+    "version": {
+      "type": "string",
+      "description": "Schema version for the envelope and payload, e.g., v1, v1.1."
+    },
+
+    "correlationId": {
+      "type": "string",
+      "description": "Primary correlation ID spanning services; usually derived from API Gateway requestId or client-provided ID."
+    },
+    "apigwRequestId": {
+      "type": "string",
+      "description": "AWS API Gateway $context.requestId when applicable."
+    },
+    "apigwExtendedRequestId": {
+      "type": "string",
+      "description": "AWS API Gateway $context.extendedRequestId when applicable."
+    },
+
+    "agentId": {
+      "type": "string",
+      "description": "Canonical ID of the agent (Registered Agent Card ID, worker ID, etc.)."
+    },
+    "principalId": {
+      "type": "string",
+      "description": "Authenticated principal (registered agent, user ID, service principal, or anonymous)."
+    },
+    "authSource": {
+      "type": "string",
+      "enum": ["registered-card", "cognito", "api-key", "none", "internal"],
+      "description": "Authentication source that established the identity/trust context."
+    },
+    "trustTier": {
+      "type": "string",
+      "enum": ["anonymous", "registered", "privileged", "internal"],
+      "description": "Computed trust tier at the time of the event."
+    },
+
+    "environment": {
+      "type": "string",
+      "enum": ["local", "dev", "staging", "prod"],
+      "description": "Deployment environment."
+    },
+    "service": {
+      "type": "string",
+      "description": "Logical Yo-ai service name, e.g., door-keeper, solicitor-general, event-reflection."
+    },
+    "region": {
+      "type": "string",
+      "description": "Cloud region, e.g., us-west-2."
+    },
+
+    "request": {
+      "type": "object",
+      "description": "Optional HTTP/request-level correlation details.",
+      "properties": {
+        "method": { "type": "string" },
+        "path": { "type": "string" },
+        "status": { "type": "integer" },
+        "latencyMs": { "type": "number" },
+        "ip": { "type": "string" },
+        "userAgent": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+
+    "provider": {
+      "type": "object",
+      "description": "Optional provider-related metadata.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Provider, e.g., openai, anthropic, aws-bedrock."
+        },
+        "model": {
+          "type": "string",
+          "description": "Model or product identifier."
+        },
+        "requestId": {
+          "type": "string",
+          "description": "Provider-specific request or trace ID."
+        },
+        "latencyMs": {
+          "type": "number",
+          "description": "Provider call latency."
+        }
+      },
+      "additionalProperties": true
+    },
+
+    "error": {
+      "type": "object",
+      "description": "Optional error details when event represents a failure.",
+      "properties": {
+        "type": { "type": "string" },
+        "code": { "type": "string" },
+        "message": { "type": "string" },
+        "retryable": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+
+    "payload": {
+      "type": "object",
+      "description": "Domain-specific payload; shape depends on eventType.",
+      "additionalProperties": true
+    },
+
+    "meta": {
+      "type": "object",
+      "description": "Flexible metadata and tags for classification, routing, and analytics.",
+      "properties": {
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "dataClassification": {
+          "type": "string",
+          "enum": ["public", "internal", "confidential", "restricted"]
+        },
+        "sourceLogOrigin": {
+          "type": "string",
+          "description": "Original log system, e.g., cloudwatch, logfire, provider-log."
+        },
+        "originEventId": {
+          "type": "string",
+          "description": "ID of the original event in the upstream system, if different from eventId."
+        }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
