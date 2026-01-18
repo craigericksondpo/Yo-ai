@@ -19,43 +19,6 @@ Platform Agents differ only by the extended card and environment.
 Yo-ai Agents differ only by the extended card.
 Visiting Agents differ only by the absence of the extended card.
 
-Below is a clear, accurate diagram of how cards flow through the system and how privilege boundaries are enforced.
-                          ┌──────────────────────────────┐
-                          │        Solicitor-General      │
-                          │  (controls tool base class)   │
-                          └───────────────┬──────────────┘
-                                          │
-                                          │
-                         CARD SELECTION DECISION
-                                          │
-                                          ▼
-                 ┌────────────────────────────────────────────┐
-                 │                PLATFORM RUNTIME             │
-                 │  (decides which cards to give each agent)  │
-                 └───────────────────┬────────────────────────┘
-                                     │
-     ┌───────────────────────────────┼────────────────────────────────────┐
-     │                               │                                    │
-     ▼                               ▼                                    ▼
-┌──────────────┐             ┌────────────────┐                 ┌─────────────────┐
-│ VisitingAgent │             │   YoAiAgent    │                 │  PlatformAgent  │
-│ (external)    │             │ (internal)     │                 │ (privileged)    │
-└──────┬────────┘             └──────┬─────────┘                 └──────┬──────────┘
-       │                               │                                │
-       │ receives                      │ receives                       │ receives
-       │                               │                                │
-       ▼                               ▼                                ▼
-┌──────────────┐             ┌────────────────┐                 ┌────────────────────┐
-│ Public Card   │             │ Public Card    │                 │ Public Card         │
-│ (no tools)    │             │ + Extended Card│                 │ + Extended Card     │
-└──────────────┘             └────────────────┘                 └────────────────────┘
-       │                               │                                │
-       ▼                               ▼                                ▼
-┌──────────────┐             ┌────────────────┐                 ┌────────────────────┐
-│ Limited       │             │ Full Yo-ai     │                 │ Full Platform       │
-│ capabilities  │             │ capabilities   │                 │ capabilities        │
-└──────────────┘             └────────────────┘                 └────────────────────┘
-
 Key points:
 -	Platform runtime decides which cards to load
 -	Agent class simply loads whatever it is given
@@ -72,7 +35,7 @@ Key points:
 -	the-sentinel
 -	workflow-builder
 
-These agents:
+Platform agents:
 -	run inside the platform
 -	have environmental bindings
 -	have privileged tools
@@ -96,7 +59,7 @@ These agents:
 - tech-inspector
 - vendor-manager
 
-These agents:
+Yo-ai agents:
 -	run inside the Yo ai agent runtime
 -	do not depend on platform environment
 -	do not have platform privileges
