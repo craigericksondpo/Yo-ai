@@ -1,0 +1,285 @@
+/**
+ * This DataBroker-Monitor Authenticated Extended Agent Card conveys:
+ * - AuthenticatedExtendedCard contains tasks, messages, artifacts, and tools for Registered Agents
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ */
+
+/**
+* DataBroker-Monitor Authenticated Extended Agent Card¶
+*/
+{
+    "name": "DataBroker-Monitor",
+    "description": "Monitors registered data brokers to detect possession, sale, or distribution of personal information and identify downstream purchasers.",
+    "url": "https://privacyportfolio.com/agent-registry/databroker-monitor/auth/agent.json",
+    "provider": {
+      "organization": "PrivacyPortfolio",
+      "url": "https://www.PrivacyPortfolio.com"
+    },
+    "iconUrl": "https://privacyportfolio.com/agent-registry/databroker-monitor/databroker-monitor-agent-icon.png",
+    "version": "1.0.0",
+    "documentationUrl": "https://privacyportfolio.com/agent-registry/databroker-monitor/auth/DataBroker-Monitor-AuthenticatedExtendedAgentCard.md",
+    "capabilities": {
+      "streaming": true,
+      "pushNotifications": true,
+      "stateTransitionHistory": true,
+      "exposesTasks": true,
+      "exposesMessages": true,
+      "exposesArtifacts": true,
+      "exposesTools": true
+    },
+    "securitySchemes": {
+      "yo-ai": {
+        "type": "apiKey",
+        "name": "yo-api",
+        "in": "header"
+      }
+    },
+    "security": [
+      { "yo-ai": ["apiKey", "yo-api", "header"] }
+    ],
+    "defaultInputModes": ["application/json", "text/plain"],
+    "defaultOutputModes": ["application/json", "text/plain"],
+    "skills": [
+        {"name": "Broker-Inventory.Scan"},
+        {"name": "Downstream-Vendors.Identify"},
+        {"name": "Broker-Evidence.Collect"}
+    ],
+    "x-capabilities": [
+        {
+            "Broker-Inventory.Scan": {
+                "artifacts": [
+                    {"artifact": {"type": "skill", "name": "Broker-Inventory.Scan"}},
+                    {"artifact": {"type": "task", "name": "Broker-Inventory.Scan"}},
+                    {"artifact": {"type": "tool", "name": "Broker-Inventory.Scan"}},
+                    {"artifact": {"type": "handler", "name": "Broker-Inventory.Scan"}},
+                    {"artifact": {"type": "messageType", "name": "Broker-Inventory.Scan.Input"}},
+                    {"artifact": {"type": "messageType", "name": "Broker-Inventory.Scan.Output"}}
+                ]
+            }
+        },
+        {
+            "Downstream-Vendors.Identify": {
+                "artifacts": [
+                    {"artifact": {"type": "skill", "name": "Downstream-Vendors.Identify"}},
+                    {"artifact": {"type": "task", "name": "Downstream-Vendors.Identify"}},
+                    {"artifact": {"type": "tool", "name": "Downstream-Vendors.Identify"}},
+                    {"artifact": {"type": "handler", "name": "Downstream-Vendors.Identify"}},
+                    {"artifact": {"type": "messageType", "name": "Downstream-Vendors.Identify.Input"}},
+                    {"artifact": {"type": "messageType", "name": "Downstream-Vendors.Identify.Output"}}
+                ]
+            }
+        },
+        {
+            "Broker-Evidence.Collect": {
+                "artifacts": [
+                    {"artifact": {"type": "skill", "name": "Broker-Evidence.Collect"}},
+                    {"artifact": {"type": "task", "name": "Broker-Evidence.Collect"}},
+                    {"artifact": {"type": "tool", "name": "Broker-Evidence.Collect"}},
+                    {"artifact": {"type": "handler", "name": "Broker-Evidence.Collect"}},
+                    {"artifact": {"type": "messageType", "name": "Broker-Evidence.Collect.Input"}},
+                    {"artifact": {"type": "messageType", "name": "Broker-Evidence.Collect.Output"}}
+                ]
+            }
+        }
+    ],
+    "x-artifacts": [
+        {
+            "name": "Broker-Inventory.Scan",
+            "version": "1.0.0",
+            "artifactType": "skill",
+            "description": "Searches registered data broker datasets for matches to minimized PI bundles provided by the Data-Steward.",
+            "tags": ["broker", "scan", "inventory", "logEvent"],
+            "examples": [
+                "Search for email in broker dataset",
+                "Check if phone number appears in broker feed",
+                "Scan for profile matches"
+            ]
+        },
+        {
+            "name": "Broker-Inventory.Scan",
+            "version": "1.0.0",
+            "artifactType": "task",
+            "description": "Searches registered data broker datasets for matches to minimized PI bundles provided by the Data-Steward.",
+            "tags": ["broker", "scan", "inventory", "logEvent"],
+            "examples": [
+                "Search for email in broker dataset",
+                "Check if phone number appears in broker feed",
+                "Scan for profile matches"
+          ]
+        },
+        {
+            "name": "Broker-Inventory.Scan",
+            "version": "1.0.0",
+            "artifactType": "tool",
+            "description": "Searches registered data broker datasets for matches to minimized PI bundles provided by the Data-Steward.",
+            "capabilities": ["scan"],
+            "path": "/",
+            "provider": {
+                "name": "PrivacyPortfolio",
+                "brand": "Yo-ai",
+                "product": "",
+                "version": "1.0.0",
+                "license": "Yo-ai Internal",
+                "url": "https://yo-ai.ai/docs/Broker-Inventory.Scan.html",
+                "config": {"backend": ""}
+            },
+            "inputSchema": { "$ref": "#/schemas/Broker-Inventory.Scan.Input" },
+            "outputSchema": { "$ref": "#/schemas/Broker-Inventory.Scan.Output" },
+            "auth": "apiKey"
+        },
+        {
+            "name": "Broker-Inventory.Scan",
+            "version": "1.0.0",
+            "artifactType": "handler",
+            "description": "Interface for integrating with tool executable.",
+            "path": "/"
+        },
+        {
+            "name": "Broker-Inventory.Scan.Input",
+            "version": "1.0.0",
+            "artifactType": "messageType",
+            "schema": { "$ref": "#/schemas/Broker-Inventory.Scan#/definitions/Input" },
+            "description": "Input schema for ."
+        },
+        {
+            "name": "Broker-Inventory.Scan.Output",
+            "version": "1.0.0",
+            "artifactType": "messageType",
+            "schema": { "$ref": "#/schemas/Broker-Inventory.Scan#/definitions/Output" },
+            "description": "Output schema for ."
+        },
+        {
+            "name": "Downstream-Vendors.Identify",
+            "version": "1.0.0",
+            "artifactType": "skill",
+            "description": "Determines which vendors are purchasing data from brokers and using it to make automated decisions.",
+            "tags": ["vendors", "broker", "downstream", "logEvent"],
+            "examples": [
+                "Identify vendor purchasing my data",
+                "Check if broker sold data to advertiser",
+                "Map broker → vendor relationships"
+            ]
+        },
+        {
+            "name": "Downstream-Vendors.Identify",
+            "version": "1.0.0",
+            "artifactType": "task",
+            "description": "Determines which vendors are purchasing data from brokers and using it to make automated decisions.",
+            "tags": ["vendors", "broker", "downstream", "logEvent"],
+            "examples": [
+                "Identify vendor purchasing my data",
+                "Check if broker sold data to advertiser",
+                "Map broker → vendor relationships"
+            ]
+        },
+        {
+            "name": "Downstream-Vendors.Identify",
+            "version": "1.0.0",
+            "artifactType": "tool",
+            "description": "Determines which vendors are purchasing data from brokers and using it to make automated decisions.",
+            "capabilities": ["identify"],
+            "path": "/",
+            "provider": {
+                "name": "PrivacyPortfolio",
+                "brand": "Yo-ai",
+                "product": "",
+                "version": "1.0.0",
+                "license": "Yo-ai Internal",
+                "url": "https://yo-ai.ai/docs/Downstream-Vendors.Identify.html",
+                "config": {"backend": ""}
+            },
+            "inputSchema": { "$ref": "#/schemas/Downstream-Vendors.Identify.Input" },
+            "outputSchema": { "$ref": "#/schemas/Downstream-Vendors.Identify.Output" },
+            "auth": "apiKey"
+        },
+        {
+            "name": "Downstream-Vendors.Identify",
+            "version": "1.0.0",
+            "artifactType": "handler",
+            "description": "Interface for integrating with tool executable.",
+            "path": "/"
+        },
+        {
+            "name": "Downstream-Vendors.Identify.Input",
+            "version": "1.0.0",
+            "artifactType": "messageType",
+            "schema": { "$ref": "#/schemas/Downstream-Vendors.Identify#/definitions/Input" },
+            "description": "Input schema for ."
+        },
+        {
+            "name": "Downstream-Vendors.Identify.Output",
+            "version": "1.0.0",
+            "artifactType": "messageType",
+            "schema": { "$ref": "#/schemas/Downstream-Vendors.Identify#/definitions/Output" },
+            "description": "Output schema for ."
+        },
+        {
+            "name": "Broker-Evidence.Collect",
+            "version": "1.0.0",
+            "artifactType": "skill",
+            "description": "Captures structured evidence of broker possession or sale of personal information for use in complaints or deletion requests.",
+            "tags": ["evidence", "broker", "compliance", "logEvent"],
+            "examples": [
+                "Record broker match",
+                "Store dataset reference",
+                "Capture sale metadata"
+            ]
+          },
+        {
+            "name": "Broker-Evidence.Collect",
+            "version": "1.0.0",
+            "artifactType": "task",
+            "description": "Captures structured evidence of broker possession or sale of personal information for use in complaints or deletion requests.",
+            "tags": ["evidence", "broker", "compliance", "logEvent"],
+            "examples": [
+                "Record broker match",
+                "Store dataset reference",
+                "Capture sale metadata"
+            ]
+        },
+        {
+            "name": "Broker-Evidence.Collect",
+            "version": "1.0.0",
+            "artifactType": "tool",
+            "description": "Captures structured evidence of broker possession or sale of personal information for use in complaints or deletion requests.",
+            "capabilities": ["collect"],
+            "path": "/",
+            "provider": {
+                "name": "PrivacyPortfolio",
+                "brand": "Yo-ai",
+                "product": "",
+                "version": "1.0.0",
+                "license": "Yo-ai Internal",
+                "url": "https://yo-ai.ai/docs/Broker-Evidence.Collect.html",
+                "config": {"backend": ""}
+            },
+            "inputSchema": { "$ref": "#/schemas/Broker-Evidence.Collect.Input" },
+            "outputSchema": { "$ref": "#/schemas/Broker-Evidence.Collect.Output" },
+            "auth": "apiKey"
+        },
+        {
+            "name": "Broker-Evidence.Collect",
+            "version": "1.0.0",
+            "artifactType": "handler",
+            "description": "Interface for integrating with tool executable.",
+            "path": "/"
+        },
+        {
+            "name": "Broker-Evidence.Collect.Input",
+            "version": "1.0.0",
+            "artifactType": "messageType",
+            "schema": { "$ref": "#/schemas/Broker-Evidence.Collect#/definitions/Input" },
+            "description": "Input schema for ."
+        },
+        {
+            "name": "Broker-Evidence.Collect.Output",
+            "version": "1.0.0",
+            "artifactType": "messageType",
+            "schema": { "$ref": "#/schemas/Broker-Evidence.Collect#/definitions/Output" },
+            "description": "Output schema for ."
+        }
+    ],
+    "supportsAuthenticatedExtendedCard": true
+}
