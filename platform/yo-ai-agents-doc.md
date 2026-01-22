@@ -53,4 +53,4 @@ Issues which best practices are designed to mitigate will be published in this d
 
 /**  Additional resources  */
 https://www.yo-ai.ai is the AI Assurance Platform for Consumers and Organizations where additional program and technical information can be found.
-https://github.com/PrivacyPortfolio is the code repository where public-facing documentation and open source code can be accessed.
+https://github.com/craigericksondpo/Yo-ai is the code repository where public-facing documentation and open source code can be accessed.
