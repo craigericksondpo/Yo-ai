@@ -1,3 +1,14 @@
+/**
+ * This Workflow-Builder AgentCard conveys:
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ * - AuthenticatedExtendedCard contains tasks and messages for Registered Agents
+ */
+
+/**
+* Workflow-Builder AgentCard¶
+*/
 {
     "name": "Workflow-Builder",
     "description": "Agent that builds workflow itineraries connecting agents with endpoints.",
