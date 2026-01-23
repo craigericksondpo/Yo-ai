@@ -1,3 +1,14 @@
+/**
+ * This Solicitor-General AgentCard conveys:
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ * - Authentication requirements
+ */
+
+/**
+* Solicitor-General AgentCard¶
+*/
 {
     "name": "Solicitor-General",
     "description": "Agent that log all platform events and correlates requests with responses for routing.",
