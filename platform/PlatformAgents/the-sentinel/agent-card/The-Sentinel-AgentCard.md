@@ -1,3 +1,14 @@
+/**
+ * The-Sentinel AgentCard conveys:
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ * - Authentication requirements
+ */
+
+/**
+* The-Sentinel AgentCard¶
+*/
 {
     "name": "The-Sentinel",
     "description": "Listens for dangerous incidents and trends, and issues alerts.",
