@@ -1,3 +1,15 @@
+/**
+ * This Incident-Responder AgentCard conveys:
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ * - Authentication requirements
+ * - AuthenticatedExtendedCard contains tasks and messages for Registered Agents
+ */
+
+/**
+* Incident-Responder AgentCard¶
+*/
 {
     "name": "Incident-Responder",
     "description": "Handles all unhandled exceptions and responds to platform incidents. (aka Agent-terminator, Kill-switch, etc)",
