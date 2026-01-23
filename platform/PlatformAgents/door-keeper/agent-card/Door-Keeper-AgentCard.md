@@ -1,0 +1,104 @@
+/**
+ * This Door-Keeper AgentCard conveys:
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ * - AuthenticatedExtendedCard contains tasks and messages for Registered Agents
+ */
+
+/**
+* Door-Keeper AgentCard¶
+*/
+{
+    "name": "Door-Keeper",
+    "description": "Profiles guests and decides who to allow in and for what purpose.",
+    "url": "https://privacyportfolio.com/agent-registry/door-keeper/agent.json",
+    "provider": {
+        "organization": "PrivacyPortfolio",
+        "url": "https://www.PrivacyPortfolio.com"
+        },
+    "iconUrl": "https://privacyportfolio.com/agent-registry/door-keeper/door-keeper-agent-icon.png",
+    "version": "1.0.0",
+    "documentationUrl": "https://privacyportfolio.com/agent-registry/Door-Keeper-AgentCard.md",
+    "capabilities": {
+        "streaming": true,
+        "pushNotifications": true,
+        "stateTransitionHistory": true
+    },
+    "securitySchemes": {
+        "yo-ai": {
+        "type": "apiKey",
+        "name": "yo-api",
+        "in": "header"
+        }
+    },
+    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "defaultInputModes": ["application/json", "text/plain"],
+    "defaultOutputModes": ["application/json", "text/plain"],
+    "skills": [
+        {
+            "name": "Visitor.Identify",
+            "description": "Identify platform users and activity.",
+            "tags": ["decision-event", "decision-factor", "decision-outcome"],
+            "inputSchema": { "$ref": "#/schemas/Visitor.Identify.Input" },
+            "outputSchema": { "$ref": "#/schemas/Visitor.Identify.Output" }
+        },
+        {
+            "name": "Agent.Register",
+            "description": "Generates a RegisteredAgent card for qualified agents.",
+            "tags": ["registered-agent", "denied-agent", "pending-registration"],
+            "inputSchema": { "$ref": "#/schemas/Agent.Register.Input" },
+            "outputSchema": { "$ref": "#/schemas/Agent.Register.Output" }
+        },
+        {
+            "name": "Subscriber.Register",
+            "description": "Generates a RegisteredSubscriber card for qualified subscribers.",
+            "tags": ["decision-event", "decision-factor", "decision-outcome"],
+            "inputSchema": { "$ref": "#/schemas/Subscriber.Register.Input" },
+            "outputSchema": { "$ref": "#/schemas/Subscriber.Register.Output" }
+        },
+        {
+            "name": "Agent.Authenticate",
+            "description": "Authenticate agents and monitor activity.",
+            "tags": ["decision-event", "decision-factor", "decision-outcome"],
+            "inputSchema": { "$ref": "#/schemas/Agent.Authenticate.Input" },
+            "outputSchema": { "$ref": "#/schemas/Agent.Authenticate.Output" }
+        },
+        {
+            "name": "Subscriber.Authenticate",
+            "description": "Authenticate subscribers and monitor activity.",
+            "tags": ["decision-event", "decision-factor", "decision-outcome"],
+            "inputSchema": { "$ref": "#/schemas/Subscriber.Authenticate.Input" },
+            "outputSchema": { "$ref": "#/schemas/Subscriber.Authenticate.Output" }
+        },
+        {
+            "name": "Credentials.Generate",
+            "description": "Generates credentials for RegisteredAgents and RegisteredSubscribers.",
+            "tags": ["RegisteredAgent", "RegisteredSubscriber", "Visitor"],
+            "inputSchema": { "$ref": "#/schemas/Credentials.Generate.Input" },
+            "outputSchema": { "$ref": "#/schemas/Credentials.Generate.Output" }
+        },
+        {
+            "name": "AccessRights.Manage",
+            "description": "Manage access rights for RegisteredAgents and RegisteredSubscribers.",
+            "tags": ["RegisteredAgent", "RegisteredSubscriber", "Visitor"],
+            "inputSchema": { "$ref": "#/schemas/AccessRights.Manage.Input" },
+            "outputSchema": { "$ref": "#/schemas/AccessRights.Manage.Output" }
+        },
+        {
+            "name": "API.Validate",
+            "description": "Validates API access and emits an ApiAccessValidated event.",
+            "tags": [""],
+            "inputSchema": { "$ref": "#/schemas/API.Validate.Input" },
+            "outputSchema": { "$ref": "#/schemas/API.Validate.Output" }
+        },
+        {
+            "name": "Trust.Assign",
+            "description": "Assigns a trust tier to a visitor and emits VisitorTrustTierAssigned.",
+            "tags": [""],
+            "inputSchema": { "$ref": "#/schemas/Trust.Assign.Input" },
+            "outputSchema": { "$ref": "#/schemas/Trust.Assign.Output" } 
+        }
+    ],
+    "supportsAuthenticatedExtendedCard": true
+}
