@@ -1,3 +1,7 @@
+As of 1/26/2026, audit metadata is now embedded directly into OpenAPI/AsyncAPI via x-audit blocks.
+This standalone template may be redundant, and marked as deprecated, 
+but could still generate standalone audit manifests if needed.
+
 {
   "audit_metadata": {
     "spec_bundle_version": "1.0.0",
