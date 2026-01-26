@@ -1,0 +1,22 @@
+# The Hybrid API Bundle (Final Structure)
+# Your /api/ folder will look like this:
+/api/
+  index.yaml                     # Unified spec (all agents)
+  data-steward.openapi.yaml
+  purchasing-agent.openapi.yaml
+  rewards-seeker.openapi.yaml
+  risk-assessor.openapi.yaml
+  data-anonymizer.openapi.yaml
+  databroker-monitor.openapi.yaml
+  darkweb-checker.openapi.yaml
+  socialmedia-checker.openapi.yaml
+  talent-agent.openapi.yaml
+  solicitor-general.openapi.yaml
+
+  asyncapi.yaml                  # Event channels (task events, pruning events)
+  graphql/
+    schema.graphql               # Optional GraphQL surface for test harnesses
+  route-graph.json               # Mount-aware route graph
+  router-map.yaml                # Mount + host routing + ACLs
+  audit-metadata.json            # Provenance + hashes
+  bundle-manifest.json           # Declares versions, ownership, and contents
