@@ -1,0 +1,12 @@
+{
+  "$id": "https://privacyportfolio.com/schemas/messages/Related-Assets.Detect.Input.json",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "asset_names": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "asset_names"]
+}

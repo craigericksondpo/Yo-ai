@@ -1,0 +1,8 @@
+{
+  "$id": "https://privacyportfolio.com/schemas/messages/Third-Party-Assets.Discover.Input.json",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" }
+  },
+  "required": ["org_ref"]
+}
