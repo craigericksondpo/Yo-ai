@@ -1,0 +1,30 @@
+{
+  "$id": "schema://data-steward/Phone.Answer",
+  "title": "Phone.Answer",
+  "type": "object",
+  "description": "Handle inbound phone calls, verify caller identity, and determine purpose of call.",
+  "definitions": {
+    "Input": {
+      "type": "object",
+      "properties": {
+        "from": { "type": "string" },
+        "callerIdVerified": { "type": "boolean" },
+        "initialUtterance": { "type": "string" }
+      },
+      "required": ["from"]
+    },
+    "Output": {
+      "type": "object",
+      "properties": {
+        "callId": { "type": "string" },
+        "purpose": { "type": "string" },
+        "riskLevel": { "type": "string", "enum": ["low", "medium", "high"] },
+        "actions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["callId", "purpose"]
+    }
+  }
+}

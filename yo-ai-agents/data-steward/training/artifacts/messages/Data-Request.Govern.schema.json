@@ -1,0 +1,40 @@
+{
+  "$id": "schema://data-steward/Data-Request.Govern",
+  "title": "Data-Request.Govern",
+  "type": "object",
+  "description": "Evaluate intended use of personal data before granting access to the personal data vault.",
+  "definitions": {
+    "Input": {
+      "type": "object",
+      "properties": {
+        "requestingAgentId": { "type": "string" },
+        "intendedUse": { "type": "string" },
+        "requestedData": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "context": { "type": "object" }
+      },
+      "required": ["requestingAgentId", "intendedUse"]
+    },
+    "Output": {
+      "type": "object",
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": ["allow", "deny", "escalate"]
+        },
+        "reason": { "type": "string" },
+        "policyRefs": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "requiredControls": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["decision"]
+    }
+  }
+}

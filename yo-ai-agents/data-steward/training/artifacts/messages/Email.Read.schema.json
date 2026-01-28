@@ -1,0 +1,32 @@
+{
+  "$id": "schema://data-steward/Email.Read",
+  "title": "Email.Read",
+  "type": "object",
+  "description": "Read inbound email, detect spam/phishing, and extract workflow triggers.",
+  "definitions": {
+    "Input": {
+      "type": "object",
+      "properties": {
+        "rawEmail": { "type": "string" },
+        "metadata": { "type": "object" }
+      },
+      "required": ["rawEmail"]
+    },
+    "Output": {
+      "type": "object",
+      "properties": {
+        "messageId": { "type": "string" },
+        "classification": {
+          "type": "string",
+          "enum": ["spam", "phishing", "solicitation", "transactional", "personal"]
+        },
+        "extractedIntent": { "type": "string" },
+        "entities": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "required": ["messageId", "classification"]
+    }
+  }
+}

@@ -1,0 +1,82 @@
+// 2. JSON schema for the subject profile
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yo-ai.ai/schemas/subject-profile.schema.json",
+  "title": "SubjectProfile",
+  "description": "Profile describing an individual represented by a Data-Steward instance.",
+  "type": "object",
+  "required": [
+    "subject_id",
+    "role",
+    "full_name",
+    "jurisdiction",
+    "consent_prefs",
+    "risk_prefs",
+    "metadata"
+  ],
+  "properties": {
+    "subject_id": {
+      "type": "string",
+      "description": "Unique identifier for the individual (UUID, DID, etc.)."
+    },
+    "household_id": {
+      "type": ["string", "null"],
+      "description": "Identifier for the household the subject belongs to, if any."
+    },
+    "role": {
+      "type": "string",
+      "enum": ["self", "spouse", "dependent", "caregiver", "household_admin"],
+      "description": "Role of the subject within the household / relationship context."
+    },
+    "full_name": {
+      "type": "string",
+      "description": "Human-readable name for the subject."
+    },
+    "email": {
+      "type": ["string", "null"],
+      "format": "email",
+      "description": "Primary email address, if known."
+    },
+    "phone": {
+      "type": ["string", "null"],
+      "description": "Primary phone number, if known."
+    },
+    "jurisdiction": {
+      "type": "string",
+      "description": "Legal jurisdiction applicable to the subject (e.g., 'US-CA')."
+    },
+    "consent_prefs": {
+      "type": "object",
+      "description": "Per-purpose consent preferences.",
+      "additionalProperties": true,
+      "examples": [
+        {
+          "marketing": { "email": false, "sms": false },
+          "core_service": { "email": true },
+          "fraud_prevention": { "sharing_with_banks": true }
+        }
+      ]
+    },
+    "risk_prefs": {
+      "type": "object",
+      "description": "Per-purpose or global risk thresholds.",
+      "additionalProperties": true,
+      "examples": [
+        {
+          "max_risk_score_overall": 0.7,
+          "purpose_category_thresholds": {
+            "core_service": 0.9,
+            "marketing": 0.3,
+            "fraud_prevention": 1.0
+          }
+        }
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional attributes or labels (age_band, relationship, notes).",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
