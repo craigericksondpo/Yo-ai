@@ -1,0 +1,26 @@
+{
+  "$id": "https://privacyportfolio.com/schemas/messages/IP-Provenance.Trace.Output.json",
+  "type": "object",
+  "properties": {
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset_id": { "type": "string" },
+          "history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "owner": { "type": "string" },
+                "from": { "type": "string", "format": "date" },
+                "to": { "type": "string", "format": "date" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

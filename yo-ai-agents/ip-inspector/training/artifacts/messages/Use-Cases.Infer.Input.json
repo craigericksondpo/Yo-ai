@@ -1,0 +1,12 @@
+{
+  "$id": "https://privacyportfolio.com/schemas/messages/Use-Cases.Infer.Input.json",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "asset_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "asset_ids"]
+}

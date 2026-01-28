@@ -1,0 +1,20 @@
+{
+  "$id": "https://privacyportfolio.com/schemas/messages/IP-Portfolio.Cluster.Output.json",
+  "type": "object",
+  "properties": {
+    "ip_clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cluster_id": { "type": "string" },
+          "label": { "type": "string" },
+          "asset_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

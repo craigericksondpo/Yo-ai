@@ -1,0 +1,19 @@
+{
+  "$id": "https://privacyportfolio.com/schemas/messages/IP-to-Products.Map.Output.json",
+  "type": "object",
+  "properties": {
+    "product_mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset_id": { "type": "string" },
+          "products": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
