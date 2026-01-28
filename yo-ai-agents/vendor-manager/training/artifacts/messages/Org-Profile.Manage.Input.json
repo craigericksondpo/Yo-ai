@@ -1,0 +1,20 @@
+{
+  "$id": "https://privacyportfolio.com/schemas/messages/Org-Profile.Manage.Input.json",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "operation": {
+      "type": "string",
+      "enum": [
+        "verify",
+        "fetch_terms",
+        "share_data",
+        "create_task",
+        "build_workflow",
+        "log_event"
+      ]
+    },
+    "payload": { "type": "object" }
+  },
+  "required": ["org_ref", "operation"]
+}
