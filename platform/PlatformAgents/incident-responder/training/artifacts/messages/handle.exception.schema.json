@@ -1,0 +1,73 @@
+{
+  "$id": "https://privacyportfolio.com/schemas/Handle.Exception.json",
+  "title": "Handle.Exception Combined Schema",
+  "type": "object",
+  "definitions": {
+    "Input": {
+      "type": "object",
+      "properties": {
+        "agent_ref": { "type": "string" },
+        "exception_type": { "type": "string" },
+        "exception_message": { "type": "string" },
+        "stack_trace": { "type": "string" },
+        "context": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "required": ["agent_ref", "exception_type", "exception_message"]
+    },
+
+    "Output": {
+      "type": "object",
+      "properties": {
+        "exception_ref": { "type": "string" },
+        "severity": { "type": "string" },
+        "recommended_actions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+
+    "SkillMessage": {
+      "type": "object",
+      "properties": {
+        "action": { "const": "Handle.Exception" },
+        "input": { "$ref": "#/definitions/Input" },
+        "metadata": { "type": "object" }
+      },
+      "required": ["action", "input"]
+    },
+
+    "TaskMessage": {
+      "type": "object",
+      "properties": {
+        "action": { "const": "Handle.Exception" },
+        "input": { "$ref": "#/definitions/Input" },
+        "metadata": { "type": "object" }
+      },
+      "required": ["action", "input"]
+    },
+
+    "ToolMessage": {
+      "type": "object",
+      "properties": {
+        "tool": { "const": "Handle.Exception" },
+        "input": { "$ref": "#/definitions/Input" },
+        "metadata": { "type": "object" }
+      },
+      "required": ["tool", "input"]
+    },
+
+    "Response": {
+      "type": "object",
+      "properties": {
+        "action": { "const": "Handle.Exception" },
+        "output": { "$ref": "#/definitions/Output" },
+        "metadata": { "type": "object" }
+      },
+      "required": ["action", "output"]
+    }
+  }
+}
