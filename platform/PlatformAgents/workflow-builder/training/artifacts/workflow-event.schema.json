@@ -1,0 +1,22 @@
+{
+  "$id": "com.yourorg.workflow.WorkflowEvent",
+  "type": "object",
+  "properties": {
+    "event_id": { "type": "string" },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "workflow.created",
+        "workflow.started",
+        "workflow.completed",
+        "workflow.failed",
+        "workflow.cancelled"
+      ]
+    },
+    "workflow_id": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "metadata": { "type": "object", "additionalProperties": { "type": "string" } },
+    "reason": { "type": ["string", "null"] }
+  },
+  "required": ["event_id", "event_type", "workflow_id", "timestamp"]
+}
