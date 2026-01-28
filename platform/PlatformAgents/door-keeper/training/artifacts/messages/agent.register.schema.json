@@ -1,0 +1,24 @@
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+            "identifier_ref": { "type": "string" },
+            "subscriber_ref": { "type": "string" },
+            "org_ref": { "type": "string" },
+            "log_refs": {
+                "type": "array",
+                "items": { "type": "string" }
+            }
+            },
+            "required": ["identifier_ref", "subscriber_ref", "log_refs"]
+        },
+        "outputSchema": {
+            "type": "object",
+            "properties": {
+            "registration_identifier_ref": { "type": "string" },
+            "finding": { "type": "string" },
+            "log_refs": {
+                "type": "array",
+                "items": { "type": "string" }
+            }
+            }
+        }
