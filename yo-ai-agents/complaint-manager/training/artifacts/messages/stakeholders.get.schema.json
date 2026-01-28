@@ -1,0 +1,16 @@
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "org_ref": { "type": "string" }
+        },
+        "required": ["org_ref"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "stakeholders": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }

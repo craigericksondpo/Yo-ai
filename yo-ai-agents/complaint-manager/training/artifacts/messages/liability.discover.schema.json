@@ -1,0 +1,25 @@
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "org_ref": { "type": "string" },
+          "facts": { "type": "object" },
+          "mandates": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["org_ref", "facts"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "liability_findings": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "recommended_actions": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }

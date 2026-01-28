@@ -1,0 +1,18 @@
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "complaint_id": { "type": "string" },
+          "audience": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["complaint_id"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "publication_id": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
