@@ -1,0 +1,63 @@
+// 📘 Kafka Topic Schema — a2a.negotiation-request
+// This is the value schema for the Kafka topic that carries negotiation requests from agents to the Decision Master.
+{
+  "$id": "https://fasta2a.dev/schemas/kafka.a2a.negotiation-request.v1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Kafka A2A Negotiation Request Event",
+  "type": "object",
+  "required": [
+    "event_type",
+    "event_id",
+    "timestamp",
+    "method",
+    "request_id",
+    "initiating_party",
+    "counterparty",
+    "initial_terms"
+  ],
+  "properties": {
+    "event_type": {
+      "type": "string",
+      "const": "a2a.negotiation-request"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^evt-nego-req-[a-zA-Z0-9-]+$"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "method": {
+      "type": "string",
+      "const": "negotiation.request"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "initiating_party": {
+      "type": "string"
+    },
+    "counterparty": {
+      "type": "string"
+    },
+    "initial_terms": {
+      "type": "object",
+      "required": ["price", "delivery_window_days", "support_level"],
+      "properties": {
+        "price": { "type": "number" },
+        "delivery_window_days": { "type": "integer" },
+        "support_level": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "context_snapshot_ref": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
