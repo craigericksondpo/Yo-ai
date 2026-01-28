@@ -1,0 +1,25 @@
+🟦 Sample A2A Response from Decision Master (Decision Events.Identify)
+{
+  "method": "send_message",
+  "response": {
+    "action": "Decision-Events.Identify",
+    "output": {
+      "decision_findings": [
+        "Event 14: User selected between two policy paths",
+        "Event 18: System escalated due to elevated risk score",
+        "Event 22: Privacy impacting configuration change detected"
+      ],
+      "recommended_actions": [
+        "Record these events in the Decision Diary",
+        "Trigger Decision Outcome.Identify for correlated events",
+        "Flag this log batch for compliance review"
+      ]
+    },
+    "metadata": {
+      "request_id": "req-78901",
+      "response_id": "resp-78901-A",
+      "processed_by": "Decision-Master",
+      "timestamp": "2026-01-24T12:20:00Z"
+    }
+  }
+}

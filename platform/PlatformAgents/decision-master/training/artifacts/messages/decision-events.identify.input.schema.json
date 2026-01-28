@@ -1,0 +1,30 @@
+Decision-Events.Identify-schema.json
+
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "log_ref": { "type": "string" },
+          "factors": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "decision-indicators": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["log_ref", "factors", "decision-indicators"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "decision_findings": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "recommended_actions": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }

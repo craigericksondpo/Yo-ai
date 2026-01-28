@@ -1,0 +1,15 @@
+{
+  "$id": "https://privacyportfolio.com/schemas/Decision-Events.Identify.TaskMessage.json",
+  "title": "Decision-Events.Identify.TaskMessage",
+  "type": "object",
+  "properties": {
+    "action": { "const": "Decision-Events.Identify" },
+    "input": {
+      "$ref": "https://privacyportfolio.com/schemas/Decision-Events.Identify.Input.json"
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "required": ["action", "input"]
+}

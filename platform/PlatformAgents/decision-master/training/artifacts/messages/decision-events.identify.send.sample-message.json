@@ -1,0 +1,27 @@
+📡 Sample A2A Request Envelope (send_message)
+{
+  "method": "send_message",
+  "message": {
+    "action": "decision-events.identify",
+    "input": {
+      "log_ref": "log_batch_2026_01_24_A",
+      "factors": [
+        "user_initiated_action",
+        "system_policy_trigger",
+        "risk_score_above_threshold"
+      ],
+      "decision-indicators": [
+        "requires_choice_between_paths",
+        "affects_privacy_state",
+        "alters_security_posture"
+      ]
+    },
+    "metadata": {
+      "request_id": "req-78901",
+      "caller": "my-analytics-agent"
+    }
+  },
+  "target": {
+    "agent_url": "https://privacyportfolio.com/agent-registry/decision-master/auth/agent.json"
+  }
+}

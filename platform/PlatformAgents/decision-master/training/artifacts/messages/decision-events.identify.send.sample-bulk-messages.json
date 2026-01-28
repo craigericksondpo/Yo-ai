@@ -1,0 +1,32 @@
+🟩 2. Version that includes multiple log batches
+Decision Master expects a single log_ref per Identify invocation, so the correct pattern is to send one message containing multiple Identify calls, each with its own input block.
+{
+  "method": "send_message",
+  "message": {
+    "action": "Decision-Events.Identify",
+    "input": [
+      {
+        "log_ref": "log_batch_2026_01_24_A",
+        "factors": ["user_initiated_action"],
+        "decision-indicators": ["requires_choice_between_paths"]
+      },
+      {
+        "log_ref": "log_batch_2026_01_24_B",
+        "factors": ["system_policy_trigger"],
+        "decision-indicators": ["affects_privacy_state"]
+      },
+      {
+        "log_ref": "log_batch_2026_01_24_C",
+        "factors": ["risk_score_above_threshold"],
+        "decision-indicators": ["alters_security_posture"]
+      }
+    ],
+    "metadata": {
+      "request_id": "multi-batch-req-002",
+      "caller": "my-analytics-agent"
+    }
+  },
+  "target": {
+    "agent_url": "https://privacyportfolio.com/agent-registry/decision-master/auth/agent.json"
+  }
+}

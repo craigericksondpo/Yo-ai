@@ -1,0 +1,23 @@
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "log_ref": { "type": "string" },
+          "decision_ref": { "type": "string" },
+          "factors": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["log_ref", "decision_ref", "factors"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "decision_ref": { "type": "string" },
+          "log_ref": { "type": "string" },
+          "decision_factors": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }

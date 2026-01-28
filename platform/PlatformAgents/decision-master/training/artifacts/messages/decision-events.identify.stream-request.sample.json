@@ -1,0 +1,25 @@
+🟦 1. Version using stream_message instead of send_message
+{
+  "method": "stream_message",
+  "message": {
+    "action": "Decision-Events.Identify",
+    "input": {
+      "log_ref": "log_batch_2026_01_24_A",
+      "factors": [
+        "user_initiated_action",
+        "system_policy_trigger"
+      ],
+      "decision-indicators": [
+        "requires_choice_between_paths",
+        "affects_privacy_state"
+      ]
+    },
+    "metadata": {
+      "request_id": "stream-req-001",
+      "caller": "my-analytics-agent"
+    }
+  },
+  "target": {
+    "agent_url": "https://privacyportfolio.com/agent-registry/decision-master/auth/agent.json"
+  }
+}

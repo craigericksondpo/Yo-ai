@@ -1,0 +1,18 @@
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "log_ref": { "type": "string" },
+          "decision-set_ref": { "type": "string" },
+          "decision-outcomes": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["log_ref", "decision-set_ref", "decision-set_ref"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "decision-set_ref": { "type": "string" },
+          "decision-set-outcome": { "type": "string" }
+      }

@@ -1,0 +1,26 @@
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "decision-set_ref": { "type": "string" },
+          "decision-set-outcome": { "type": "string" }
+          "org_ref": { "type": "string" }, 
+          "mandates": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["org_ref", "facts"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "liability_findings": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "recommended_actions": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
