@@ -1,0 +1,23 @@
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "request_ref": { "type": "string" },
+          "registration_identifier_ref": { "type": "string" },
+          "nodes": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["request_ref", "registration_identifier_ref", "nodes"]
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "registration_identifier_ref": { "type": "string" },
+          "workflow-status": { "type": "string" },
+          "nodes": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
