@@ -1,0 +1,318 @@
+# AWS API Gateway OpenAPI spec (core paths)
+openapi: 3.0.3
+info:
+  title: Data-Steward API
+  version: 1.1.0
+  description: >
+    Yo-ai Data-Steward API for governing access to personal data vaults,
+    managing subject profiles, traits, communication events, and audit logs.
+servers:
+  - url: https://api.privacyportfolio.com/data-steward
+    description: Production
+
+components:
+  securitySchemes:
+    yo-ai:
+      type: apiKey
+      in: header
+      name: yo-api
+  schemas:
+    SubjectProfile:
+      $ref: https://yo-ai.ai/schemas/subject-profile.schema.json
+    PersonalProfileMaster:
+      $ref: https://privacyportfolio.com/schemas/personalProfileSample-masterSchema.json
+    PersonalProfileOrg:
+      $ref: https://privacyportfolio.com/schemas/personalProfileSample-orgSchema.json
+    CommunicationEvent:
+      $ref: https://privacyportfolio.com/schemas/communication-event.schema.json
+    BlockedCommunicationEvent:
+      $ref: https://privacyportfolio.com/schemas/blocked-communication-event.schema.json
+    DataStewardAuditEvent:
+      $ref: https://yo-ai.ai/schemas/data-steward-audit-event.schema.json
+
+security:
+  - yo-ai: []
+
+paths:
+  /govern/data-request:
+    post:
+      operationId: GovernDataRequest
+      summary: Evaluate intended use of personal data and return minimized data bundle.
+      tags: [Governance]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataRequest'
+      responses:
+        '200':
+          description: Decision and minimized data bundle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GovernDataResponse'
+
+  /subject/profile:
+    get:
+      operationId: GetSubjectProfile
+      summary: Get the current subject profile.
+      tags: [Subject]
+      responses:
+        '200':
+          description: Subject profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubjectProfile'
+    post:
+      operationId: UpdateSubjectProfile
+      summary: Update the subject profile.
+      tags: [Subject]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubjectProfile'
+      responses:
+        '200':
+          description: Updated profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubjectProfile'
+
+  /subject/switch:
+    post:
+      operationId: SwitchSubjectContext
+      summary: Switch the active subject context for this Data-Steward instance.
+      tags: [Subject]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [subject_id]
+              properties:
+                subject_id:
+                  type: string
+      responses:
+        '204':
+          description: Context switched.
+
+  /household/members:
+    get:
+      operationId: ListHouseholdMembers
+      summary: List household members associated with the current subject.
+      tags: [Household]
+      responses:
+        '200':
+          description: Household members.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubjectProfile'
+
+  /traits:
+    get:
+      operationId: ListTraitDomains
+      summary: List available trait domains.
+      tags: [Traits]
+      responses:
+        '200':
+          description: Trait domains.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+
+  /traits/{domain}:
+    get:
+      operationId: GetTraitDomain
+      summary: Get traits for a specific domain.
+      tags: [Traits]
+      parameters:
+        - in: path
+          name: domain
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Trait domain payload.
+          content:
+            application/json:
+              schema:
+                type: object
+    post:
+      operationId: UpdateTraitDomain
+      summary: Update traits for a specific domain.
+      tags: [Traits]
+      parameters:
+        - in: path
+          name: domain
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Updated traits.
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /events/communication:
+    post:
+      operationId: LogCommunicationEvent
+      summary: Log a CommunicationEvent.
+      tags: [Communication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommunicationEvent'
+      responses:
+        '202':
+          description: Event accepted.
+
+  /events/communication/blocked:
+    post:
+      operationId: LogBlockedCommunicationEvent
+      summary: Log a BlockedCommunicationEvent.
+      tags: [Communication]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlockedCommunicationEvent'
+      responses:
+        '202':
+          description: Event accepted.
+
+  /audit/event:
+    post:
+      operationId: LogAuditEvent
+      summary: Log a DataStewardAuditEvent.
+      tags: [Audit]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DataStewardAuditEvent'
+      responses:
+        '202':
+          description: Event accepted.
+
+  /audit/log:
+    get:
+      operationId: GetAuditLog
+      summary: Get audit events for the current subject.
+      tags: [Audit]
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 100
+      responses:
+        '200':
+          description: Audit events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataStewardAuditEvent'
+
+  /phone/call:
+    post:
+      operationId: PhoneCall
+      summary: Make outbound phone call.
+      tags: [Phone]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneCallInput'
+      responses:
+        '200':
+          description: Call result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneCallOutput'
+
+  /phone/answer:
+    post:
+      operationId: PhoneAnswer
+      summary: Handle inbound phone call.
+      tags: [Phone]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneAnswerInput'
+      responses:
+        '200':
+          description: Answer result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PhoneAnswerOutput'
+
+  /email/send:
+    post:
+      operationId: EmailSend
+      summary: Send outbound email as the authorized agent of the data subject.
+      tags: [Email]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailSendInput'
+      responses:
+        '200':
+          description: Send result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailSendOutput'
+
+  /email/read:
+    post:
+      operationId: EmailRead
+      summary: Read inbound email, classify, and extract workflow triggers.
+      tags: [Email]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmailReadInput'
+      responses:
+        '200':
+          description: Read result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailReadOutput'
+# (You can plug in the Phone/Email/DataRequest schemas we drafted earlier under components.schemas.)
