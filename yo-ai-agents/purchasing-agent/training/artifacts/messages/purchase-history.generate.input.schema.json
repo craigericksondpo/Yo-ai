@@ -1,0 +1,10 @@
+{
+  "$id": "https://yo-ai.ai/schemas/purchase-history.generate.input.schema.json",
+  "type": "object",
+  "properties": {
+    "transactionId": { "type": "string" },
+    "amount": { "type": "number" },
+    "currency": { "type": "string" },
+    "timestamp": { "type": "string" }
+  }
+}

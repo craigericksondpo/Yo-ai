@@ -1,0 +1,10 @@
+{
+  "$id": "https://yo-ai.ai/schemas/purchase.initiate.input.schema.json",
+  "type": "object",
+  "properties": {
+    "purchase": { "type": "object" },
+    "callbacks": { "type": "object" },
+    "risk": { "type": "object" },
+    "piAccessToken": { "type": "string" }
+  }
+}

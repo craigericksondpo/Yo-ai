@@ -1,0 +1,9 @@
+{
+  "$id": "https://yo-ai.ai/schemas/purchase.initiate.output.schema.json",
+  "type": "object",
+  "properties": {
+    "transactionId": { "type": "string" },
+    "processor": { "type": "object" },
+    "status": { "type": "string" }
+  }
+}

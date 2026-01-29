@@ -1,0 +1,8 @@
+{
+  "$id": "https://yo-ai.ai/schemas/purchase-receipt.generate.output.schema.json",
+  "type": "object",
+  "properties": {
+    "receiptId": { "type": "string" },
+    "receiptUrl": { "type": "string" }
+  }
+}

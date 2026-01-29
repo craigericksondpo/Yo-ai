@@ -1,0 +1,10 @@
+{
+  "$id": "https://yo-ai.ai/schemas/purchase-risk.evaluate.input.schema.json",
+  "type": "object",
+  "properties": {
+    "amount": { "type": "number" },
+    "currency": { "type": "string" },
+    "vendorId": { "type": "string" },
+    "context": { "type": "object" }
+  }
+}

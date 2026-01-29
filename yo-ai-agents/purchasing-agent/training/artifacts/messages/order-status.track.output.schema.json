@@ -1,0 +1,8 @@
+{
+  "$id": "https://yo-ai.ai/schemas/order-status.track.output.schema.json",
+  "type": "object",
+  "properties": {
+    "status": { "type": "string" },
+    "lastUpdated": { "type": "string" }
+  }
+}

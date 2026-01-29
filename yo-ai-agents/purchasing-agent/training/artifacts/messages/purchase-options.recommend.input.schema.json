@@ -1,0 +1,15 @@
+{
+  "$id": "https://yo-ai.ai/schemas/purchase-options.recommend.input.schema.json",
+  "type": "object",
+  "properties": {
+    "intent": { "type": "string" },
+    "preferences": {
+      "type": "object",
+      "properties": {
+        "priceRange": { "type": "string" },
+        "categories": { "type": "array", "items": { "type": "string" } },
+        "brands": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  }
+}

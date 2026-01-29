@@ -1,0 +1,8 @@
+{
+  "$id": "https://yo-ai.ai/schemas/purchase-risk.evaluate.output.schema.json",
+  "type": "object",
+  "properties": {
+    "riskScore": { "type": "number" },
+    "riskFlags": { "type": "array", "items": { "type": "string" } }
+  }
+}

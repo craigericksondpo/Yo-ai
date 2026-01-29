@@ -1,0 +1,8 @@
+{
+  "$id": "https://yo-ai.ai/schemas/purchase-eligibility.validate.output.schema.json",
+  "type": "object",
+  "properties": {
+    "eligible": { "type": "boolean" },
+    "reasons": { "type": "array", "items": { "type": "string" } }
+  }
+}
