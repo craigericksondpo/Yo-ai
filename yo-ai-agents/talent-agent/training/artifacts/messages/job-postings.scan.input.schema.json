@@ -1,0 +1,31 @@
+{
+  "$id": "https://yo-ai.ai/schemas/job-postings.scan.input.schema.json",
+  "title": "Job-Postings.Scan.Input",
+  "description": "Input messageType for the Job-Postings.Scan capability.",
+  "type": "object",
+  "properties": {
+    "keywords": {
+      "type": "array",
+      "description": "Keywords to match against job postings.",
+      "items": { "type": "string" }
+    },
+    "location": {
+      "type": "string",
+      "description": "Preferred job location."
+    },
+    "remote_ok": {
+      "type": "boolean",
+      "description": "Whether remote roles are acceptable."
+    },
+    "request_id": {
+      "type": "string",
+      "description": "Correlation ID for async workflows."
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional context from the requesting agent.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["keywords"]
+}

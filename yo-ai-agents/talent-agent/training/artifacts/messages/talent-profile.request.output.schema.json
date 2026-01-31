@@ -1,0 +1,23 @@
+{
+  "$id": "https://yo-ai.ai/schemas/talent-profile.request.output.schema.json",
+  "title": "Talent-Profile.Request.Output",
+  "description": "Output messageType for the Talent-Profile.Request capability.",
+  "type": "object",
+  "properties": {
+    "profile": {
+      "type": "object",
+      "description": "Minimized professional profile returned by Data-Steward.",
+      "additionalProperties": true
+    },
+    "profile_version": {
+      "type": "string",
+      "description": "Version of the profile returned."
+    },
+    "missing_fields": {
+      "type": "array",
+      "description": "Fields that could not be provided.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["profile"]
+}

@@ -1,0 +1,35 @@
+{
+  "$id": "https://yo-ai.ai/schemas/job-postings.scan.output.schema.json",
+  "title": "Job-Postings.Scan.Output",
+  "description": "Output messageType for the Job-Postings.Scan capability.",
+  "type": "object",
+  "properties": {
+    "scan_id": {
+      "type": "string",
+      "description": "Unique identifier for the scan operation."
+    },
+    "postings": {
+      "type": "array",
+      "description": "List of matched job postings.",
+      "items": {
+        "type": "object",
+        "required": ["title", "company", "url"],
+        "properties": {
+          "title": { "type": "string" },
+          "company": { "type": "string" },
+          "url": { "type": "string" },
+          "match_score": { "type": "number" },
+          "posted_date": { "type": "string", "format": "date" },
+          "location": { "type": "string" },
+          "salary_range": { "type": "string" },
+          "job_id": { "type": "string" },
+          "metadata": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  },
+  "required": ["scan_id", "postings"]
+}
