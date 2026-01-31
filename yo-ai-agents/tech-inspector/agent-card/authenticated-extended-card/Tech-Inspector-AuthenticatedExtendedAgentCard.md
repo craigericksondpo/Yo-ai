@@ -212,8 +212,8 @@
                 "url": "https://yo-ai.ai/docs/Third-Party-Assets.Discover.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Third-Party-Assets.Discover.Input" },
-            "outputSchema": { "$ref": "#/schemas/Third-Party-Assets.Discover.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/third-party-assets.discover.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/third-party-assets.discover.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -227,15 +227,15 @@
             "name": "Third-Party-Assets.Discover.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Third-Party-Assets.Discover#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/third-party-assets.discover.input.schema.json" },
+            "description": "Input schema for Third-Party-Assets.Discover."
         },
         {
             "name": "Third-Party-Assets.Discover.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Third-Party-Assets.Discover#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/third-party-assets.discover.output.schema.json" },
+            "description": "Output schema for Third-Party-Assets.Discover."
         },
         {
             "name": "Asset-Integrations.Map",
@@ -275,8 +275,8 @@
                 "url": "https://yo-ai.ai/docs/Asset-Integrations.Map.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Asset-Integrations.Map.Input" },
-            "outputSchema": { "$ref": "#/schemas/Asset-Integrations.Map.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/asset-integrations.map.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/asset-integrations.map.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -290,15 +290,15 @@
             "name": "Asset-Integrations.Map.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Asset-Integrations.Map#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/asset-integrations.map.input.schema.json" },
+            "description": "Input schema for Asset-Integrations.Map."
         },
         {
             "name": "Asset-Integrations.Map.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Asset-Integrations.Map#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/asset-integrations.map.output.schema.json" },
+            "description": "Output schema for Asset-Integrations.Map."
         },
         {
             "name": "Implementation-Details.Analyze",
@@ -338,8 +338,8 @@
                 "url": "https://yo-ai.ai/docs/Implementation-Details.Analyze.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Implementation-Details.Analyze.Input" },
-            "outputSchema": { "$ref": "#/schemas/Implementation-Details.Analyze.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/implementation-details.analyze.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/implementation-details.analyze.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -353,15 +353,15 @@
             "name": "Implementation-Details.Analyze.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Implementation-Details.Analyze#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/implementation-details.analyze.input.schema.json" },
+            "description": "Input schema for Implementation-Details.Analyze."
         },
         {
             "name": "Implementation-Details.Analyze.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Implementation-Details.Analyze#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/implementation-details.analyze.output.schema.json" },
+            "description": "Output schema for Implementation-Details.Analyze."
         },
         {
             "name": "Usage-Instances.Search",
@@ -401,8 +401,8 @@
                 "url": "https://yo-ai.ai/docs/Usage-Instances.Search.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Usage-Instances.Search.Input" },
-            "outputSchema": { "$ref": "#/schemas/Usage-Instances.Search.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/usage-instances.search.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/usage-instances.search.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -416,15 +416,15 @@
             "name": "Usage-Instances.Search.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Usage-Instances.Search#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/usage-instances.search.input.schema.json" },
+            "description": "Input schema for Usage-Instances.Search."
         },
         {
             "name": "Usage-Instances.Search.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Usage-Instances.Search#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/usage-instances.search.output.schema.json" },
+            "description": "Output schema for Usage-Instances.Search."
         },
         {
             "name": "Technical-Impact.Infer",
@@ -464,8 +464,8 @@
                 "url": "https://yo-ai.ai/docs/Technical-Impact.Infer.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Technical-Impact.Infer.Input" },
-            "outputSchema": { "$ref": "#/schemas/Technical-Impact.Infer.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/technical-impact.infer.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/technical-impact.infer.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -479,15 +479,15 @@
             "name": "Technical-Impact.Infer.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Technical-Impact.Infer#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/technical-impact.infer.input.schema.json" },
+            "description": "Input schema for Technical-Impact.Infer."
         },
         {
             "name": "Technical-Impact.Infer.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Technical-Impact.Infer#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/technical-impact.infer.output.schema.json" },
+            "description": "Output schema for Technical-Impact.Infer."
         },
         {
             "name": "Asset-Portfolio.Cluster",
@@ -527,8 +527,8 @@
                 "url": "https://yo-ai.ai/docs/Asset-Portfolio.Cluster.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Asset-Portfolio.Cluster.Input" },
-            "outputSchema": { "$ref": "#/schemas/Asset-Portfolio.Cluster.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/asset-portfolio.cluster.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/asset-portfolio.cluster.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -542,15 +542,15 @@
             "name": "Asset-Portfolio.Cluster.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Asset-Portfolio.Cluster#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/asset-portfolio.cluster.input.schema.json" },
+            "description": "Input schema for Asset-Portfolio.Cluster."
         },
         {
             "name": "Asset-Portfolio.Cluster.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Asset-Portfolio.Cluster#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/asset-portfolio.cluster.output.schema.json" },
+            "description": "Output schema for Asset-Portfolio.Cluster."
         },
         {
             "name": "Integration-Risk.Evaluate",
@@ -590,8 +590,8 @@
                 "url": "https://yo-ai.ai/docs/Integration-Risk.Evaluate.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Integration-Risk.Evaluate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Integration-Risk.Evaluate.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/integration-risk.evaluate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/integration-risk.evaluate.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -605,15 +605,15 @@
             "name": "Integration-Risk.Evaluate.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Integration-Risk.Evaluate#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/integration-risk.evaluate.input.schema.json" },
+            "description": "Input schema for Integration-Risk.Evaluate."
         },
         {
             "name": "Integration-Risk.Evaluate.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Integration-Risk.Evaluate#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/integration-risk.evaluate.output.schema.json" },
+            "description": "Output schema for Integration-Risk.Evaluate."
         },
         {
             "name": "Integration-Provenance.Trace",
@@ -653,8 +653,8 @@
                 "url": "https://yo-ai.ai/docs/Integration-Provenance.Trace.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Integration-Provenance.Trace.Input" },
-            "outputSchema": { "$ref": "#/schemas/Integration-Provenance.Trace.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/integration-provenance.trace.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/integration-provenance.trace.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -668,15 +668,15 @@
             "name": "Integration-Provenance.Trace.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Integration-Provenance.Trace#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/integration-provenance.trace.input.schema.json" },
+            "description": "Input schema for Integration-Provenance.Trace."
         },
         {
             "name": "Integration-Provenance.Trace.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Integration-Provenance.Trace#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/integration-provenance.trace.output.schema.json" },
+            "description": "Output schema for Integration-Provenance.Trace."
         },
         {
             "name": "Related-Assets.Detect",
@@ -732,14 +732,14 @@
             "version": "1.0.0",
             "artifactType": "messageType",
             "schema": { "$ref": "#/schemas/Related-Assets.Detect#/definitions/Input" },
-            "description": "Input schema for ."
+            "description": "Input schema for Related-Assets.Detect."
         },
         {
             "name": "Related-Assets.Detect.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
             "schema": { "$ref": "#/schemas/Related-Assets.Detect#/definitions/Output" },
-            "description": "Output schema for ."
+            "description": "Output schema for Related-Assets.Detect."
         },
         {
             "name": "Tech-Report.Generate",
@@ -779,8 +779,8 @@
                 "url": "https://yo-ai.ai/docs/Tech-Report.Generate.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Tech-Report.Generate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Tech-Report.Generate.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/tech-report.generate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/tech-report.generate.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -794,15 +794,15 @@
             "name": "Tech-Report.Generate.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Tech-Report.Generate#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/tech-report.generate.input.schema.json" },
+            "description": "Input schema for Tech-Report.Generate."
         },
         {
             "name": "Tech-Report.Generate.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Tech-Report.Generate#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/tech-report.generate.output.schema.json" },
+            "description": "Output schema for Tech-Report.Generate."
         }
     ],
     "supportsAuthenticatedExtendedCard": true
