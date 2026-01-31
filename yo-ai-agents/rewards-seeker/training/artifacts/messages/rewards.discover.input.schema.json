@@ -1,0 +1,28 @@
+{
+  "$id": "https://yo-ai.ai/schemas/rewards.discover.input.schema.json",
+  "title": "Rewards.Discover.Input",
+  "description": "Input messageType for the Rewards.Discover capability.",
+  "type": "object",
+  "properties": {
+    "purchase_history": {
+      "type": "array",
+      "description": "Recent purchases used to identify reward opportunities.",
+      "items": { "type": "object", "additionalProperties": true }
+    },
+    "loyalty_ids": {
+      "type": "array",
+      "description": "Optional list of loyalty program identifiers.",
+      "items": { "type": "string" }
+    },
+    "merchant_preferences": {
+      "type": "array",
+      "description": "Preferred merchants or categories.",
+      "items": { "type": "string" }
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional context from the requesting agent.",
+      "additionalProperties": true
+    }
+  }
+}

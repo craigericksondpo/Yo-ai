@@ -1,0 +1,35 @@
+{
+  "$id": "https://yo-ai.ai/schemas/redemption-plan.generate.output.schema.json",
+  "title": "Redemption-Plan.Generate.Output",
+  "description": "Output messageType for the Redemption-Plan.Generate capability.",
+  "type": "object",
+  "properties": {
+    "plan_id": {
+      "type": "string",
+      "description": "Unique identifier for the generated plan."
+    },
+    "recommended_programs": {
+      "type": "array",
+      "description": "Ranked list of loyalty programs aligned with user goals.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "program": { "type": "string" },
+          "estimated_value": { "type": "number" },
+          "confidence": { "type": "number" }
+        }
+      }
+    },
+    "earning_strategy": {
+      "type": "array",
+      "description": "Recommended actions to maximize reward earning.",
+      "items": { "type": "string" }
+    },
+    "redemption_strategy": {
+      "type": "array",
+      "description": "Recommended actions to redeem rewards efficiently.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["plan_id", "recommended_programs"]
+}

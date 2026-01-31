@@ -1,0 +1,23 @@
+{
+  "$id": "https://yo-ai.ai/schemas/promo-eligibility.verify.output.schema.json",
+  "title": "Promo-Eligibility.Verify.Output",
+  "description": "Output messageType for the Promo-Eligibility.Verify capability.",
+  "type": "object",
+  "properties": {
+    "eligible": {
+      "type": "boolean",
+      "description": "Whether the user meets the promotional requirements."
+    },
+    "missing_requirements": {
+      "type": "array",
+      "description": "Requirements not yet satisfied.",
+      "items": { "type": "string" }
+    },
+    "evidence": {
+      "type": "object",
+      "description": "Evidence from SocialMedia-Checker.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["eligible"]
+}

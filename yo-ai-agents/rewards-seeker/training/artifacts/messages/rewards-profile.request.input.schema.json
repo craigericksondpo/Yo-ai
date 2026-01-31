@@ -1,0 +1,18 @@
+{
+  "$id": "https://yo-ai.ai/schemas/rewards-profile.request.input.schema.json",
+  "title": "Rewards-Profile.Request.Input",
+  "description": "Input messageType for the Rewards-Profile.Request capability.",
+  "type": "object",
+  "properties": {
+    "requested_fields": {
+      "type": "array",
+      "description": "Fields needed for reward evaluation.",
+      "items": { "type": "string" }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": ["requested_fields"]
+}

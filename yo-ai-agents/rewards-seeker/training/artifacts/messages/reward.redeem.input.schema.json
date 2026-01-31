@@ -1,0 +1,25 @@
+{
+  "$id": "https://yo-ai.ai/schemas/reward.redeem.input.schema.json",
+  "title": "Reward.Redeem.Input",
+  "description": "Input messageType for the Reward.Redeem capability.",
+  "type": "object",
+  "properties": {
+    "program": {
+      "type": "string",
+      "description": "Loyalty program to redeem from."
+    },
+    "reward_id": {
+      "type": "string",
+      "description": "Identifier for the reward being redeemed."
+    },
+    "loyalty_id": {
+      "type": "string",
+      "description": "User loyalty identifier."
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": ["program", "reward_id", "loyalty_id"]
+}
