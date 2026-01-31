@@ -1,0 +1,45 @@
+{
+  "$id": "https://yo-ai.ai/schemas/deidentification-standard.map.input.schema.json",
+  "title": "Deidentification-Standard.Map.Input",
+  "description": "Input messageType for the Deidentification-Standard.Map capability.",
+  "type": "object",
+  "properties": {
+    "dataset_schema": {
+      "type": "array",
+      "description": "Schema of the dataset, including field names and sensitivity classifications.",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string" },
+          "sensitivity": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "sensitive", "special_category"]
+          }
+        }
+      }
+    },
+    "applied_techniques": {
+      "type": "array",
+      "description": "List of de-identification techniques applied to the dataset.",
+      "items": { "type": "string" }
+    },
+    "privacy_metrics": {
+      "type": "object",
+      "description": "Computed privacy metrics such as k-anonymity, l-diversity, and t-closeness.",
+      "additionalProperties": true
+    },
+    "standards": {
+      "type": "array",
+      "description": "Regulatory or policy standards to map against (e.g., CPRA, GDPR, HIPAA, NIST).",
+      "items": { "type": "string" }
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional context from the requesting agent.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["dataset_schema", "applied_techniques", "standards"]
+}

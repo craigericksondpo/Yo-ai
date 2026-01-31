@@ -1,0 +1,32 @@
+{
+  "$id": "https://yo-ai.ai/schemas/deidentification-guidance.publish.output.schema.json",
+  "title": "Deidentification-Guidance.Publish.Output",
+  "description": "Output messageType for the Deidentification-Guidance.Publish capability.",
+  "type": "object",
+  "properties": {
+    "guidance_id": {
+      "type": "string",
+      "description": "Unique identifier for the published guidance document."
+    },
+    "guidance_text": {
+      "type": "string",
+      "description": "Human-readable guidance summarizing de-identification posture, risks, and recommendations."
+    },
+    "structured_recommendations": {
+      "type": "array",
+      "description": "Machine-readable recommendations for safe handling and release.",
+      "items": { "type": "string" }
+    },
+    "compliance_mapping": {
+      "type": "object",
+      "description": "Mapping of guidance to regulatory frameworks.",
+      "additionalProperties": true
+    },
+    "residual_risk": {
+      "type": "string",
+      "description": "Residual re-identification risk after applying recommended techniques.",
+      "enum": ["low", "medium", "high"]
+    }
+  },
+  "required": ["guidance_id", "guidance_text"]
+}

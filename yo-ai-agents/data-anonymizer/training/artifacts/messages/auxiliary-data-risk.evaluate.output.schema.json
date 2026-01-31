@@ -1,0 +1,38 @@
+{
+  "$id": "https://yo-ai.ai/schemas/auxiliary-data-risk.evaluate.output.schema.json",
+  "title": "Auxiliary-Data-Risk.Evaluate.Output",
+  "description": "Output messageType for the Auxiliary-Data-Risk.Evaluate capability.",
+  "type": "object",
+  "properties": {
+    "risk_score": {
+      "type": "number",
+      "description": "Quantitative score representing auxiliary-data re-identification risk (0–1 scale)."
+    },
+    "risk_level": {
+      "type": "string",
+      "description": "High-level classification of auxiliary-data risk.",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "linkage_vectors": {
+      "type": "array",
+      "description": "Potential linkage paths between the primary dataset and auxiliary sources.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "aux_source": { "type": "string" },
+          "matching_fields": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "estimated_match_rate": { "type": "number" }
+        }
+      }
+    },
+    "recommended_mitigations": {
+      "type": "array",
+      "description": "Suggested mitigations to reduce auxiliary-data linkage risk.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["risk_score", "risk_level"]
+}
