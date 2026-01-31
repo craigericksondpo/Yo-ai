@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/subscriber.register.input.schema.json",
+  "title": "Subscriber.Register.Input",
+  "description": "Input messageType for the Subscriber.Register capability.",
+  "type": "object",
+  "properties": {
+    "identifier": {
+      "type": "string",
+      "description": "Opaque identifier for the subscriber being registered."
+    },
+    "identifier_ref": {
+      "type": "string",
+      "description": "Reference to an existing subscriber record or external identity."
+    },
+    "log_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Log references relevant to the subscriber registration decision."
+    }
+  },
+  "required": ["identifier", "identifier_ref", "log_refs"]
+}

@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/agent.register.output.schema.json",
+  "title": "Agent.Register.Output",
+  "description": "Output messageType for the Agent.Register capability.",
+  "type": "object",
+  "properties": {
+    "registration_identifier_ref": {
+      "type": "string",
+      "description": "Opaque reference to the newly created registration record."
+    },
+    "finding": {
+      "type": "string",
+      "description": "Outcome of the registration evaluation (e.g., 'approved', 'denied', 'pending')."
+    },
+    "log_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Logs used or generated during the registration process."
+    }
+  },
+  "required": ["registration_identifier_ref", "finding", "log_refs"]
+}

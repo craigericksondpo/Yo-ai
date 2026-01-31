@@ -1,0 +1,18 @@
+{
+  "$id": "https://yo-ai.ai/schemas/accessrights.manage.input.schema.json",
+  "title": "AccessRights.Manage.Input",
+  "description": "Input messageType for the AccessRights.Manage capability.",
+  "type": "object",
+  "properties": {
+    "registration_identifier_ref": {
+      "type": "string",
+      "description": "Opaque reference to the registration record."
+    },
+    "log_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of log references relevant to the access decision."
+    }
+  },
+  "required": ["registration_identifier_ref", "log_refs"]
+}

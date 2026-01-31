@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/accessrights.manage.output.schema.json",
+  "title": "AccessRights.Manage.Output",
+  "description": "Output messageType for the AccessRights.Manage capability.",
+  "type": "object",
+  "properties": {
+    "registration_identifier_ref": {
+      "type": "string",
+      "description": "Echo of the registration reference for traceability."
+    },
+    "finding": {
+      "type": "string",
+      "description": "Access decision or rationale (e.g., 'granted', 'denied', 'escalated')."
+    },
+    "log_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Subset of logs used in the decision or flagged for review."
+    }
+  },
+  "required": ["registration_identifier_ref", "finding", "log_refs"]
+}

@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/subscriber.authenticate.output.schema.json",
+  "title": "Subscriber.Authenticate.Output",
+  "description": "Output messageType for the Subscriber.Authenticate capability.",
+  "type": "object",
+  "properties": {
+    "registration_identifier_ref": {
+      "type": "string",
+      "description": "Echo of the subscriber registration reference for traceability."
+    },
+    "finding": {
+      "type": "string",
+      "description": "Outcome of the subscriber authentication process (e.g., 'authenticated', 'denied', 'escalated')."
+    },
+    "log_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Logs used or generated during subscriber authentication."
+    }
+  },
+  "required": ["registration_identifier_ref", "finding", "log_refs"]
+}

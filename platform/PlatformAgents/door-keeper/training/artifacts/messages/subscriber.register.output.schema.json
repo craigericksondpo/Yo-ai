@@ -1,0 +1,17 @@
+{
+  "$id": "https://yo-ai.ai/schemas/subscriber.register.output.schema.json",
+  "title": "Subscriber.Register.Output",
+  "description": "Output messageType for the Subscriber.Register capability.",
+  "type": "object",
+  "properties": {
+    "registration_identifier_ref": {
+      "type": "string",
+      "description": "Opaque reference to the newly created subscriber registration record."
+    },
+    "finding": {
+      "type": "string",
+      "description": "Outcome of the subscriber registration process (e.g., 'approved', 'denied', 'pending')."
+    }
+  },
+  "required": ["registration_identifier_ref", "finding"]
+}

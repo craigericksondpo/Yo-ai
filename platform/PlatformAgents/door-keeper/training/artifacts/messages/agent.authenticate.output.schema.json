@@ -1,0 +1,19 @@
+{
+  "$id": "https://yo-ai.ai/schemas/agent.authenticate.output.schema.json",
+  "title": "Agent.Authenticate.Output",
+  "description": "Output messageType for the Agent.Authenticate capability.",
+  "type": "object",
+  "properties": {
+    "registration_identifier_ref": {
+      "type": "string"
+    },
+    "finding": {
+      "type": "string"
+    },
+    "log_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["registration_identifier_ref", "finding", "log_refs"]
+}

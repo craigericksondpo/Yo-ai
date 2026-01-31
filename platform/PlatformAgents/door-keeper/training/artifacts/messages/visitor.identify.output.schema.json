@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/visitor.identify.output.schema.json",
+  "title": "Visitor.Identify.Output",
+  "description": "Output messageType for the Visitor.Identify capability.",
+  "type": "object",
+  "properties": {
+    "identifier_ref": {
+      "type": "string",
+      "description": "Echo of the visitor reference for traceability."
+    },
+    "finding": {
+      "type": "string",
+      "description": "Outcome of the visitor identification process (e.g., 'identified', 'unknown', 'escalated')."
+    },
+    "log_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Logs used or generated during visitor identification."
+    }
+  },
+  "required": ["identifier_ref", "finding", "log_refs"]
+}
