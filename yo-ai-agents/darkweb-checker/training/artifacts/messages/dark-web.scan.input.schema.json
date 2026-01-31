@@ -1,0 +1,23 @@
+{
+  "$id": "https://yo-ai.ai/schemas/dark-web.scan.input.schema.json",
+  "title": "Dark-Web.Scan.Input",
+  "description": "Input messageType for the Dark-Web.Scan capability.",
+  "type": "object",
+  "properties": {
+    "query_terms": {
+      "type": "array",
+      "description": "PI or identifiers to search for (email, phone, hashed values).",
+      "items": { "type": "string" }
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional context from the requesting agent.",
+      "additionalProperties": true
+    },
+    "request_id": {
+      "type": "string",
+      "description": "Correlation ID for async workflows."
+    }
+  },
+  "required": ["query_terms"]
+}

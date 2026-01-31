@@ -1,0 +1,23 @@
+{
+  "$id": "https://yo-ai.ai/schemas/data-origins.trace.input.schema.json",
+  "title": "Data-Origins.Trace.Input",
+  "description": "Input messageType for the Data-Origins.Trace capability.",
+  "type": "object",
+  "properties": {
+    "evidence_hash": {
+      "type": "string",
+      "description": "Hash of the stolen dataset or listing used to correlate with known breach signatures."
+    },
+    "sample_records": {
+      "type": "array",
+      "description": "Optional sample records extracted from the stolen dataset for structural comparison.",
+      "items": { "type": "object", "additionalProperties": true }
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional context from the requesting agent.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["evidence_hash"]
+}
