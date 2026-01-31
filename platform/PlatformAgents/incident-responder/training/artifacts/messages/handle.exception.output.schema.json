@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/handle.exception.output.schema.json",
+  "title": "Handle.Exception.Output",
+  "description": "Output messageType for the Handle.Exception capability.",
+  "type": "object",
+  "properties": {
+    "exception_ref": {
+      "type": "string",
+      "description": "Opaque reference to the recorded exception event."
+    },
+    "severity": {
+      "type": "string",
+      "description": "Severity classification of the exception (e.g., 'low', 'medium', 'high', 'critical')."
+    },
+    "recommended_actions": {
+      "type": "array",
+      "description": "List of recommended remediation or mitigation actions.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["exception_ref", "severity"]
+}
