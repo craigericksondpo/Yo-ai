@@ -1,0 +1,14 @@
+{
+  "$id": "https://yo-ai.ai/schemas/stakeholders.get.output.schema.json",
+  "title": "Stakeholders.Get.Output",
+  "description": "Output messageType for the Stakeholders.Get capability.",
+  "type": "object",
+  "properties": {
+    "stakeholders": {
+      "type": "array",
+      "description": "List of stakeholders associated with the organization.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["stakeholders"]
+}

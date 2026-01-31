@@ -1,0 +1,28 @@
+{
+  "$id": "https://yo-ai.ai/schemas/complaint.generate.input.schema.json",
+  "title": "Complaint.Generate.Input",
+  "description": "Input messageType for the Complaint.Generate capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": {
+      "type": "string",
+      "description": "Reference to the organization associated with the complaint."
+    },
+    "liability_findings": {
+      "type": "array",
+      "description": "List of liability findings relevant to the complaint.",
+      "items": { "type": "string" }
+    },
+    "facts": {
+      "type": "object",
+      "description": "Structured facts supporting the complaint.",
+      "additionalProperties": true
+    },
+    "mandates": {
+      "type": "array",
+      "description": "Applicable mandates or legal requirements.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "facts"]
+}

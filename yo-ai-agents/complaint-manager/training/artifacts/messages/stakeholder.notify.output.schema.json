@@ -1,0 +1,17 @@
+{
+  "$id": "https://yo-ai.ai/schemas/stakeholder.notify.output.schema.json",
+  "title": "Stakeholder.Notify.Output",
+  "description": "Output messageType for the Stakeholder.Notify capability.",
+  "type": "object",
+  "properties": {
+    "notification_id": {
+      "type": "string",
+      "description": "Unique identifier for the stakeholder notification event."
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the notification process (e.g., 'sent', 'failed', 'queued')."
+    }
+  },
+  "required": ["notification_id", "status"]
+}

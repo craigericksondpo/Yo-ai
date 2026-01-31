@@ -1,0 +1,17 @@
+{
+  "$id": "https://yo-ai.ai/schemas/complaint.submit.input.schema.json",
+  "title": "Complaint.Submit.Input",
+  "description": "Input messageType for the Complaint.Submit capability.",
+  "type": "object",
+  "properties": {
+    "complaint_id": {
+      "type": "string",
+      "description": "Identifier of the complaint being submitted."
+    },
+    "enforcement_agency": {
+      "type": "string",
+      "description": "Target enforcement agency to which the complaint will be submitted."
+    }
+  },
+  "required": ["complaint_id", "enforcement_agency"]
+}

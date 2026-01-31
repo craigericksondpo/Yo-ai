@@ -1,0 +1,19 @@
+{
+  "$id": "https://yo-ai.ai/schemas/liability.discover.output.schema.json",
+  "title": "Liability.Discover.Output",
+  "description": "Output messageType for the Liability.Discover capability.",
+  "type": "object",
+  "properties": {
+    "liability_findings": {
+      "type": "array",
+      "description": "List of liability findings derived from the evaluation.",
+      "items": { "type": "string" }
+    },
+    "recommended_actions": {
+      "type": "array",
+      "description": "Recommended actions or next steps based on the findings.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["liability_findings"]
+}

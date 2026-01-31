@@ -1,0 +1,13 @@
+{
+  "$id": "https://yo-ai.ai/schemas/stakeholders.get.input.schema.json",
+  "title": "Stakeholders.Get.Input",
+  "description": "Input messageType for the Stakeholders.Get capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": {
+      "type": "string",
+      "description": "Reference to the organization whose stakeholders should be retrieved."
+    }
+  },
+  "required": ["org_ref"]
+}

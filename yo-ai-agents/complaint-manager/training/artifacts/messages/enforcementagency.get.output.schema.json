@@ -1,0 +1,17 @@
+{
+  "$id": "https://yo-ai.ai/schemas/enforcementagency.get.output.schema.json",
+  "title": "EnforcementAgency.Get.Output",
+  "description": "Output messageType for the EnforcementAgency.Get capability.",
+  "type": "object",
+  "properties": {
+    "agency": {
+      "type": "string",
+      "description": "Name of the enforcement agency responsible for the mandate."
+    },
+    "contact_url": {
+      "type": "string",
+      "description": "URL for contacting or submitting materials to the enforcement agency."
+    }
+  },
+  "required": ["agency"]
+}

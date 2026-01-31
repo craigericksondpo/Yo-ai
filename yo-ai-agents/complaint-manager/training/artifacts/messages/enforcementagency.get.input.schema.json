@@ -1,0 +1,17 @@
+{
+  "$id": "https://yo-ai.ai/schemas/enforcementagency.get.input.schema.json",
+  "title": "EnforcementAgency.Get.Input",
+  "description": "Input messageType for the EnforcementAgency.Get capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": {
+      "type": "string",
+      "description": "Reference to the organization involved in the complaint or mandate."
+    },
+    "mandate": {
+      "type": "string",
+      "description": "Applicable mandate or legal requirement used to determine the enforcement agency."
+    }
+  },
+  "required": ["org_ref", "mandate"]
+}
