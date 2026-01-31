@@ -1,0 +1,14 @@
+{
+  "$id": "https://yo-ai.ai/schemas/technical-impact.infer.input.schema.json",
+  "title": "Technical-Impact.Infer.Input",
+  "description": "Input messageType for the Technical-Impact.Infer capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "asset_names": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "asset_names"]
+}

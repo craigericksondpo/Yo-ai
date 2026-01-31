@@ -1,0 +1,14 @@
+{
+  "$id": "https://yo-ai.ai/schemas/asset-integrations.map.input.schema.json",
+  "title": "Asset-Integrations.Map.Input",
+  "description": "Input messageType for the Asset-Integrations.Map capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "asset_names": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "asset_names"]
+}

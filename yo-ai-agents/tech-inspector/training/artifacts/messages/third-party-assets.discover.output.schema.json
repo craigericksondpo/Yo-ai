@@ -1,0 +1,21 @@
+{
+  "$id": "https://yo-ai.ai/schemas/third-party-assets.discover.output.schema.json",
+  "title": "Third-Party-Assets.Discover.Output",
+  "description": "Output messageType for the Third-Party-Assets.Discover capability.",
+  "type": "object",
+  "properties": {
+    "third_party_assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset_name": { "type": "string" },
+          "vendor": { "type": "string" },
+          "category": { "type": "string" },
+          "version": { "type": "string" },
+          "metadata": { "type": "object" }
+        }
+      }
+    }
+  }
+}

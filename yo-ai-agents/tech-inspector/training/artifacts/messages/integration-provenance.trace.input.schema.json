@@ -1,0 +1,14 @@
+{
+  "$id": "https://yo-ai.ai/schemas/integration-provenance.trace.input.schema.json",
+  "title": "Integration-Provenance.Trace.Input",
+  "description": "Input messageType for the Integration-Provenance.Trace capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "asset_names": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "asset_names"]
+}

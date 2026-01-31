@@ -1,0 +1,28 @@
+{
+  "$id": "https://yo-ai.ai/schemas/integration-provenance.trace.output.schema.json",
+  "title": "Integration-Provenance.Trace.Output",
+  "description": "Output messageType for the Integration-Provenance.Trace capability.",
+  "type": "object",
+  "properties": {
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset_name": { "type": "string" },
+          "history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "version": { "type": "string" },
+                "released": { "type": "string", "format": "date" },
+                "notes": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

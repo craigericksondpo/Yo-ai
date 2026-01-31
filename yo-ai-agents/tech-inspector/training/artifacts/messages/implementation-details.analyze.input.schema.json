@@ -1,0 +1,14 @@
+{
+  "$id": "https://yo-ai.ai/schemas/implementation-details.analyze.input.schema.json",
+  "title": "Implementation-Details.Analyze.Input",
+  "description": "Input messageType for the Implementation-Details.Analyze capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "asset_names": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "asset_names"]
+}

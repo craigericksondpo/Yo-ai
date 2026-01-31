@@ -1,0 +1,10 @@
+{
+  "$id": "https://yo-ai.ai/schemas/third-party-assets.discover.input.schema.json",
+  "title": "Third-Party-Assets.Discover.Input",
+  "description": "Input messageType for the Third-Party-Assets.Discover capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" }
+  },
+  "required": ["org_ref"]
+}

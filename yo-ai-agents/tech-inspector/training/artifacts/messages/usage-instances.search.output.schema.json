@@ -1,0 +1,19 @@
+{
+  "$id": "https://yo-ai.ai/schemas/usage-instances.search.output.schema.json",
+  "title": "Usage-Instances.Search.Output",
+  "description": "Output messageType for the Usage-Instances.Search capability.",
+  "type": "object",
+  "properties": {
+    "usage_instances": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset_name": { "type": "string" },
+          "location": { "type": "string" },
+          "evidence": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/asset-portfolio.cluster.output.schema.json",
+  "title": "Asset-Portfolio.Cluster.Output",
+  "description": "Output messageType for the Asset-Portfolio.Cluster capability.",
+  "type": "object",
+  "properties": {
+    "asset_clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cluster_id": { "type": "string" },
+          "label": { "type": "string" },
+          "assets": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

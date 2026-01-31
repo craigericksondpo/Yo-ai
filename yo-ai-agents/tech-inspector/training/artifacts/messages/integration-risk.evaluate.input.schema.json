@@ -1,0 +1,10 @@
+{
+  "$id": "https://yo-ai.ai/schemas/integration-risk.evaluate.input.schema.json",
+  "title": "Integration-Risk.Evaluate.Input",
+  "description": "Input messageType for the Integration-Risk.Evaluate capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" }
+  },
+  "required": ["org_ref"]
+}

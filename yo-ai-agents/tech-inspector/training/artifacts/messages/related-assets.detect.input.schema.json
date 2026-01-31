@@ -1,0 +1,14 @@
+{
+  "$id": "https://yo-ai.ai/schemas/related-assets.detect.input.schema.json",
+  "title": "Related-Assets.Detect.Input",
+  "description": "Input messageType for the Related-Assets.Detect capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "asset_names": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "asset_names"]
+}
