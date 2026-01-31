@@ -1,0 +1,10 @@
+{
+  "$id": "https://yo-ai.ai/schemas/decision-outcome.identify.input.schema.json",
+  "title": "Decision-Outcome.Identify.Input",
+  "description": "Input messageType for the Decision-Outcome.Identify capability.",
+  "type": "object",
+  "properties": {
+    "decision_ref": { "type": "string" }
+  },
+  "required": ["decision_ref"]
+}

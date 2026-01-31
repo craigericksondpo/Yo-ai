@@ -1,0 +1,13 @@
+{
+  "$id": "https://yo-ai.ai/schemas/decision-events.identify.output.schema.json",
+  "title": "Decision-Events.Identify.Output",
+  "description": "Output messageType for the Decision-Events.Identify capability.",
+  "type": "object",
+  "properties": {
+    "decision_events": {
+      "type": "array",
+      "items": { "type": "object" }
+    }
+  },
+  "required": ["decision_events"]
+}
