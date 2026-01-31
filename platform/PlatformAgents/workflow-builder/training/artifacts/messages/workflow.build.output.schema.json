@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/workflow.build.output.schema.json",
+  "title": "Workflow.Build.Output",
+  "description": "Output messageType for the Workflow.Build capability.",
+  "type": "object",
+  "properties": {
+    "registration_identifier_ref": {
+      "type": "string",
+      "description": "Echo of the registration reference for traceability."
+    },
+    "workflow-status": {
+      "type": "string",
+      "description": "Status of the workflow build process (e.g., 'created', 'failed', 'in-progress')."
+    },
+    "nodes": {
+      "type": "array",
+      "description": "List of workflow nodes included in the final workflow.",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["registration_identifier_ref", "workflow-status"]
+}
