@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/broker-evidence.collect.input.schema.json",
+  "title": "Broker-Evidence.Collect.Input",
+  "description": "Input messageType for the Broker-Evidence.Collect capability.",
+  "type": "object",
+  "properties": {
+    "broker": {
+      "type": "string",
+      "description": "Broker from whom evidence is being collected."
+    },
+    "evidence_hash": {
+      "type": "string",
+      "description": "Hash of the matched dataset or listing."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata associated with the evidence.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["broker", "evidence_hash"]
+}

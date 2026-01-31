@@ -1,0 +1,23 @@
+{
+  "$id": "https://yo-ai.ai/schemas/downstream-vendors.identify.input.schema.json",
+  "title": "Downstream-Vendors.Identify.Input",
+  "description": "Input messageType for the Downstream-Vendors.Identify capability.",
+  "type": "object",
+  "properties": {
+    "broker": {
+      "type": "string",
+      "description": "Broker whose downstream purchasers should be identified."
+    },
+    "pi_bundle": {
+      "type": "object",
+      "description": "Minimized PI bundle used to trace downstream usage.",
+      "additionalProperties": true
+    },
+    "context": {
+      "type": "object",
+      "description": "Optional context from the requesting agent.",
+      "additionalProperties": true
+    }
+  },
+  "required": ["broker", "pi_bundle"]
+}

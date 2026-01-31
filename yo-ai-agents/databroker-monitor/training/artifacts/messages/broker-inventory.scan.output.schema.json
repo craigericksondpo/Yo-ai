@@ -1,0 +1,27 @@
+{
+  "$id": "https://yo-ai.ai/schemas/broker-inventory.scan.output.schema.json",
+  "title": "Broker-Inventory.Scan.Output",
+  "description": "Output messageType for the Broker-Inventory.Scan capability.",
+  "type": "object",
+  "properties": {
+    "scan_id": {
+      "type": "string",
+      "description": "Unique identifier for the scan operation."
+    },
+    "matches": {
+      "type": "array",
+      "description": "Matches found across broker datasets.",
+      "items": {
+        "type": "object",
+        "required": ["broker", "match_confidence"],
+        "properties": {
+          "broker": { "type": "string" },
+          "match_confidence": { "type": "number" },
+          "evidence_hash": { "type": "string" },
+          "dataset_ref": { "type": "string" }
+        }
+      }
+    }
+  },
+  "required": ["scan_id", "matches"]
+}

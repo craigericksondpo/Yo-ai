@@ -1,0 +1,23 @@
+{
+  "$id": "https://yo-ai.ai/schemas/broker-inventory.scan.input.schema.json",
+  "title": "Broker-Inventory.Scan.Input",
+  "description": "Input messageType for the Broker-Inventory.Scan capability.",
+  "type": "object",
+  "properties": {
+    "minimized_pi": {
+      "type": "object",
+      "description": "Minimized PI bundle provided by the Data-Steward.",
+      "additionalProperties": true
+    },
+    "broker_list": {
+      "type": "array",
+      "description": "Optional list of brokers to target.",
+      "items": { "type": "string" }
+    },
+    "request_id": {
+      "type": "string",
+      "description": "Correlation ID for async workflows."
+    }
+  },
+  "required": ["minimized_pi"]
+}
