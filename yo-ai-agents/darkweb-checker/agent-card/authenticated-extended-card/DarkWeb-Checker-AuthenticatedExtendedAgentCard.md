@@ -125,8 +125,8 @@
                 "url": "https://yo-ai.ai/docs/Dark-Web.Scan.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Dark-Web.Scan.Input" },
-            "outputSchema": { "$ref": "#/schemas/Dark-Web.Scan.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/dark-web.scan.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/dark-web.scan.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -140,15 +140,15 @@
             "name": "Dark-Web.Scan.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Dark-Web.Scan#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/dark-web.scan.input.schema.json" },
+            "description": "Input schema for Dark-Web.Scan capability."
         },
         {
             "name": "Dark-Web.Scan.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Dark-Web.Scan#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/dark-web.scan.output.schema.json" },
+            "description": "Output schema for Dark-Web.Scan capability."
         },
         {
             "name": "Data-Origins.Trace",
@@ -190,8 +190,8 @@
                 "url": "https://yo-ai.ai/docs/Data-Origins.Trace.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Data-Origins.Trace.Input" },
-            "outputSchema": { "$ref": "#/schemas/Data-Origins.Trace.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/data-origins.trace.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/data-origins.trace.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -202,18 +202,18 @@
             "path": "/"
         },
         {
-            "name": "Data-Origins.Trace.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Data-Origins.Trace#/definitions/Input" },
-            "description": "Input schema for ."
+          "name": "Data-Origins.Trace.Input",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": { "$ref": "https://yo-ai.ai/schemas/data-origins.trace.input.schema.json" },
+          "description": "Input schema for the Data-Origins.Trace capability."
         },
         {
-            "name": "Data-Origins.Trace.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Data-Origins.Trace#/definitions/Output" },
-            "description": "Output schema for ."
+          "name": "Data-Origins.Trace.Output",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": { "$ref": "https://yo-ai.ai/schemas/data-origins.trace.output.schema.json" },
+          "description": "Output schema for the Data-Origins.Trace capability."
         },
         {
             "name": "Dark-Web-Evidence.Collect",
@@ -255,8 +255,8 @@
                 "url": "https://yo-ai.ai/docs/Dark-Web-Evidence.Collect.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Dark-Web-Evidence.Collect.Input" },
-            "outputSchema": { "$ref": "#/schemas/Dark-Web-Evidence.Collect.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/dark-web-evidence.collect.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/dark-web-evidence.collect.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -267,19 +267,21 @@
             "path": "/"
         },
         {
-            "name": "Dark-Web-Evidence.Collect.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Dark-Web-Evidence.Collect#/definitions/Input" },
-            "description": "Input schema for ."
+          "name": "Dark-Web-Evidence.Collect.Input",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/dark-web-evidence.collect.input.schema.json"
+          },
+          "description": "Input schema for the Dark-Web-Evidence.Collect capability."
         },
         {
-            "name": "Dark-Web-Evidence.Collect.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Dark-Web-Evidence.Collect#/definitions/Output" },
-            "description": "Output schema for ."
+          "name": "Dark-Web-Evidence.Collect.Output",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": { "$ref": "https://yo-ai.ai/schemas/dark-web-evidence.collect.output.schema.json" },
+          "description": "Output schema for the Dark-Web-Evidence.Collect capability."
         }
-    ],
+   ],
     "supportsAuthenticatedExtendedCard": true
 }
