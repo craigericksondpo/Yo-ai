@@ -86,8 +86,8 @@
                 "url": "https://yo-ai.ai/docs/Org-Profile.Manage.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Org-Profile.Manage.Input" },
-            "outputSchema": { "$ref": "#/schemas/Org-Profile.Manage.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/org-profile.manage.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/org-profile.manage.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -101,15 +101,15 @@
             "name": "Org-Profile.Manage.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Org-Profile.Manage#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/org-profile.manage.input.schema.json" },
+            "description": "Input messageType for the Org-Profile.Manage capability."
         },
         {
             "name": "Org-Profile.Manage.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Org-Profile.Manage#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/org-profile.manage.output.schema.json" },
+            "description": "Output messageType for the Org-Profile.Manage capability."
         }
     ],
     "supportsAuthenticatedExtendedCard": true
