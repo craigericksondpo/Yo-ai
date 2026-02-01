@@ -78,8 +78,8 @@
             "backend": ""
           }
         },
-        "inputSchema": { "$ref": "#/schemas/Org-Profile.Build.Input" },
-        "outputSchema": { "$ref": "#/schemas/Org-Profile.Build.Output" },
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/org-profile.build.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/org-profile.build.output.schema.json" },
         "auth": "apiKey"
       },
       {
@@ -93,15 +93,15 @@
         "name": "Org-Profile.Build.Input",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Org-Profile.Build#/definitions/Input" },
-        "description": "Input schema for ."
+        "schema": { "$ref": "https://yo-ai.ai/schemas/org-profile.build.input.schema.json" },
+        "description": "Input schema for Org-Profile.Build."
       },
       {
         "name": "Org-Profile.Build.Output",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Org-Profile.Build#/definitions/Output" },
-        "description": "Output schema for ."
+        "schema": { "$ref": "https://yo-ai.ai/schemas/org-profile.build.output.schema.json" },
+        "description": "Output schema for Org-Profile.Build."
       }
   ],
   "supportsAuthenticatedExtendedCard": true
