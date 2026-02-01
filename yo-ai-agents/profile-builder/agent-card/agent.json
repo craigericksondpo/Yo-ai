@@ -29,8 +29,8 @@
         "name": "Org-Profile.Build",
         "description": "Build organization profiles based on discovery from IP-Inspector and Tech-Inspector agents.",
         "tags": ["public", "private", "affiliate"],
-        "inputSchema": { "$ref": "#/schemas/Org-Profile.Build.Input" },
-        "outputSchema": { "$ref": "#/schemas/Org-Profile.Build.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/org-profile.build.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/org-profile.build.output.schema.json" }
       }
     ],
     "supportsAuthenticatedExtendedCard": true
