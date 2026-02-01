@@ -1,0 +1,11 @@
+{
+  "$id": "https://yo-ai.ai/schemas/org-profile.build.input.schema.json",
+  "title": "Org-Profile.Build.Input",
+  "description": "Input messageType for the Org-Profile.Build capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "assets": { "type": "string" }
+  },
+  "required": ["org_ref", "assets"]
+}
