@@ -35,8 +35,8 @@
             ],
             "inputModes": ["application/json", "text/plain"],
             "outputModes": ["application/json", "text/plain"],
-            "inputSchema": { "$ref": "#/schemas/Platform.Monitor.Input" },
-            "outputSchema": { "$ref": "#/schemas/Platform.Monitor.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/platform.monitor.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/platform.monitor.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
