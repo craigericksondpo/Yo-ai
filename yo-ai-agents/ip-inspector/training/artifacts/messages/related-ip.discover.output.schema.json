@@ -1,0 +1,23 @@
+{
+  "$id": "https://yo-ai.ai/schemas/related-ip.discover.output.schema.json",
+  "title": "Related-IP.Discover.Output",
+  "description": "Output messageType for the Related-IP.Discover capability.",
+  "type": "object",
+  "properties": {
+    "related_ip": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset_name": { "type": "string" },
+          "org_ref": { "type": "string" },
+          "related": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  },
+  "required": ["related_ip"]
+}
