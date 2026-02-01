@@ -49,8 +49,8 @@
             ],
             "inputModes": ["application/json"],
             "outputModes": ["application/json"],
-            "inputSchema": { "$ref": "#/schemas/Dark-Web.Scan.Input" },
-            "outputSchema": { "$ref": "#/schemas/Dark-Web.Scan.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/dark-web.scan.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/dark-web.scan.output.schema.json" }
         },
         {
             "name": "Data-Origins.Trace",
@@ -63,8 +63,8 @@
             ],
             "inputModes": ["application/json"],
             "outputModes": ["application/json"],
-            "inputSchema": { "$ref": "#/schemas/Data-Origins.Trace.Input" },
-            "outputSchema": { "$ref": "#/schemas/Data-Origins.Trace.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/data-origins.trace.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/data-origins.trace.output.schema.json" }
         },
         {
             "name": "Dark-Web-Evidence.Collect",
@@ -77,8 +77,8 @@
             ],
             "inputModes": ["application/json"],
             "outputModes": ["application/json"],
-            "inputSchema": { "$ref": "#/schemas/Dark-Web-Evidence.Collect.Input" },
-            "outputSchema": { "$ref": "#/schemas/Dark-Web-Evidence.Collect.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/dark-web-evidence.collect.output.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/dark-web-evidence.collect.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
