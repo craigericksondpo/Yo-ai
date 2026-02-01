@@ -89,8 +89,8 @@
             "backend": ""
             }
         },
-        "inputSchema": { "$ref": "#/schemas/Workflow.Build.Input" },
-        "outputSchema": { "$ref": "#/schemas/Workflow.Build.Output" },
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/workflow.build.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/workflow.build.output.schema.json" },
         "auth": "apiKey"
         },
         {
@@ -101,18 +101,22 @@
         "path": "/"
         },
         {
-        "name": "Workflow.Build.Input",
-        "version": "1.0.0",
-        "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Workflow.Build#/definitions/Input" },
-        "description": "Input schema for ."
+          "name": "Workflow.Build.Input",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/workflow.build.input.schema.json"
+          },
+          "description": "Input schema for the Workflow.Build capability."
         },
         {
-        "name": "Workflow.Build.Output",
-        "version": "1.0.0",
-        "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Workflow.Build#/definitions/Output" },
-        "description": "Output schema for ."
+          "name": "Workflow.Build.Output",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/workflow.build.output.schema.json"
+          },
+          "description": "Output schema for the Workflow.Build capability."
         }
     ],
     "supportsAuthenticatedExtendedCard": true
