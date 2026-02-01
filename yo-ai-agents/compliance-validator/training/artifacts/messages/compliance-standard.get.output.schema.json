@@ -1,0 +1,18 @@
+{
+  "$id": "https://yo-ai.ai/schemas/compliance-standard.get.output.schema.json",
+  "title": "Compliance-Standard.Get.Output",
+  "description": "Output messageType for the Compliance-Standard.Get capability.",
+  "type": "object",
+  "properties": {
+    "standard_ref": { "type": "string" },
+    "title": { "type": "string" },
+    "summary": { "type": "string" },
+    "requirements": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source_url": { "type": "string" }
+  },
+  "required": ["standard_ref", "summary"],
+  "additionalProperties": false
+}
