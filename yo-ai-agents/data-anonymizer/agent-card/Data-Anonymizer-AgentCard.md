@@ -46,8 +46,8 @@
                 "Assess identifiability of ZIP+Birthdate+Gender",
                 "Evaluate re-identification risk for this dataset"
             ],
-            "inputSchema": { "$ref": "#/schemas/Identifiability.Assess.Input" },
-            "outputSchema": { "$ref": "#/schemas/Identifiability.Assess.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/identifiability.assess.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/identifiability.assess.output.schema.json" }
         },
         {
             "name": "Deidentification-Techniques.Apply",
@@ -59,8 +59,8 @@
                 "Generalize birthdate to age bucket",
                 "Mask phone number for analytics"
             ],
-            "inputSchema": { "$ref": "#/schemas/Deidentification-Techniques.Apply.Input" },
-            "outputSchema": { "$ref": "#/schemas/Deidentification-Techniques.Apply.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/deidentification-techniques.apply.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/deidentification-techniques.apply.output.schema.json" }
         },
         {
             "name": "K-Anonymity.Compute",
@@ -72,8 +72,8 @@
                 "Compute k-anonymity for this table",
                 "Evaluate diversity of sensitive attributes"
             ],
-            "inputSchema": { "$ref": "#/schemas/K-Anonymity.Compute.Input" },
-            "outputSchema": { "$ref": "#/schemas/K-Anonymity.Compute.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/k-anonymity.compute.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/k-anonymity.compute.output.schema.json" }
         },
         {
             "name": "Safe-Release.Recommend",
@@ -85,8 +85,8 @@
                 "Can this dataset be shared with Vendor X",
                 "What mitigations are required before release"
             ],
-            "inputSchema": { "$ref": "#/schemas/Safe-Release.Recommend.Input" },
-            "outputSchema": { "$ref": "#/schemas/Safe-Release.Recommend.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/safe-release.recommend.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/safe-release.recommend.output.schema.json" }
         },
         {
             "name": "Deidentification-Report.Generate",
@@ -98,8 +98,8 @@
                 "Create a de-identification summary for this dataset",
                 "Provide evidence for CCPA compliance"
             ],
-            "inputSchema": { "$ref": "#/schemas/Deidentification-Report.Generate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Deidentification-Report.Generate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/deidentification-report.generate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/deidentification-report.generate.output.schema.json" }
         },
         {
             "name": "Auxiliary-Data-Risk.Evaluate",
@@ -111,8 +111,8 @@
                 "Could this be re-identified using voter rolls",
                 "Assess risk from data brokers"
             ],
-            "inputSchema": { "$ref": "#/schemas/Auxiliary-Data-Risk.Evaluate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Auxiliary-Data-Risk.Evaluate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/auxiliary-data-risk.evaluate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/auxiliary-data-risk.evaluate.output.schema.json" }
         },
         {
             "name": "Data-For-Purpose.Minimize",
@@ -124,8 +124,8 @@
                 "What fields are required for account creation",
                 "Remove unnecessary identifiers for analytics"
             ],
-            "inputSchema": { "$ref": "#/schemas/Data-For-Purpose.Minimize.Input" },
-            "outputSchema": { "$ref": "#/schemas/Data-For-Purpose.Minimize.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/data-for-purpose.minimize.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/data-for-purpose.minimize.output.schema.json" }
         },
         {
             "name": "Reidentification-Attack.Simulate",
@@ -137,8 +137,8 @@
                 "Simulate linkage attack using ZIP+Age+Gender",
                 "Estimate re-identification probability"
             ],
-            "inputSchema": { "$ref": "#/schemas/Reidentification-Attack.Simulate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Reidentification-Attack.Simulate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/reidentification-attack.simulate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/reidentification-attack.simulate.output.schema.json" }
         },
         {
             "name": "Deidentification-Standard.Map",
@@ -150,8 +150,8 @@
                 "Does this meet CCPA de-identification criteria",
                 "Map this technique to NIST 800-188"
             ],
-            "inputSchema": { "$ref": "#/schemas/Deidentification-Standard.Map.Input" },
-            "outputSchema": { "$ref": "#/schemas/Deidentification-Standard.Map.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/deidentification-standard.map.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/deidentification-standard.map.output.schema.json" }
         },
         {
             "name": "Deidentification-Guidance.Publish",
@@ -163,8 +163,8 @@
                 "Explain how to de-identify my address for analytics",
                 "Provide safe handling instructions for my profile data"
             ],
-            "inputSchema": { "$ref": "#/schemas/Deidentification-Guidance.Publish.Input" },
-            "outputSchema": { "$ref": "#/schemas/Deidentification-Guidance.Publish.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/deidentification-guidance.publish.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/deidentification-guidance.publish.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
