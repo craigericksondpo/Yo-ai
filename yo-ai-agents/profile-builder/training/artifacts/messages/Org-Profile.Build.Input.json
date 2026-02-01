@@ -1,9 +1,0 @@
-{
-  "$id": "https://privacyportfolio.com/schemas/messages/Org-Profile.Build.Input.json",
-  "type": "object",
-  "properties": {
-    "org_ref": { "type": "string" },
-    "assets": { "type": "string" }
-  },
-  "required": ["org_ref", "assets"]
-}
