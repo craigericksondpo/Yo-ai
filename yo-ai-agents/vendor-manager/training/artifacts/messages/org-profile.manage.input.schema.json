@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/org-profile.manage.input.schema.json",
+  "title": "Org-Profile.Manage.Input",
+  "description": "Input messageType for the Org-Profile.Manage capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "operation": {
+      "type": "string",
+      "enum": [
+        "verify",
+        "fetch_terms",
+        "share_data",
+        "create_task",
+        "build_workflow",
+        "log_event"
+      ]
+    },
+    "payload": { "type": "object" }
+  },
+  "required": ["org_ref", "operation"]
+}
