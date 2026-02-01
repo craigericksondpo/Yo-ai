@@ -6,7 +6,6 @@
  * - Artifacts: Collection of artifacts created by the agent.
  */
 
-
 /**
 * Door-Keeper Authenticated Extended Agent Card¶
 */
@@ -17,10 +16,11 @@
   "provider": {
     "organization": "PrivacyPortfolio",
     "url": "https://www.PrivacyPortfolio.com"
-    },
+  },
   "iconUrl": "https://privacyportfolio.com/agent-registry/door-keeper/door-keeper-agent-icon.png",
   "version": "1.0.0",
   "documentationUrl": "https://privacyportfolio.com/agent-registry/auth/Door-Keeper-AuthenticatedExtendedAgentCard.md",
+
   "capabilities": {
     "streaming": true,
     "pushNotifications": true,
@@ -30,6 +30,7 @@
     "exposesArtifacts": true,
     "exposesTools": true
   },
+
   "securitySchemes": {
     "yo-ai": {
       "type": "apiKey",
@@ -37,9 +38,12 @@
       "in": "header"
     }
   },
+
   "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+
   "defaultInputModes": ["application/json", "text/plain"],
   "defaultOutputModes": ["application/json", "text/plain"],
+
   "skills": [
     {"name": "Agent.Authenticate"},
     {"name": "API.Validate"},
@@ -50,117 +54,118 @@
     {"name": "Subscriber.Authenticate"},
     {"name": "Credentials.Generate"},
     {"name": "AccessRights.Manage"}
-    ],
-    "x-capabilities": [
-        {
-          "Agent.Authenticate": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Agent.Authenticate"}},
-                  {"artifact": {"type": "task", "name": "Agent.Authenticate"}},
-                  {"artifact": {"type": "tool", "name": "Agent.Authenticate"}},
-                  {"artifact": {"type": "handler", "name": "Agent.Authenticate"}},
-                  {"artifact": {"type": "messageType", "name": "Agent.Authenticate.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Agent.Authenticate.Output"}}
-              ]
-          }
-        },
-        {
-          "API.Validate": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "API.Validate"}},
-                  {"artifact": {"type": "task", "name": "API.Validate"}},
-                  {"artifact": {"type": "tool", "name": "API.Validate"}},
-                  {"artifact": {"type": "handler", "name": "API.Validate"}},
-                  {"artifact": {"type": "messageType", "name": "API.Validate.Input"}},
-                  {"artifact": {"type": "messageType", "name": "API.Validate.Output"}}
-              ]
-          }
-        },
-        {
-          "Trust.Assign": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Trust.Assign"}},
-                  {"artifact": {"type": "task", "name": "Trust.Assign"}},
-                  {"artifact": {"type": "tool", "name": "Trust.Assign"}},
-                  {"artifact": {"type": "handler", "name": "Trust.Assign"}},
-                  {"artifact": {"type": "messageType", "name": "Trust.Assign.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Trust.Assign.Output"}}
-              ]
-          }
-        },
-        {
-          "Visitor.Identify": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Visitor.Identify"}},
-                  {"artifact": {"type": "task", "name": "Visitor.Identify"}},
-                  {"artifact": {"type": "tool", "name": "Visitor.Identify"}},
-                  {"artifact": {"type": "handler", "name": "Visitor.Identify"}},
-                  {"artifact": {"type": "messageType", "name": "Visitor.Identify.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Visitor.Identify.Output"}}
-              ]
-          }
-        },
-        {
-          "Agent.Register": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Agent.Register"}},
-                  {"artifact": {"type": "task", "name": "Agent.Register"}},
-                  {"artifact": {"type": "tool", "name": "Agent.Register"}},
-                  {"artifact": {"type": "handler", "name": "Agent.Register"}},
-                  {"artifact": {"type": "messageType", "name": "Agent.Register.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Agent.Register.Output"}}
-              ]
-          }
-        },
-        {
-          "Subscriber.Register": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Subscriber.Register"}},
-                  {"artifact": {"type": "task", "name": "Subscriber.Register"}},
-                  {"artifact": {"type": "tool", "name": "Subscriber.Register"}},
-                  {"artifact": {"type": "handler", "name": "Subscriber.Register"}},
-                  {"artifact": {"type": "messageType", "name": "Subscriber.Register.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Subscriber.Register.Output"}}
-              ]
-          }
-        },
-        {
-          "Subscriber.Authenticate": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Subscriber.Authenticate"}},
-                  {"artifact": {"type": "task", "name": "Subscriber.Authenticate"}},
-                  {"artifact": {"type": "tool", "name": "Subscriber.Authenticate"}},
-                  {"artifact": {"type": "handler", "name": "Subscriber.Authenticate"}},
-                  {"artifact": {"type": "messageType", "name": "Subscriber.Authenticate.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Subscriber.Authenticate.Output"}}
-              ]
-          }
-        },
-        {
-          "Credentials.Generate": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Credentials.Generate"}},
-                  {"artifact": {"type": "task", "name": "Credentials.Generate"}},
-                  {"artifact": {"type": "tool", "name": "Credentials.Generate"}},
-                  {"artifact": {"type": "handler", "name": "Credentials.Generate"}},
-                  {"artifact": {"type": "messageType", "name": "Credentials.Generate.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Credentials.Generate.Output"}}
-              ]
-          }
-        },
-        {
-          "AccessRights.Manage": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "AccessRights.Manage"}},
-                  {"artifact": {"type": "task", "name": "AccessRights.Manage"}},
-                  {"artifact": {"type": "tool", "name": "AccessRights.Manage"}},
-                  {"artifact": {"type": "handler", "name": "AccessRights.Manage"}},
-                  {"artifact": {"type": "messageType", "name": "AccessRights.Manage.Input"}},
-                  {"artifact": {"type": "messageType", "name": "AccessRights.Manage.Output"}}
-              ]
-          }
-        }
-    ],
+  ],
+
+  "x-capabilities": [
+    {
+      "Agent.Authenticate": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Agent.Authenticate"}},
+          {"artifact": {"type": "task", "name": "Agent.Authenticate"}},
+          {"artifact": {"type": "tool", "name": "Agent.Authenticate"}},
+          {"artifact": {"type": "handler", "name": "Agent.Authenticate"}},
+          {"artifact": {"type": "messageType", "name": "Agent.Authenticate.Input"}},
+          {"artifact": {"type": "messageType", "name": "Agent.Authenticate.Output"}}
+        ]
+      }
+    },
+    {
+      "API.Validate": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "API.Validate"}},
+          {"artifact": {"type": "task", "name": "API.Validate"}},
+          {"artifact": {"type": "tool", "name": "API.Validate"}},
+          {"artifact": {"type": "handler", "name": "API.Validate"}},
+          {"artifact": {"type": "messageType", "name": "API.Validate.Input"}},
+          {"artifact": {"type": "messageType", "name": "API.Validate.Output"}}
+        ]
+      }
+    },
+    {
+      "Trust.Assign": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Trust.Assign"}},
+          {"artifact": {"type": "task", "name": "Trust.Assign"}},
+          {"artifact": {"type": "tool", "name": "Trust.Assign"}},
+          {"artifact": {"type": "handler", "name": "Trust.Assign"}},
+          {"artifact": {"type": "messageType", "name": "Trust.Assign.Input"}},
+          {"artifact": {"type": "messageType", "name": "Trust.Assign.Output"}}
+        ]
+      }
+    },
+    {
+      "Visitor.Identify": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Visitor.Identify"}},
+          {"artifact": {"type": "task", "name": "Visitor.Identify"}},
+          {"artifact": {"type": "tool", "name": "Visitor.Identify"}},
+          {"artifact": {"type": "handler", "name": "Visitor.Identify"}},
+          {"artifact": {"type": "messageType", "name": "Visitor.Identify.Input"}},
+          {"artifact": {"type": "messageType", "name": "Visitor.Identify.Output"}}
+        ]
+      }
+    },
+    {
+      "Agent.Register": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Agent.Register"}},
+          {"artifact": {"type": "task", "name": "Agent.Register"}},
+          {"artifact": {"type": "tool", "name": "Agent.Register"}},
+          {"artifact": {"type": "handler", "name": "Agent.Register"}},
+          {"artifact": {"type": "messageType", "name": "Agent.Register.Input"}},
+          {"artifact": {"type": "messageType", "name": "Agent.Register.Output"}}
+        ]
+      }
+    },
+    {
+      "Subscriber.Register": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Subscriber.Register"}},
+          {"artifact": {"type": "task", "name": "Subscriber.Register"}},
+          {"artifact": {"type": "tool", "name": "Subscriber.Register"}},
+          {"artifact": {"type": "handler", "name": "Subscriber.Register"}},
+          {"artifact": {"type": "messageType", "name": "Subscriber.Register.Input"}},
+          {"artifact": {"type": "messageType", "name": "Subscriber.Register.Output"}}
+        ]
+      }
+    },
+    {
+      "Subscriber.Authenticate": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Subscriber.Authenticate"}},
+          {"artifact": {"type": "task", "name": "Subscriber.Authenticate"}},
+          {"artifact": {"type": "tool", "name": "Subscriber.Authenticate"}},
+          {"artifact": {"type": "handler", "name": "Subscriber.Authenticate"}},
+          {"artifact": {"type": "messageType", "name": "Subscriber.Authenticate.Input"}},
+          {"artifact": {"type": "messageType", "name": "Subscriber.Authenticate.Output"}}
+        ]
+      }
+    },
+    {
+      "Credentials.Generate": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Credentials.Generate"}},
+          {"artifact": {"type": "task", "name": "Credentials.Generate"}},
+          {"artifact": {"type": "tool", "name": "Credentials.Generate"}},
+          {"artifact": {"type": "handler", "name": "Credentials.Generate"}},
+          {"artifact": {"type": "messageType", "name": "Credentials.Generate.Input"}},
+          {"artifact": {"type": "messageType", "name": "Credentials.Generate.Output"}}
+        ]
+      }
+    },
+    {
+      "AccessRights.Manage": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "AccessRights.Manage"}},
+          {"artifact": {"type": "task", "name": "AccessRights.Manage"}},
+          {"artifact": {"type": "tool", "name": "AccessRights.Manage"}},
+          {"artifact": {"type": "handler", "name": "AccessRights.Manage"}},
+          {"artifact": {"type": "messageType", "name": "AccessRights.Manage.Input"}},
+          {"artifact": {"type": "messageType", "name": "AccessRights.Manage.Output"}}
+        ]
+      }
+    }
+  ],
   "x-artifacts": [
     {
       "name": "Agent.Authenticate",
@@ -194,8 +199,8 @@
           "backend": "AWS Cognito"
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Agent.Authenticate.Input" },
-      "outputSchema": { "$ref": "#/schemas/Agent.Authenticate.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/agent.authenticate.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/agent.authenticate.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -214,8 +219,8 @@
         "url": "https://yo-ai.ai/docs/AgentCardValidator.html",
         "config": {}
       },
-      "inputSchema": { "$ref": "#/schemas/AgentCardValidator.Input" },
-      "outputSchema": { "$ref": "#/schemas/AgentCardValidator.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/agentcardvalidator.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/agentcardvalidator.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -229,14 +234,14 @@
       "name": "Agent.Authenticate.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Agent.Authenticate#/definitions/Input" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/agent.authenticate.input.schema.json" },
       "description": "Input schema for authenticating agent."
     },
     {
       "name": "Agent.Authenticate.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Agent.Authenticate#/definitions/Output" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/agent.authenticate.output.schema.json" },
       "description": "Output schema for authenticating agent."
     },
     {
@@ -271,8 +276,8 @@
           "backend": ""
         }
       },
-      "inputSchema": { "$ref": "#/schemas/API.Validate.Input" },
-      "outputSchema": { "$ref": "#/schemas/API.Validate.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/api.validate.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/api.validate.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -286,14 +291,14 @@
       "name": "API.Validate.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/API.Validate#/definitions/Input" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/api.validate.input.schema.json" },
       "description": "Input schema for API access validation."
     },
     {
       "name": "API.Validate.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/API.Validate#/definitions/Output" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/api.validate.output.schema.json" },
       "description": "Output schema for API access validation."
     },
     {
@@ -328,8 +333,8 @@
           "backend": ""
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Trust.Assign.Input" },
-      "outputSchema": { "$ref": "#/schemas/Trust.Assign.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/trust.assign.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/trust.assign.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -343,14 +348,14 @@
       "name": "Trust.Assign.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Trust.Assign#/definitions/Input" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/trust.assign.input.schema.json" },
       "description": "Input schema for trust tier assignment."
     },
     {
       "name": "Trust.Assign.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Trust.Assign#/definitions/Output" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/trust.assign.output.schema.json" },
       "description": "Output schema for trust tier assignment."
     },
     {
@@ -385,8 +390,8 @@
           "backend": ""
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Visitor.Identify.Input" },
-      "outputSchema": { "$ref": "#/schemas/Visitor.Identify.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/visitor.identify.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/visitor.identify.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -400,15 +405,15 @@
       "name": "Visitor.Identify.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Visitor.Identify#/definitions/Input" },
-      "description": "Input schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/visitor.identify.input.schema.json" },
+      "description": "Input schema for visitor identification."
     },
     {
       "name": "Visitor.Identify.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Visitor.Identify#/definitions/Output" },
-      "description": "Output schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/visitor.identify.output.schema.json" },
+      "description": "Output schema for visitor identification."
     },
     {
       "name": "Agent.Register",
@@ -442,8 +447,8 @@
           "backend": ""
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Agent.Register.Input" },
-      "outputSchema": { "$ref": "#/schemas/Agent.Register.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/agent.register.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/agent.register.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -457,15 +462,15 @@
       "name": "Agent.Register.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Agent.Register#/definitions/Input" },
-      "description": "Input schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/agent.register.input.schema.json" },
+      "description": "Input schema for agent registration."
     },
     {
       "name": "Agent.Register.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Agent.Register#/definitions/Output" },
-      "description": "Output schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/agent.register.output.schema.json" },
+      "description": "Output schema for agent registration."
     },
     {
       "name": "Subscriber.Register",
@@ -499,8 +504,8 @@
           "backend": ""
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Subscriber.Register.Input" },
-      "outputSchema": { "$ref": "#/schemas/Subscriber.Register.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/subscriber.register.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/subscriber.register.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -514,15 +519,15 @@
       "name": "Subscriber.Register.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Subscriber.Register#/definitions/Input" },
-      "description": "Input schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/subscriber.register.input.schema.json" },
+      "description": "Input schema for subscriber registration."
     },
     {
       "name": "Subscriber.Register.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Subscriber.Register#/definitions/Output" },
-      "description": "Output schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/subscriber.register.output.schema.json" },
+      "description": "Output schema for subscriber registration."
     },
     {
       "name": "Subscriber.Authenticate",
@@ -556,8 +561,8 @@
           "backend": ""
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Subscriber.Authenticate.Input" },
-      "outputSchema": { "$ref": "#/schemas/Subscriber.Authenticate.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/subscriber.authenticate.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/subscriber.authenticate.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -571,15 +576,15 @@
       "name": "Subscriber.Authenticate.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Subscriber.Authenticate#/definitions/Input" },
-      "description": "Input schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/subscriber.authenticate.input.schema.json" },
+      "description": "Input schema for subscriber authentication."
     },
     {
       "name": "Subscriber.Authenticate.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Subscriber.Authenticate#/definitions/Output" },
-      "description": "Output schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/subscriber.authenticate.output.schema.json" },
+      "description": "Output schema for subscriber authentication."
     },
     {
       "name": "Credentials.Generate",
@@ -613,8 +618,8 @@
           "backend": ""
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Credentials.Generate.Input" },
-      "outputSchema": { "$ref": "#/schemas/Credentials.Generate.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/credentials.generate.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/credentials.generate.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -628,15 +633,15 @@
       "name": "Credentials.Generate.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Credentials.Generate#/definitions/Input" },
-      "description": "Input schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/credentials.generate.input.schema.json" },
+      "description": "Input schema for Credentials.Generate."
     },
     {
       "name": "Credentials.Generate.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Credentials.Generate#/definitions/Output" },
-      "description": "Output schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/credentials.generate.output.schema.json" },
+      "description": "Output schema for Credentials.Generate."
     },
     {
       "name": "AccessRights.Manage",
@@ -670,8 +675,8 @@
           "backend": ""
         }
       },
-      "inputSchema": { "$ref": "#/schemas/AccessRights.Manage.Input" },
-      "outputSchema": { "$ref": "#/schemas/AccessRights.Manage.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/accessrights.manage.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/accessrights.manage.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -693,8 +698,8 @@
           "securityProtocol": "SASL_SSL"
         }
       },
-      "inputSchema": { "$ref": "#/schemas/AccessRights.Manage.Input" },
-      "outputSchema": { "$ref": "#/schemas/AccessRights.Manage.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/accessrights.manage.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/accessrights.manage.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -708,15 +713,15 @@
       "name": "AccessRights.Manage.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/AccessRights.Manage#/definitions/Input" },
-      "description": "Input schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/accessrights.manage.input.schema.json" },
+      "description": "Input schema for AccessRights.Manage."
     },
     {
       "name": "AccessRights.Manage.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/AccessRights.Manage#/definitions/Output" },
-      "description": "Output schema for ."
+      "schema": { "$ref": "https://yo-ai.ai/schemas/accessrights.manage.output.schema.json" },
+      "description": "Output schema for AccessRights.Manage."
     }
   ],
   "supportsAuthenticatedExtendedCard": true
