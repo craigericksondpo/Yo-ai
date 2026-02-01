@@ -176,642 +176,723 @@
         }
     ],
     "x-artifacts": [
-        {
-            "name": "Identifiability.Assess",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Evaluates whether a dataset or attribute can reasonably identify the data subject under contextual and linkage risks.",
-            "tags": ["riskAssessment", "linkageRisk", "quasiIdentifiers", "contextualRisk", "audit"],
-            "examples": [
-                "Assess identifiability of ZIP+Birthdate+Gender",
-                "Evaluate re-identification risk for this dataset"
-            ]
+      {
+        "name": "Identifiability.Assess",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Evaluates whether a dataset or attribute can reasonably identify the data subject under contextual and linkage risks.",
+        "tags": ["riskAssessment", "linkageRisk", "quasiIdentifiers", "contextualRisk", "audit"],
+        "examples": [
+          "Assess identifiability of ZIP+Birthdate+Gender",
+          "Evaluate re-identification risk for this dataset"
+        ]
+      },
+      {
+        "name": "Identifiability.Assess",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Evaluates whether a dataset or attribute can reasonably identify the data subject under contextual and linkage risks.",
+        "tags": ["riskAssessment", "linkageRisk", "quasiIdentifiers", "contextualRisk", "audit"],
+        "examples": [
+          "Assess identifiability of ZIP+Birthdate+Gender",
+          "Evaluate re-identification risk for this dataset"
+        ]
+      },
+      {
+        "name": "Identifiability.Assess",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Evaluates whether a dataset or attribute can reasonably identify the data subject under contextual and linkage risks.",
+        "capabilities": ["assess"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Identifiability.Assess.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Identifiability.Assess",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Evaluates whether a dataset or attribute can reasonably identify the data subject under contextual and linkage risks.",
-            "tags": ["riskAssessment", "linkageRisk", "quasiIdentifiers", "contextualRisk", "audit"],
-            "examples": [
-                "Assess identifiability of ZIP+Birthdate+Gender",
-                "Evaluate re-identification risk for this dataset"
-            ]
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/identifiability.assess.input.schema.json"
         },
-        {
-            "name": "Identifiability.Assess",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Evaluates whether a dataset or attribute can reasonably identify the data subject under contextual and linkage risks.",
-            "capabilities": ["assess"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Identifiability.Assess.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Identifiability.Assess.Input" },
-            "outputSchema": { "$ref": "#/schemas/Identifiability.Assess.Output" },
-            "auth": "apiKey"
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/identifiability.assess.output.schema.json"
         },
-        {
-            "name": "Identifiability.Assess",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "auth": "apiKey"
+      },
+      {
+        "name": "Identifiability.Assess",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Identifiability.Assess.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/identifiability.assess.input.schema.json"
         },
-        {
-            "name": "Identifiability.Assess.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Identifiability.Assess#/definitions/Input" },
-            "description": "Input schema for ."
+        "description": "Input schema for the Identifiability.Assess capability."
+      },
+      {
+        "name": "Identifiability.Assess.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/identifiability.assess.output.schema.json"
         },
-        {
-            "name": "Identifiability.Assess.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Identifiability.Assess#/definitions/Output" },
-            "description": "Output schema for ."
+        "description": "Output schema for the Identifiability.Assess capability."
+      },
+      {
+        "name": "Deidentification-Techniques.Apply",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Recommends appropriate transformations such as masking, generalization, suppression, perturbation, bucketing, hashing, or tokenization.",
+        "tags": ["transformation", "minimization", "privacyTechniques", "dataSanitization"],
+        "examples": [
+          "Generalize birthdate to age bucket",
+          "Mask phone number for analytics"
+        ]
+      },
+      {
+        "name": "Deidentification-Techniques.Apply",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Recommends appropriate transformations such as masking, generalization, suppression, perturbation, bucketing, hashing, or tokenization.",
+        "tags": ["transformation", "minimization", "privacyTechniques", "dataSanitization"],
+        "examples": [
+          "Generalize birthdate to age bucket",
+          "Mask phone number for analytics"
+        ]
+      },
+      {
+        "name": "Deidentification-Techniques.Apply",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Recommends appropriate transformations such as masking, generalization, suppression, perturbation, bucketing, hashing, or tokenization.",
+        "capabilities": ["deidentify"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Deidentification-Techniques.Apply.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Deidentification-Techniques.Apply",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Recommends appropriate transformations such as masking, generalization, suppression, perturbation, bucketing, hashing, or tokenization.",
-            "tags": ["transformation", "minimization", "privacyTechniques", "dataSanitization"],
-            "examples": [
-                "Generalize birthdate to age bucket",
-                "Mask phone number for analytics"
-            ]
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-techniques.apply.input.schema.json"
         },
-        {
-            "name": "Deidentification-Techniques.Apply",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Recommends appropriate transformations such as masking, generalization, suppression, perturbation, bucketing, hashing, or tokenization.",
-            "tags": ["transformation", "minimization", "privacyTechniques", "dataSanitization"],
-            "examples": [
-                "Generalize birthdate to age bucket",
-                "Mask phone number for analytics"
-            ]
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-techniques.apply.output.schema.json"
         },
-        {
-            "name": "Deidentification-Techniques.Apply",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Recommends appropriate transformations such as masking, generalization, suppression, perturbation, bucketing, hashing, or tokenization.",
-            "capabilities": ["deidentify"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Deidentification-Techniques.Apply.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Deidentification-Techniques.Apply.Input" },
-            "outputSchema": { "$ref": "#/schemas/Deidentification-Techniques.Apply.Output" },
-            "auth": "apiKey"
+        "auth": "apiKey"
+      },
+      {
+        "name": "Deidentification-Techniques.Apply",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Deidentification-Techniques.Apply.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-techniques.apply.input.schema.json"
         },
-        {
-            "name": "Deidentification-Techniques.Apply",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "description": "Input schema for the Deidentification-Techniques.Apply capability."
+      },
+      {
+        "name": "Deidentification-Techniques.Apply.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-techniques.apply.output.schema.json"
         },
-        {
-            "name": "Deidentification-Techniques.Apply.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Deidentification-Techniques.Apply#/definitions/Input" },
-            "description": "Input schema for ."
+        "description": "Output schema for the Deidentification-Techniques.Apply capability."
+      },
+      {
+        "name": "K-Anonymity.Compute",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Computes k-anonymity, l-diversity, t-closeness, and related privacy metrics.",
+        "tags": ["privacyMetrics", "kAnonymity", "lDiversity", "tCloseness", "riskScoring"],
+        "examples": [
+          "Compute k-anonymity for this table",
+          "Evaluate diversity of sensitive attributes"
+        ]
+      },
+      {
+        "name": "K-Anonymity.Compute",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Computes k-anonymity, l-diversity, t-closeness, and related privacy metrics.",
+        "tags": ["privacyMetrics", "kAnonymity", "lDiversity", "tCloseness", "riskScoring"],
+        "examples": [
+          "Compute k-anonymity for this table",
+          "Evaluate diversity of sensitive attributes"
+        ]
+      },
+      {
+        "name": "K-Anonymity.Compute",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Computes k-anonymity, l-diversity, t-closeness, and related privacy metrics.",
+        "capabilities": ["compute"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/K-Anonymity.Compute.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Deidentification-Techniques.Apply.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Deidentification-Techniques.Apply#/definitions/Output" },
-            "description": "Output schema for ."
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/k-anonymity.compute.input.schema.json"
         },
-        {
-            "name": "K-Anonymity.Compute",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Computes k-anonymity, l-diversity, t-closeness, and related privacy metrics.",
-            "tags": ["privacyMetrics", "kAnonymity", "lDiversity", "tCloseness", "riskScoring"],
-            "examples": [
-                "Compute k-anonymity for this table",
-                "Evaluate diversity of sensitive attributes"
-            ]
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/k-anonymity.compute.output.schema.json"
         },
-        {
-            "name": "K-Anonymity.Compute",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Computes k-anonymity, l-diversity, t-closeness, and related privacy metrics.",
-            "tags": ["privacyMetrics", "kAnonymity", "lDiversity", "tCloseness", "riskScoring"],
-            "examples": [
-                "Compute k-anonymity for this table",
-                "Evaluate diversity of sensitive attributes"
-            ]
+        "auth": "apiKey"
+      },
+      {
+        "name": "K-Anonymity.Compute",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "K-Anonymity.Compute.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/k-anonymity.compute.input.schema.json"
         },
-        {
-            "name": "K-Anonymity.Compute",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Computes k-anonymity, l-diversity, t-closeness, and related privacy metrics.",
-            "capabilities": ["compute"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Deidentification-Techniques.Apply.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/K-Anonymity.Compute.Input" },
-            "outputSchema": { "$ref": "#/schemas/K-Anonymity.Compute.Output" },
-            "auth": "apiKey"
+        "description": "Input schema for the K-Anonymity.Compute capability."
+      },
+      {
+        "name": "K-Anonymity.Compute.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/k-anonymity.compute.output.schema.json"
         },
-        {
-            "name": "K-Anonymity.Compute",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "description": "Output schema for the K-Anonymity.Compute capability."
+      },
+      {
+        "name": "Safe-Release.Recommend",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Determines whether a dataset is safe for release under CPRA, NIST, HIPAA, and A2A norms, and provides required mitigations.",
+        "tags": ["policy", "releaseGuidance", "compliance", "riskMitigation"],
+        "examples": [
+          "Can this dataset be shared with Vendor X",
+          "What mitigations are required before release"
+        ]
+      },
+      {
+        "name": "Safe-Release.Recommend",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Determines whether a dataset is safe for release under CPRA, NIST, HIPAA, and A2A norms, and provides required mitigations.",
+        "tags": ["policy", "releaseGuidance", "compliance", "riskMitigation"],
+        "examples": [
+          "Can this dataset be shared with Vendor X",
+          "What mitigations are required before release"
+        ]
+      },
+      {
+        "name": "Safe-Release.Recommend",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Determines whether a dataset is safe for release under CPRA, NIST, HIPAA, and A2A norms, and provides required mitigations.",
+        "capabilities": ["recommend"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Safe-Release.Recommend.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "K-Anonymity.Compute.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/K-Anonymity.Compute#/definitions/Input" },
-            "description": "Input schema for ."
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/safe-release.recommend.input.schema.json"
         },
-        {
-            "name": "K-Anonymity.Compute.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/K-Anonymity.Compute#/definitions/Output" },
-            "description": "Output schema for ."
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/safe-release.recommend.output.schema.json"
         },
-        {
-            "name": "Safe-Release.Recommend",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Determines whether a dataset is safe for release under CPRA, NIST, HIPAA, and A2A norms, and provides required mitigations.",
-            "tags": ["policy", "releaseGuidance", "compliance", "riskMitigation"],
-            "examples": [
-                "Can this dataset be shared with Vendor X",
-                "What mitigations are required before release"
-            ]
+        "auth": "apiKey"
+      },
+      {
+        "name": "Safe-Release.Recommend",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Safe-Release.Recommend.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/safe-release.recommend.input.schema.json"
         },
-        {
-            "name": "Safe-Release.Recommend",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Determines whether a dataset is safe for release under CPRA, NIST, HIPAA, and A2A norms, and provides required mitigations.",
-            "tags": ["policy", "releaseGuidance", "compliance", "riskMitigation"],
-            "examples": [
-                "Can this dataset be shared with Vendor X",
-                "What mitigations are required before release"
-            ]
+        "description": "Input schema for the Safe-Release.Recommend capability."
+      },
+      {
+        "name": "Safe-Release.Recommend.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/safe-release.recommend.output.schema.json"
         },
-        {
-            "name": "Safe-Release.Recommend",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Determines whether a dataset is safe for release under CPRA, NIST, HIPAA, and A2A norms, and provides required mitigations.",
-            "capabilities": ["recommend"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Safe-Release.Recommend.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Safe-Release.Recommend.Input" },
-            "outputSchema": { "$ref": "#/schemas/Safe-Release.Recommend.Output" },
-            "auth": "apiKey"
+        "description": "Output schema for the Safe-Release.Recommend capability."
+      },
+      {
+        "name": "Deidentification-Report.Generate",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Produces a structured, regulator-friendly report summarizing techniques applied, residual risk, and compliance posture.",
+        "tags": ["audit", "reporting", "evidence", "documentation"],
+        "examples": [
+          "Create a de-identification summary for this dataset",
+          "Provide evidence for CCPA compliance"
+        ]
+      },
+      {
+        "name": "Deidentification-Report.Generate",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Produces a structured, regulator-friendly report summarizing techniques applied, residual risk, and compliance posture.",
+        "tags": ["audit", "reporting", "evidence", "documentation"],
+        "examples": [
+          "Create a de-identification summary for this dataset",
+          "Provide evidence for CCPA compliance"
+        ]
+      },
+      {
+        "name": "Deidentification-Report.Generate",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Produces a structured, regulator-friendly report summarizing techniques applied, residual risk, and compliance posture.",
+        "capabilities": ["generate"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Deidentification-Report.Generate.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Safe-Release.Recommend",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-report.generate.input.schema.json"
         },
-        {
-            "name": "Safe-Release.Recommend.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Safe-Release.Recommend#/definitions/Input" },
-            "description": "Input schema for ."
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-report.generate.output.schema.json"
         },
-        {
-            "name": "Safe-Release.Recommend.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Safe-Release.Recommend#/definitions/Output" },
-            "description": "Output schema for ."
+        "auth": "apiKey"
+      },
+      {
+        "name": "Deidentification-Report.Generate",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Deidentification-Report.Generate.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-report.generate.input.schema.json"
         },
-        {
-            "name": "Deidentification-Report.Generate",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Produces a structured, regulator-friendly report summarizing techniques applied, residual risk, and compliance posture.",
-            "tags": ["audit", "reporting", "evidence", "documentation"],
-            "examples": [
-                "Create a de-identification summary for this dataset",
-                "Provide evidence for CCPA compliance"
-            ]
+        "description": "Input schema for the Deidentification-Report.Generate capability."
+      },
+      {
+        "name": "Deidentification-Report.Generate.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-report.generate.output.schema.json"
         },
-        {
-            "name": "Deidentification-Report.Generate",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Produces a structured, regulator-friendly report summarizing techniques applied, residual risk, and compliance posture.",
-            "tags": ["audit", "reporting", "evidence", "documentation"],
-            "examples": [
-                "Create a de-identification summary for this dataset",
-                "Provide evidence for CCPA compliance"
-      ]
+        "description": "Output schema for the Deidentification-Report.Generate capability."
+      },
+      {
+        "name": "Deidentification-Report",
+        "version": "1.0.0",
+        "artifactType": "Report",
+        "description": "Human-readable and machine-readable report summarizing de-identification posture."
+      },
+      {
+        "name": "Auxiliary-Data-Risk.Evaluate",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Assesses how external datasets could re-identify the subject through linkage or inference.",
+        "tags": ["auxiliaryData", "linkageRisk", "openSourceIntelligence", "riskAssessment"],
+        "examples": [
+          "Could this be re-identified using voter rolls",
+          "Assess risk from data brokers"
+        ]
+      },
+      {
+        "name": "Auxiliary-Data-Risk.Evaluate",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Assesses how external datasets could re-identify the subject through linkage or inference.",
+        "tags": ["auxiliaryData", "linkageRisk", "openSourceIntelligence", "riskAssessment"],
+        "examples": [
+          "Could this be re-identified using voter rolls",
+          "Assess risk from data brokers"
+        ]
+      },
+      {
+        "name": "Auxiliary-Data-Risk.Evaluate",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Assesses how external datasets could re-identify the subject through linkage or inference.",
+        "capabilities": ["evaluate"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Auxiliary-Data-Risk.Evaluate.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Deidentification-Report.Generate",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Produces a structured, regulator-friendly report summarizing techniques applied, residual risk, and compliance posture.",
-            "capabilities": ["generate"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Deidentification-Report.Generate.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Deidentification-Report.Generate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Deidentification-Report.Generate.Output" },
-            "auth": "apiKey"
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/auxiliary-data-risk.evaluate.input.schema.json"
         },
-        {
-            "name": "Deidentification-Report.Generate",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/auxiliary-data-risk.evaluate.output.schema.json"
         },
-        {
-            "name": "Deidentification-Report.Generate.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Deidentification-Report.Generate#/definitions/Input" },
-            "description": "Input schema for ."
+        "auth": "apiKey"
+      },
+      {
+        "name": "Auxiliary-Data-Risk.Evaluate",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Auxiliary-Data-Risk.Evaluate.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/auxiliary-data-risk.evaluate.input.schema.json"
         },
-        {
-            "name": "Deidentification-Report.Generate.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Deidentification-Report.Generate#/definitions/Output" },
-            "description": "Output schema for ."
+        "description": "Input schema for the Auxiliary-Data-Risk.Evaluate capability."
+      },
+      {
+        "name": "Auxiliary-Data-Risk.Evaluate.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/auxiliary-data-risk.evaluate.output.schema.json"
         },
-        {
-            "name": "Deidentification-Report",
-            "version": "1.0.0",
-            "artifactType": "Report",
-            "description": "Human-readable and machine-readable report summarizing de-identification posture."
+        "description": "Output schema for the Auxiliary-Data-Risk.Evaluate capability."
+      },
+      {
+        "name": "Data-For-Purpose.Minimize",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Determines the minimum necessary personal data required for a stated purpose and flags unnecessary fields.",
+        "tags": ["purposeLimitation", "dataMinimization", "leastPrivilege"],
+        "examples": [
+          "What fields are required for account creation",
+          "Remove unnecessary identifiers for analytics"
+        ]
+      },
+      {
+        "name": "Data-For-Purpose.Minimize",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Determines the minimum necessary personal data required for a stated purpose and flags unnecessary fields.",
+        "tags": ["purposeLimitation", "dataMinimization", "leastPrivilege"],
+        "examples": [
+          "What fields are required for account creation",
+          "Remove unnecessary identifiers for analytics"
+        ]
+      },
+      {
+        "name": "Data-For-Purpose.Minimize",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Determines the minimum necessary personal data required for a stated purpose and flags unnecessary fields.",
+        "capabilities": ["minimize"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Data-For-Purpose.Minimize.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Auxiliary-Data-Risk.Evaluate",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Assesses how external datasets could re-identify the subject through linkage or inference.",
-            "tags": ["auxiliaryData", "linkageRisk", "openSourceIntelligence", "riskAssessment"],
-            "examples": [
-                "Could this be re-identified using voter rolls",
-                "Assess risk from data brokers"
-            ]
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/data-for-purpose.minimize.input.schema.json"
         },
-        {
-            "name": "Auxiliary-Data-Risk.Evaluate",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Assesses how external datasets could re-identify the subject through linkage or inference.",
-            "tags": ["auxiliaryData", "linkageRisk", "openSourceIntelligence", "riskAssessment"],
-            "examples": [
-                "Could this be re-identified using voter rolls",
-                "Assess risk from data brokers"
-            ]
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/data-for-purpose.minimize.output.schema.json"
         },
-        {
-            "name": "Auxiliary-Data-Risk.Evaluate",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Assesses how external datasets could re-identify the subject through linkage or inference.",
-            "capabilities": ["evaluate"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Auxiliary-Data-Risk.Evaluate.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Auxiliary-Data-Risk.Evaluate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Auxiliary-Data-Risk.Evaluate.Output" },
-            "auth": "apiKey"
+        "auth": "apiKey"
+      },
+      {
+        "name": "Data-For-Purpose.Minimize",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Data-For-Purpose.Minimize.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/data-for-purpose.minimize.input.schema.json"
         },
-        {
-            "name": "Auxiliary-Data-Risk.Evaluate",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "description": "Input schema for the Data-For-Purpose.Minimize capability."
+      },
+      {
+        "name": "Data-For-Purpose.Minimize.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/data-for-purpose.minimize.output.schema.json"
         },
-        {
-            "name": "Auxiliary-Data-Risk.Evaluate.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Auxiliary-Data-Risk.Evaluate#/definitions/Input" },
-            "description": "Input schema for ."
+        "description": "Output schema for the Data-For-Purpose.Minimize capability."
+      },
+      {
+        "name": "Reidentification-Attack.Simulate",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Simulates attacker behavior to estimate re-identification risk using auxiliary datasets and linkage strategies.",
+        "tags": ["attackSimulation", "reidentification", "auxiliaryData", "riskAssessment"],
+        "examples": [
+          "Simulate re-identification using voter rolls",
+          "Estimate attack success probability with data broker feeds"
+        ]
+      },
+      {
+        "name": "Reidentification-Attack.Simulate",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Simulates attacker behavior to estimate re-identification risk using auxiliary datasets and linkage strategies.",
+        "tags": ["attackSimulation", "reidentification", "auxiliaryData", "riskAssessment"],
+        "examples": [
+          "Simulate re-identification using voter rolls",
+          "Estimate attack success probability with data broker feeds"
+        ]
+      },
+      {
+        "name": "Reidentification-Attack.Simulate",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Simulates attacker behavior to estimate re-identification risk using auxiliary datasets and linkage strategies.",
+        "capabilities": ["simulate"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Reidentification-Attack.Simulate.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Auxiliary-Data-Risk.Evaluate.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Auxiliary-Data-Risk.Evaluate#/definitions/Output" },
-            "description": "Output schema for ."
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/reidentification-attack.simulate.input.schema.json"
         },
-        {
-            "name": "Data-For-Purpose.Minimize",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Determines the minimum necessary personal data required for a stated purpose and flags unnecessary fields.",
-            "tags": ["purposeLimitation", "dataMinimization", "leastPrivilege"],
-            "examples": [
-                "What fields are required for account creation",
-                "Remove unnecessary identifiers for analytics"
-            ]
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/reidentification-attack.simulate.output.schema.json"
         },
-        {
-            "name": "Data-For-Purpose.Minimize",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Determines the minimum necessary personal data required for a stated purpose and flags unnecessary fields.",
-            "tags": ["purposeLimitation", "dataMinimization", "leastPrivilege"],
-            "examples": [
-                "What fields are required for account creation",
-                "Remove unnecessary identifiers for analytics"
-            ]
+        "auth": "apiKey"
+      },
+      {
+        "name": "Reidentification-Attack.Simulate",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Reidentification-Attack.Simulate.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/reidentification-attack.simulate.input.schema.json"
         },
-        {
-            "name": "Data-For-Purpose.Minimize",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Determines the minimum necessary personal data required for a stated purpose and flags unnecessary fields.",
-            "capabilities": ["minimize"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Data-For-Purpose.Minimize.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Data-For-Purpose.Minimize.Input" },
-            "outputSchema": { "$ref": "#/schemas/Data-For-Purpose.Minimize.Output" },
-            "auth": "apiKey"
+        "description": "Input schema for the Reidentification-Attack.Simulate capability."
+      },
+      {
+        "name": "Reidentification-Attack.Simulate.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/reidentification-attack.simulate.output.schema.json"
         },
-        {
-            "name": "Data-For-Purpose.Minimize",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "description": "Output schema for the Reidentification-Attack.Simulate capability."
+      },
+
+      {
+        "name": "Deidentification-Standard.Map",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Maps de-identification posture to regulatory and policy standards such as CPRA, GDPR, HIPAA, and NIST.",
+        "tags": ["standards", "compliance", "mapping", "governance"],
+        "examples": [
+          "Map this dataset to HIPAA Safe Harbor",
+          "Check alignment with CPRA de-identification criteria"
+        ]
+      },
+      {
+        "name": "Deidentification-Standard.Map",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Maps de-identification posture to regulatory and policy standards such as CPRA, GDPR, HIPAA, and NIST.",
+        "tags": ["standards", "compliance", "mapping", "governance"],
+        "examples": [
+          "Map this dataset to HIPAA Safe Harbor",
+          "Check alignment with CPRA de-identification criteria"
+        ]
+      },
+      {
+        "name": "Deidentification-Standard.Map",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Maps de-identification posture to regulatory and policy standards such as CPRA, GDPR, HIPAA, and NIST.",
+        "capabilities": ["map"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Deidentification-Standard.Map.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Data-For-Purpose.Minimize.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Data-For-Purpose.Minimize#/definitions/Input" },
-            "description": "Input schema for ."
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-standard.map.input.schema.json"
         },
-        {
-            "name": "Data-For-Purpose.Minimize.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Data-For-Purpose.Minimize#/definitions/Output" },
-            "description": "Output schema for ."
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-standard.map.output.schema.json"
         },
-        {
-            "name": "Reidentification-Attack.Simulate",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Runs a simulated adversarial linkage attempt to estimate re-identification probability.",
-            "tags": ["simulation", "adversarial", "riskAssessment", "attackModeling"],
-            "examples": [
-                "Simulate linkage attack using ZIP+Age+Gender",
-                "Estimate re-identification probability"
-            ]
+        "auth": "apiKey"
+      },
+      {
+        "name": "Deidentification-Standard.Map",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Deidentification-Standard.Map.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-standard.map.input.schema.json"
         },
-        {
-            "name": "Reidentification-Attack.Simulate",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Runs a simulated adversarial linkage attempt to estimate re-identification probability.",
-            "tags": ["simulation", "adversarial", "riskAssessment", "attackModeling"],
-            "examples": [
-                "Simulate linkage attack using ZIP+Age+Gender",
-                "Estimate re-identification probability"
-            ]
+        "description": "Input schema for the Deidentification-Standard.Map capability."
+      },
+      {
+        "name": "Deidentification-Standard.Map.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-standard.map.output.schema.json"
         },
-        {
-            "name": "Reidentification-Attack.Simulate",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Runs a simulated adversarial linkage attempt to estimate re-identification probability.",
-            "capabilities": ["simulate"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Reidentification-Attack.Simulate.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Reidentification-Attack.Simulate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Reidentification-Attack.Simulate.Output" },
-            "auth": "apiKey"
+        "description": "Output schema for the Deidentification-Standard.Map capability."
+      },
+      {
+        "name": "Deidentification-Guidance.Publish",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Publishes human-readable and machine-readable guidance for safely de-identifying and releasing datasets.",
+        "tags": ["guidance", "documentation", "governance", "compliance"],
+        "examples": [
+          "Generate de-identification guidance for analytics engineers",
+          "Publish guidance for regulators on this dataset"
+        ]
+      },
+      {
+        "name": "Deidentification-Guidance.Publish",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Publishes human-readable and machine-readable guidance for safely de-identifying and releasing datasets.",
+        "tags": ["guidance", "documentation", "governance", "compliance"],
+        "examples": [
+          "Generate de-identification guidance for analytics engineers",
+          "Publish guidance for regulators on this dataset"
+        ]
+      },
+      {
+        "name": "Deidentification-Guidance.Publish",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Publishes human-readable and machine-readable guidance for safely de-identifying and releasing datasets.",
+        "capabilities": ["publish"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Deidentification-Guidance.Publish.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Reidentification-Attack.Simulate",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-guidance.publish.input.schema.json"
         },
-        {
-            "name": "Reidentification-Attack.Simulate.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Reidentification-Attack.Simulate#/definitions/Input" },
-            "description": "Input schema for ."
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-guidance.publish.output.schema.json"
         },
-        {
-            "name": "Reidentification-Attack.Simulate.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Reidentification-Attack.Simulate#/definitions/Output" },
-            "description": "Output schema for ."
+        "auth": "apiKey"
+      },
+      {
+        "name": "Deidentification-Guidance.Publish",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Deidentification-Guidance.Publish.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-guidance.publish.input.schema.json"
         },
-        {
-            "name": "Deidentification-Standard.Map",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Maps the organization's proposed de-identification approach to NIST, CCPA, HIPAA Safe Harbor, and A2A requirements.",
-            "tags": ["standards", "mapping", "compliance", "policy"],
-            "examples": [
-                "Does this meet CCPA de-identification criteria",
-                "Map this technique to NIST 800-188"
-            ]
+        "description": "Input schema for the Deidentification-Guidance.Publish capability."
+      },
+      {
+        "name": "Deidentification-Guidance.Publish.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/deidentification-guidance.publish.output.schema.json"
         },
-        {
-            "name": "Deidentification-Standard.Map",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Maps the organization's proposed de-identification approach to NIST, CCPA, HIPAA Safe Harbor, and A2A requirements.",
-            "tags": ["standards", "mapping", "compliance", "policy"],
-            "examples": [
-                "Does this meet CCPA de-identification criteria",
-                "Map this technique to NIST 800-188"
-            ]
-        },
-        {
-            "name": "Deidentification-Standard.Map",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Maps the organization's proposed de-identification approach to NIST, CCPA, HIPAA Safe Harbor, and A2A requirements.",
-            "capabilities": ["map"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Deidentification-Standard.Map.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Deidentification-Standard.Map.Input" },
-            "outputSchema": { "$ref": "#/schemas/Deidentification-Standard.Map.Output" },
-            "auth": "apiKey"
-        },
-        {
-            "name": "Deidentification-Standard.Map",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
-        },
-        {
-            "name": "Deidentification-Standard.Map.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Deidentification-Standard.Map#/definitions/Input" },
-            "description": "Input schema for ."
-        },
-        {
-            "name": "Deidentification-Standard.Map.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Deidentification-Standard.Map#/definitions/Output" },
-            "description": "Output schema for ."
-        },
-        {
-            "name": "Deidentification-Guidance.Publish",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Generates human-readable instructions explaining how to properly de-identify the user's data for a given purpose.",
-            "tags": ["education", "guidance", "bestPractices", "documentation"],
-            "examples": [
-                "Explain how to de-identify my address for analytics",
-                "Provide safe handling instructions for my profile data"
-            ]
-        },
-        {
-            "name": "Deidentification-Guidance.Publish",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Generates human-readable instructions explaining how to properly de-identify the user's data for a given purpose.",
-            "tags": ["education", "guidance", "bestPractices", "documentation"],
-            "examples": [
-                "Explain how to de-identify my address for analytics",
-                "Provide safe handling instructions for my profile data"
-            ]
-        },
-        {
-            "name": "Deidentification-Guidance.Publish",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Generates human-readable instructions explaining how to properly de-identify the user's data for a given purpose.",
-            "capabilities": ["publish"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Deidentification-Guidance.Publish.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Deidentification-Guidance.Publish.Input" },
-            "outputSchema": { "$ref": "#/schemas/Deidentification-Guidance.Publish.Output" },
-            "auth": "apiKey"
-        },
-        {
-            "name": "Deidentification-Guidance.Publish",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
-        },
-        {
-            "name": "Deidentification-Guidance.Publish.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Deidentification-Guidance.Publish#/definitions/Input" },
-            "description": "Input schema for ."
-        },
-        {
-            "name": "Deidentification-Guidance.Publish.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Deidentification-Guidance.Publish#/definitions/Output" },
-            "description": "Output schema for ."
-        }
+        "description": "Output schema for the Deidentification-Guidance.Publish capability."
+      }
     ],
     "supportsAuthenticatedExtendedCard": true
 }
