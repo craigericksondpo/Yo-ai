@@ -48,8 +48,8 @@
             ],
             "inputModes": ["application/json"],
             "outputModes": ["application/json"],
-            "inputSchema": { "$ref": "#/schemas/Broker-Inventory.Scan.Input" },
-            "outputSchema": { "$ref": "#/schemas/Broker-Inventory.Scan.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/broker-inventory.scan.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/broker-inventory.scan.output.schema.json" }
         },
         {
             "name": "Downstream-Vendors.Identify",
@@ -62,8 +62,8 @@
             ],
             "inputModes": ["application/json"],
             "outputModes": ["application/json"],
-            "inputSchema": { "$ref": "#/schemas/Downstream-Vendors.Identify.Input" },
-            "outputSchema": { "$ref": "#/schemas/Downstream-Vendors.Identify.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/downstream-vendors.identify.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/downstream-vendors.identify.output.schema.json" }
         },
         {
             "name": "Broker-Evidence.Collect",
@@ -76,8 +76,8 @@
             ],
             "inputModes": ["application/json"],
             "outputModes": ["application/json"],
-            "inputSchema": { "$ref": "#/schemas/Broker-Evidence.Collect.Input" },
-            "outputSchema": { "$ref": "#/schemas/Broker-Evidence.Collect.Output" }
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/broker-evidence.collect.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/broker-evidence.collect.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
