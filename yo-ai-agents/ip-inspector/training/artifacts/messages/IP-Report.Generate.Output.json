@@ -1,7 +1,0 @@
-{
-  "$id": "https://privacyportfolio.com/schemas/messages/IP-Report.Generate.Output.json",
-  "type": "object",
-  "properties": {
-    "report_url": { "type": "string" }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "$id": "https://privacyportfolio.com/schemas/messages/IP-Portfolio.Cluster.Input.json",
-  "type": "object",
-  "properties": {
-    "org_ref": { "type": "string" }
-  },
-  "required": ["org_ref"]
-}
