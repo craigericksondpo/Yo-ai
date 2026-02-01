@@ -72,201 +72,225 @@
         }
     ],
     "x-artifacts": [
-        {
-            "name": "Promotional-Engagement.Verify",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Checks whether required social media actions (follow, like, repost, hashtag usage) were completed for promotional eligibility.",
-            "tags": ["promotion", "verification", "rewards", "logEvent"],
-            "examples": [
-              "Verify user followed brand",
-              "Check hashtag usage",
-              "Confirm engagement for reward eligibility"
-            ]
+      {
+        "name": "Promotional-Engagement.Verify",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Checks whether required social media actions (follow, like, repost, hashtag usage, etc.) were completed for promotional eligibility.",
+        "tags": ["promotion", "verification", "rewards", "logEvent"],
+        "examples": [
+          "Verify user followed brand",
+          "Check hashtag usage",
+          "Confirm engagement for reward eligibility"
+        ]
+      },
+      {
+        "name": "Promotional-Engagement.Verify",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Checks whether required social media actions (follow, like, repost, hashtag usage, etc.) were completed for promotional eligibility.",
+        "tags": ["promotion", "verification", "rewards", "logEvent"],
+        "examples": [
+          "Verify user followed brand",
+          "Check hashtag usage",
+          "Confirm engagement for reward eligibility"
+        ]
+      },
+      {
+        "name": "Promotional-Engagement.Verify",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Checks whether required social media actions (follow, like, repost, hashtag usage, etc.) were completed for promotional eligibility.",
+        "capabilities": ["verify"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Promotional-Engagement.Verify.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Promotional-Engagement.Verify",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Checks whether required social media actions (follow, like, repost, hashtag usage) were completed for promotional eligibility.",
-            "tags": ["promotion", "verification", "rewards", "logEvent"],
-            "examples": [
-              "Verify user followed brand",
-              "Check hashtag usage",
-              "Confirm engagement for reward eligibility"
-            ]
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/promotional-engagement.verify.input.schema.json"
         },
-        {
-            "name": "Promotional-Engagement.Verify",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Checks whether required social media actions (follow, like, repost, hashtag usage) were completed for promotional eligibility.",
-            "capabilities": ["verify"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Promotional-Engagement.Verify.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Promotional-Engagement.Verify.Input" },
-            "outputSchema": { "$ref": "#/schemas/Promotional-Engagement.Verify.Output" },
-            "auth": "apiKey"
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/promotional-engagement.verify.output.schema.json"
         },
-        {
-            "name": "Promotional-Engagement.Verify",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "auth": "apiKey"
+      },
+      {
+        "name": "Promotional-Engagement.Verify",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Promotional-Engagement.Verify.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/promotional-engagement.verify.input.schema.json"
         },
-        {
-            "name": "Promotional-Engagement.Verify.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Promotional-Engagement.Verify#/definitions/Input" },
-            "description": "Input schema for ."
+        "description": "Input schema for the Promotional-Engagement.Verify capability."
+      },
+      {
+        "name": "Promotional-Engagement.Verify.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/promotional-engagement.verify.output.schema.json"
         },
-        {
-            "name": "Promotional-Engagement.Verify.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Promotional-Engagement.Verify#/definitions/Output" },
-            "description": "Output schema for ."
+        "description": "Output schema for the Promotional-Engagement.Verify capability."
+      },
+      {
+        "name": "Misappropriation.Detect",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Searches social media for indicators that falsely imply identity, actions, preferences, or endorsements.",
+        "tags": ["misappropriation", "fraud", "identity", "logEvent"],
+        "examples": [
+          "Detect false likes implying endorsement",
+          "Find impersonation accounts using my name",
+          "Identify posts suggesting I did something I did not do"
+        ]
+      },
+      {
+        "name": "Misappropriation.Detect",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Searches social media for indicators that falsely imply identity, actions, preferences, or endorsements.",
+        "tags": ["misappropriation", "fraud", "identity", "logEvent"],
+        "examples": [
+          "Detect false likes implying endorsement",
+          "Find impersonation accounts using my name",
+          "Identify posts suggesting I did something I did not do"
+        ]
+      },
+      {
+        "name": "Misappropriation.Detect",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Searches social media for indicators that falsely imply identity, actions, preferences, or endorsements.",
+        "capabilities": ["detect"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Misappropriation.Detect.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Misappropriation.Detect",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Searches social media for unauthorized use of personal information, impersonation, or leaked data indicators.",
-            "tags": ["misappropriation", "fraud", "identity", "logEvent"],
-            "examples": [
-                "Search for impersonation accounts",
-                "Detect leaked email or phone number",
-                "Identify suspicious mentions of PI"
-            ]
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/misappropriation.detect.input.schema.json"
         },
-        {
-            "name": "Misappropriation.Detect",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Searches social media for unauthorized use of personal information, impersonation, or leaked data indicators.",
-            "tags": ["misappropriation", "fraud", "identity", "logEvent"],
-            "examples": [
-                "Search for impersonation accounts",
-                "Detect leaked email or phone number",
-                "Identify suspicious mentions of PI"
-            ]
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/misappropriation.detect.output.schema.json"
         },
-        {
-            "name": "Misappropriation.Detect",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Searches social media for unauthorized use of personal information, impersonation, or leaked data indicators.",
-            "capabilities": ["detect"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Misappropriation.Detect.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Misappropriation.Detect.Input" },
-            "outputSchema": { "$ref": "#/schemas/Misappropriation.Detect.Output" },
-            "auth": "apiKey"
+        "auth": "apiKey"
+      },
+      {
+        "name": "Misappropriation.Detect",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Misappropriation.Detect.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/misappropriation.detect.input.schema.json"
         },
-        {
-            "name": "Misappropriation.Detect",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "description": "Input schema for the Misappropriation.Detect capability."
+      },
+      {
+        "name": "Misappropriation.Detect.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/misappropriation.detect.output.schema.json"
         },
-        {
-            "name": "Misappropriation.Detect.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Misappropriation.Detect#/definitions/Input" },
-            "description": "Input schema for ."
+        "description": "Output schema for the Misappropriation.Detect capability."
+      },
+      {
+        "name": "Evidence.Collect",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Captures structured evidence of misappropriation or promotional compliance for downstream agents.",
+        "tags": ["evidence", "compliance", "logEvent"],
+        "examples": [
+          "Capture screenshot metadata for a promotional post",
+          "Record engagement proof for Budweiser Rewards",
+          "Store impersonation indicators for later complaint"
+        ]
+      },
+      {
+        "name": "Evidence.Collect",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Captures structured evidence of misappropriation or promotional compliance for downstream agents.",
+        "tags": ["evidence", "compliance", "logEvent"],
+        "examples": [
+          "Capture screenshot metadata for a promotional post",
+          "Record engagement proof for Budweiser Rewards",
+          "Store impersonation indicators for later complaint"
+        ]
+      },
+      {
+        "name": "Evidence.Collect",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Captures structured evidence of misappropriation or promotional compliance for downstream agents.",
+        "capabilities": ["collect"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Evidence.Collect.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Misappropriation.Detect.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Misappropriation.Detect#/definitions/Output" },
-            "description": "Output schema for ."
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/evidence.collect.input.schema.json"
         },
-        {
-            "name": "Evidence.Collect",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Captures structured evidence of misappropriation or promotional compliance for downstream agents.",
-            "tags": ["evidence", "compliance", "logEvent"],
-            "examples": [
-                "Capture screenshot metadata",
-                "Record engagement proof",
-                "Store impersonation indicators"
-            ]
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/evidence.collect.output.schema.json"
         },
-        {
-            "name": "Evidence.Collect",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Captures structured evidence of misappropriation or promotional compliance for downstream agents.",
-            "tags": ["evidence", "compliance", "logEvent"],
-            "examples": [
-                "Capture screenshot metadata",
-                "Record engagement proof",
-                "Store impersonation indicators"
-            ]
+        "auth": "apiKey"
+      },
+      {
+        "name": "Evidence.Collect",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Evidence.Collect.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/evidence.collect.input.schema.json"
         },
-        {
-            "name": "Evidence.Collect",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Captures structured evidence of misappropriation or promotional compliance for downstream agents.",
-            "capabilities": ["collect"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Evidence.Collect.html",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Evidence.Collect.Input" },
-            "outputSchema": { "$ref": "#/schemas/Evidence.Collect.Output" },
-            "auth": "apiKey"
+        "description": "Input schema for the Evidence.Collect capability."
+      },
+      {
+        "name": "Evidence.Collect.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/evidence.collect.output.schema.json"
         },
-        {
-            "name": "Evidence.Collect",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
-        },
-        {
-            "name": "Evidence.Collect.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Evidence.Collect#/definitions/Input" },
-            "description": "Input schema for ."
-        },
-        {
-            "name": "Evidence.Collect.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Evidence.Collect#/definitions/Output" },
-            "description": "Output schema for ."
-        }
+        "description": "Output schema for the Evidence.Collect capability."
+      }
     ],
     "supportsAuthenticatedExtendedCard": true
 }
