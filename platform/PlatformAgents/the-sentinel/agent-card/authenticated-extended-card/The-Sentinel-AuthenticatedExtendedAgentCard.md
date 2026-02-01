@@ -97,8 +97,8 @@
                 "backend": ""
                 }
             },
-            "inputSchema": { "$ref": "#/schemas/Platform.Monitor.Input" },
-            "outputSchema": { "$ref": "#/schemas/Platform.Monitor.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/platform.monitor.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/platform.monitor.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -109,18 +109,22 @@
             "path": "/"
         },
         {
-            "name": "Platform.Monitor.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Platform.Monitor#/definitions/Input" },
-            "description": "Input schema for ."
+          "name": "Platform.Monitor.Input",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/platform.monitor.input.schema.json"
+          },
+          "description": "Input schema for the Platform.Monitor capability."
         },
         {
-            "name": "Platform.Monitor.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Platform.Monitor#/definitions/Output" },
-            "description": "Output schema for ."
+          "name": "Platform.Monitor.Output",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/platform.monitor.output.schema.json"
+          },
+          "description": "Output schema for the Platform.Monitor capability."
         }
     ],
     "supportsAuthenticatedExtendedCard": true
