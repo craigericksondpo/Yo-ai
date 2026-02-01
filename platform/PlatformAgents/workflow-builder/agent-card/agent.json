@@ -29,8 +29,8 @@
             "name": "Workflow.Build",
             "description": "Builds orchestrated workflows connecting agents with endpoints.",
             "tags": ["-wf", "internal", "external"],
-            "inputSchema": { "$ref": "#/schemas/Workflow.Build.Input" },
-            "outputSchema": { "$ref": "#/schemas/Workflow.Build.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/workflow.build.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/workflow.build.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
