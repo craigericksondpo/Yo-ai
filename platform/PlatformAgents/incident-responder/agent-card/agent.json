@@ -36,8 +36,8 @@
             ],
             "inputModes": ["application/json", "text/plain"],
             "outputModes": ["application/json", "text/plain"],
-            "inputSchema": { "$ref": "#/schemas/Handle.Exception.Input" },
-            "outputSchema": { "$ref": "#/schemas/Handle.Exception.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/handle.exception.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/handle.exception.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
