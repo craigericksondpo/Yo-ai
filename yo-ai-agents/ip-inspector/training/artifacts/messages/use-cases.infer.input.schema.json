@@ -1,0 +1,14 @@
+{
+  "$id": "https://yo-ai.ai/schemas/use-cases.infer.input.schema.json",
+  "title": "Use-Cases.Infer.Input",
+  "description": "Input messageType for the Use-Cases.Infer capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "asset_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "asset_ids"]
+}

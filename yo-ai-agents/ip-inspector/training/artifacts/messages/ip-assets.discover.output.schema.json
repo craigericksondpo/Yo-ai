@@ -1,0 +1,21 @@
+{
+  "$id": "https://yo-ai.ai/schemas/ip-assets.discover.output.schema.json",
+  "title": "IP-Assets.Discover.Output",
+  "description": "Output messageType for the IP-Assets.Discover capability.",
+  "type": "object",
+  "properties": {
+    "ip_assets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset_id": { "type": "string" },
+          "asset_type": { "type": "string" },
+          "title": { "type": "string" },
+          "jurisdiction": { "type": "string" },
+          "status": { "type": "string" }
+        }
+      }
+    }
+  }
+}

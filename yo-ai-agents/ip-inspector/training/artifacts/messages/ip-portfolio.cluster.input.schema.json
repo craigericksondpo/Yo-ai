@@ -1,0 +1,10 @@
+{
+  "$id": "https://yo-ai.ai/schemas/ip-portfolio.cluster.input.schema.json",
+  "title": "IP-Portfolio.Cluster.Input",
+  "description": "Input messageType for the IP-Portfolio.Cluster capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" }
+  },
+  "required": ["org_ref"]
+}

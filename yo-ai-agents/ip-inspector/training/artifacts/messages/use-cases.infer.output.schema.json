@@ -1,0 +1,19 @@
+{
+  "$id": "https://yo-ai.ai/schemas/use-cases.infer.output.schema.json",
+  "title": "Use-Cases.Infer.Output",
+  "description": "Output messageType for the Use-Cases.Infer capability.",
+  "type": "object",
+  "properties": {
+    "use_cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "asset_id": { "type": "string" },
+          "use_case": { "type": "string" },
+          "confidence": { "type": "number" }
+        }
+      }
+    }
+  }
+}

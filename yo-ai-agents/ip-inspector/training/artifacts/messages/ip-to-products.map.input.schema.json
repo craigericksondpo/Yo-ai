@@ -1,0 +1,14 @@
+{
+  "$id": "https://yo-ai.ai/schemas/ip-to-products.map.output.schema.json",
+  "title": "IP-to-Products.Map.Input",
+  "description": "Input messageType for the IP-to-Products.Map capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "asset_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "asset_ids"]
+}

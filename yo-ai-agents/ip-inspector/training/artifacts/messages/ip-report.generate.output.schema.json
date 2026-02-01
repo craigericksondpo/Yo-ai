@@ -1,0 +1,9 @@
+{
+  "$id": "https://yo-ai.ai/schemas/ip-report.generate.output.schema.json",
+  "title": "IP-Report.Generate.Output",
+  "description": "Output messageType for the IP-Report.Generate capability.",
+  "type": "object",
+  "properties": {
+    "report_url": { "type": "string" }
+  }
+}

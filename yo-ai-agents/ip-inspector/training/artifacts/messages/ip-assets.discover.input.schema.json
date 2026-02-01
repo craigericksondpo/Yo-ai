@@ -1,0 +1,10 @@
+{
+  "$id": "https://yo-ai.ai/schemas/ip-assets.discover.input.schema.json",
+  "title": "IP-Assets.Discover.Input",
+  "description": "Input messageType for the IP-Assets.Discover capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" }
+  },
+  "required": ["org_ref"]
+}

@@ -1,0 +1,22 @@
+{
+  "$id": "https://yo-ai.ai/schemas/ip-portfolio.cluster.output.schema.json",
+  "title": "IP-Portfolio.Cluster.Output",
+  "description": "Output messageType for the IP-Portfolio.Cluster capability.",
+  "type": "object",
+  "properties": {
+    "ip_clusters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "cluster_id": { "type": "string" },
+          "label": { "type": "string" },
+          "asset_ids": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$id": "https://yo-ai.ai/schemas/ip-risk.evaluate.output.schema.json",
+  "title": "IP-Risk.Evaluate.Output",
+  "description": "Output messageType for the IP-Risk.Evaluate capability.",
+  "type": "object",
+  "properties": {
+    "ip_risk": {
+      "type": "object",
+      "properties": {
+        "infringement_risk": { "type": "string" },
+        "licensing_obligations": { "type": "string" },
+        "competitive_risk": { "type": "string" }
+      }
+    }
+  }
+}

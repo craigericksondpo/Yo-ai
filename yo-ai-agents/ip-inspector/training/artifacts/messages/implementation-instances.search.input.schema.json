@@ -1,0 +1,14 @@
+{
+  "$id": "https://yo-ai.ai/schemas/implementation-instances.search.input.schema.json",
+  "title": "Implementation-Instances.Search.Input",
+  "description": "Input messageType for the Implementation-Instances.Search capability.",
+  "type": "object",
+  "properties": {
+    "org_ref": { "type": "string" },
+    "asset_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["org_ref", "asset_ids"]
+}
