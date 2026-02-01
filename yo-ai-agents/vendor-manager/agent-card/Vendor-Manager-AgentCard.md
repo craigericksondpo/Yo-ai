@@ -47,8 +47,8 @@
         ],
         "inputModes": ["application/json", "text/plain"],
         "outputModes": ["application/json", "text/plain"],
-        "inputSchema": { "$ref": "#/schemas/Org-Profile.Manage.Input" },
-        "outputSchema": { "$ref": "#/schemas/Org-Profile.Manage.Output" }
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/org-profile.manage.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/org-profile.manage.output.schema.json" }
     }
   ],
   "supportsAuthenticatedExtendedCard": true
