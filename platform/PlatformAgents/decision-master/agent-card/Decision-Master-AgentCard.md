@@ -40,29 +40,29 @@
             "name": "Decision-Diary.Manage",
             "description": "Add, remove, correlate, and prune events associated with decision sets.",
             "tags": ["decision-event", "decision-factor", "decision-outcome"],
-            "inputSchema": { "$ref": "#/schemas/Decision-Diary_Input" },
-            "outputSchema": { "$ref": "#/schemas/Decision-Diary_Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-diary.manage.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-diary.manage.output.schema.json" }
         },
         {
             "name": "Decision-Events.Identify",
             "description": "Identifies likely decision-making events.",
             "tags": ["approval", "denial", "no-decision"],
-            "inputSchema": { "$ref": "#/schemas/Decision-Event_Input" },
-            "outputSchema": { "$ref": "#/schemas/Decision-Event_Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-events.identify.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-events.identify.output.schema.json" }
         },
         {
             "name": "Decision-Outcome.Identify",
             "description": "Identifies the outcome of each decision-set.",
             "tags": ["approval", "denial", "no-decision"],
-            "inputSchema": { "$ref": "#/schemas/Decision-Outcome.Identify.Input" },
-            "outputSchema": { "$ref": "#/schemas/Decision-Outcome.Identify.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.identify.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.identify.output.schema.json" }
         },
         {
             "name": "Decision-Outcome.Analyze",
             "description": "Analyzes explanation of decision-set outcome based on decision factors, evidence, and applicable mandates.",
             "tags": ["approval", "denial", "no-decision"],
-            "inputSchema": { "$ref": "#/schemas/Decision-Outcome.Analyze.Input" },
-            "outputSchema": { "$ref": "#/schemas/Decision-Outcome.Analyze.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.analyze.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.analyze.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
