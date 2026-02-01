@@ -199,8 +199,8 @@
                 "url": "https://yo-ai.ai/docs/IP-Assets.Discover.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/IP-Assets.Discover.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-Assets.Discover.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-assets.discover.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-assets.discover.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -214,15 +214,15 @@
             "name": "IP-Assets.Discover.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-Assets.Discover#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-assets.discover.input.schema.json" },
+            "description": "Input schema for IP-Assets.Discover."
         },
         {
             "name": "IP-Assets.Discover.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-Assets.Discover#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-assets.discover.output.schema.json" },
+            "description": "Output schema for IP-Assets.Discover."
         },
         {
             "name": "IP-to-Products.Map",
@@ -262,8 +262,8 @@
                 "url": "https://yo-ai.ai/docs/IP-to-Products.Map.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/IP-to-Products.Map.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-to-Products.Map.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-to-products.map.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-to-products.map.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -277,15 +277,15 @@
             "name": "IP-to-Products.Map.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-to-Products.Map#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-to-products.map.input.schema.json" },
+            "description": "Input schema for IP-to-Products.Map."
         },
         {
             "name": "IP-to-Products.Map.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-to-Products.Map#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-to-products.map.output.schema.json" },
+            "description": "Output schema for IP-to-Products.Map."
         },
         {
             "name": "Implementation-Instances.Search",
@@ -325,8 +325,8 @@
                 "url": "https://yo-ai.ai/docs/Implementation-Instances.Search.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Implementation-Instances.Search.Input" },
-            "outputSchema": { "$ref": "#/schemas/Implementation-Instances.Search.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/implementation-instances.search.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/implementation-instances.search.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -340,15 +340,15 @@
             "name": "Implementation-Instances.Search.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Implementation-Instances.Search#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/implementation-instances.search.input.schema.json" },
+            "description": "Input schema for Implementation-Instances.Search."
         },
         {
             "name": "Implementation-Instances.Search.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Implementation-Instances.Search#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/implementation-instances.search.output.schema.json" },
+            "description": "Output schema for Implementation-Instances.Search."
         },
         {
             "name": "Use-Cases.Infer",
@@ -388,8 +388,8 @@
                 "url": "https://yo-ai.ai/docs/Use-Cases.Infer.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Use-Cases.Infer.Input" },
-            "outputSchema": { "$ref": "#/schemas/Use-Cases.Infer.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/use-cases.infer.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/use-cases.infer.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -403,15 +403,15 @@
             "name": "Use-Cases.Infer.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Use-Cases.Infer#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/use-cases.infer.input.schema.json" },
+            "description": "Input schema for Use-Cases.Infer."
         },
         {
             "name": "Use-Cases.Infer.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Use-Cases.Infer#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/use-cases.infer.output.schema.json" },
+            "description": "Output schema for Use-Cases.Infer."
         },
         {
             "name": "IP-Portfolio.Cluster",
@@ -451,8 +451,8 @@
                 "url": "https://yo-ai.ai/docs/IP-Portfolio.Cluster.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/IP-Portfolio.Cluster.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-Portfolio.Cluster.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-portfolio.cluster.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-portfolio.cluster.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -466,15 +466,15 @@
             "name": "IP-Portfolio.Cluster.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-Portfolio.Cluster#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-portfolio.cluster.input.schema.json" },
+            "description": "Input schema for IP-Portfolio.Cluster."
         },
         {
             "name": "IP-Portfolio.Cluster.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-Portfolio.Cluster#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-portfolio.cluster.output.schema.json" },
+            "description": "Output schema for IP-Portfolio.Cluster."
         },
         {
             "name": "IP-Report.Generate",
@@ -514,8 +514,8 @@
                 "url": "https://yo-ai.ai/docs/IP-Report.Generate.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/IP-Report.Generate.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-Report.Generate.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-report.generate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-report.generate.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -529,15 +529,15 @@
             "name": "IP-Report.Generate.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-Report.Generate#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-report.generate.input.schema.json" },
+            "description": "Input schema for IP-Report.Generate."
         },
         {
             "name": "IP-Report.Generate.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-Report.Generate#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-report.generate.output.schema.json" },
+            "description": "Output schema for IP-Report.Generate."
         },
         {
             "name": "IP-Risk.Evaluate",
@@ -577,8 +577,8 @@
                 "url": "https://yo-ai.ai/docs/IP-Risk.Evaluate.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/IP-Risk.Evaluate.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-Risk.Evaluate.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-risk.evaluate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-risk.evaluate.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -592,15 +592,15 @@
             "name": "IP-Risk.Evaluate.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-Risk.Evaluate#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-risk.evaluate.input.schema.json" },
+            "description": "Input schema for IP-Risk.Evaluate."
         },
         {
             "name": "IP-Risk.Evaluate.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-Risk.Evaluate#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-risk.evaluate.output.schema.json" },
+            "description": "Output schema for IP-Risk.Evaluate."
         },
         {
             "name": "IP-Provenance.Trace",
@@ -640,8 +640,8 @@
                 "url": "https://yo-ai.ai/docs/IP-Provenance.Trace.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/IP-Provenance.Trace.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-Provenance.Trace.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-provenance.trace.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-provenance.trace.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -656,14 +656,14 @@
             "version": "1.0.0",
             "artifactType": "messageType",
             "schema": { "$ref": "#/schemas/IP-Provenance.Trace#/definitions/Input" },
-            "description": "Input schema for ."
+            "description": "Input schema for IP-Provenance.Trace."
         },
         {
             "name": "IP-Provenance.Trace.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/IP-Provenance.Trace#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/ip-provenance.trace.input.schema.json" },
+            "description": "Output schema for IP-Provenance.Trace."
         },
         {
             "name": "Related-IP.Discover",
@@ -703,8 +703,8 @@
                 "url": "https://yo-ai.ai/docs/Related-IP.Discover.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Related-IP.Discover.Input" },
-            "outputSchema": { "$ref": "#/schemas/Related-IP.Discover.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/related-ip.discover.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/related-ip.discover.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -718,15 +718,15 @@
             "name": "Related-IP.Discover.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Related-IP.Discover#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/related-ip.discover.input.schema.json" },
+            "description": "Input schema for Related-IP.Discover."
         },
         {
             "name": "Related-IP.Discover.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Related-IP.Discover#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/related-ip.discover.output.schema.json" },
+            "description": "Output schema for Related-IP.Discover."
         }
     ],
     "supportsAuthenticatedExtendedCard": true
