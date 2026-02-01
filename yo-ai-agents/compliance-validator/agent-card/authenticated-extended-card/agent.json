@@ -99,8 +99,8 @@
                 "url": "https://yo-ai.ai/docs/Compliance-Standard.Get",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Compliance-Standard.Get.Input" },
-            "outputSchema": { "$ref": "#/schemas/Compliance-Standard.Get.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/compliance-standard.get.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/compliance-standard.get.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -114,15 +114,15 @@
             "name": "Compliance-Standard.Get.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Compliance-Standard.Get#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/compliance-standard.get.input.schema.json" },
+            "description": "Input schema for Compliance-Standard.Get capability."
         },
         {
             "name": "Compliance-Standard.Get.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Compliance-Standard.Get#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/compliance-standard.get.output.schema.json" },
+            "description": "Output schema for Compliance-Standard.Get capability."
         },
         {
             "name": "Compliance.Validate",
@@ -176,8 +176,8 @@
                 "url": "https://yo-ai.ai/docs/Compliance.Validate.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Compliance.Validate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Compliance.Validate.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/compliance.validate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/compliance.validate.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -191,15 +191,15 @@
             "name": "Compliance.Validate.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Compliance.Validate#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/compliance.validate.input.schema.json" },
+            "description": "Input schema for Compliance.Validate capability."
         },
         {
             "name": "Compliance.Validate.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Compliance.Validate#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": { "$ref": "https://yo-ai.ai/schemas/compliance.validate.output.schema.json" },
+            "description": "Output schema for Compliance.Validate capability."
         }
     ],
     "supportsAuthenticatedExtendedCard": true
