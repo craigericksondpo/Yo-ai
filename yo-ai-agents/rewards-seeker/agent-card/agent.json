@@ -38,8 +38,8 @@
             ],
             "inputModes": ["application/json"],
             "outputModes": ["application/json"],
-            "inputSchema": { "$ref": "#/schemas/Rewards.Discover.Input" },
-            "outputSchema": { "$ref": "#/schemas/Rewards.Discover.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/rewards.discover.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/rewards.discover.output.schema.json" }
         },
         {
             "name": "Promo-Eligibility.Verify",
@@ -52,8 +52,8 @@
             ],
             "inputModes": ["application/json"],
             "outputModes": ["application/json"],
-            "inputSchema": { "$ref": "#/schemas/Promo-Eligibility.Verify.Input" },
-            "outputSchema": { "$ref": "#/schemas/Promo-Eligibility.Verify.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/promo-eligibility.verify.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/promo-eligibility.verify.output.schema.json" }
         },
         {
             "name": "Reward.Redeem",
@@ -66,8 +66,8 @@
             ],
             "inputModes": ["application/json"],
             "outputModes": ["application/json"],
-            "inputSchema": { "$ref": "#/schemas/Reward.Redeem.Input" },
-            "outputSchema": { "$ref": "#/schemas/Reward.Redeem.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/reward.redeem.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/reward.redeem.output.schema.json" }
         },
         {
             "name": "Rewards-Profile.Request",
@@ -79,8 +79,8 @@
             ],
             "inputModes": ["application/json"],
             "outputModes": ["application/json"],
-            "inputSchema": { "$ref": "#/schemas/Rewards-Profile.Request.Input" },
-            "outputSchema": { "$ref": "#/schemas/Rewards-Profile.Request.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/rewards-profile.request.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/rewards-profile.request.output.schema.json" }
         },
         {
             "name": "Redemption-Plan.Generate",
@@ -92,8 +92,8 @@
                 ],
             "inputModes": ["application/json"],
             "outputModes": ["image/png", "image/jpeg", "application/json", "text/html"],
-            "inputSchema": { "$ref": "#/schemas/Redemption-Plan.Generate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Redemption-Plan.Generate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/redemption-plan.generate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/redemption-plan.generate.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
