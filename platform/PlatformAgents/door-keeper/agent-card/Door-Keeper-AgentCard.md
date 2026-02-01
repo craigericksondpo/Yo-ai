@@ -40,64 +40,64 @@
             "name": "Visitor.Identify",
             "description": "Identify platform users and activity.",
             "tags": ["decision-event", "decision-factor", "decision-outcome"],
-            "inputSchema": { "$ref": "#/schemas/Visitor.Identify.Input" },
-            "outputSchema": { "$ref": "#/schemas/Visitor.Identify.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/visitor.identify.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/visitor.identify.output.schema.json" }
         },
         {
             "name": "Agent.Register",
             "description": "Generates a RegisteredAgent card for qualified agents.",
             "tags": ["registered-agent", "denied-agent", "pending-registration"],
-            "inputSchema": { "$ref": "#/schemas/Agent.Register.Input" },
-            "outputSchema": { "$ref": "#/schemas/Agent.Register.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/agent.register.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/agent.register.output.schema.json" }
         },
         {
             "name": "Subscriber.Register",
             "description": "Generates a RegisteredSubscriber card for qualified subscribers.",
             "tags": ["decision-event", "decision-factor", "decision-outcome"],
-            "inputSchema": { "$ref": "#/schemas/Subscriber.Register.Input" },
-            "outputSchema": { "$ref": "#/schemas/Subscriber.Register.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/subscriber.register.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/subscriber.register.output.schema.json" }
         },
         {
             "name": "Agent.Authenticate",
             "description": "Authenticate agents and monitor activity.",
             "tags": ["decision-event", "decision-factor", "decision-outcome"],
-            "inputSchema": { "$ref": "#/schemas/Agent.Authenticate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Agent.Authenticate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/agent.authenticate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/agent.authenticate.output.schema.json" }
         },
         {
             "name": "Subscriber.Authenticate",
             "description": "Authenticate subscribers and monitor activity.",
             "tags": ["decision-event", "decision-factor", "decision-outcome"],
-            "inputSchema": { "$ref": "#/schemas/Subscriber.Authenticate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Subscriber.Authenticate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/subscriber.authenticate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/subscriber.authenticate.output.schema.json" }
         },
         {
             "name": "Credentials.Generate",
             "description": "Generates credentials for RegisteredAgents and RegisteredSubscribers.",
             "tags": ["RegisteredAgent", "RegisteredSubscriber", "Visitor"],
-            "inputSchema": { "$ref": "#/schemas/Credentials.Generate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Credentials.Generate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/credentials.generate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/credentials.generate.output.schema.json" }
         },
         {
             "name": "AccessRights.Manage",
             "description": "Manage access rights for RegisteredAgents and RegisteredSubscribers.",
             "tags": ["RegisteredAgent", "RegisteredSubscriber", "Visitor"],
-            "inputSchema": { "$ref": "#/schemas/AccessRights.Manage.Input" },
-            "outputSchema": { "$ref": "#/schemas/AccessRights.Manage.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/accessrights.manage.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/accessrights.manage.output.schema.json" }
         },
         {
             "name": "API.Validate",
             "description": "Validates API access and emits an ApiAccessValidated event.",
             "tags": [""],
-            "inputSchema": { "$ref": "#/schemas/API.Validate.Input" },
-            "outputSchema": { "$ref": "#/schemas/API.Validate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/api.validate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/api.validate.output.schema.json" }
         },
         {
             "name": "Trust.Assign",
             "description": "Assigns a trust tier to a visitor and emits VisitorTrustTierAssigned.",
             "tags": [""],
-            "inputSchema": { "$ref": "#/schemas/Trust.Assign.Input" },
-            "outputSchema": { "$ref": "#/schemas/Trust.Assign.Output" } 
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/trust.assign.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/trust.assign.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
