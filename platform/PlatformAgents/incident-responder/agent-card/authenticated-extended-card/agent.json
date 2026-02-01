@@ -88,8 +88,8 @@
               "backend": ""
             }
           },
-          "inputSchema": { "$ref": "#/schemas/Handle.Exception.Input" },
-          "outputSchema": { "$ref": "#/schemas/Handle.Exception.Output" },
+          "inputSchema": { "$ref": "https://yo-ai.ai/schemas/handle.exception.input.schema.json" },
+          "outputSchema": { "$ref": "https://yo-ai.ai/schemas/handle.exception.output.schema.json" },
           "auth": "apiKey"
         },
         {
@@ -103,15 +103,19 @@
           "name": "Handle.Exception.Input",
           "version": "1.0.0",
           "artifactType": "messageType",
-          "schema": { "$ref": "#/schemas/Handle.Exception#/definitions/Input" },
-          "description": "Input schema for ."
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/handle.exception.input.schema.json"
+          },
+          "description": "Input schema for the Handle.Exception capability."
         },
         {
           "name": "Handle.Exception.Output",
           "version": "1.0.0",
           "artifactType": "messageType",
-          "schema": { "$ref": "#/schemas/Handle.Exception#/definitions/Output" },
-          "description": "Output schema for ."
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/handle.exception.output.schema.json"
+          },
+          "description": "Output schema for the Handle.Exception capability."
         }
     ],
     "supportsAuthenticatedExtendedCard": true
