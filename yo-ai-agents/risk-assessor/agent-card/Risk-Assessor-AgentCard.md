@@ -53,8 +53,8 @@
         ],
         "inputModes": ["application/json", "text/plain"],
         "outputModes": ["application/json", "text/plain"],
-        "inputSchema": { "$ref": "#/schemas/Risks.Assess.Input" },
-        "outputSchema": { "$ref": "#/schemas/Risks.Assess.Output" }
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/risks.assess.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/risks.assess.output.schema.json" }
     }
   ],
   "supportsAuthenticatedExtendedCard": true
