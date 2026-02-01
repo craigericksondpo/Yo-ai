@@ -167,8 +167,8 @@
             "backend": ""
           }
         },
-        "inputSchema": { "$ref": "#/schemas/Liability.Discover.Input" },
-        "outputSchema": { "$ref": "#/schemas/Liability.Discover.Output" },
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/liability.discover.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/liability.discover.output.schema.json" },
         "auth": "apiKey"
       },
       {
@@ -182,17 +182,21 @@
         "name": "Liability.Discover.Input",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Liability.Discover#/definitions/Input" },
-        "description": "Input schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/liability.discover.input.schema.json"
+        },
+        "description": "Input schema for the Liability.Discover capability."
       },
       {
         "name": "Liability.Discover.Output",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Liability.Discover#/definitions/Output" },
-        "description": "Output schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/liability.discover.output.schema.json"
+        },
+        "description": "Output schema for the Liability.Discover capability."
       },
-      {
+     {
         "name": "Complaint.Generate",
         "version": "1.0.0",
         "artifactType": "skill",
@@ -224,8 +228,8 @@
             "backend": ""
           }
         },
-        "inputSchema": { "$ref": "#/schemas/Complaint.Generate.Input" },
-        "outputSchema": { "$ref": "#/schemas/Complaint.Generate.Output" },
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/complaint.generate.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/complaint.generate.output.schema.json" },
         "auth": "apiKey"
       },
       {
@@ -239,15 +243,19 @@
         "name": "Complaint.Generate.Input",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Complaint.Generate#/definitions/Input" },
-        "description": "Input schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/complaint.generate.input.schema.json"
+        },
+        "description": "Input schema for the Complaint.Generate capability."
       },
       {
         "name": "Complaint.Generate.Output",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Complaint.Generate#/definitions/Output" },
-        "description": "Output schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/complaint.generate.output.schema.json"
+        },
+        "description": "Output schema for the Complaint.Generate capability."
       },
       {
         "name": "Complaint.Submit",
@@ -281,8 +289,8 @@
             "backend": ""
           }
         },
-        "inputSchema": { "$ref": "#/schemas/Complaint.Submit.Input" },
-        "outputSchema": { "$ref": "#/schemas/Complaint.Submit.Output" },
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/complaint.submit.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/complaint.submit.output.schema.json" },
         "auth": "apiKey"
       },
       {
@@ -296,15 +304,19 @@
         "name": "Complaint.Submit.Input",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Complaint.Submit#/definitions/Input" },
-        "description": "Input schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/complaint.submit.input.schema.json"
+        },
+        "description": "Input schema for the Complaint.Submit capability."
       },
       {
         "name": "Complaint.Submit.Output",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Complaint.Submit#/definitions/Output" },
-        "description": "Output schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/complaint.submit.output.schema.json"
+        },
+        "description": "Output schema for the Complaint.Submit capability."
       },
       {
         "name": "Stakeholders.Get",
@@ -338,8 +350,8 @@
             "backend": ""
           }
         },
-        "inputSchema": { "$ref": "#/schemas/Stakeholders.Get.Input" },
-        "outputSchema": { "$ref": "#/schemas/Stakeholders.Get.Output" },
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/stakeholders.get.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/stakeholders.get.output.schema.json" },
         "auth": "apiKey"
       },
       {
@@ -353,15 +365,19 @@
         "name": "Stakeholders.Get.Input",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Stakeholders.Get#/definitions/Input" },
-        "description": "Input schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/stakeholders.get.input.schema.json"
+        },
+        "description": "Input schema for the Stakeholders.Get capability."
       },
       {
         "name": "Stakeholders.Get.Output",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Stakeholders.Get#/definitions/Output" },
-        "description": "Output schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/stakeholders.get.output.schema.json"
+        },
+        "description": "Output schema for the Stakeholders.Get capability."
       },
       {
         "name": "Complaint.Publish",
@@ -395,8 +411,8 @@
             "backend": ""
           }
         },
-        "inputSchema": { "$ref": "#/schemas/Complaint.Publish.Input" },
-        "outputSchema": { "$ref": "#/schemas/Complaint.Publish.Output" },
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/complaint.publish.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/complaint.publish.output.schema.json" },
         "auth": "apiKey"
       },
       {
@@ -410,15 +426,19 @@
         "name": "Complaint.Publish.Input",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Complaint.Publish#/definitions/Input" },
-        "description": "Input schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/complaint.publish.input.schema.json"
+        },
+        "description": "Input schema for the Complaint.Publish capability."
       },
       {
         "name": "Complaint.Publish.Output",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Complaint.Publish#/definitions/Output" },
-        "description": "Output schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/complaint.publish.output.schema.json"
+        },
+        "description": "Output schema for the Complaint.Publish capability."
       },
       {
         "name": "EnforcementAgency.Get",
@@ -452,8 +472,8 @@
             "backend": ""
           }
         },
-        "inputSchema": { "$ref": "#/schemas/EnforcementAgency.Get.Input" },
-        "outputSchema": { "$ref": "#/schemas/EnforcementAgency.Get.Output" },
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/enforcementagency.get.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/enforcementagency.get.output.schema.json" },
         "auth": "apiKey"
       },
       {
@@ -467,15 +487,19 @@
         "name": "EnforcementAgency.Get.Input",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/EnforcementAgency.Get#/definitions/Input" },
-        "description": "Input schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/enforcementagency.get.input.schema.json"
+        },
+        "description": "Input schema for the EnforcementAgency.Get capability."
       },
       {
         "name": "EnforcementAgency.Get.Output",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/EnforcementAgency.Get#/definitions/Output" },
-        "description": "Output schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/enforcementagency.get.output.schema.json"
+        },
+        "description": "Output schema for the EnforcementAgency.Get capability."
       },
       {
         "name": "Stakeholder.Notify",
@@ -509,8 +533,8 @@
             "backend": ""
           }
         },
-        "inputSchema": { "$ref": "#/schemas/Stakeholder.Notify.Input" },
-        "outputSchema": { "$ref": "#/schemas/Stakeholder.Notify.Output" },
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/stakeholder.notify.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/stakeholder.notify.output.schema.json" },
         "auth": "apiKey"
       },
       {
@@ -524,16 +548,20 @@
         "name": "Stakeholder.Notify.Input",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Stakeholder.Notify#/definitions/Input" },
-        "description": "Input schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/stakeholder.notify.input.schema.json"
+        },
+        "description": "Input schema for the Stakeholder.Notify capability."
       },
       {
         "name": "Stakeholder.Notify.Output",
         "version": "1.0.0",
         "artifactType": "messageType",
-        "schema": { "$ref": "#/schemas/Stakeholder.Notify#/definitions/Output" },
-        "description": "Output schema for ."
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/stakeholder.notify.output.schema.json"
+        },
+        "description": "Output schema for the Stakeholder.Notify capability."
       }
-  ],
-  "supportsAuthenticatedExtendedCard": true
+    ],
+    "supportsAuthenticatedExtendedCard": true
 }
