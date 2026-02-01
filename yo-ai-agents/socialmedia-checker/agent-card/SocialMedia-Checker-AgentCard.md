@@ -47,8 +47,8 @@
         ],
         "inputModes": ["application/json"],
         "outputModes": ["application/json"],
-        "inputSchema": { "$ref": "#/schemas/Promotional-Engagement.Verify.Input" },
-        "outputSchema": { "$ref": "#/schemas/Promotional-Engagement.Verify.Output" }
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/promotional-engagement.verify.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/promotional-engagement.verify.output.schema.json" }
     },
     {
         "name": "Misappropriation.Detect",
@@ -61,8 +61,8 @@
         ],
         "inputModes": ["application/json"],
         "outputModes": ["application/json"],
-        "inputSchema": { "$ref": "#/schemas/Misappropriation.Detect.Input" },
-        "outputSchema": { "$ref": "#/schemas/Misappropriation.Detect.Output" }
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/misappropriation.detect.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/misappropriation.detect.output.schema.json" }
     },
     {
         "name": "Evidence.Collect",
@@ -75,8 +75,8 @@
         ],
         "inputModes": ["application/json"],
         "outputModes": ["application/json"],
-        "inputSchema": { "$ref": "#/schemas/Evidence.Collect.Input" },
-        "outputSchema": { "$ref": "#/schemas/Evidence.Collect.Output" }
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/evidence.collect.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/evidence.collect.output.schema.json" }
     }
   ],
   "supportsAuthenticatedExtendedCard": true
