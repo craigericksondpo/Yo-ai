@@ -46,8 +46,8 @@
                 "List all patents held by Company X",
                 "What trademarks does this brand own"
             ],
-            "inputSchema": { "$ref": "#/schemas/IP-Assets.Discover.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-Assets.Discover.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-assets.discover.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-assets.discover.output.schema.json" }
         },
         {
             "name": "IP-to-Products.Map",
@@ -59,8 +59,8 @@
                 "Which products use Patent US-XXXXXXX",
                 "What patents does this proprietary service rely on"
             ],
-            "inputSchema": { "$ref": "#/schemas/IP-to-Products.Map.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-to-Products.Map.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-to-products.map.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-to-products.map.output.schema.json" }
         },
         {
             "name": "Implementation-Instances.Search",
@@ -72,8 +72,8 @@
                 "Where is this patented method implemented",
                 "Find instances of this algorithm in the vendor’s ecosystem"
             ],
-            "inputSchema": { "$ref": "#/schemas/Implementation-Instances.Search.Input" },
-            "outputSchema": { "$ref": "#/schemas/Implementation-Instances.Search.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/implementation-instances.search.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/implementation-instances.search.output.schema.json" }
         },
         {
         "name": "Use-Cases.Infer",
@@ -85,8 +85,8 @@
             "What could this patent be used for",
             "Infer use cases for this portfolio"
         ],
-        "inputSchema": { "$ref": "#/schemas/Use-Cases.Infer.Input" },
-        "outputSchema": { "$ref": "#/schemas/Use-Cases.Infer.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/use-cases.infer.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/use-cases.infer.output.schema.json" }
         },
         {
             "name": "IP-Portfolio.Cluster",
@@ -98,8 +98,8 @@
                 "Cluster this company’s patents into technology areas",
                 "Group trademarks by product line"
             ],
-            "inputSchema": { "$ref": "#/schemas/IP-Portfolio.Cluster.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-Portfolio.Cluster.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-portfolio.cluster.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-portfolio.cluster.output.schema.json" }
         },
         {
             "name": "IP-Report.Generate",
@@ -111,8 +111,8 @@
                 "Create an IP summary for Company X",
                 "Generate a report of patents used in proprietary services"
             ],
-            "inputSchema": { "$ref": "#/schemas/IP-Report.Generate.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-Report.Generate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-report.generate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-report.generate.output.schema.json" }
         },
         {
             "name": "IP-Risk.Evaluate",
@@ -124,8 +124,8 @@
                 "What risks arise from using this patented method",
                 "Evaluate licensing obligations for this portfolio"
             ],
-            "inputSchema": { "$ref": "#/schemas/IP-Risk.Evaluate.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-Risk.Evaluate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-risk.evaluate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-risk.evaluate.output.schema.json" }
         },
         {
             "name": "IP-Provenance.Trace",
@@ -137,8 +137,8 @@
                 "Who originally owned this patent",
                 "Trace ownership changes for this portfolio"
             ],
-            "inputSchema": { "$ref": "#/schemas/IP-Provenance.Trace.Input" },
-            "outputSchema": { "$ref": "#/schemas/IP-Provenance.Trace.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-provenance.trace.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/ip-provenance.trace.output.schema.json" }
         },
         {
             "name": "Related-IP.Discover",
@@ -150,8 +150,8 @@
                 "Find patents similar to US-XXXXXXX",
                 "Identify competing IP in this domain"
             ],
-            "inputSchema": { "$ref": "#/schemas/Related-IP.Discover.Input" },
-            "outputSchema": { "$ref": "#/schemas/Related-IP.Discover.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/related-ip.discover.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/related-ip.discover.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
