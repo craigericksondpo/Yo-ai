@@ -48,8 +48,8 @@
             ],
             "inputModes": ["application/json", "text/plain"],
             "outputModes": ["application/json", "text/plain"],
-            "inputSchema": { "$ref": "#/schemas/Compliance-Standard.Get.Input" },
-            "outputSchema": { "$ref": "#/schemas/Compliance-Standard.Get.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/compliance-standard.get.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/compliance-standard.get.output.schema.json" }
         },
         {
             "name": "Compliance.Validate",
@@ -68,8 +68,8 @@
             ],
             "inputModes": ["application/json", "text/plain"],
             "outputModes": ["application/json", "text/plain"],
-            "inputSchema": { "$ref": "#/schemas/Compliance.Validate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Compliance.Validate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/compliance.validate.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/compliance.validate.output.schema.json" }
         }
     ],
     "supportsAuthenticatedExtendedCard": true
