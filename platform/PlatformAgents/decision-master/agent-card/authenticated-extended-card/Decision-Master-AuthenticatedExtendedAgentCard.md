@@ -36,7 +36,9 @@
       "in": "header"
     }
   },
-  "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+  "security": [
+    { "yo-ai": ["apiKey", "yo-api", "header"] }
+  ],
   "defaultInputModes": ["application/json", "text/plain"],
   "defaultOutputModes": ["application/json", "text/plain"],
   "skills": [
@@ -47,54 +49,54 @@
   ],
   "x-capabilities": [
     {
-        "Decision-Diary.Manage": {
-            "artifacts": [
-                {"artifact": {"type": "skill", "name": "Decision-Diary.Manage"}},
-                {"artifact": {"type": "task", "name": "Decision-Diary.Manage"}},
-                {"artifact": {"type": "tool", "name": "publish.decision-diary-event"}},
-                {"artifact": {"type": "handler", "name": "Decision-Diary.Manage"}},
-                {"artifact": {"type": "messageType", "name": "Decision-Diary.Manage.Input"}},
-                {"artifact": {"type": "messageType", "name": "Decision-Diary.Manage.Output"}}
-            ]
-        }
+      "Decision-Diary.Manage": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Decision-Diary.Manage"}},
+          {"artifact": {"type": "task", "name": "Decision-Diary.Manage"}},
+          {"artifact": {"type": "tool", "name": "publish.decision-diary-event"}},
+          {"artifact": {"type": "handler", "name": "Decision-Diary.Manage"}},
+          {"artifact": {"type": "messageType", "name": "Decision-Diary.Manage.Input"}},
+          {"artifact": {"type": "messageType", "name": "Decision-Diary.Manage.Output"}}
+        ]
+      }
     },
     {
-        "Decision-Events.Identify": {
-            "artifacts": [
-                {"artifact": {"type": "skill", "name": "Decision-Events.Identify"}},
-                {"artifact": {"type": "task", "name": "Decision-Events.Identify"}},
-                {"artifact": {"type": "tool", "name": "Decision-Events.Identify"}},
-                {"artifact": {"type": "handler", "name": "Decision-Events.Identify"}},
-                {"artifact": {"type": "messageType", "name": "Decision-Events.Identify.Input"}},
-                {"artifact": {"type": "messageType", "name": "Decision-Events.Identify.Output"}}
-            ]
-        }
+      "Decision-Events.Identify": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Decision-Events.Identify"}},
+          {"artifact": {"type": "task", "name": "Decision-Events.Identify"}},
+          {"artifact": {"type": "tool", "name": "Decision-Events.Identify"}},
+          {"artifact": {"type": "handler", "name": "Decision-Events.Identify"}},
+          {"artifact": {"type": "messageType", "name": "Decision-Events.Identify.Input"}},
+          {"artifact": {"type": "messageType", "name": "Decision-Events.Identify.Output"}}
+        ]
+      }
     },
     {
-        "Decision-Outcome.Identify": {
-            "artifacts": [
-                {"artifact": {"type": "skill", "name": "Decision-Outcome.Identify"}},
-                {"artifact": {"type": "task", "name": "Decision-Outcome.Identify"}},
-                {"artifact": {"type": "tool", "name": "Decision-Outcome.Identify"}},
-                {"artifact": {"type": "handler", "name": "Decision-Outcome.Identify"}},
-                {"artifact": {"type": "messageType", "name": "Decision-Outcome.Identify.Input"}},
-                {"artifact": {"type": "messageType", "name": "Decision-Outcome.Identify.Output"}}
-            ]
-        }
+      "Decision-Outcome.Identify": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Decision-Outcome.Identify"}},
+          {"artifact": {"type": "task", "name": "Decision-Outcome.Identify"}},
+          {"artifact": {"type": "tool", "name": "Decision-Outcome.Identify"}},
+          {"artifact": {"type": "handler", "name": "Decision-Outcome.Identify"}},
+          {"artifact": {"type": "messageType", "name": "Decision-Outcome.Identify.Input"}},
+          {"artifact": {"type": "messageType", "name": "Decision-Outcome.Identify.Output"}}
+        ]
+      }
     },
-   {
-        "Decision-Outcome.Analyze": {
-            "artifacts": [
-                {"artifact": {"type": "skill", "name": "Decision-Outcome.Analyze"}},
-                {"artifact": {"type": "task", "name": "Decision-Outcome.Analyze"}},
-                {"artifact": {"type": "tool", "name": "Decision-Outcome.Analyze"}},
-                {"artifact": {"type": "handler", "name": "Decision-Outcome.Analyze"}},
-                {"artifact": {"type": "messageType", "name": "Decision-Outcome.Analyze.Input"}},
-                {"artifact": {"type": "messageType", "name": "Decision-Outcome.Analyze.Output"}}
-            ]
-        }
+    {
+      "Decision-Outcome.Analyze": {
+        "artifacts": [
+          {"artifact": {"type": "skill", "name": "Decision-Outcome.Analyze"}},
+          {"artifact": {"type": "task", "name": "Decision-Outcome.Analyze"}},
+          {"artifact": {"type": "tool", "name": "Decision-Outcome.Analyze"}},
+          {"artifact": {"type": "handler", "name": "Decision-Outcome.Analyze"}},
+          {"artifact": {"type": "messageType", "name": "Decision-Outcome.Analyze.Input"}},
+          {"artifact": {"type": "messageType", "name": "Decision-Outcome.Analyze.Output"}}
+        ]
+      }
     }
-  ],   
+  ],
   "x-artifacts": [
     {
       "name": "Decision-Diary.Manage",
@@ -126,8 +128,8 @@
           "backend": "KafkaPublisher"
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Decision-Diary_Input" },
-      "outputSchema": { "$ref": "#/schemas/Decision-Diary_Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-diary.manage.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-diary.manage.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -137,18 +139,19 @@
       "description": "Interface for integrating with tool executable.",
       "path": "/publish.decision-diary-event.py"
     },
+
     {
       "name": "Decision-Diary.Manage.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Decision-Diary.Manage#/definitions/Input" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/decision-diary.manage.input.schema.json" },
       "description": "Input schema for managing decision-sets."
     },
     {
       "name": "Decision-Diary.Manage.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/AgentAuthenticate#/definitions/Output" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/decision-diary.manage.output.schema.json" },
       "description": "Output schema for managing decision-sets."
     },
     {
@@ -190,8 +193,8 @@
           "backend": "KafkaPublisher"
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Decision-Event_Input" },
-      "outputSchema": { "$ref": "#/schemas/Decision-Event_Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-events.identify.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-events.identify.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -205,14 +208,14 @@
       "name": "Decision-Events.Identify.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Decision-Events.Identify#/definitions/Input" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/decision-events.identify.input.schema.json" },
       "description": "Input schema for managing decision-events."
     },
     {
       "name": "Decision-Events.Identify.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Decision-Events.Identify#/definitions/Output" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/decision-events.identify.output.schema.json" },
       "description": "Output schema for managing decision-events."
     },
     {
@@ -247,8 +250,8 @@
           "backend": ""
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Decision-Outcome.Identify.Input" },
-      "outputSchema": { "$ref": "#/schemas/Decision-Outcome.Identify.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.identify.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.identify.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -262,7 +265,7 @@
       "name": "Decision-Outcome.Identify.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Decision-Outcome.Identify#/definitions/Input" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.identify.input.schema.json" },
       "description": "Input schema for getting the outcome of each decision-set.",
       "tags": ["approval", "denial", "no-decision"]
     },
@@ -270,7 +273,7 @@
       "name": "Decision-Outcome.Identify.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Decision-Outcome.Identify#/definitions/Output" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.identify.output.schema.json" },
       "description": "Output schema for getting the outcome of each decision-set."
     },
     {
@@ -305,8 +308,8 @@
           "backend": ""
         }
       },
-      "inputSchema": { "$ref": "#/schemas/Decision-Outcome.Analyze.Input" },
-      "outputSchema": { "$ref": "#/schemas/Decision-Outcome.Analyze.Output" },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.analyze.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.analyze.output.schema.json" },
       "auth": "apiKey"
     },
     {
@@ -320,16 +323,16 @@
       "name": "Decision-Outcome.Analyze.Input",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Decision-Outcome.Analyze#/definitions/Input" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.analyze.input.schema.json" },
       "description": "Input schema for decision-set to analyze."
     },
     {
       "name": "Decision-Outcome.Analyze.Output",
       "version": "1.0.0",
       "artifactType": "messageType",
-      "schema": { "$ref": "#/schemas/Decision-Outcome.Analyze#/definitions/Output" },
+      "schema": { "$ref": "https://yo-ai.ai/schemas/decision-outcome.analyze.output.schema.json" },
       "description": "Output schema for analysis of decision-set."
     }
-],
- "supportsAuthenticatedExtendedCard": true
+  ],
+  "supportsAuthenticatedExtendedCard": true
 }
