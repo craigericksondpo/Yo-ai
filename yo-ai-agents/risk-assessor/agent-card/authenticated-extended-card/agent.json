@@ -46,83 +46,91 @@
         }
     ],
     "x-artifacts": [
-        {
-            "name": "Risks.Assess",
-            "version": "1.0.0",
-            "artifactType": "skill",
-            "description": "Conducts a structured risk assessment for a given organization using specified standards, evidence sources, and assessment models.",
-            "tags": [
-                "riskAssessment",
-                "fraudDetection",
-                "complianceSupport",
-                "bulkOperations",
-                "orgAnalysis"
-            ],
-            "examples": [
-                "Assess risk of ACME Corp using NIST AI RMF",
-                "Evaluate fraud indicators for vendor:123",
-                "Perform bulk risk assessment for all cloud providers"
-            ]
+      {
+        "name": "Risks.Assess",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Conducts structured, provenance-aware risk assessments using specified standards, evidence sources, and assessment models.",
+        "tags": [
+          "riskAssessment",
+          "fraudDetection",
+          "complianceSupport",
+          "bulkOperations",
+          "orgAnalysis"
+        ],
+        "examples": [
+          "Assess risk of ACME Corp using NIST AI RMF",
+          "Evaluate fraud indicators for vendor:123",
+          "Perform bulk risk assessment for all cloud providers"
+        ]
+      },
+      {
+        "name": "Risks.Assess",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Conducts structured, provenance-aware risk assessments using specified standards, evidence sources, and assessment models.",
+        "tags": [
+          "riskAssessment",
+          "fraudDetection",
+          "complianceSupport",
+          "bulkOperations",
+          "orgAnalysis"
+        ],
+        "examples": [
+          "Assess risk of ACME Corp using NIST AI RMF",
+          "Evaluate fraud indicators for vendor:123",
+          "Perform bulk risk assessment for all cloud providers"
+        ]
+      },
+      {
+        "name": "Risks.Assess",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Conducts structured, provenance-aware risk assessments using specified standards, evidence sources, and assessment models.",
+        "capabilities": ["assess"],
+        "path": "/",
+        "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Risks.Assess.html",
+          "config": { "backend": "" }
         },
-        {
-            "name": "Risks.Assess",
-            "version": "1.0.0",
-            "artifactType": "task",
-            "description": "Conducts a structured risk assessment for a given organization using specified standards, evidence sources, and assessment models.",
-            "tags": [
-                "riskAssessment",
-                "fraudDetection",
-                "complianceSupport",
-                "bulkOperations",
-                "orgAnalysis"
-            ],
-            "examples": [
-                "Assess risk of ACME Corp using NIST AI RMF",
-                "Evaluate fraud indicators for vendor:123",
-                "Perform bulk risk assessment for all cloud providers"
-            ]
+        "inputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/risks.assess.input.schema.json"
         },
-        {
-            "name": "Risks.Assess",
-            "version": "1.0.0",
-            "artifactType": "tool",
-            "description": "Conducts a structured risk assessment for a given organization using specified standards, evidence sources, and assessment models.",
-            "capabilities": ["assess"],
-            "path": "/",
-            "provider": {
-                "name": "PrivacyPortfolio",
-                "brand": "Yo-ai",
-                "product": "",
-                "version": "1.0.0",
-                "license": "Yo-ai Internal",
-                "url": "https://yo-ai.ai/docs/Risks.Assess.html.",
-                "config": {"backend": ""}
-            },
-            "inputSchema": { "$ref": "#/schemas/Risks.Assess.Input" },
-            "outputSchema": { "$ref": "#/schemas/Risks.Assess.Output" },
-            "auth": "apiKey"
+        "outputSchema": {
+          "$ref": "https://yo-ai.ai/schemas/risks.assess.output.schema.json"
         },
-        {
-            "name": "Risks.Assess",
-            "version": "1.0.0",
-            "artifactType": "handler",
-            "description": "Interface for integrating with tool executable.",
-            "path": "/"
+        "auth": "apiKey"
+      },
+      {
+        "name": "Risks.Assess",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Interface for integrating with tool executable.",
+        "path": "/"
+      },
+      {
+        "name": "Risks.Assess.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/risks.assess.input.schema.json"
         },
-        {
-            "name": "Risks.Assess.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Risks.Assess#/definitions/Input" },
-            "description": "Input schema for ."
+        "description": "Input schema for the Risks.Assess capability."
+      },
+      {
+        "name": "Risks.Assess.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/risks.assess.output.schema.json"
         },
-        {
-            "name": "Risks.Assess.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Risks.Assess#/definitions/Output" },
-            "description": "Output schema for ."
-        }
+        "description": "Output schema for the Risks.Assess capability."
+      }
     ],
     "supportsAuthenticatedExtendedCard": true
 }
