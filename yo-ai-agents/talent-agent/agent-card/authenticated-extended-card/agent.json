@@ -127,8 +127,8 @@
                 "url": "https://yo-ai.ai/docs/Job-Postings.Scan.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Job-Postings.Scan.Input" },
-            "outputSchema": { "$ref": "#/schemas/Job-Postings.Scan.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/job-postings.scan.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/job-postings.scan.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -139,18 +139,22 @@
             "path": "/"
         },
         {
-            "name": "Job-Postings.Scan.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Job-Postings.Scan#/definitions/Input" },
-            "description": "Input schema for ."
+          "name": "Job-Postings.Scan.Input",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/job-postings.scan.input.schema.json"
+          },
+          "description": "Input schema for the Job-Postings.Scan capability."
         },
         {
-            "name": "Job-Postings.Scan.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Job-Postings.Scan#/definitions/Output" },
-            "description": "Output schema for ."
+          "name": "Job-Postings.Scan.Output",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/job-postings.scan.output.schema.json"
+          },
+          "description": "Output schema for the Job-Postings.Scan capability."
         },
         {
             "name": "Consulting-Services.Pitch",
@@ -192,8 +196,8 @@
                 "url": "https://yo-ai.ai/docs/Consulting-Services.Pitch.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Consulting-Services.Pitch.Input" },
-            "outputSchema": { "$ref": "#/schemas/Consulting-Services.Pitch.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/consulting-services.pitch.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/consulting-services.pitch.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -204,18 +208,22 @@
             "path": "/"
         },
         {
-            "name": "Consulting-Services.Pitch.Input",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Consulting-Services.Pitch#/definitions/Input" },
-            "description": "Input schema for ."
+          "name": "Consulting-Services.Pitch.Input",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/consulting-services.pitch.input.schema.json"
+          },
+          "description": "Input schema for the Consulting-Services.Pitch capability."
         },
         {
-            "name": "Consulting-Services.Pitch.Output",
-            "version": "1.0.0",
-            "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Consulting-Services.Pitch#/definitions/Output" },
-            "description": "Output schema for ."
+          "name": "Consulting-Services.Pitch.Output",
+          "version": "1.0.0",
+          "artifactType": "messageType",
+          "schema": {
+            "$ref": "https://yo-ai.ai/schemas/consulting-services.pitch.output.schema.json"
+          },
+          "description": "Output schema for the Consulting-Services.Pitch capability."
         },
         {
             "name": "Application.Submit",
@@ -257,8 +265,8 @@
                 "url": "https://yo-ai.ai/docs/Application.Submit.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Application.Submit.Input" },
-            "outputSchema": { "$ref": "#/schemas/Application.Submit.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/application.submit.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/application.submit.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -272,15 +280,19 @@
             "name": "Application.Submit.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Application.Submit#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": {
+              "$ref": "https://yo-ai.ai/schemas/application.submit.input.schema.json"
+            },
+            "description": "Input schema for the Application.Submit capability."
         },
         {
             "name": "Application.Submit.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Application.Submit#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": {
+              "$ref": "https://yo-ai.ai/schemas/application.submit.output.schema.json"
+            },
+            "description": "Output schema for the Application.Submit capability."
         },
         {
             "name": "Talent-Profile.Request",
@@ -320,8 +332,8 @@
                 "url": "https://yo-ai.ai/docs/Talent-Profile.Request.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Talent-Profile.Request.Input" },
-            "outputSchema": { "$ref": "#/schemas/Talent-Profile.Request.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/talent-profile.request.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/talent-profile.request.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -335,15 +347,19 @@
             "name": "Talent-Profile.Request.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Talent-Profile.Request#/definitions/Input" },
-            "description": "Input schema for ."
+            "schema": {
+              "$ref": "https://yo-ai.ai/schemas/talent-profile.request.input.schema.json"
+            },
+            "description": "Input schema for the Talent-Profile.Request capability."
         },
         {
             "name": "Talent-Profile.Request.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Talent-Profile.Request#/definitions/Output" },
-            "description": "Output schema for ."
+            "schema": {
+              "$ref": "https://yo-ai.ai/schemas/talent-profile.request.output.schema.json"
+            },
+            "description": "Output schema for the Talent-Profile.Request capability."
         }
     ],
     "supportsAuthenticatedExtendedCard": true
