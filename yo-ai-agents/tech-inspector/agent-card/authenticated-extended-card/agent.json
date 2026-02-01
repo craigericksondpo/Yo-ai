@@ -705,8 +705,8 @@
                 "url": "https://yo-ai.ai/docs/Related-Assets.Detect.html",
                 "config": {"backend": ""}
             },
-            "inputSchema": { "$ref": "#/schemas/Related-Assets.Detect.Input" },
-            "outputSchema": { "$ref": "#/schemas/Related-Assets.Detect.Output" },
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/related-assets.detect.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/related-assets.detect.output.schema.json" },
             "auth": "apiKey"
         },
         {
@@ -720,14 +720,14 @@
             "name": "Related-Assets.Detect.Input",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Related-Assets.Detect#/definitions/Input" },
+            "schema": { "$ref": "https://yo-ai.ai/schemas/related-assets.detect.input.schema.json" },
             "description": "Input schema for Related-Assets.Detect."
         },
         {
             "name": "Related-Assets.Detect.Output",
             "version": "1.0.0",
             "artifactType": "messageType",
-            "schema": { "$ref": "#/schemas/Related-Assets.Detect#/definitions/Output" },
+            "schema": { "$ref": "https://yo-ai.ai/schemas/related-assets.detect.output.schema.json" },
             "description": "Output schema for Related-Assets.Detect."
         },
         {
