@@ -1,9 +1,0 @@
-{
-  "$id": "https://privacyportfolio.com/schemas/messages/Org-Profile.Manage.Output.json",
-  "type": "object",
-  "properties": {
-    "status": { "type": "string" },
-    "result": { "type": "object" }
-  },
-  "required": ["status"]
-}
