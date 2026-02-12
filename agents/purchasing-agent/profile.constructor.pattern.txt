@@ -1,0 +1,112 @@
+Envelope contract for all capability Lambdas
+
+Think of this as the platform envelope that wraps every capability Input schema. Your Lambda never sees “just” Data-Request.Govern.Input; it always sees that plus caller/subject/profile context.
+At the HTTP/API Gateway level you still expose the pure capability schema, but inside the Lambda you normalize into something like:
+from typing import TypedDict, Literal, Optional, Dict, Any
+
+
+class PrincipalRef(TypedDict):
+    kind: Literal["agent", "human", "service"]
+    id: str              # e.g. "talent-agent/instance-123", "user:abc"
+    tenant: Optional[str]
+
+
+class ProfileRef(TypedDict):
+    kind: Literal["personal", "org", "loyalty", "shopping"]
+    id: str              # e.g. "person:abc", "org:acme"
+    version: Optional[str]
+
+
+class Envelope(TypedDict):
+    caller: PrincipalRef          # who is invoking this capability
+    subject: Optional[PrincipalRef]   # who this work is about (person/org)
+    profile: Optional[ProfileRef]     # which profile resource to bind to
+    capability: str               # e.g. "Data-Request.Govern"
+    agent_type: str               # e.g. "data-steward"
+    raw_input: Dict[str, Any]     # JSON body as received
+    request_id: str               # for tracing
+    context: Dict[str, Any]       # extra headers, auth claims, etc.
+Your Lambda entrypoint does:
+1.	Parse API Gateway event.
+2.	Build this Envelope.
+3.	Pass Envelope into a shared constructor that returns an AgentContext + typed Input.
+________________________________________
+2. The shared “constructor” pattern
+In your Python runtime, you define something like:
+class AgentContext(TypedDict):
+    caller: PrincipalRef
+    subject: Optional[PrincipalRef]
+    profile: Optional[ProfileRef]
+    profile_data: Optional[Dict[str, Any]]  # loaded from ResourceRepository
+    request_id: str
+    agent_type: str
+    capability: str
+
+
+def build_context(envelope: Envelope) -> AgentContext:
+    caller = envelope["caller"]
+    subject = envelope.get("subject")
+    profile_ref = envelope.get("profile")
+
+    # Authorization: is caller allowed to act on subject/profile?
+    authorize(caller=caller, subject=subject, profile=profile_ref)
+
+    profile_data = None
+    if profile_ref is not None:
+        profile_data = load_profile(profile_ref)
+
+    return {
+        "caller": caller,
+        "subject": subject,
+        "profile": profile_ref,
+        "profile_data": profile_data,
+        "request_id": envelope["request_id"],
+        "agent_type": envelope["agent_type"],
+        "capability": envelope["capability"],
+    }
+Then each capability handler gets:
+•	ctx: AgentContext
+•	input: <CapabilityInput>
+
+
+Purchasing Agent (worker for multiple Data-Steward subjects)
+For Purchasing Agent, caller and subject are primary, profile may be optional or derived 
+(e.g., a shopping preferences profile).
+
+Envelope:
+{
+  "caller": { "kind": "agent", "id": "rewards-seeker/xyz" },
+  "subject": { "kind": "human", "id": "subject:abc" },
+  "profile": { "kind": "shopping", "id": "person:abc" },  // optional
+  "agent_type": "purchasing-agent",
+  "capability": "Cart.Checkout",
+  "raw_input": {
+    "cartItems": [...],
+    "paymentHint": "...",
+    "context": { ... }
+  }
+}
+
+Constructor behavior:
+•	authorize: caller → subject (is this worker allowed to act for this subject?)
+•	profile: optional; if missing, build_context can derive a default shopping profile from subject
+•	ctx.profile_data is “shopping preferences / payment / shipping profile,” not the core PersonalProfile
+
+Handler:
+def handle_cart_checkout(ctx: AgentContext, inp: CartCheckoutInput) -> CartCheckoutOutput:
+    subject = ctx["subject"]
+    shopping_profile = ctx["profile_data"]  # ShoppingProfile or None
+    caller = ctx["caller"]  # e.g. rewards-seeker
+
+    # use caller + subject + shopping_profile to decide how to shop
+
+Explainer:
+•	Data Steward: profile is the core resource; caller is a delegator.
+•	Purchasing Agent: subject is the core actor; profile is a helper; caller is often another worker.
+Same constructor, different policy and expectations per agent_type.
+
+Constructor behavior:
+•	authorize: caller → subject/profile
+•	load_profile: profile://personal/person:abc
+•	ctx.profile_data becomes the PersonalProfile resource
+•	capability logic uses ctx.profile_data to decide what’s allowed
