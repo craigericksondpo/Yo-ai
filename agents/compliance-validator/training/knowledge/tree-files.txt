@@ -1,0 +1,82 @@
+Folder PATH listing for volume Windows
+Volume serial number is DB6F-D6AA
+C:.
+¦   1741646720307.jpg
+¦   CoPilot-url and date of ORG’s AI Policy.csv
+¦   CoPilot-url and date of ORG’s AI Policy.xlsx
+¦   FREE Security Awareness Program Assessment _ Human Risk.htm
+¦   guide-to-the-general-data-protection-regulation-gdpr-1-0.pdf
+¦   ico-draft-journalism-code-supporting-reference-notes-21092022.pdf
+¦   My Responsible AI Program (2).docx
+¦   My Responsible AI Program.docx
+¦   Responsible AI Policy for PrivacyPortfolio.docx
+¦   tree-files.txt
+¦   
++---DROP
+¦   ¦   Apply to Test the DROP API [Closes September 22nd].htm
+¦   ¦   data_broker_reg_delete_act_statute.pdf
+¦   ¦   data_broker_reg_fee.pdf
+¦   ¦   
+¦   +---Apply to Test the DROP API [Closes September 22nd]_files
+¦           dll-dompurify.min.ea88d58.js
+¦           light-response-page.min.8c1c8ba.js
+¦           ls-response.en-us.c671b6739.js
+¦           microsoft365logo_v1.png
+¦           
++---Everyone's Guide to the CCPA
+¦   +---Everyone's Guide to the CCPA
+¦       ¦   1-CybersecurityAudit-CCPA-Regs-to-NIST-53r5-to-PF-mappings.xlsx
+¦       ¦   Access-Requests.csv
+¦       ¦   ADMT.csv
+¦       ¦   ADMT.xlsx
+¦       ¦   AI-TRANSPARENCY.csv
+¦       ¦   Correct-Requests.csv
+¦       ¦   Cyber12-CCPA-Regs-to-SP800-53r5-to-pf-mappings.xlsx
+¦       ¦   CYBERSECURITY-AUDITS.csv
+¦       ¦   CybersecurityAudit-CCPA-Regs-to-NIST-53r5-to-PF-mappings.xlsx
+¦       ¦   Delete-Requests.csv
+¦       ¦   Enforcement.csv
+¦       ¦   Everyone's Guide to the CCPA.xlsx
+¦       ¦   Know-Requests.csv
+¦       ¦   Limit-Requests.csv
+¦       ¦   my10-CCPA_Mandatory_Cybersecurity_Audit-v1.xlsx
+¦       ¦   my6-CCPA_Mandatory_Cybersecurity_Audit-v1.xlsx
+¦       ¦   my7-CCPA_Mandatory_Cybersecurity_Audit-v1.xlsx
+¦       ¦   my8-CCPA_Mandatory_Cybersecurity_Audit-v1.xlsx
+¦       ¦   my9-CCPA_Mandatory_Cybersecurity_Audit-v1.xlsx
+¦       ¦   NIST-Reference.csv
+¦       ¦   NIST_SP-800-53_rev5_catalog.xml
+¦       ¦   Opt-out-Requests.csv
+¦       ¦   Restrictions.csv
+¦       ¦   RISK-ASSESSMENTS.csv
+¦       ¦   TEST-CASES.csv
+¦       ¦   Third-Parties.csv
+¦       ¦   Verification.csv
+¦       ¦   
+¦       +---ZapierTable4CCPAGuide
+¦               ADMT.csv
+¦               AI-TRANSPARENCY.csv
+¦               Correct-Requests.csv
+¦               CYBERSECURITY-AUDITS.csv
+¦               Delete-Requests.csv
+¦               Enforcement.csv
+¦               Know-Requests.csv
+¦               Limit-Requests.csv
+¦               NIST-Reference.csv
+¦               Restrictions.csv
+¦               TEST-CASES.csv
+¦               Third-Parties.csv
+¦               Verification.csv
+¦               
++---FREE Security Awareness Program Assessment _ Human Risk_files
+    ¦   a.htm
+    ¦   human-risk-consulting-update.webflow.shared.e6f689e4f.css
+    ¦   jquery-3.5.1.min.dc5e7f18c8.js
+    ¦   webflow.9189a0af.d55c9a334660b0ab.js
+    ¦   webflow.schunk.1368996f2a9f5017.js
+    ¦   webflow.schunk.36b8fb49256177c8.js
+    ¦   
+    +---a_data
+            index-DTb4XXLN.js
+            index-DWA6ZLEx.css
+            
