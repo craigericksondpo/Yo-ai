@@ -1,0 +1,9 @@
+Document which agents are allowed to interact with this Yo-ai Agent, 
+and which resources must be shared for each permitted operation.
+
+Agent			        Traffic Direction		  Operation			            Resource
+-------------			-----------------	  -------------------------	---------------------------
+Incident-Responder	Inbound/Outbound	issue-alert-wf.yaml		    kafka / Cloudwatch
+Decision-Master		Inbound/Outbound	approval-wf.yaml  		      decision-diary
+Decision-Master		Inbound/Outbound	denial-wf.yaml			        decision-diary
+Risk-Assessor		  Inbound			      imminent-risk-wf.yaml       kafka / Cloudwatch
