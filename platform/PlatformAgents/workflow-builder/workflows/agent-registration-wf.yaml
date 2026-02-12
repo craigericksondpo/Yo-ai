@@ -1,7 +1,0 @@
-🔐 Suggested Workflow
-1.	Agent submits registration payload to your registry endpoint.
-2.	Registry validates identity, public key, and declared capabilities.
-3.	Authentication method is negotiated (e.g., OAuth2 token exchange).
-4.	Access rights are provisioned based on scopes and compliance mappings.
-5.	Agent is issued a credential or token for future A2A interactions.
-6.	Audit log entry is created with timestamp, agent ID, and evidence link.
