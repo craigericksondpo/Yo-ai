@@ -1,0 +1,9 @@
+Folder PATH listing for volume Windows
+Volume serial number is DB6F-D6AA
+C:.
+¦   tree-files.txt
+¦   
++---Rewards
+        202111irf-academicresearchinaction-final.pdf
+        Craig S. Erickson requests the disc.txt
+        
