@@ -1,8 +1,0 @@
-{
-  "$id": "https://yo-ai.ai/schemas/transaction-complete.verify.input.schema.json",
-  "type": "object",
-  "properties": {
-    "provider": { "type": "string" },
-    "referenceId": { "type": "string" }
-  }
-}

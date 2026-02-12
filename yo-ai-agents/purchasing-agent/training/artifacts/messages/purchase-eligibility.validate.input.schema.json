@@ -1,9 +1,0 @@
-{
-  "$id": "https://yo-ai.ai/schemas/purchase-eligibility.validate.input.schema.json",
-  "type": "object",
-  "properties": {
-    "amount": { "type": "number" },
-    "currency": { "type": "string" },
-    "vendorId": { "type": "string" }
-  }
-}

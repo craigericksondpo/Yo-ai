@@ -1,9 +1,0 @@
-{
-  "$id": "https://yo-ai.ai/schemas/tech-report.generate.output.schema.json",
-  "title": "Tech-Report.Generate.Output",
-  "description": "Output messageType for the Tech-Report.Generate capability.",
-  "type": "object",
-  "properties": {
-    "report_url": { "type": "string" }
-  }
-}

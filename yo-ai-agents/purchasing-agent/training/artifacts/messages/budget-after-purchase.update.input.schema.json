@@ -1,8 +1,0 @@
-{
-  "$id": "https://yo-ai.ai/schemas/budget-after-purchase.update.input.schema.json",
-  "type": "object",
-  "properties": {
-    "amount": { "type": "number" },
-    "currency": { "type": "string" }
-  }
-}

@@ -1,8 +1,0 @@
-{
-  "$id": "https://yo-ai.ai/schemas/purchase-history.generate.output.schema.json",
-  "type": "object",
-  "properties": {
-    "historyEntryId": { "type": "string" },
-    "status": { "type": "string" }
-  }
-}

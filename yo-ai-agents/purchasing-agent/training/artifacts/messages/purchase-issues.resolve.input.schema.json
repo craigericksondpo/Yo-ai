@@ -1,9 +1,0 @@
-{
-  "$id": "https://yo-ai.ai/schemas/purchase-issues.resolve.input.schema.json",
-  "type": "object",
-  "properties": {
-    "orderId": { "type": "string" },
-    "issueType": { "type": "string" },
-    "details": { "type": "string" }
-  }
-}

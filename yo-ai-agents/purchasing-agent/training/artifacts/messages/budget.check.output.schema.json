@@ -1,8 +1,0 @@
-{
-  "$id": "https://yo-ai.ai/schemas/budget.check.output.schema.json",
-  "type": "object",
-  "properties": {
-    "sufficient": { "type": "boolean" },
-    "remainingBudget": { "type": "number" }
-  }
-}

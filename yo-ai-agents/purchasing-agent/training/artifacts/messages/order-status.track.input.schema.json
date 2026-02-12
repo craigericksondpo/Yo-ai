@@ -1,7 +1,0 @@
-{
-  "$id": "https://yo-ai.ai/schemas/order-status.track.input.schema.json",
-  "type": "object",
-  "properties": {
-    "orderId": { "type": "string" }
-  }
-}

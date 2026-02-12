@@ -1,8 +1,0 @@
-{
-  "$id": "https://yo-ai.ai/schemas/return-or-refund.initiate.output.schema.json",
-  "type": "object",
-  "properties": {
-    "refundId": { "type": "string" },
-    "status": { "type": "string" }
-  }
-}
