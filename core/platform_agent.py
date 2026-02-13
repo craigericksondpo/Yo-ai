@@ -1,13 +1,37 @@
-# platform_agent.py
+from importlib import import_module
+from yo_ai_main.core.tooling import Tool, ToolProvider
+
+def _load_tools(self):
+    tools = {}
+
+    for tool_def in self.card.x_tools:
+        module_path = tool_def["path"].replace("/", ".")
+        module = import_module(module_path)
+        tool_class = getattr(module, tool_def["name"])
+
+        provider = ToolProvider(**tool_def["provider"])
+
+        tool = tool_class(
+            name=tool_def["name"],
+            description=tool_def.get("description", ""),
+            capabilities=tool_def["capabilities"],
+            provider=provider,
+            config=tool_def.get("config", {})
+        )
+
+        tools[tool_def["name"]] = tool
+
+    return tools
+
+# platform_agent.py - PlatformAgent (Solicitor-General, Door-Keeper, etc.)
 
 from datetime import datetime, timezone
 from importlib import import_module
 import json
 from importlib import resources
 
-from a2a_lib.agent import Agent
-from a2a_lib.schema import AgentCard
-from tools.tool_provider import ToolProvider
+from pydantic import Agent
+from pydantic import AgentCard
 
 
 class PlatformAgent(Agent):
