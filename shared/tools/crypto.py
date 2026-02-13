@@ -1,0 +1,1 @@
+# crypto.py - cryptographic utilities for FastA2A agents
