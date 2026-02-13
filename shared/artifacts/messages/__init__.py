@@ -1,0 +1,1 @@
+# Makes yo_ai_main/shared/artifacts/messages importable as a package
