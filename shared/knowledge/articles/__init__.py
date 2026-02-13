@@ -1,0 +1,1 @@
+# Makes yo_ai_main/shared/knowledge/articles importable as a package
