@@ -1,0 +1,1 @@
+# Makes yo_ai_main/shared/artifacts/agreements importable as a package
