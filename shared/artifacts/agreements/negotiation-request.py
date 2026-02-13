@@ -1,0 +1,14 @@
+#📐 Example Markup Schema (Negotiation Request)
+{
+  "event": "negotiation_request",
+  "timestamp": "2025-12-18T08:20:00Z",
+  "subscriberId": "sub-456",
+  "requestedSkills": ["Correlate Request-Response", "Log-Event"],
+  "justification": "Need expanded access for analytics pipeline",
+  "proposedLimits": {
+    "rate": "100 requests/minute",
+    "scope": "audit-only"
+  },
+  "complianceTags": ["GDPR", "HIPAA"]
+}
+
