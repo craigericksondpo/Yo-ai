@@ -2,7 +2,7 @@
 
 Yo-ai is an AI Assurance Platform that enables Consumers and Organizations to establish secure, transparent, and mutually governed A2A (Agent to Agent) communication channels.
 The Consumer is represented by the Data-Steward, an AI Agent that makes decisions and acts on the Consumer's behalf. 
-The Organization is represented by the Vendor-Manager, and AI Agent that acts as a proxy to represent the organization.
+The Organization is represented by the Vendor-Manager, an AI Agent that acts as a proxy to represent the organization.
 
 Both sides use profiles to represent individual persons and corporate entities. These profiles are loaded, referenced, and updated by a team of cooperating AI Agents that can communicate:
 - directly with the real-world parties they represent, or
@@ -60,7 +60,6 @@ Every top‑level directory contains a README.md.
  Contains:
  - app.py — shared FastA2A runtime instance
  - handlers.py — A2A HTTP handler bridging Starlette ↔ FastA2A ↔ Solicitor‑General
- - routes_a2a.py — public A2A endpoint that receives JSON‑RPC requests and forwards them to the Solicitor‑General
 
 
 ### **`/app`**
@@ -85,8 +84,7 @@ Every top‑level directory contains a README.md.
  Imported by the Starlette app to expose public HTTP routes for agents and A2A operations.
  
  Contains:
- - /routes/http_router.py — public A2A JSON‑RPC endpoint
- - /routes/agent_routes.py — agent‑specific invocation routes (/agent/{id}/invoke)
+ - /routes/http_router.py — public A2A JSON‑RPC endpoint that receives JSON‑RPC requests and forwards them to the Solicitor‑General
  - /openapi/openapi.yaml — Yo‑API capability definitions
 
 ### **`/agents`**
@@ -112,25 +110,22 @@ Every top‑level directory contains a README.md.
 
  Contains:
  /artifacts
- - Subscriber and Agent Registration cards
- - Workflow DAGs
- - Event schemas
- - Kafka topic schemas
- - Negotiation messages
- - Report and evidence manifests
-
+  - Subscriber and Agent Registration cards
+  - Workflow DAGs
+  - Event schemas
+  - Kafka topic schemas
+  - Negotiation messages
+  - Report and evidence manifests
  /policies
- - Authorization policies
- - IAM models
- - Trust‑zone rules
- 
+  - Authorization policies
+  - IAM models
+  - Trust‑zone rules
  /tools
- - Detectors
- - Loaders
- - Ingestion systems
- - Publishing tools
- - Risk scoring logic
- - unified_capability_router.py  Platform-wide semantic router.
+  - Detectors
+  - Loaders
+  - Ingestion systems
+  - Publishing tools
+  - unified_capability_router.py  Platform-wide semantic router.
 
 ### **`/tests`**
  Summary:
