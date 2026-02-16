@@ -32,3 +32,7 @@ These are special in that they represent real individuals and corporate entities
 Profiles are used in constructors for injecting this context into each agent.
 Multiple instances of the Data-Steward agent could represent different profiles of the same individual, just as a corporate entity might be represented by a number of Vendor-Manager agents injected with OrgProfiles from various subsidiaries.
 The Data-Steward and the Vendor-Manager are designed to communicate with each other as authorized representatives of people and organizations, and are considered as "leaders of their teams". 
+
+## Base Agents
+The base class of PlatformAgents and Yo-ai-agents is defined as 'Agent' in the /core folder.
+This class includes 'VisitingAgents' and 'RegisteredAgents' to support A2A interactions across domain boundaries.
