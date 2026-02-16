@@ -1,22 +1,27 @@
 # Yo-ai: AI Assurance Platform for Consumers and Organizations
 
 Yo-ai is an AI Assurance Platform that enables Consumers and Organizations to establish secure, transparent, and mutually governed A2A (Agent to Agent) communication channels.
-Consumers operate a team of AI Agents led by their Data Steward, who manages all personal vendors through a sandboxed proxy agent called the Vendor Manager.
-Organizations operate their own team of AI Agents to manage all their consumers through a sandboxed proxy agent — also called the Data Steward — hosted within the organization’s environment.
-These proxy agents may connect directly to the actual parties or operate within isolated internal sandboxes.
-Both sides rely on Yo-ai’s workflows, policies, and agent bundles to reach shared understanding and explicit consent.
+The Consumer is represented by the Data-Steward, an AI Agent that makes decisions and acts on the Consumer's behalf. 
+The Organization is represented by the Vendor-Manager, and AI Agent that acts as a proxy to represent the organization.
+
+Both sides use profiles to represent individual persons and corporate entities. These profiles are loaded, referenced, and updated by a team of cooperating AI Agents that can communicate:
+- directly with the real-world parties they represent, or
+- through A2A interchanges operatating inside isolated internal sandboxes.
+
+Real people use Yo-ai to interact with each other's agents when they are unavailable or unknown to each other.
+This drastically reduces latency in all processes, while also providing security, accountability, and privacy.
 
 ## What Yo-ai Enables
 Yo-ai provides a structured way for individuals and organizations to:
 
 -	Open A2A communication channels
--	Negotiate mutually agreed upon data processing agreements
+-	Negotiate mutually agreed-upon data processing agreements
 -	Train each other’s AI Agents to “play well with others”
 -	Test for impacts to the corresponding party before, during, or after changes in processing
 -	Build trust through transparency, primarily by sharing event logs about their agents’ activities
 
 ## Who the Yo-ai Platform Serves
-Anyone operating one or more AI Agents that interacts with another person, agent, or operator.
+Everyone who wants something, and anyone who cannot be everywhere all at once.
 
 ## Problems the Yo-ai Platform Solves
 -		Distrust. ”Who comes knocking at my door? What are doing? What do you want? How can I engage with you – or not?”
@@ -26,103 +31,133 @@ Anyone operating one or more AI Agents that interacts with another person, agent
 As an evidence-based learning system for autonomous decision-making, Yo-ai provides 'explainability' through log-shipping for a unified system of truth for all participants in a process.  
 
 # **How This Repository Is Structured**
+Yo‑ai is a multi-agent, federated platform of FastA2A agents that can be cloned and run within any environment. 
+A Makefile documents which modules are importable as Python packages.
+Every top‑level directory contains a README.md.
 
-Yo‑ai is a large, modular platform. 
-Each top‑level directory has its own purpose and often its own README with deeper detail.
+### **`/core`**
+ Summary: 
+ Foundational agent classes and shared abstractions.
+ 
+ Usage:
+ Importable Python packages for agent class definitions.
+ All platform agents inherit from these classes.
 
+ Contains: 
+ - Agent — base class for all agents
+ - PlatformAgent — privileged platform‑side agent
+ - YoAiAgent — consumer/organization‑side agent
+ - AgentCard-Architecture.docx — architectural reference for agent cards
 
-## ** Architecture & Concepts**
+### **`/a2a`**
+ Summary:
+ Shared FastA2A runtime and the glue layer between Starlette and the Solicitor‑General.
 
-### **`/platform`**
-The heart of the system.  
-Contains the architectural documents, routing templates, storage schemas, platform agents, IAM models, and the A2A server.
+ Usage:
+ Imported by the Starlette app to mount the A2A runtime under /a2a/*.
+ This is the primary machine‑facing entrypoint for A2A JSON‑RPC requests.
 
-Inside you’ll find:
-
-- **Platform Agents** (Decision‑Master, Door‑Keeper, Solicitor‑General, Incident‑Responder, The Sentinel, Workflow‑Builder)  
-- **Routing templates** (OpenAPI, AsyncAPI, Graph routes)  
-- **Authorization logic** (IAM policies, evaluators, decorators)  
-- **Storage schemas** (context, task, evidence)  
-- **Design documents** for server components and streaming systems  
-
-If you want to understand how Yo‑ai works under the hood, this is your starting point.
-
-
-## ** Agent Bundles**
-
-### **`/yo-ai-agents`**
-Standalone agent bundles for the consumer‑side and organization‑side teams.
-
-Each agent bundle includes:
-
-- `agent.json` (identity + capabilities)  
-- Agent card documentation  
-- Training manuals  
-- Artifacts (schemas, workflows, IAM policies)  
-
-Training manuals also contain the chat transcripts used to help build each agent.
+ Contains:
+ - app.py — shared FastA2A runtime instance
+ - handlers.py — A2A HTTP handler bridging Starlette ↔ FastA2A ↔ Solicitor‑General
+ - routes_a2a.py — public A2A endpoint that receives JSON‑RPC requests and forwards them to the Solicitor‑General
 
 
-## ** Workflows & Automation**
+### **`/app`**
+ Summary:
+ Top‑level Starlette application and platform bootstrap.
+ 
+ Usage:
+ Executed as the main application entrypoint.
+ Initializes the Solicitor‑General, mounts A2A routes, and configures middleware.
 
-### **`/platform/workflows`**  
-YAML‑based workflows for negotiation, risk assessment, registration, blocked communication, and more.
+ Contains:
+ - main.py — Starlette app + FastA2A mounts + Solicitor‑General bootstrap
+ - dependencies.py — external service wiring
+ - config.py — environment variables, settings, logfire configuration
+ - /middleware/ — authentication, logging, and error‑handling middleware
 
-### **`/platform/workflow-builder`**  
-The DAG compiler, workflow builder logic, and workflow agent bundle.
+### **`/http`**
+ Summary:
+ HTTP‑facing routes, OpenAPI specification.
 
-### **`/artifacts`**  
-Workflow DAGs, event schemas, Kafka topic schemas, negotiation messages, and evidence manifests.
+ Usage:
+ Imported by the Starlette app to expose public HTTP routes for agents and A2A operations.
+ 
+ Contains:
+ - /routes/http_router.py — public A2A JSON‑RPC endpoint
+ - /routes/agent_routes.py — agent‑specific invocation routes (/agent/{id}/invoke)
+ - /openapi/openapi.yaml — Yo‑API capability definitions
 
-If you want to understand how Yo‑ai automates decisions and negotiations, these folders contain the full machinery.
+### **`/agents`**
+ Summary:
+ Standalone agent bundles for consumer‑side and organization‑side teams.
 
+ Usage:
+ Each folder represents a complete agent package, including identity, capabilities, training materials, and artifacts.
 
-## ** Policies & Assurance**
+ Contains:
+ - agent.json — identity + capabilities
+ - Agent card documentation
+ - Training manuals
+ - Artifacts (schemas, agreements, policies, knowledge)
+ - Chat transcripts used to develop each agent
 
-### **`/platform/policies`**  
-Authorization policies, IAM models, and trust‑zone rules.
+### **`/shared`**
+ Summary:
+ Shared resources used across all Yo‑ai agents.
 
-### **`/yo-ai-agents/*/policies`**  
-Agent‑specific authorization and capability policies.
+ Usage:
+ Imported by agents and platform components to ensure consistent schemas, policies, and tools.
 
-These documents show how Yo‑ai enforces boundaries, trust, and safe interoperability.
+ Contains:
+ /artifacts
+ - Subscriber and Agent Registration cards
+ - Workflow DAGs
+ - Event schemas
+ - Kafka topic schemas
+ - Negotiation messages
+ - Report and evidence manifests
 
-
-## ** Tests & Validation**
+ /policies
+ - Authorization policies
+ - IAM models
+ - Trust‑zone rules
+ 
+ /tools
+ - Detectors
+ - Loaders
+ - Ingestion systems
+ - Publishing tools
+ - Risk scoring logic
+ - unified_capability_router.py  Platform-wide semantic router.
 
 ### **`/tests`**
-Executable tests for:
+ Summary:
+ Executable tests for platform functionality, workflows, and campaigns.
 
-- Agent cards  
-- Agent registry  
-- Log shipping  
-- Negotiation flows  
-- Platform startup/shutdown  
+ Usage:
+ Run via pytest or the Makefile to validate platform behavior.
 
-
-## ** Campaigns & Messaging**
+ Contains:
+ - Agent registry tests
+ - Log‑shipping tests
+ - Negotiation flow tests
+ - Platform startup/shutdown tests
 
 ### **`/campaigns`**
-Human‑facing and agent‑facing communication flows, including:
+ Summary:
+ Human‑facing and agent‑facing communication flows for goal‑oriented campaigns.
 
-- Red/Yellow/Green trust‑zone landing pages  
-- “Am I a Threat?”  
-- “Logs Don’t Lie”  
-- Registered Agent onboarding  
+ Usage:
+ Used by agents and platform components to run structured trust‑building or diagnostic campaigns.
 
-These materials show how Yo‑ai communicates with humans and operators.
-
-
-## ** Tools & Utilities**
-
-### **`/tools`**
-Detectors, ingestion systems, publishing tools, and risk scoring logic.
-
-
-## ** Private & Non‑Public Artifacts**
+ Contains:
+ - Red/Yellow/Green trust‑zone landing pages
+ - “Am I a Threat?”
+ - “Logs Don’t Lie”
+ - Registered Agent onboarding
 
 ### **`tree-files.txt`**
-A manifest of files that exist locally but should **not** be committed to public repositories.
-This helps contributors understand the full structure without exposing sensitive materials.
-
-
+ Represents resources that often exist locally but should not be committed to public repositories.
+ Helps contributors understand the full structure without exposing sensitive or proprietary materials.
