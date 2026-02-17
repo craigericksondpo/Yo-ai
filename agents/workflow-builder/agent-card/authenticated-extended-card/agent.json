@@ -28,85 +28,113 @@
   "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
   "defaultInputModes": ["application/json", "text/plain"],
   "defaultOutputModes": ["application/json", "image/png"],
-    "skills": [
-        {"name": "Workflow.Build"}
+  "skills": [
+      {"name": "Workflow.Build"}
+  ],
+  "x-ai": {
+    "providers": [
+      {
+        "provider": "google-gemini",
+        "model": "gemini-2.0-pro",
+        "api_key_env": "GEMINI_API_KEY",
+        "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro:generateContent"
+      },
+      {
+        "provider": "anthropic",
+        "model": "claude-3-sonnet-20240229",
+        "api_key_env": "ANTHROPIC_API_KEY"
+      },
+      {
+        "provider": "openai",
+        "model": "gpt-4.2",
+        "api_key_env": "OPENAI_API_KEY"
+      },
+      {
+        "provider": "azure-openai",
+        "deployment": "gpt-4o",
+        "endpoint": "https://my-azure.openai.azure.com",
+        "api_key_env": "AZURE_OPENAI_KEY"
+      }
     ],
-    "x-capabilities": [
-        {
-          "Workflow.Build": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Workflow.Build"}},
-                  {"artifact": {"type": "task", "name": "Workflow.Build"}},
-                  {"artifact": {"type": "tool", "name": "Workflow.Build"}},
-                  {"artifact": {"type": "handler", "name": "Workflow.Build"}},
-                  {"artifact": {"type": "messageType", "name": "Workflow.Build.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Workflow.Build.Output"}}
-              ]
+    "strategy": "failover",
+    "health_ttl_seconds": 300
+  },  
+  "x-capabilities": [
+      {
+        "Workflow.Build": {
+            "artifacts": [
+                {"artifact": {"type": "skill", "name": "Workflow.Build"}},
+                {"artifact": {"type": "task", "name": "Workflow.Build"}},
+                {"artifact": {"type": "tool", "name": "Workflow.Build"}},
+                {"artifact": {"type": "handler", "name": "Workflow.Build"}},
+                {"artifact": {"type": "messageType", "name": "Workflow.Build.Input"}},
+                {"artifact": {"type": "messageType", "name": "Workflow.Build.Output"}}
+            ]
+        }
+      }
+  ],
+  "x-artifacts": [
+      {
+      "name": "Workflow.Build",
+      "version": "1.0.0",
+      "artifactType": "skill",
+      "description": "Builds orchestrated workflows connecting agents with endpoints.",
+      "tags": ["-wf", "internal", "external"]
+      },
+      {
+      "name": "Workflow.Build",
+      "version": "1.0.0",
+      "artifactType": "task",
+      "description": "Builds orchestrated workflows connecting agents with endpoints.",
+      "tags": ["-wf", "internal", "external"]
+      },
+      {
+      "name": "Workflow.Build",
+      "version": "1.0.0",
+      "artifactType": "tool",
+      "description": "Builds orchestrated workflows connecting agents with endpoints.",
+      "capabilities": ["build"],
+      "path": "/",
+      "provider": {
+          "name": "PrivacyPortfolio",
+          "brand": "Yo-ai",
+          "product": "",
+          "version": "1.0.0",
+          "license": "Yo-ai Internal",
+          "url": "https://yo-ai.ai/docs/Workflow.Build.html",
+          "config": {
+          "backend": ""
           }
-        }
+      },
+      "inputSchema": { "$ref": "https://yo-ai.ai/schemas/workflow.build.input.schema.json" },
+      "outputSchema": { "$ref": "https://yo-ai.ai/schemas/workflow.build.output.schema.json" },
+      "auth": "apiKey"
+      },
+      {
+      "name": "Workflow.Build",
+      "version": "1.0.0",
+      "artifactType": "handler",
+      "description": "Interface for integrating with tool executable.",
+      "path": "/"
+      },
+      {
+        "name": "Workflow.Build.Input",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/workflow.build.input.schema.json"
+        },
+        "description": "Input schema for the Workflow.Build capability."
+      },
+      {
+        "name": "Workflow.Build.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": {
+          "$ref": "https://yo-ai.ai/schemas/workflow.build.output.schema.json"
+        },
+        "description": "Output schema for the Workflow.Build capability."
+      }
     ],
-    "x-artifacts": [
-        {
-        "name": "Workflow.Build",
-        "version": "1.0.0",
-        "artifactType": "skill",
-        "description": "Builds orchestrated workflows connecting agents with endpoints.",
-        "tags": ["-wf", "internal", "external"]
-        },
-        {
-        "name": "Workflow.Build",
-        "version": "1.0.0",
-        "artifactType": "task",
-        "description": "Builds orchestrated workflows connecting agents with endpoints.",
-        "tags": ["-wf", "internal", "external"]
-        },
-        {
-        "name": "Workflow.Build",
-        "version": "1.0.0",
-        "artifactType": "tool",
-        "description": "Builds orchestrated workflows connecting agents with endpoints.",
-        "capabilities": ["build"],
-        "path": "/",
-        "provider": {
-            "name": "PrivacyPortfolio",
-            "brand": "Yo-ai",
-            "product": "",
-            "version": "1.0.0",
-            "license": "Yo-ai Internal",
-            "url": "https://yo-ai.ai/docs/Workflow.Build.html",
-            "config": {
-            "backend": ""
-            }
-        },
-        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/workflow.build.input.schema.json" },
-        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/workflow.build.output.schema.json" },
-        "auth": "apiKey"
-        },
-        {
-        "name": "Workflow.Build",
-        "version": "1.0.0",
-        "artifactType": "handler",
-        "description": "Interface for integrating with tool executable.",
-        "path": "/"
-        },
-        {
-          "name": "Workflow.Build.Input",
-          "version": "1.0.0",
-          "artifactType": "messageType",
-          "schema": {
-            "$ref": "https://yo-ai.ai/schemas/workflow.build.input.schema.json"
-          },
-          "description": "Input schema for the Workflow.Build capability."
-        },
-        {
-          "name": "Workflow.Build.Output",
-          "version": "1.0.0",
-          "artifactType": "messageType",
-          "schema": {
-            "$ref": "https://yo-ai.ai/schemas/workflow.build.output.schema.json"
-          },
-          "description": "Output schema for the Workflow.Build capability."
-        }
-    ],
-    "supportsAuthenticatedExtendedCard": true
+  "supportsAuthenticatedExtendedCard": true
 }
