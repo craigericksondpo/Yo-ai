@@ -37,91 +37,119 @@
         {"name": "Complaint.Publish"},
         {"name": "Stakeholder.Notify"}
     ],
-        "x-capabilities": [
+    "x-ai": {
+      "providers": [
         {
-          "Liability.Discover": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Liability.Discover"}},
-                  {"artifact": {"type": "task", "name": "Liability.Discover"}},
-                  {"artifact": {"type": "tool", "name": "Liability.Discover"}},
-                  {"artifact": {"type": "handler", "name": "Liability.Discover"}},
-                  {"artifact": {"type": "messageType", "name": "Liability.Discover.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Liability.Discover.Output"}}
-              ]
-          }
+          "provider": "google-gemini",
+          "model": "gemini-2.0-pro",
+          "api_key_env": "GEMINI_API_KEY",
+          "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro:generateContent"
         },
         {
-          "EnforcementAgency.Get": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "EnforcementAgency.Get"}},
-                  {"artifact": {"type": "task", "name": "EnforcementAgency.Get"}},
-                  {"artifact": {"type": "tool", "name": "EnforcementAgency.Get"}},
-                  {"artifact": {"type": "handler", "name": "EnforcementAgency.Get"}},
-                  {"artifact": {"type": "messageType", "name": "EnforcementAgency.Get.Input"}},
-                  {"artifact": {"type": "messageType", "name": "EnforcementAgency.Get.Output"}}
-              ]
-          }
+          "provider": "anthropic",
+          "model": "claude-3-sonnet-20240229",
+          "api_key_env": "ANTHROPIC_API_KEY"
         },
         {
-          "Stakeholders.Get": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Stakeholders.Get"}},
-                  {"artifact": {"type": "task", "name": "Stakeholders.Get"}},
-                  {"artifact": {"type": "tool", "name": "Stakeholders.Get"}},
-                  {"artifact": {"type": "handler", "name": "Stakeholders.Get"}},
-                  {"artifact": {"type": "messageType", "name": "Stakeholders.Get.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Stakeholders.Get.Output"}}
-              ]
-          }
+          "provider": "openai",
+          "model": "gpt-4.2",
+          "api_key_env": "OPENAI_API_KEY"
         },
         {
-          "Complaint.Generate": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Complaint.Generate"}},
-                  {"artifact": {"type": "task", "name": "Complaint.Generate"}},
-                  {"artifact": {"type": "tool", "name": "Complaint.Generate"}},
-                  {"artifact": {"type": "handler", "name": "Complaint.Generate"}},
-                  {"artifact": {"type": "messageType", "name": "Complaint.Generate.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Complaint.Generate.Output"}}
-              ]
-          }
-        },
-        {
-          "Complaint.Submit": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Complaint.Submit"}},
-                  {"artifact": {"type": "task", "name": "Complaint.Submit"}},
-                  {"artifact": {"type": "tool", "name": "Complaint.Submit"}},
-                  {"artifact": {"type": "handler", "name": "Complaint.Submit"}},
-                  {"artifact": {"type": "messageType", "name": "Complaint.Submit.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Complaint.Submit.Output"}}
-              ]
-          }
-        },
-        {
-          "Complaint.Publish": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Complaint.Publish"}},
-                  {"artifact": {"type": "task", "name": "Complaint.Publish"}},
-                  {"artifact": {"type": "tool", "name": "Complaint.Publish"}},
-                  {"artifact": {"type": "handler", "name": "Complaint.Publish"}},
-                  {"artifact": {"type": "messageType", "name": "Complaint.Publish.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Complaint.Publish.Output"}}
-              ]
-          }
-        },
-        {
-          "Stakeholder.Notify": {
-              "artifacts": [
-                  {"artifact": {"type": "skill", "name": "Stakeholder.Notify"}},
-                  {"artifact": {"type": "task", "name": "Stakeholder.Notify"}},
-                  {"artifact": {"type": "tool", "name": "Stakeholder.Notify"}},
-                  {"artifact": {"type": "handler", "name": "Stakeholder.Notify"}},
-                  {"artifact": {"type": "messageType", "name": "Stakeholder.Notify.Input"}},
-                  {"artifact": {"type": "messageType", "name": "Stakeholder.Notify.Output"}}
-              ]
-          }
+          "provider": "azure-openai",
+          "deployment": "gpt-4o",
+          "endpoint": "https://my-azure.openai.azure.com",
+          "api_key_env": "AZURE_OPENAI_KEY"
         }
+      ],
+      "strategy": "failover",
+      "health_ttl_seconds": 300
+    },  
+    "x-capabilities": [
+      {
+        "Liability.Discover": {
+          "artifacts": [
+              {"artifact": {"type": "skill", "name": "Liability.Discover"}},
+              {"artifact": {"type": "task", "name": "Liability.Discover"}},
+              {"artifact": {"type": "tool", "name": "Liability.Discover"}},
+              {"artifact": {"type": "handler", "name": "Liability.Discover"}},
+              {"artifact": {"type": "messageType", "name": "Liability.Discover.Input"}},
+              {"artifact": {"type": "messageType", "name": "Liability.Discover.Output"}}
+          ]
+        }
+      },
+      {
+        "EnforcementAgency.Get": {
+          "artifacts": [
+              {"artifact": {"type": "skill", "name": "EnforcementAgency.Get"}},
+              {"artifact": {"type": "task", "name": "EnforcementAgency.Get"}},
+              {"artifact": {"type": "tool", "name": "EnforcementAgency.Get"}},
+              {"artifact": {"type": "handler", "name": "EnforcementAgency.Get"}},
+              {"artifact": {"type": "messageType", "name": "EnforcementAgency.Get.Input"}},
+              {"artifact": {"type": "messageType", "name": "EnforcementAgency.Get.Output"}}
+          ]
+        }
+      },
+      {
+        "Stakeholders.Get": {
+          "artifacts": [
+              {"artifact": {"type": "skill", "name": "Stakeholders.Get"}},
+              {"artifact": {"type": "task", "name": "Stakeholders.Get"}},
+              {"artifact": {"type": "tool", "name": "Stakeholders.Get"}},
+              {"artifact": {"type": "handler", "name": "Stakeholders.Get"}},
+              {"artifact": {"type": "messageType", "name": "Stakeholders.Get.Input"}},
+              {"artifact": {"type": "messageType", "name": "Stakeholders.Get.Output"}}
+          ]
+        }
+      },
+      {
+        "Complaint.Generate": {
+          "artifacts": [
+              {"artifact": {"type": "skill", "name": "Complaint.Generate"}},
+              {"artifact": {"type": "task", "name": "Complaint.Generate"}},
+              {"artifact": {"type": "tool", "name": "Complaint.Generate"}},
+              {"artifact": {"type": "handler", "name": "Complaint.Generate"}},
+              {"artifact": {"type": "messageType", "name": "Complaint.Generate.Input"}},
+              {"artifact": {"type": "messageType", "name": "Complaint.Generate.Output"}}
+          ]
+        }
+      },
+      {
+        "Complaint.Submit": {
+          "artifacts": [
+              {"artifact": {"type": "skill", "name": "Complaint.Submit"}},
+              {"artifact": {"type": "task", "name": "Complaint.Submit"}},
+              {"artifact": {"type": "tool", "name": "Complaint.Submit"}},
+              {"artifact": {"type": "handler", "name": "Complaint.Submit"}},
+              {"artifact": {"type": "messageType", "name": "Complaint.Submit.Input"}},
+              {"artifact": {"type": "messageType", "name": "Complaint.Submit.Output"}}
+          ]
+        }
+      },
+      {
+        "Complaint.Publish": {
+          "artifacts": [
+              {"artifact": {"type": "skill", "name": "Complaint.Publish"}},
+              {"artifact": {"type": "task", "name": "Complaint.Publish"}},
+              {"artifact": {"type": "tool", "name": "Complaint.Publish"}},
+              {"artifact": {"type": "handler", "name": "Complaint.Publish"}},
+              {"artifact": {"type": "messageType", "name": "Complaint.Publish.Input"}},
+              {"artifact": {"type": "messageType", "name": "Complaint.Publish.Output"}}
+          ]
+        }
+      },
+      {
+        "Stakeholder.Notify": {
+          "artifacts": [
+              {"artifact": {"type": "skill", "name": "Stakeholder.Notify"}},
+              {"artifact": {"type": "task", "name": "Stakeholder.Notify"}},
+              {"artifact": {"type": "tool", "name": "Stakeholder.Notify"}},
+              {"artifact": {"type": "handler", "name": "Stakeholder.Notify"}},
+              {"artifact": {"type": "messageType", "name": "Stakeholder.Notify.Input"}},
+              {"artifact": {"type": "messageType", "name": "Stakeholder.Notify.Output"}}
+          ]
+        }
+      }
     ],
     "x-artifacts": [
       {
