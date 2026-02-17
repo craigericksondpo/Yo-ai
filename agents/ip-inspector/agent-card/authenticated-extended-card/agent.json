@@ -39,6 +39,34 @@
         {"name": "IP-Provenance.Trace"},
         {"name": "Related-IP.Discover"}
     ],
+    "x-ai": {
+      "providers": [
+        {
+          "provider": "google-gemini",
+          "model": "gemini-2.0-pro",
+          "api_key_env": "GEMINI_API_KEY",
+          "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro:generateContent"
+        },
+        {
+          "provider": "anthropic",
+          "model": "claude-3-sonnet-20240229",
+          "api_key_env": "ANTHROPIC_API_KEY"
+        },
+        {
+          "provider": "openai",
+          "model": "gpt-4.2",
+          "api_key_env": "OPENAI_API_KEY"
+        },
+        {
+          "provider": "azure-openai",
+          "deployment": "gpt-4o",
+          "endpoint": "https://my-azure.openai.azure.com",
+          "api_key_env": "AZURE_OPENAI_KEY"
+        }
+      ],
+      "strategy": "failover",
+      "health_ttl_seconds": 300
+    },  
     "x-capabilities": [
         {
             "IP-Assets.Discover": {
