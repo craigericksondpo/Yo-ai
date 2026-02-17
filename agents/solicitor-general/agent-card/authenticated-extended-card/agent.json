@@ -29,10 +29,51 @@
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
+        {"name": "Just-Ask"},
         {"name": "Event.Log"},
         {"name": "Request-Response.Correlate"}
     ],
+    "x-ai": {
+        "providers": [
+        {
+            "provider": "google-gemini",
+            "model": "gemini-2.0-pro",
+            "api_key_env": "GEMINI_API_KEY",
+            "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro:generateContent"
+        },
+        {
+            "provider": "anthropic",
+            "model": "claude-3-sonnet-20240229",
+            "api_key_env": "ANTHROPIC_API_KEY"
+        },
+        {
+            "provider": "openai",
+            "model": "gpt-4.2",
+            "api_key_env": "OPENAI_API_KEY"
+        },
+        {
+            "provider": "azure-openai",
+            "deployment": "gpt-4o",
+            "endpoint": "https://my-azure.openai.azure.com",
+            "api_key_env": "AZURE_OPENAI_KEY"
+        }
+        ],
+        "strategy": "failover",
+        "health_ttl_seconds": 300
+    },  
     "x-capabilities": [
+        {
+            "Just-Ask": {
+                "artifacts": [
+                    {"artifact": {"type": "skill", "name": "Just-Ask"}},
+                    {"artifact": {"type": "task", "name": "Just-Ask"}},
+                    {"artifact": {"type": "tool", "name": "Just-Ask"}},
+                    {"artifact": {"type": "handler", "name": "Just-Ask"}},
+                    {"artifact": {"type": "messageType", "name": "Just-Ask.Input"}},
+                    {"artifact": {"type": "messageType", "name": "Just-Ask.Output"}}
+                ]
+            }
+        },
         {
             "Event.Log": {
                 "artifacts": [
@@ -59,6 +100,67 @@
         }
     ],
     "x-artifacts": [
+        {
+        "name": "Just-Ask",
+        "version": "1.0.0",
+        "artifactType": "skill",
+        "description": "Default interface with the Yo-ai Platform.",
+        "tags": ["introduction"],
+        "examples": ["What can I do on the Yo-ai Platform"]
+        },
+        {
+        "name": "Just-Ask",
+        "version": "1.0.0",
+        "artifactType": "task",
+        "description": "Default interface with the Yo-ai Platform.",
+        "tags": ["introduction"],
+        "examples": ["What can I do on the Yo-ai Platform"]
+        },
+                    {"artifact": {"type": "tool", "name": "Just-Ask"}},
+        {
+        "name": "Just-Ask",
+        "version": "1.0.0",
+        "artifactType": "tool",
+        "description": "Default interface with the Yo-ai Platform.",
+        "capabilities": ["chat"],
+        "path": "/",
+        "provider": {
+            "name": "PrivacyPortfolio",
+            "brand": "Yo-ai",
+            "product": "",
+            "version": "1.0.0",
+            "license": "Yo-ai Internal",
+            "url": "https://yo-ai.ai/docs/Just-Ask.html",
+            "config": {
+            "backend": ""
+            }
+        },
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/just-ask.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/just-ask.output.schema.json" },
+        "auth": "apiKey"
+        },
+        {
+        "name": "Just-Ask",
+        "version": "1.0.0",
+        "artifactType": "handler",
+        "description": "Default interface with the Yo-ai Platform.",
+        "path": "/"
+        },
+        {
+        "name": "Just-Ask",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": { "$ref": "https://yo-ai.ai/schemas/just-ask.input.schema.json" },
+        "description": "Input schema for ."
+        },
+        {
+        "name": "Just-Ask.Output",
+        "version": "1.0.0",
+        "artifactType": "messageType",
+        "schema": { "$ref": "https://yo-ai.ai/schemas/just-ask.output.schema.json" },
+        "description": "Output schema for ."
+        },
+
         {
         "name": "Event.Log",
         "version": "1.0.0",
