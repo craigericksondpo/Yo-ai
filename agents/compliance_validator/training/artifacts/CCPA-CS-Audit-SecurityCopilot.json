@@ -1,0 +1,206 @@
+[
+  {
+    "testCaseTitle": "Significant Risk To My Security",
+    "copilotUseCase": "Threat Intelligence, Risk Detection",
+    "auditControlRefs": [
+      "QUERY: Summarize known risks for vendor X"
+    ]
+  },
+  {
+    "testCaseTitle": "Determine Eligibility",
+    "copilotUseCase": "Role Analysis, Data Volume Monitoring",
+    "auditControlRefs": [
+      "GET /copilot/entra/roleAssignments"
+    ]
+  },
+  {
+    "testCaseTitle": "Audit Start Period",
+    "copilotUseCase": "Audit Trail Generation",
+    "auditControlRefs": [
+      "GET /copilot/entra/auditLogs"
+    ]
+  },
+  {
+    "testCaseTitle": "Evaluate Auditor Qualifications",
+    "copilotUseCase": "Role-Based Access Review",
+    "auditControlRefs": [
+      "QUERY: Who has audit privileges in org X?"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Information Requests Relevant to Each Asset In Scope",
+    "copilotUseCase": "Asset Inventory, System Mapping",
+    "auditControlRefs": [
+      "GET /copilot/entra/deviceInventory"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Authentication and Access Controls",
+    "copilotUseCase": "Authentication Policy Review",
+    "auditControlRefs": [
+      "GET /copilot/entra/authenticationMethods",
+      "QUERY: Show configured authentication methods and enforcement policies"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Unencrypted PI",
+    "copilotUseCase": "Encryption Policy Review",
+    "auditControlRefs": [
+      "QUERY: Show encryption status for sensitive data"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Access Control Discrepancies",
+    "copilotUseCase": "Privileged Access Management",
+    "auditControlRefs": [
+      "GET /copilot/entra/privilegedAccess"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify System Inventory Discrepancies",
+    "copilotUseCase": "Device Compliance Monitoring",
+    "auditControlRefs": [
+      "GET /copilot/entra/deviceCompliance"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Configuration Changes To PI Processing Components",
+    "copilotUseCase": "Change Management Monitoring",
+    "auditControlRefs": [
+      "QUERY: Show config changes to data systems"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Incidents Reported After Vulnerability Assessment",
+    "copilotUseCase": "Threat Detection, Incident Reporting",
+    "auditControlRefs": [
+      "GET /copilot/entra/incidents"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Audit-log Management Discrepancies",
+    "copilotUseCase": "Audit Log Review",
+    "auditControlRefs": [
+      "GET /copilot/entra/auditLogs"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Network Monitoring and Defenses Discrepancies",
+    "copilotUseCase": "Conditional Access Enforcement",
+    "auditControlRefs": [
+      "GET /copilot/entra/conditionalAccessPolicies"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Antivirus and Antimalware Discrepancies",
+    "copilotUseCase": "Endpoint Protection Review",
+    "auditControlRefs": [
+      "QUERY: Show malware protection status"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Processing Environments In Personal Data Flows",
+    "copilotUseCase": "Data Flow Mapping",
+    "auditControlRefs": [
+      "QUERY: Map data flows across segmented systems"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify All Endpoints Which Transfer PI",
+    "copilotUseCase": "Endpoint Discovery",
+    "auditControlRefs": [
+      "QUERY: List external endpoints with PI access"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Relevant Threats and Countermeasures to Personnel",
+    "copilotUseCase": "Threat Intelligence",
+    "auditControlRefs": [
+      "QUERY: Summarize current threat landscape"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Relevant Training Curriculum for Personnel",
+    "copilotUseCase": "Training Policy Review",
+    "auditControlRefs": [
+      "QUERY: Show cybersecurity training status"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Secure Development Practices",
+    "copilotUseCase": "DevSecOps Monitoring",
+    "auditControlRefs": [
+      "QUERY: Show secure coding practices and test logs"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Contractual Constraints of External Entities",
+    "copilotUseCase": "Vendor Oversight",
+    "auditControlRefs": [
+      "QUERY: List vendors with access to PI and contract status"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Retention Schedules and Proper Disposal Discrepancies",
+    "copilotUseCase": "Data Retention Review",
+    "auditControlRefs": [
+      "QUERY: Show retention and disposal policies"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Incident Response Discrepancies",
+    "copilotUseCase": "Incident Response Plan Review",
+    "auditControlRefs": [
+      "GET /copilot/entra/incidents"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Data Loss of Personal Information",
+    "copilotUseCase": "Backup and Recovery Monitoring",
+    "auditControlRefs": [
+      "QUERY: Show ransomware protection and recovery status"
+    ]
+  },
+  {
+    "testCaseTitle": "Evaluate the Thoroughness of Cybersecurity Audit Report",
+    "copilotUseCase": "Audit Completeness Review",
+    "auditControlRefs": [
+      "QUERY: List missing audit components"
+    ]
+  },
+  {
+    "testCaseTitle": "Evaluate Utilization of a Comparable Audit",
+    "copilotUseCase": "Audit Reuse Validation",
+    "auditControlRefs": [
+      "QUERY: Compare audit frameworks used"
+    ]
+  },
+  {
+    "testCaseTitle": "Evaluate Personal Risk Exposure",
+    "copilotUseCase": "Risk Assessment",
+    "auditControlRefs": [
+      "QUERY: Show personal exposure from vendor X"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Certificate of Completion Submission",
+    "copilotUseCase": "Compliance Certification Tracking",
+    "auditControlRefs": [
+      "QUERY: Show certification status for audit X"
+    ]
+  },
+  {
+    "testCaseTitle": "Identify Executive Authorized to Submit Certification",
+    "copilotUseCase": "Role Analysis",
+    "auditControlRefs": [
+      "GET /copilot/entra/roleAssignments"
+    ]
+  },
+  {
+    "testCaseTitle": "Evaluate Perjury by Directly Responsible Executive",
+    "copilotUseCase": "Audit Integrity Review",
+    "auditControlRefs": [
+      "QUERY: Show audit signatory and role"
+    ]
+  }
+]
