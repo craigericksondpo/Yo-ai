@@ -1,6 +1,0 @@
-Folder PATH listing for volume Windows
-Volume serial number is F8BC-5924
-C:.
-ª   tree-files.txt
-ª   
-+---AP2
