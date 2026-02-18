@@ -1,0 +1,12 @@
+Document which agents are allowed to interact with this Yo-ai Agent, 
+and which resources must be shared for each permitted operation.
+
+Agent			Traffic Direction		Operation			Resource
+-----			-----------------		---------			--------
+Incident-Responder	Inbound/Outbound	start-yo-ai-wf.yaml		yo-ai-application-server.py
+The-Sentinel		Outbound		issue-alert-wf.yaml		kafka
+Door-Keeper		Inbound/Outbound	agent-registration-wf.yaml	agent-card.json
+Workflow-Builder	Inbound/Outbound	agent-registration-wf.yaml	agent-card.json
+Decision-Master		Inbound/Outbound	approval-wf.yaml		decision-diary
+
+
