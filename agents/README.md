@@ -3,7 +3,7 @@
 Yo-ai Agent Bundles
 
 ## Requirements
-- Python 3.14
+- Python 3.13.5
 
 ## Yo-ai Platform Agents
 Yo-ai uses a "Root agent" as a FastA2A application server hosted in AWS API Gateway. 
