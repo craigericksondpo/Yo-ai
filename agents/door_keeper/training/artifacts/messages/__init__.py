@@ -1,0 +1,1 @@
+# Makes yo_ai_main/agents/<agent_name>/training/artifacts/messages importable as a package
