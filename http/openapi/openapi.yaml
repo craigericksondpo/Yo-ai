@@ -10,41 +10,53 @@ info:
 
 servers:
   - url: https://api.yo-ai.internal
-    description: Internal Yo-ai A2A mesh
+    description: Internal Yo-ai A2A mesh (prod)
+
+security:
+  - YoAiAuthorizer: []
 
 tags:
-  - name: complaint_manager
-  - name: compliance_validator
-  - name: darkweb_checker
-  - name: databroker_monitor
-  - name: data_anonymizer
-  - name: data_steward
-  - name: decision_master
-  - name: door_keeper
-  - name: incident_responder
-  - name: ip_inspector
-  - name: profile_builder
-  - name: purchasing_agent
-  - name: rewards_seeker
-  - name: risk_assessor
-  - name: socialmedia_checker
-  - name: solicitor_general
-  - name: talent_agent
-  - name: tech_inspector
-  - name: the_sentinel
-  - name: vendor_manager
-  - name: workflow_builder
-  
+  - name: complaintManager
+  - name: complianceValidator
+  - name: darkwebChecker
+  - name: databrokerMonitor
+  - name: dataAnonymizer
+  - name: dataSteward
+  - name: decisionMaster
+  - name: doorKeeper
+  - name: incidentResponder
+  - name: ipInspector
+  - name: profileBuilder
+  - name: purchasingAgent
+  - name: rewardsSeeker
+  - name: riskAssessor
+  - name: socialmediaChecker
+  - name: solicitorGeneral
+  - name: talentAgent
+  - name: techInspector
+  - name: theSentinel
+  - name: vendorManager
+  - name: workflowBuilder  
 
 paths:
   ############################################################
   # Complaint-Manager capabilities
   ############################################################
-  /agents/complaint_manager/LiabilityDiscover:
+  /agents/complaintManager/liabilityDiscover:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [complaint_manager]
-      summary: "Capability description"
-      operationId: liability_discover
+      tags: [complaintManager]
+      summary: "Discovers potential liabilities from regulatory violations"
+      operationId: complaintManager_liabilityDiscover
       requestBody:
         required: true
         content:
@@ -53,17 +65,43 @@ paths:
               $ref: '#/components/schemas/LiabilityDiscoverInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns discovered liabilities with findings"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/LiabilityDiscoverOutput'
-            
-  /agents/complaint_manager/EnforcementAgencyGet:
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
+      
+  /agents/complaintManager/enforcementAgencyGet:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [complaint_manager]
-      summary: "Capability description"
-      operationId: enforcementagency_get
+      tags: [complaintManager]
+      summary: "Retrieves appropriate enforcement agency contact information"
+      operationId: complaintManager_enforcementAgencyGet
       requestBody:
         required: true
         content:
@@ -72,17 +110,43 @@ paths:
               $ref: '#/components/schemas/EnforcementAgencyGetInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns enforcement agency details including contact information, jurisdiction, and submission requirements"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/EnforcementAgencyGetOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                         
-  /agents/complaint_manager/StakeholdersGet:
+  /agents/complaintManager/stakeholdersGet:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [complaint_manager]
-      summary: "Capability description"
-      operationId: stakeholders_get
+      tags: [complaintManager]
+      summary: "Retrieves stakeholders affected by the complaint"
+      operationId: complaintManager_stakeholdersGet
       requestBody:
         required: true
         content:
@@ -91,17 +155,43 @@ paths:
               $ref: '#/components/schemas/StakeholdersGetInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns list of stakeholders with contact information and notification preferences"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/StakeholdersGetOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
             
-  /agents/complaint_manager/ComplaintGenerate:
+  /agents/complaintManager/complaintGenerate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [complaint_manager]
-      summary: "Capability description"
-      operationId: complaint_generate
+      tags: [complaintManager]
+      summary: "Generates formal complaint document"
+      operationId: complaintManager_complaintGenerate
       requestBody:
         required: true
         content:
@@ -110,17 +200,43 @@ paths:
               $ref: '#/components/schemas/ComplaintGenerateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns generated complaint document with unique identifier (complaint_id) and structured content formatted per regulatory requirements"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComplaintGenerateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/complaint_manager/ComplaintSubmit:
+  /agents/complaintManager/complaintSubmit:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [complaint_manager]
-      summary: "Capability description"
-      operationId: complaint_submit
+      tags: [complaintManager]
+      summary: "Submits complaint to enforcement agency"
+      operationId: complaintManager_complaintSubmit
       requestBody:
         required: true
         content:
@@ -129,17 +245,43 @@ paths:
               $ref: '#/components/schemas/ComplaintSubmitInput'
       responses:
         '200':
-          description: capability output
+          description: "Submission successful. Returns confirmation details including case number and expected processing timeline"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComplaintSubmitOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                         
-  /agents/complaint_manager/ComplaintPublish:
+  /agents/complaintManager/complaintPublish:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [complaint_manager]
-      summary: "Capability description"
-      operationId: complaint_publish
+      tags: [complaintManager]
+      summary: "Publishes complaint to public data catalog"
+      operationId: complaintManager_complaintPublish
       requestBody:
         required: true
         content:
@@ -148,17 +290,43 @@ paths:
               $ref: '#/components/schemas/ComplaintPublishInput'
       responses:
         '200':
-          description: capability output
+          description: "Publication successful. Returns publication reference and visibility status"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComplaintPublishOutput'            
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
             
-  /agents/complaintmanager/StakeholderNotify:
+  /agents/complaintManager/stakeholderNotify:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [complaint_manager]
-      summary: "Capability description"
-      operationId: stakeholder_notify
+      tags: [complaintManager]
+      summary: "Sends notifications to affected stakeholders"
+      operationId: complaintManager_stakeholderNotify
       requestBody:
         required: true
         content:
@@ -167,20 +335,46 @@ paths:
               $ref: '#/components/schemas/StakeholderNotifyInput'
       responses:
         '200':
-          description: capability output
+          description: "Notifications sent successfully. Returns delivery status and confirmation for each recipient"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/StakeholderNotifyOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                         
   ############################################################
   # Compliance-Validator capabilities
   ############################################################
-  /agents/compliance_validator/ComplianceStandard.Get:
+  /agents/complianceValidator/complianceStandardGet:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [compliance_validator]
-      summary: "Capability description"
-      operationId: compliance_standard_get
+      tags: [complianceValidator]
+      summary: "Retrieves compliance standard specification"
+      operationId: complianceValidator_complianceStandardGet
       requestBody:
         required: true
         content:
@@ -189,17 +383,43 @@ paths:
               $ref: '#/components/schemas/ComplianceStandardGetInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns complete compliance standard including requirements, controls, and validation criteria"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComplianceStandardGetOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/compliance_validator/ComplianceValidate:
+  /agents/complianceValidator/complianceValidate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [compliance_validator]
-      summary: "Capability description"
-      operationId: compliance_validate
+      tags: [complianceValidator]
+      summary: "Validates compliance against specified standards"
+      operationId: complianceValidator_complianceValidate
       requestBody:
         required: true
         content:
@@ -208,20 +428,46 @@ paths:
               $ref: '#/components/schemas/ComplianceValidateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns validation results with pass/fail status and detailed compliance findings for each control"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ComplianceValidateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
   ############################################################
   # DarkWeb-Checker capabilities
   ############################################################
-  /agents/darkweb_checker/DarkWebScan:
+  /agents/darkwebChecker/darkWebScan:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [darkweb_checker]
-      summary: Scan dark web sources for stolen PI
-      operationId: darkweb_scan
+      tags: [darkwebChecker]
+      summary: "Scans dark web for data exposures"
+      operationId: darkwebChecker_darkWebScan
       requestBody:
         required: true
         content:
@@ -230,17 +476,43 @@ paths:
               $ref: '#/components/schemas/DarkWebScanInput'
       responses:
         '200':
-          description: Scan results
+          description: "Returns dark web scan results including identified data exposures, marketplace listings, and discovery timestamps"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DarkWebScanOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/darkweb_checker/DataOriginsTrace:
+  /agents/darkwebChecker/dataOriginsTrace:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [darkweb_checker]
-      summary: Infer likely origin of stolen data
-      operationId: data_origins_trace
+      tags: [darkwebChecker]
+      summary: "Traces data back to original breach source"
+      operationId: darkwebChecker_dataOriginsTrace
       requestBody:
         required: true
         content:
@@ -249,17 +521,43 @@ paths:
               $ref: '#/components/schemas/DataOriginsTraceInput'
       responses:
         '200':
-          description: Origin analysis
+          description: "Returns provenance trace showing data lineage from current location back to original breach source and intermediate brokers"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataOriginsTraceOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/darkweb_checker/DarkWebEvidenceCollect:
+  /agents/darkwebChecker/darkWebEvidenceCollect:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [darkweb_checker]
-      summary: Collect structured evidence of stolen PI
-      operationId: darkweb_evidence_collect
+      tags: [darkwebChecker]
+      summary: "Collects forensic evidence from dark web sources"
+      operationId: darkwebChecker_darkWebEvidenceCollect
       requestBody:
         required: true
         content:
@@ -268,20 +566,46 @@ paths:
               $ref: '#/components/schemas/DarkWebEvidenceCollectInput'
       responses:
         '200':
-          description: Evidence record
+          description: "Returns collected evidence package with screenshots, metadata, and chain-of-custody documentation for legal proceedings"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DarkWebEvidenceCollectOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
   ############################################################
   # DataBroker-Monitor capabilities
   ############################################################
-  /agents/databroker_monitor/BrokerInventoryScan:
+  /agents/databrokerMonitor/brokerInventoryScan:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [databroker_monitor]
-      summary: Scan broker inventories for subject matches
-      operationId: broker_inventory_scan
+      tags: [databrokerMonitor]
+      summary: "Scans data broker inventories for personal information"
+      operationId: databrokerMonitor_brokerInventoryScan
       requestBody:
         required: true
         content:
@@ -290,17 +614,43 @@ paths:
               $ref: '#/components/schemas/BrokerInventoryScanInput'
       responses:
         '200':
-          description: Broker scan results
+          description: "Returns broker inventory scan results with identified data holdings and broker contact information"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BrokerInventoryScanOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/databroker_monitor/DownstreamVendorsIdentify:
+  /agents/databrokerMonitor/downstreamVendorsIdentify:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [databroker_monitor]
-      summary: Identify downstream vendors purchasing data
-      operationId: downstream_vendors_identify
+      tags: [databrokerMonitor]
+      summary: "Identifies downstream vendors receiving data from brokers"
+      operationId: databrokerMonitor_downstreamVendorsIdentify
       requestBody:
         required: true
         content:
@@ -309,17 +659,43 @@ paths:
               $ref: '#/components/schemas/DownstreamVendorsIdentifyInput'
       responses:
         '200':
-          description: Downstream vendor mapping
+          description: "Returns mapping of downstream vendors with data flow relationships and transfer mechanisms"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DownstreamVendorsIdentifyOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/databroker_monitor/BrokerEvidenceCollect:
+  /agents/databrokerMonitor/brokerEvidenceCollect:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [databroker_monitor]
-      summary: Collect evidence of broker possession or sale
-      operationId: broker_evidence_collect
+      tags: [databrokerMonitor]
+      summary: "Collects evidence from data broker sources"
+      operationId: databrokerMonitor_brokerEvidenceCollect
       requestBody:
         required: true
         content:
@@ -328,20 +704,46 @@ paths:
               $ref: '#/components/schemas/BrokerEvidenceCollectInput'
       responses:
         '200':
-          description: Evidence record
+          description: "Returns collected evidence package documenting broker data practices with timestamps and source references"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BrokerEvidenceCollectOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
   ############################################################
   # Data-Anonymizer capabilities
   ############################################################
-  /agents/data_anonymizer/IdentifiabilityAssess:
+  /agents/dataAnonymizer/identifiabilityAssess:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_anonymizer]
-      summary: Assess identifiability of a dataset or attributes
-      operationId: identifiability_assess
+      tags: [dataAnonymizer]
+      summary: "Assesses re-identification risk of dataset"
+      operationId: dataAnonymizer_identifiabilityAssess
       requestBody:
         required: true
         content:
@@ -350,17 +752,43 @@ paths:
               $ref: '#/components/schemas/IdentifiabilityAssessInput'
       responses:
         '200':
-          description: Identifiability assessment
+          description: "Returns identifiability risk assessment with re-identification probability scores per data element and quasi-identifiers"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IdentifiabilityAssessOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/data_anonymizer/DataForPurposeMinimize:
+  /agents/dataAnonymizer/dataForPurposeMinimize:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_anonymizer]
-      summary: Determine minimum necessary data for a purpose
-      operationId: data_for_purpose_minimize
+      tags: [dataAnonymizer]
+      summary: "Minimizes data collection to specified purpose"
+      operationId: dataAnonymizer_dataForPurposeMinimize
       requestBody:
         required: true
         content:
@@ -369,17 +797,43 @@ paths:
               $ref: '#/components/schemas/DataForPurposeMinimizeInput'
       responses:
         '200':
-          description: Minimization recommendation
+          description: "Returns data minimization recommendations identifying unnecessary fields and suggesting removal strategies"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataForPurposeMinimizeOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/data_anonymizer/AuxiliaryDataRiskEvaluate:
+  /agents/dataAnonymizer/auxiliaryDataRiskEvaluate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_anonymizer]
-      summary: Evaluate auxiliary data re-identification risk
-      operationId: auxiliary_data_risk_evaluate
+      tags: [dataAnonymizer]
+      summary: "Evaluates risk from auxiliary data sources"
+      operationId: dataAnonymizer_auxiliaryDataRiskEvaluate
       requestBody:
         required: true
         content:
@@ -388,17 +842,43 @@ paths:
               $ref: '#/components/schemas/AuxiliaryDataRiskEvaluateInput'
       responses:
         '200':
-          description: Auxiliary data risk assessment
+          description: "Returns auxiliary data risk assessment analyzing linkage attack potential from external datasets"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AuxiliaryDataRiskEvaluateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/data_anonymizer/DeidentificationReportGenerate:
+  /agents/dataAnonymizer/deidentificationReportGenerate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_anonymizer]
-      summary: Generate de-identification report
-      operationId: deidentification_report_generate
+      tags: [dataAnonymizer]
+      summary: "Generates comprehensive de-identification report"
+      operationId: dataAnonymizer_deidentificationReportGenerate
       requestBody:
         required: true
         content:
@@ -407,17 +887,43 @@ paths:
               $ref: '#/components/schemas/DeidentificationReportGenerateInput'
       responses:
         '200':
-          description: De-identification report
+          description: "Returns de-identification report documenting techniques applied, privacy metrics achieved, and data utility preservation analysis"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeidentificationReportGenerateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/data_anonymizer/DeidentificationStandardMap:
+  /agents/dataAnonymizer/deidentificationStandardMap:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_anonymizer]
-      summary: Map de-identification posture to standards
-      operationId: deidentification_standard_map
+      tags: [dataAnonymizer]
+      summary: "Maps data to de-identification standards"
+      operationId: dataAnonymizer_deidentificationStandardMap
       requestBody:
         required: true
         content:
@@ -426,17 +932,43 @@ paths:
               $ref: '#/components/schemas/DeidentificationStandardMapInput'
       responses:
         '200':
-          description: Standards mapping
+          description: "Returns mapping between dataset fields and applicable de-identification standards (HIPAA Safe Harbor, Expert Determination, etc.)"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeidentificationStandardMapOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/data_anonymizer/DeidentificationTechniquesApply:
+  /agents/dataAnonymizer/deidentificationTechniquesApply:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_anonymizer]
-      summary: Recommend or apply de-identification techniques
-      operationId: deidentification_techniques_apply
+      tags: [dataAnonymizer]
+      summary: "Applies de-identification techniques to dataset"
+      operationId: dataAnonymizer_deidentificationTechniquesApply
       requestBody:
         required: true
         content:
@@ -445,17 +977,43 @@ paths:
               $ref: '#/components/schemas/DeidentificationTechniquesApplyInput'
       responses:
         '200':
-          description: Transformation recommendations or results
+          description: "Returns transformed dataset with applied techniques (generalization, suppression, perturbation) and transformation report"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeidentificationTechniquesApplyOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/data_anonymizer/KAnonymityCompute:
+  /agents/dataAnonymizer/kAnonymityCompute:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_anonymizer]
-      summary: Compute k-anonymity and related metrics
-      operationId: k_anonymity_compute
+      tags: [dataAnonymizer]
+      summary: "Computes privacy metrics for dataset"
+      operationId: dataAnonymizer_kAnonymityCompute
       requestBody:
         required: true
         content:
@@ -464,17 +1022,43 @@ paths:
               $ref: '#/components/schemas/KAnonymityComputeInput'
       responses:
         '200':
-          description: Privacy metrics
+          description: "Returns privacy metrics including k-anonymity value, l-diversity, t-closeness, equivalence class distribution, and risk level classification"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/KAnonymityComputeOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/data_anonymizer/ReidentificationAttackSimulate:
+  /agents/dataAnonymizer/reidentificationAttackSimulate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_anonymizer]
-      summary: Simulate re-identification attacks
-      operationId: reidentification_attack_simulate
+      tags: [dataAnonymizer]
+      summary: "Simulates re-identification attacks on dataset"
+      operationId: dataAnonymizer_reidentificationAttackSimulate
       requestBody:
         required: true
         content:
@@ -483,17 +1067,43 @@ paths:
               $ref: '#/components/schemas/ReidentificationAttackSimulateInput'
       responses:
         '200':
-          description: Attack simulation results
+          description: "Returns attack simulation results showing successful re-identification rates and vulnerable quasi-identifier combinations"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReidentificationAttackSimulateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/data_anonymizer/SafeReleaseRecommend:
+  /agents/dataAnonymizer/safeReleaseRecommend:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_anonymizer]
-      summary: Recommend safe release posture and mitigations
-      operationId: safe_release_recommend
+      tags: [dataAnonymizer]
+      summary: "Recommends safe data release strategy"
+      operationId: dataAnonymizer_safeReleaseRecommend
       requestBody:
         required: true
         content:
@@ -502,17 +1112,43 @@ paths:
               $ref: '#/components/schemas/SafeReleaseRecommendInput'
       responses:
         '200':
-          description: Release recommendation
+          description: "Returns data release recommendations with risk-benefit analysis and suggested privacy controls"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SafeReleaseRecommendOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/data_anonymizer/DeidentificationGuidancePublish:
+  /agents/dataAnonymizer/deidentificationGuidancePublish:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_anonymizer]
-      summary: Publish de-identification guidance
-      operationId: deidentification_guidance_publish
+      tags: [dataAnonymizer]
+      summary: "Publishes de-identification guidance documentation"
+      operationId: dataAnonymizer_deidentificationGuidancePublish
       requestBody:
         required: true
         content:
@@ -521,20 +1157,46 @@ paths:
               $ref: '#/components/schemas/DeidentificationGuidancePublishInput'
       responses:
         '200':
-          description: Published guidance
+          description: "Publication successful. Returns published guidance with access URL and distribution confirmation"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeidentificationGuidancePublishOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Data-Steward capabilities
   ############################################################
-  /agents/data_steward/PhoneCall:
+  /agents/dataSteward/phoneCall:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_steward]
-      summary: "Capability description"
-      operationId: phone_call
+      tags: [dataSteward]
+      summary: "Initiates phone call on behalf of represented party"
+      operationId: dataSteward_phoneCall
       requestBody:
         required: true
         content:
@@ -543,17 +1205,43 @@ paths:
               $ref: '#/components/schemas/PhoneCallInput'
       responses:
         '200':
-          description: capability output
+          description: "Call initiated successfully. Returns call details including participant information and connection status"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PhoneCallOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/data_steward/PhoneAnswer:
+  /agents/dataSteward/phoneAnswer:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_steward]
-      summary: "Capability description"
-      operationId: phone_answer
+      tags: [dataSteward]
+      summary: "Processes incoming phone call"
+      operationId: dataSteward_phoneAnswer
       requestBody:
         required: true
         content:
@@ -562,17 +1250,43 @@ paths:
               $ref: '#/components/schemas/PhoneAnswerInput'
       responses:
         '200':
-          description: capability output
+          description: "Call processed successfully. Returns call record with timestamp and participant details"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PhoneAnswerOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/data_steward/EmailSend:
+  /agents/dataSteward/emailSend:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_steward]
-      summary: "Capability description"
-      operationId: email_send
+      tags: [dataSteward]
+      summary: "Sends email on behalf of represented party"
+      operationId: dataSteward_emailSend
       requestBody:
         required: true
         content:
@@ -581,17 +1295,43 @@ paths:
               $ref: '#/components/schemas/EmailSendInput'
       responses:
         '200':
-          description: capability output
+          description: "Email sent successfully. Returns delivery confirmation and message tracking details"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/EmailSendOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/data_steward/EmailRead:
+  /agents/dataSteward/emailRead:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_steward]
-      summary: "Capability description"
-      operationId: email_read
+      tags: [dataSteward]
+      summary: "Reads and processes incoming emails on behalf of represented party"
+      operationId: dataSteward_emailRead
       requestBody:
         required: true
         content:
@@ -600,17 +1340,43 @@ paths:
               $ref: '#/components/schemas/EmailReadInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns email content with metadata including sender, subject, and timestamp"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/EmailReadOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/data_steward/DataRequestGovern:
+  /agents/dataSteward/dataRequestGovern:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [data_steward]
-      summary: "Capability description"
-      operationId: data_request_govern
+      tags: [dataSteward]
+      summary: "Governs all data access and modification requests on behalf of represented party"
+      operationId: dataSteward_dataRequestGovern
       requestBody:
         required: true
         content:
@@ -619,20 +1385,46 @@ paths:
               $ref: '#/components/schemas/DataRequestGovernInput'
       responses:
         '200':
-          description: capability output
+          description: "Request processed successfully. Returns access tokens to requested datasets on behalf of represented party"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DataRequestGovernOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Decision-Master capabilities
   ############################################################
-  /agents/decision_master/DecisionDiaryManage:
+  /agents/decisionMaster/decisionDiaryManage:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [decision_master]
-      summary: "Capability description"
-      operationId: decision_diary_manage
+      tags: [decisionMaster]
+      summary: "Manages decision diary entries"
+      operationId: decisionMaster_decisionDiaryManage
       requestBody:
         required: true
         content:
@@ -641,17 +1433,43 @@ paths:
               $ref: '#/components/schemas/DecisionDiaryManageInput'
       responses:
         '200':
-          description: capability output
+          description: "Diary management successful. Returns updated diary state with entry confirmations"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DecisionDiaryManageOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/decision_master/DecisionEventsIdentify:
+  /agents/decisionMaster/decisionEventsIdentify:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [decision_master]
-      summary: "Capability description"
-      operationId: decision_events_identify
+      tags: [decisionMaster]
+      summary: "Identifies events requiring decisions"
+      operationId: decisionMaster_decisionEventsIdentify
       requestBody:
         required: true
         content:
@@ -660,17 +1478,43 @@ paths:
               $ref: '#/components/schemas/DecisionEventsIdentifyInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns identified decision events with priority rankings and relevant context"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DecisionEventsIdentifyOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/decision_master/DecisionOutcomeIdentify:
+  /agents/decisionMaster/decisionOutcomeIdentify:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [decision_master]
-      summary: "Capability description"
-      operationId: decision_outcome_identify
+      tags: [decisionMaster]
+      summary: "Identifies outcomes of past decisions"
+      operationId: decisionMaster_decisionOutcomeIdentify
       requestBody:
         required: true
         content:
@@ -679,17 +1523,43 @@ paths:
               $ref: '#/components/schemas/DecisionOutcomeIdentifyInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns decision outcomes with result classifications and impact measurements"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DecisionOutcomeIdentifyOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/decision_master/DecisionOutcomeAnalyze:
+  /agents/decisionMaster/decisionOutcomeAnalyze:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [decision_master]
-      summary: "Capability description"
-      operationId: decision_outcome_analyze
+      tags: [decisionMaster]
+      summary: "Analyzes decision outcomes for patterns"
+      operationId: decisionMaster_decisionOutcomeAnalyze
       requestBody:
         required: true
         content:
@@ -698,20 +1568,46 @@ paths:
               $ref: '#/components/schemas/DecisionOutcomeAnalyzeInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns outcome analysis with pattern identification, success metrics, and improvement recommendations"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/DecisionOutcomeAnalyzeOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Door-Keeper capabilities
   ############################################################
-  /agents/door_keeper/VisitorIdentify:
+  /agents/doorKeeper/visitorIdentify:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [door_keeper]
-      summary: "Capability description"
-      operationId: visitor_identify
+      tags: [doorKeeper]
+      summary: "Identifies and classifies incoming visitors"
+      operationId: doorKeeper_visitorIdentify
       requestBody:
         required: true
         content:
@@ -720,17 +1616,43 @@ paths:
               $ref: '#/components/schemas/VisitorIdentifyInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns visitor identification result with trust classification and recommended access permissions"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/VisitorIdentifyOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/door_keeper/SubscriberRegister:
+  /agents/doorKeeper/subscriberRegister:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [door_keeper]
-      summary: "Capability description"
-      operationId: subscriber_register
+      tags: [doorKeeper]
+      summary: "Registers new subscriber account"
+      operationId: doorKeeper_subscriberRegister
       requestBody:
         required: true
         content:
@@ -739,17 +1661,43 @@ paths:
               $ref: '#/components/schemas/SubscriberRegisterInput'
       responses:
         '200':
-          description: capability output
+          description: "Registration successful. Returns subscriber identifier and account activation details"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriberRegisterOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/door_keeper/CredentialsGenerate:
+  /agents/doorKeeper/credentialsGenerate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [door_keeper]
-      summary: "Capability description"
-      operationId: credentials_generate
+      tags: [doorKeeper]
+      summary: "Generates authentication credentials"
+      operationId: doorKeeper_credentialsGenerate
       requestBody:
         required: true
         content:
@@ -758,17 +1706,43 @@ paths:
               $ref: '#/components/schemas/CredentialsGenerateInput'
       responses:
         '200':
-          description: capability output
+          description: "Credentials generated successfully. Returns credential package with secure delivery instructions"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CredentialsGenerateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                                 
-  /agents/door_keeper/SubscriberAuthenticate:
+  /agents/doorKeeper/subscriberAuthenticate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [door_keeper]
-      summary: "Capability description"
-      operationId: subscriber_authenticate
+      tags: [doorKeeper]
+      summary: "Authenticates subscriber login"
+      operationId: doorKeeper_subscriberAuthenticate
       requestBody:
         required: true
         content:
@@ -777,17 +1751,43 @@ paths:
               $ref: '#/components/schemas/SubscriberAuthenticateInput'
       responses:
         '200':
-          description: capability output
+          description: "Authentication successful. Returns session token with expiration time and granted permissions"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriberAuthenticateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/door_keeper/AgentRegister:
+  /agents/doorKeeper/agentRegister:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [door_keeper]
-      summary: "Capability description"
-      operationId: agent_register
+      tags: [doorKeeper]
+      summary: "Registers new agent in the platform"
+      operationId: doorKeeper_agentRegister
       requestBody:
         required: true
         content:
@@ -796,17 +1796,43 @@ paths:
               $ref: '#/components/schemas/AgentRegisterInput'
       responses:
         '200':
-          description: capability output
+          description: "Agent registration successful. Returns agent identifier and registration credentials package with secure delivery instructions"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentRegisterOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/door_keeper/TrustAssign:
+  /agents/doorKeeper/trustAssign:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [door_keeper]
-      summary: "Capability description"
-      operationId: trust_assign
+      tags: [doorKeeper]
+      summary: "Assigns trust level to entity"
+      operationId: doorKeeper_trustAssign
       requestBody:
         required: true
         content:
@@ -815,17 +1841,43 @@ paths:
               $ref: '#/components/schemas/TrustAssignInput'
       responses:
         '200':
-          description: capability output
+          description: "Trust assignment successful. Returns trust score (0-100) and granted permissions matrix"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TrustAssignOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/door_keeper/AccessRightsManage:
+  /agents/doorKeeper/accessRightsManage:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [door_keeper]
-      summary: "Capability description"
-      operationId: accessrights_manage
+      tags: [doorKeeper]
+      summary: "Manages access rights and permissions"
+      operationId: doorKeeper_accessRightsManage
       requestBody:
         required: true
         content:
@@ -834,17 +1886,43 @@ paths:
               $ref: '#/components/schemas/AccessRightsManageInput'
       responses:
         '200':
-          description: capability output
+          description: "Access rights updated successfully. Returns updated permission set and effective timestamp"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccessRightsManageOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/door_keeper/AgentAuthenticate:
+  /agents/doorKeeper/agentAuthenticate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [door_keeper]
-      summary: "Capability description"
-      operationId: agent_authenticate
+      tags: [doorKeeper]
+      summary: "Authenticates agent for A2A communication"
+      operationId: doorKeeper_agentAuthenticate
       requestBody:
         required: true
         content:
@@ -853,20 +1931,46 @@ paths:
               $ref: '#/components/schemas/AgentAuthenticateInput'
       responses:
         '200':
-          description: capability output
+          description: "Agent authentication successful. Returns A2A communication token (registration_identifier_ref), authentication result (finding), and audit log references for compliance tracking"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AgentAuthenticateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Incident-Responder capabilities
   ############################################################
-  /agents/incident_responder/HandleException:
+  /agents/incidentResponder/handleException:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [incident_responder]
-      summary: "Capability description"
-      operationId: handle_exception
+      tags: [incidentResponder]
+      summary: "Handles and logs system exceptions"
+      operationId: incidentResponder_handleException
       requestBody:
         required: true
         content:
@@ -875,20 +1979,46 @@ paths:
               $ref: '#/components/schemas/HandleExceptionInput'
       responses:
         '200':
-          description: capability output
+          description: "Exception handled successfully. Returns incident record with resolution status and follow-up actions"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/HandleExceptionOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # IP-Inspector capabilities
   ############################################################
-  /agents/ip_inspector/IPAssetsDiscover:
+  /agents/ipInspector/ipAssetsDiscover:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [ip_inspector]
-      summary: "Capability description"
-      operationId: ip_assets_discover
+      tags: [ipInspector]
+      summary: "Discovers intellectual property assets"
+      operationId: ipInspector_ipAssetsDiscover
       requestBody:
         required: true
         content:
@@ -897,17 +2027,43 @@ paths:
               $ref: '#/components/schemas/IPAssetsDiscoverInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns discovered IP assets including patents, trademarks, copyrights with filing dates, jurisdictions, and ownership details"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IPAssetsDiscoverOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/ip_inspector/IPToProductsMap:
+  /agents/ipInspector/ipToProductsMap:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [ip_inspector]
-      summary: "Capability description"
-      operationId: ip_to_products_map
+      tags: [ipInspector]
+      summary: "Maps IP assets to commercial products"
+      operationId: ipInspector_ipToProductsMap
       requestBody:
         required: true
         content:
@@ -916,17 +2072,43 @@ paths:
               $ref: '#/components/schemas/IPToProductsMapInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns mapping relationships between IP assets and products showing implementation details"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IPToProductsMapOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/ip_inspector/ImplementationInstancesSearch:
+  /agents/ipInspector/implementationInstancesSearch:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [ip_inspector]
-      summary: "Capability description"
-      operationId: implementation_instances_search
+      tags: [ipInspector]
+      summary: "Searches for IP implementation instances"
+      operationId: ipInspector_implementationInstancesSearch
       requestBody:
         required: true
         content:
@@ -935,17 +2117,43 @@ paths:
               $ref: '#/components/schemas/ImplementationInstancesSearchInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns search results showing where and how IP is implemented across products and services"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImplementationInstancesSearchOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/ip_inspector/UseCasesInfer:
+  /agents/ipInspector/useCasesInfer:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [ip_inspector]
-      summary: "Capability description"
-      operationId: use_cases_infer
+      tags: [ipInspector]
+      summary: "Infers use cases from IP assets"
+      operationId: ipInspector_useCasesInfer
       requestBody:
         required: true
         content:
@@ -954,17 +2162,43 @@ paths:
               $ref: '#/components/schemas/UseCasesInferInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns inferred use cases with confidence levels and supporting evidence from patent claims or trademark applications"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UseCasesInferOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/ip_inspector/IPProvenanceTrace:
+  /agents/ipInspector/ipProvenanceTrace:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [ip_inspector]
-      summary: "Capability description"
-      operationId: ip_provenance_trace
+      tags: [ipInspector]
+      summary: "Traces IP ownership and licensing history"
+      operationId: ipInspector_ipProvenanceTrace
       requestBody:
         required: true
         content:
@@ -973,17 +2207,43 @@ paths:
               $ref: '#/components/schemas/IPProvenanceTraceInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns provenance trace showing IP ownership chain, licensing agreements, and transfer history"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IPProvenanceTraceOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/ip_inspector/RelatedIPDiscover:
+  /agents/ipInspector/relatedIPDiscover:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [ip_inspector]
-      summary: "Capability description"
-      operationId: related_ip_discover
+      tags: [ipInspector]
+      summary: "Discovers related IP assets"
+      operationId: ipInspector_relatedIPDiscover
       requestBody:
         required: true
         content:
@@ -992,17 +2252,43 @@ paths:
               $ref: '#/components/schemas/RelatedIPDiscoverInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns related IP assets with relationship types (continuation, divisional, improvement) and citation analysis"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RelatedIPDiscoverOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/ip_inspector/IPRiskEvaluate:
+  /agents/ipInspector/ipRiskEvaluate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [ip_inspector]
-      summary: "Capability description"
-      operationId: ip_risk_evaluate
+      tags: [ipInspector]
+      summary: "Evaluates risks associated with IP assets"
+      operationId: ipInspector_ipRiskEvaluate
       requestBody:
         required: true
         content:
@@ -1011,17 +2297,43 @@ paths:
               $ref: '#/components/schemas/IPRiskEvaluateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns IP risk assessment covering infringement exposure, validity challenges, and competitive threats"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IPRiskEvaluateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/ip_inspector/IPPortfolioCluster:
+  /agents/ipInspector/ipPortfolioCluster:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [ip_inspector]
-      summary: "Capability description"
-      operationId: ip_portfolio_cluster
+      tags: [ipInspector]
+      summary: "Clusters IP portfolio by technology domains"
+      operationId: ipInspector_ipPortfolioCluster
       requestBody:
         required: true
         content:
@@ -1030,17 +2342,43 @@ paths:
               $ref: '#/components/schemas/IPPortfolioClusterInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns clustered IP groups with technology classifications and portfolio strength analysis"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IPPortfolioClusterOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/ip_inspector/IPReportGenerate:
+  /agents/ipInspector/ipReportGenerate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [ip_inspector]
-      summary: "Capability description"
-      operationId: ip_report_generate
+      tags: [ipInspector]
+      summary: "Generates comprehensive IP portfolio report"
+      operationId: ipInspector_ipReportGenerate
       requestBody:
         required: true
         content:
@@ -1049,20 +2387,46 @@ paths:
               $ref: '#/components/schemas/IPReportGenerateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns IP portfolio report with valuation analysis, competitive positioning, and strategic recommendations"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IPReportGenerateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Profile-Builder capabilities
   ############################################################
-  /agents/profile_builder/OrgProfileBuild:
+  /agents/profileBuilder/orgProfileBuild:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [profile_builder]
-      summary: "Capability description"
-      operationId: org_profile_build
+      tags: [profileBuilder]
+      summary: "Builds organizational profile"
+      operationId: profileBuilder_orgProfileBuild
       requestBody:
         required: true
         content:
@@ -1071,20 +2435,46 @@ paths:
               $ref: '#/components/schemas/OrgProfileBuildInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns constructed organization profile with aggregated attributes and data source references"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgProfileBuildOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Purchasing-Agent capabilities
   ############################################################
-  /agents/purchasing_agent/PurchaseOptionsRecommend:
+  /agents/purchasingAgent/purchaseOptionsRecommend:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: purchase_options_recommend
+      tags: [purchasingAgent]
+      summary: "Recommends purchase options based on criteria"
+      operationId: purchasingAgent_purchaseOptionsRecommend
       requestBody:
         required: true
         content:
@@ -1093,17 +2483,43 @@ paths:
               $ref: '#/components/schemas/PurchaseOptionsRecommendInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns ranked purchase recommendations with pricing, availability, vendor ratings, and comparison matrix"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseOptionsRecommendOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/BudgetCheck:
+  /agents/purchasingAgent/budgetCheck:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: budget_check
+      tags: [purchasingAgent]
+      summary: "Checks budget availability for purchase"
+      operationId: purchasingAgent_budgetCheck
       requestBody:
         required: true
         content:
@@ -1112,17 +2528,43 @@ paths:
               $ref: '#/components/schemas/BudgetCheckInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns budget availability status with remaining balance, allocated amounts, and spend breakdown by category"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BudgetCheckOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/PurchaseEligibilityValidate:
+  /agents/purchasingAgent/purchaseEligibilityValidate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: purchase_eligibility_validate
+      tags: [purchasingAgent]
+      summary: "Validates eligibility for purchase"
+      operationId: purchasingAgent_purchaseEligibilityValidate
       requestBody:
         required: true
         content:
@@ -1131,17 +2573,43 @@ paths:
               $ref: '#/components/schemas/PurchaseEligibilityValidateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns eligibility validation results with approval status and any restrictions or requirements"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseEligibilityValidateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/PurchaseInitiate:
+  /agents/purchasingAgent/purchaseInitiate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: purchase_initiate
+      tags: [purchasingAgent]
+      summary: "Initiates purchase transaction"
+      operationId: purchasingAgent_purchaseInitiate
       requestBody:
         required: true
         content:
@@ -1150,17 +2618,43 @@ paths:
               $ref: '#/components/schemas/PurchaseInitiateInput'
       responses:
         '200':
-          description: capability output
+          description: "Purchase initiated successfully. Returns order identifier, estimated delivery date, and payment confirmation details"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseInitiateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/PurchaseRiskEvaluate:
+  /agents/purchasingAgent/purchaseRiskEvaluate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: purchase_risk_evaluate
+      tags: [purchasingAgent]
+      summary: "Evaluates risks associated with purchase"
+      operationId: purchasingAgent_purchaseRiskEvaluate
       requestBody:
         required: true
         content:
@@ -1169,17 +2663,43 @@ paths:
               $ref: '#/components/schemas/PurchaseRiskEvaluateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns purchase risk assessment covering vendor reliability, pricing volatility, and delivery risk factors"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseRiskEvaluateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/TransactionCompleteVerify:
+  /agents/purchasingAgent/transactionCompleteVerify:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: transaction_complete_verify
+      tags: [purchasingAgent]
+      summary: "Verifies purchase transaction completion"
+      operationId: purchasingAgent_transactionCompleteVerify
       requestBody:
         required: true
         content:
@@ -1188,17 +2708,43 @@ paths:
               $ref: '#/components/schemas/TransactionCompleteVerifyInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns transaction verification with completion status, payment confirmation, and fulfillment details"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TransactionCompleteVerifyOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/purchasing_agent/PurchaseReceiptGenerate:
+  /agents/purchasingAgent/purchaseReceiptGenerate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: purchase_receipt_generate
+      tags: [purchasingAgent]
+      summary: "Generates purchase receipt"
+      operationId: purchasingAgent_purchaseReceiptGenerate
       requestBody:
         required: true
         content:
@@ -1207,17 +2753,43 @@ paths:
               $ref: '#/components/schemas/PurchaseReceiptGenerateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns purchase receipt with transaction details, itemized breakdown, and tax calculations"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseReceiptGenerateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/BudgetAfterPurchaseUpdate:
+  /agents/purchasingAgent/budgetAfterPurchaseUpdate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: budget_after_purchase_update
+      tags: [purchasingAgent]
+      summary: "Updates budget allocation after purchase"
+      operationId: purchasingAgent_budgetAfterPurchaseUpdate
       requestBody:
         required: true
         content:
@@ -1226,17 +2798,43 @@ paths:
               $ref: '#/components/schemas/BudgetAfterPurchaseUpdateInput'
       responses:
         '200':
-          description: capability output
+          description: "Budget updated successfully. Returns revised budget allocation and remaining available funds"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/BudgetAfterPurchaseUpdateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/OrderStatusTrack:
+  /agents/purchasingAgent/orderStatusTrack:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: order_status_track
+      tags: [purchasingAgent]
+      summary: "Tracks purchase order status"
+      operationId: purchasingAgent_orderStatusTrack
       requestBody:
         required: true
         content:
@@ -1245,17 +2843,43 @@ paths:
               $ref: '#/components/schemas/OrderStatusTrackInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns current order status with tracking details, shipment information, and estimated delivery timeline"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrderStatusTrackOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/PurchaseHistoryGenerate:
+  /agents/purchasingAgent/purchaseHistoryGenerate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: purchase_history_generate
+      tags: [purchasingAgent]
+      summary: "Generates purchase history report"
+      operationId: purchasingAgent_purchaseHistoryGenerate
       requestBody:
         required: true
         content:
@@ -1264,17 +2888,43 @@ paths:
               $ref: '#/components/schemas/PurchaseHistoryGenerateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns purchase history with transaction chronology, spending patterns, and vendor analysis"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseHistoryGenerateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/PurchaseIssuesResolve:
+  /agents/purchasingAgent/purchaseIssuesResolve:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: purchase_issues_resolve
+      tags: [purchasingAgent]
+      summary: "Resolves purchase-related issues"
+      operationId: purchasingAgent_purchaseIssuesResolve
       requestBody:
         required: true
         content:
@@ -1283,17 +2933,43 @@ paths:
               $ref: '#/components/schemas/PurchaseIssuesResolveInput'
       responses:
         '200':
-          description: capability output
+          description: "Issue resolution processed. Returns resolution status, corrective actions taken, and follow-up steps"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PurchaseIssuesResolveOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/PaymentCancel:
+  /agents/purchasingAgent/paymentCancel:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: payment_cancel
+      tags: [purchasingAgent]
+      summary: "Cancels payment transaction"
+      operationId: purchasingAgent_paymentCancel
       requestBody:
         required: true
         content:
@@ -1302,17 +2978,43 @@ paths:
               $ref: '#/components/schemas/PaymentCancelInput'
       responses:
         '200':
-          description: capability output
+          description: "Payment cancellation processed successfully. Returns confirmation and refund status if applicable"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PaymentCancelOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/ReturnOrRefundInitiate:
+  /agents/purchasingAgent/returnOrRefundInitiate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: return_or_refund_initiate
+      tags: [purchasingAgent]
+      summary: "Initiates return or refund process"
+      operationId: purchasingAgent_returnOrRefundInitiate
       requestBody:
         required: true
         content:
@@ -1321,17 +3023,43 @@ paths:
               $ref: '#/components/schemas/ReturnOrRefundInitiateInput'
       responses:
         '200':
-          description: capability output
+          description: "Return/refund initiated successfully. Returns RMA number, return instructions, and expected refund timeline"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReturnOrRefundInitiateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/purchasing_agent/MandateManage:
+  /agents/purchasingAgent/mandateManage:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [purchasing_agent]
-      summary: "Capability description"
-      operationId: mandate_manage
+      tags: [purchasingAgent]
+      summary: "Manages recurring payment mandates"
+      operationId: purchasingAgent_mandateManage
       requestBody:
         required: true
         content:
@@ -1340,20 +3068,46 @@ paths:
               $ref: '#/components/schemas/MandateManageInput'
       responses:
         '200':
-          description: capability output
+          description: "Mandate management successful. Returns updated mandate status and authorization details"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MandateManageOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Rewards-Seeker capabilities
   ############################################################
-  /agents/rewards_seeker/RewardsProfileRequest:
+  /agents/rewardsSeeker/rewardsProfileRequest:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [rewards_seeker]
-      summary: "Capability description"
-      operationId: rewards_profile_request
+      tags: [rewardsSeeker]
+      summary: "Requests rewards profile information"
+      operationId: rewardsSeeker_rewardsProfileRequest
       requestBody:
         required: true
         content:
@@ -1362,17 +3116,43 @@ paths:
               $ref: '#/components/schemas/RewardsProfileRequestInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns rewards profile with point balances, tier status, and redemption history"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RewardsProfileRequestOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/rewards_seeker/RewardsDiscover:
+  /agents/rewardsSeeker/rewardsDiscover:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [rewards_seeker]
-      summary: "Capability description"
-      operationId: rewards_discover
+      tags: [rewardsSeeker]
+      summary: "Discovers available rewards and promotions"
+      operationId: rewardsSeeker_rewardsDiscover
       requestBody:
         required: true
         content:
@@ -1381,17 +3161,43 @@ paths:
               $ref: '#/components/schemas/RewardsDiscoverInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns available rewards with redemption values, eligibility requirements, and expiration dates"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RewardsDiscoverOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/rewards_seeker/PromoEligibilityVerify:
+  /agents/rewardsSeeker/promoEligibilityVerify:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [rewards_seeker]
-      summary: "Capability description"
-      operationId: promo_eligibility_verify
+      tags: [rewardsSeeker]
+      summary: "Verifies eligibility for promotional offers"
+      operationId: rewardsSeeker_promoEligibilityVerify
       requestBody:
         required: true
         content:
@@ -1400,17 +3206,43 @@ paths:
               $ref: '#/components/schemas/PromoEligibilityVerifyInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns eligibility verification with qualification status and any additional requirements needed"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PromoEligibilityVerifyOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/rewards_seeker/RedemptionPlanGenerate:
+  /agents/rewardsSeeker/redemptionPlanGenerate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [rewards_seeker]
-      summary: "Capability description"
-      operationId: redemption_plan_generate
+      tags: [rewardsSeeker]
+      summary: "Generates optimal rewards redemption plan"
+      operationId: rewardsSeeker_redemptionPlanGenerate
       requestBody:
         required: true
         content:
@@ -1419,17 +3251,43 @@ paths:
               $ref: '#/components/schemas/RedemptionPlanGenerateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns redemption plan optimizing point value with recommended redemption sequence and value analysis"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RedemptionPlanGenerateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/rewards_seeker/RewardRedeem:
+  /agents/rewardsSeeker/rewardRedeem:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [rewards_seeker]
-      summary: "Capability description"
-      operationId: reward_redeem
+      tags: [rewardsSeeker]
+      summary: "Processes reward redemption"
+      operationId: rewardsSeeker_rewardRedeem
       requestBody:
         required: true
         content:
@@ -1438,20 +3296,46 @@ paths:
               $ref: '#/components/schemas/RewardRedeemInput'
       responses:
         '200':
-          description: capability output
+          description: "Redemption processed successfully. Returns confirmation details with updated point balance and reward delivery information"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RewardRedeemOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
   ############################################################
   # Risk-Assessor capabilities
   ############################################################
-  /agents/risk_assessor/RisksAssess:
+  /agents/riskAssessor/risksAssess:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [risk_assessor]
-      summary: "Capability description"
-      operationId: risks_assess
+      tags: [riskAssessor]
+      summary: "Performs comprehensive risk assessment"
+      operationId: riskAssessor_risksAssess
       requestBody:
         required: true
         content:
@@ -1460,20 +3344,46 @@ paths:
               $ref: '#/components/schemas/RisksAssessInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns risk assessment with severity scores, threat categorization, and mitigation recommendations"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RisksAssessOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # SocialMedia-Checker capabilities
   ############################################################
-  /agents/socialmedia_checker/PromotionalEngagementVerify:
+  /agents/socialmediaChecker/promotionalEngagementVerify:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [socialmedia_checker]
-      summary: Verify promotional engagement requirements
-      operationId: promotional_engagement_verify
+      tags: [socialmediaChecker]
+      summary: "Verifies promotional engagement compliance"
+      operationId: socialmediaChecker_promotionalEngagementVerify
       requestBody:
         required: true
         content:
@@ -1482,17 +3392,43 @@ paths:
               $ref: '#/components/schemas/PromotionalEngagementVerifyInput'
       responses:
         '200':
-          description: Engagement verification result
+          description: "Returns verification results confirming promotional presence on social media to meet reward qualification requirements"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PromotionalEngagementVerifyOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/socialmedia_checker/MisappropriationDetect:
+  /agents/socialmediaChecker/misappropriationDetect:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [socialmedia_checker]
-      summary: Detect misappropriation or leaked PI on social media
-      operationId: misappropriation_detect
+      tags: [socialmediaChecker]
+      summary: "Detects unauthorized use of IP or likeness"
+      operationId: socialmediaChecker_misappropriationDetect
       requestBody:
         required: true
         content:
@@ -1501,17 +3437,43 @@ paths:
               $ref: '#/components/schemas/MisappropriationDetectInput'
       responses:
         '200':
-          description: Misappropriation findings
+          description: "Returns detection results identifying potential misappropriation instances with confidence scores and evidence"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/MisappropriationDetectOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/socialmedia_checker/EvidenceCollect:
+  /agents/socialmediaChecker/evidenceCollect:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [socialmedia_checker]
-      summary: Collect social media evidence
-      operationId: social_evidence_collect
+      tags: [socialmediaChecker]
+      summary: "Collects evidence from social media sources"
+      operationId: socialmediaChecker_evidenceCollect
       requestBody:
         required: true
         content:
@@ -1520,20 +3482,46 @@ paths:
               $ref: '#/components/schemas/EvidenceCollectInput'
       responses:
         '200':
-          description: Evidence record
+          description: "Returns collected evidence package with screenshots, post metadata, and archival timestamps for legal proceedings"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/EvidenceCollectOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Solicitor-General capabilities
   ############################################################
-  /agents/solicitor_general/JustAsk:
+  /agents/solicitorGeneral/justAsk:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [solicitor_general]
-      summary: Provides an introduction and guidance for interacting with the Yo-ai platform
-      operationId: solicitor_general_just_ask
+      tags: [solicitorGeneral]
+      summary: "General purpose query interface"
+      operationId: solicitorGeneral_justAsk
       requestBody:
         required: false
         content:
@@ -1542,17 +3530,43 @@ paths:
               $ref: '#/components/schemas/JustAskInput'
       responses:
         '200':
-          description: Introduction and guidance from the Solicitor-General
+          description: "Returns response to query with relevant guidance and supporting information from the Solicitor General"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/JustAskOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/solicitor_general/EventLog:
+  /agents/solicitorGeneral/eventLog:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [solicitor_general]
-      summary: Insert a record into the EventLog
-      operationId: solicitor_general_event_log
+      tags: [solicitorGeneral]
+      summary: "Logs platform events for audit trail"
+      operationId: solicitorGeneral_eventLog
       requestBody:
         required: true
         content:
@@ -1561,39 +3575,46 @@ paths:
               $ref: '#/components/schemas/EventLogInput'
       responses:
         '200':
-          description: Event.Log response
+          description: "Event logged successfully. Returns log entry confirmation with timestamp and event identifier"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventLogOutput'
-
-  /agents/solicitor_general/RequestResponseCorrelate:
-    post:
-      tags: [solicitor_general]
-      summary: Correlate responses with requests for routing (stubbed)
-      operationId: solicitor_general_request_response_correlate
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RequestResponseCorrelateInput'
-      responses:
-        '200':
-          description: Stubbed correlation response
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RequestResponseCorrelateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Talent-Agent capabilities
   ############################################################
-  /agents/talent_agent/JobPostingsScan:
+  /agents/talentAgent/jobPostingsScan:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [talent_agent]
-      summary: Scan job postings for matching opportunities
-      operationId: job_postings_scan
+      tags: [talentAgent]
+      summary: "Scans job boards for matching opportunities"
+      operationId: talentAgent_jobPostingsScan
       requestBody:
         required: true
         content:
@@ -1602,17 +3623,43 @@ paths:
               $ref: '#/components/schemas/JobPostingsScanInput'
       responses:
         '200':
-          description: Matching job postings
+          description: "Returns matching job postings with relevance scores, salary ranges, and application requirements"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/JobPostingsScanOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/talent_agent/ConsultingServicesPitch:
+  /agents/talentAgent/consultingServicesPitch:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [talent_agent]
-      summary: Generate consulting service pitches
-      operationId: consulting_services_pitch
+      tags: [talentAgent]
+      summary: "Generates consulting services pitch"
+      operationId: talentAgent_consultingServicesPitch
       requestBody:
         required: true
         content:
@@ -1621,17 +3668,43 @@ paths:
               $ref: '#/components/schemas/ConsultingServicesPitchInput'
       responses:
         '200':
-          description: Generated pitch
+          description: "Returns generated pitch document tailored to prospect with value propositions and engagement terms"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ConsultingServicesPitchOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/talent-agent/Application.Submit:
+  /agents/talentAgent/applicationSubmit:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [talent_agent]
-      summary: Submit job applications
-      operationId: application_submit
+      tags: [talentAgent]
+      summary: "Submits job or consulting application"
+      operationId: talentAgent_applicationSubmit
       requestBody:
         required: true
         content:
@@ -1640,17 +3713,43 @@ paths:
               $ref: '#/components/schemas/ApplicationSubmitInput'
       responses:
         '200':
-          description: Application submission result
+          description: "Application submitted successfully. Returns submission confirmation and tracking reference"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApplicationSubmitOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/talent_agent/TalentProfileRequest:
+  /agents/talentAgent/talentProfileRequest:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [talent_agent]
-      summary: Request minimized talent profile from Data-Steward
-      operationId: talent_profile_request
+      tags: [talentAgent]
+      summary: "Requests detailed talent profile"
+      operationId: talentAgent_talentProfileRequest
       requestBody:
         required: true
         content:
@@ -1659,20 +3758,46 @@ paths:
               $ref: '#/components/schemas/TalentProfileRequestInput'
       responses:
         '200':
-          description: Talent profile bundle
+          description: "Returns comprehensive talent profile with skills, experience, certifications, and availability"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TalentProfileRequestOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Tech-Inspector capabilities
   ############################################################
-  /agents/tech_inspector/AssetIntegrationsMap:
+  /agents/techInspector/assetIntegrationsMap:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [tech_inspector]
-      summary: "Capability description"
-      operationId: asset_integrations_map
+      tags: [techInspector]
+      summary: "Maps technical asset integrations"
+      operationId: techInspector_assetIntegrationsMap
       requestBody:
         required: true
         content:
@@ -1681,17 +3806,43 @@ paths:
               $ref: '#/components/schemas/AssetIntegrationsMapInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns integration mapping showing connections between technical assets with protocol details"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AssetIntegrationsMapOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/tech_inspector/AssetPortfolioCluster:
+  /agents/techInspector/assetPortfolioCluster:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [tech_inspector]
-      summary: "Capability description"
-      operationId: asset_portfolio_cluster
+      tags: [techInspector]
+      summary: "Clusters technical assets by similarity"
+      operationId: techInspector_assetPortfolioCluster
       requestBody:
         required: true
         content:
@@ -1700,17 +3851,43 @@ paths:
               $ref: '#/components/schemas/AssetPortfolioClusterInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns clustered asset groups with technology classifications and dependency relationships"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/AssetPortfolioClusterOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
                 
-  /agents/tech_inspector/ImplementationDetailsAnalyze:
+  /agents/techInspector/implementationDetailsAnalyze:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [tech_inspector]
-      summary: "Capability description"
-      operationId: implementation_details_analyze
+      tags: [techInspector]
+      summary: "Analyzes technical implementation details"
+      operationId: techInspector_implementationDetailsAnalyze
       requestBody:
         required: true
         content:
@@ -1719,17 +3896,43 @@ paths:
               $ref: '#/components/schemas/ImplementationDetailsAnalyzeInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns implementation analysis with architecture patterns, technology stack details, and optimization opportunities"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ImplementationDetailsAnalyzeOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/tech_inspector/IntegrationProvenanceTrace:
+  /agents/techInspector/integrationProvenanceTrace:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [tech_inspector]
-      summary: "Capability description"
-      operationId: integration_provenance_trace
+      tags: [techInspector]
+      summary: "Traces integration configuration history"
+      operationId: techInspector_integrationProvenanceTrace
       requestBody:
         required: true
         content:
@@ -1738,17 +3941,43 @@ paths:
               $ref: '#/components/schemas/IntegrationProvenanceTraceInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns provenance trace showing integration evolution with change history and configuration snapshots"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IntegrationProvenanceTraceOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/tech_inspector/IntegrationRiskEvaluate:
+  /agents/techInspector/integrationRiskEvaluate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [tech_inspector]
-      summary: "Capability description"
-      operationId: integration_risk_evaluate
+      tags: [techInspector]
+      summary: "Evaluates integration-related risks"
+      operationId: techInspector_integrationRiskEvaluate
       requestBody:
         required: true
         content:
@@ -1757,17 +3986,43 @@ paths:
               $ref: '#/components/schemas/IntegrationRiskEvaluateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns integration risk assessment covering security vulnerabilities, performance bottlenecks, and failure points"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IntegrationRiskEvaluateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/tech_inspector/TechReportGenerate:
+  /agents/techInspector/techReportGenerate:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [tech_inspector]
-      summary: "Capability description"
-      operationId: tech_report_generate
+      tags: [techInspector]
+      summary: "Generates technical analysis report"
+      operationId: techInspector_techReportGenerate
       requestBody:
         required: true
         content:
@@ -1776,17 +4031,43 @@ paths:
               $ref: '#/components/schemas/TechReportGenerateInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns comprehensive technical report with asset inventory, integration analysis, and strategic recommendations"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TechReportGenerateOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/tech_inspector/TechnicalImpactInfer:
+  /agents/techInspector/technicalImpactInfer:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [tech_inspector]
-      summary: "Capability description"
-      operationId: technical_impact_infer
+      tags: [techInspector]
+      summary: "Infers technical impact of changes"
+      operationId: techInspector_technicalImpactInfer
       requestBody:
         required: true
         content:
@@ -1795,17 +4076,43 @@ paths:
               $ref: '#/components/schemas/TechnicalImpactInferInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns impact analysis showing affected systems, dependencies, and risk assessment for proposed changes"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TechnicalImpactInferOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/tech_inspector/ThirdPartyAssetsDiscover:
+  /agents/techInspector/thirdPartyAssetsDiscover:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [tech_inspector]
-      summary: "Capability description"
-      operationId: third_party_assets_discover
+      tags: [techInspector]
+      summary: "Discovers third-party assets in use"
+      operationId: techInspector_thirdPartyAssetsDiscover
       requestBody:
         required: true
         content:
@@ -1814,17 +4121,43 @@ paths:
               $ref: '#/components/schemas/ThirdPartyAssetsDiscoverInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns discovered third-party assets with licensing information, version details, and security advisories"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ThirdPartyAssetsDiscoverOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/tech_inspector/UsageInstancesSearch:
+  /agents/techInspector/usageInstancesSearch:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [tech_inspector]
-      summary: "Capability description"
-      operationId: usage_instances_search
+      tags: [techInspector]
+      summary: "Searches for asset usage instances"
+      operationId: techInspector_usageInstancesSearch
       requestBody:
         required: true
         content:
@@ -1833,17 +4166,43 @@ paths:
               $ref: '#/components/schemas/UsageInstancesSearchInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns usage instances showing where and how assets are deployed across infrastructure"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UsageInstancesSearchOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
-  /agents/tech_inspector/RelatedAssetsDetect:
+  /agents/techInspector/relatedAssetsDetect:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [tech_inspector]
-      summary: "Capability description"
-      operationId: related_assets_detect
+      tags: [techInspector]
+      summary: "Detects related technical assets"
+      operationId: techInspector_relatedAssetsDetect
       requestBody:
         required: true
         content:
@@ -1852,20 +4211,46 @@ paths:
               $ref: '#/components/schemas/RelatedAssetsDetectInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns related assets with relationship types (dependency, integration, alternative) and connection details"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/RelatedAssetsDetectOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # The-Sentinel capabilities
   ############################################################
-  /agents/the_sentinel/PlatformMonitor:
+  /agents/theSentinel/platformMonitor:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [the_sentinel]
-      summary: "Capability description"
-      operationId: platform_monitor
+      tags: [theSentinel]
+      summary: "Monitors platform for adverse events"
+      operationId: theSentinel_platformMonitor
       requestBody:
         required: true
         content:
@@ -1874,20 +4259,46 @@ paths:
               $ref: '#/components/schemas/PlatformMonitorInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns events classified as abnormal"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PlatformMonitorOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
   
   ############################################################
   # Vendor-Manager capabilities
   ############################################################
-  /agents/vendor_manager/OrgProfileManage:
+  /agents/vendorManager/orgProfileManage:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [vendor_manager]
-      summary: "Capability description"
-      operationId: org_profile_manage
+      tags: [vendorManager]
+      summary: "Manages organization profiles and interactions with the Data-Steward on behalf of the organization"
+      operationId: vendorManager_orgProfileManage
       requestBody:
         required: true
         content:
@@ -1896,20 +4307,46 @@ paths:
               $ref: '#/components/schemas/OrgProfileManageInput'
       responses:
         '200':
-          description: capability output
+          description: "Profile management successful. Returns updated organization profile with change confirmation or updated activity"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/OrgProfileManageOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
 
   ############################################################
   # Workflow-Builder capabilities
   ############################################################
-  /agents/workflow_builder/WorkflowBuild:
+  /agents/workflowBuilder/workflowBuild:
+    x-amazon-apigateway-cors:
+      allowOrigins:
+        - "*"
+      allowHeaders:
+        - "Content-Type"
+        - "Authorization"
+      allowMethods:
+        - "POST"
+        - "OPTIONS"
+      maxAge: 3600
     post:
-      tags: [workflow_builder]
-      summary: "Capability description"
-      operationId: workflow_build
+      tags: [workflowBuilder]
+      summary: "Builds automated workflow definition"
+      operationId: workflowBuilder_workflowBuild
       requestBody:
         required: true
         content:
@@ -1918,17 +4355,65 @@ paths:
               $ref: '#/components/schemas/WorkflowBuildInput'
       responses:
         '200':
-          description: capability output
+          description: "Returns constructed workflow with step definitions, decision logic, and execution parameters"
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkflowBuildOutput'
+        '400':
+          $ref: '#/components/responses/Error400'
+        '401':
+          $ref: '#/components/responses/Error401'
+        '403':
+          $ref: '#/components/responses/Error403'
+        '404':
+          $ref: '#/components/responses/Error404'
+        '500':
+          $ref: '#/components/responses/Error500'
+      x-amazon-apigateway-integration:
+        type: aws_proxy
+        httpMethod: POST
+        uri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        credentials: arn:aws:iam::{aws-account-id}:role/APIGatewayLambdaExecRole
+        timeoutInMillis: 29000
+
+components:  
+# --------------------------------------------------------
+# securitySchemes
+# --------------------------------------------------------
+  securitySchemes:
+    YoAiAuthorizer:
+      type: apiKey
+      name: Authorization
+      in: header
+      x-amazon-apigateway-authtype: custom
+      x-amazon-apigateway-authorizer:
+        type: token
+        authorizerUri: arn:aws:apigateway:{aws-region}:lambda:path/2015-03-31/functions/arn:aws:lambda:{aws-region}:{aws-account-id}:function:{lambda-function-name}/invocations
+        authorizerCredentials: arn:aws:iam::{aws-account-id}:role/APIGatewayAuthorizerRole
+        authorizerResultTtlInSeconds: 300
+        identitySource: method.request.header.Authorization
 
 # --------------------------------------------------------
 # Schemas
 # --------------------------------------------------------
-components:  
   schemas:
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
 
     Profile:
       title: ProfileWrapper
@@ -7071,76 +9556,6 @@ components:
       additionalProperties: false
 
     # =========================================================
-    # Request-Response.Correlate
-    # =========================================================
-    RequestResponseCorrelateInput:
-      type: object
-      description: Profile-aware input for the Request-Response.Correlate capability.
-      properties:
-        profile: 
-          $ref: '#/components/schemas/Profile'
-        profilePatch: 
-          $ref: '#/components/schemas/ProfilePatch'
-        payload:
-          type: object
-          description: Capability-specific input fields for the Request-Response.Correlate capability.
-          properties:
-            requestId:
-              type: string
-            responseId:
-              type: string
-            topic:
-              type: string
-            direction:
-              type: string
-              enum: 
-                - requestToResponse
-                - responseToRequest
-          required:
-            - direction
-          additionalProperties: false
-      required:
-        - payload
-      additionalProperties: false
-
-    RequestResponseCorrelateOutput:
-      type: object
-      description: Profile-aware output for the Application.Submit capability.
-      properties:
-        result:
-          type: object
-          properties:
-            correlationId:
-              type: string
-            requestId:
-              type: string
-            responseId:
-              type: string
-            topic:
-              type: string
-            status:
-              type: string
-              enum: 
-                - correlated
-                - not-found
-                - error
-            error:
-              type: string
-          required:
-            - correlationId
-            - status
-          additionalProperties: false
-        profile:
-          $ref: '#/components/schemas/Profile'
-        profilePatch:
-          $ref: '#/components/schemas/ProfilePatch'
-        governanceLabels:
-          $ref: '#/components/schemas/governanceLabels'
-      required:
-        - result
-      additionalProperties: false
-
-    # =========================================================
     # Job-Postings.Scan
     # =========================================================
     JobPostingsScanInput:
@@ -8153,3 +10568,44 @@ components:
           $ref: '#/components/schemas/governanceLabels'
       required:
         - result
+
+
+  # =========================================================
+  # Responses
+  # =========================================================
+  responses:
+    Error400:
+      description: "Bad Request"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    Error401:
+      description: "Unauthorized"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    Error403:
+      description: "Forbidden"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    Error404:
+      description: "Not Found"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+            
+    Error500:
+      description: "Internal Server Error"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
