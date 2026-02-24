@@ -23,6 +23,18 @@
       "url": "https://privacyportfolio.com/agent-registry/solicitor-general/agent.json"
     },
     {
+      "name": "The-Advisor",
+      "url": "https://privacyportfolio.com/agent-registry/the-advisor/agent.json"
+    },
+    {
+      "name": "The-Custodian",
+      "url": "https://privacyportfolio.com/agent-registry/the-custodian/agent.json"
+    },
+    {
+      "name": "The-Oracle",
+      "url": "https://privacyportfolio.com/agent-registry/the-oracle/agent.json"
+    },
+    {
       "name": "The-Sentinel",
       "url": "https://privacyportfolio.com/agent-registry/the-sentinel/agent.json"
     },

@@ -20,6 +20,12 @@ The "Incident-Responder" is a platform agent that catches all unhandled exceptio
 
 The "Decision-Master", which monitors event logs for decision-making events, publishes a Decision-Diary topic in Kafka that explains what decisions were made and what the outcomes were.
 
+"The-Advisor", is a reasoning agent that provides guidance, synthesis, and platform expertise to other agents. It has full access to shared + agent knowledge, uses a Cognitive-Reasoning-Loop for deeper inference, and tracks whether advice was followed (learning loop).
+
+"The-Custodian", is a privileged PlatformAgent responsible for platform maintenance, managing the dead-letter-queue subsystem, and owns all configuration_change artifacts.
+
+"The-Oracle", which performs forecasting, consequence modeling, and learning, is isolated from shared platform knowledge to avoid bias.
+
 "The-Sentinel", which monitors event logs for adverse, unusual events, generates alerts and rounds out this class of PlatformAgents, which is defined in the /core folder.
 
 
