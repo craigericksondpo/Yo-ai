@@ -8,3 +8,5 @@ Use your own judgement about submitting pull requests. There should be no PII, s
 The "messages" folder contains templates for shared messages that comply with the A2A and FastA2A protocols.  A2ARequest.json and A2AResponse.json are good examples of common messages.
 
 The "agreements" folder contains templates for shared agreements that could be negotiated between two parties (Agent-to-Agent, Agent-to-Person, or Person-to-Person).
+
+The "needsWork" folder contains a variety of artifacts and tools that a human or agent could use as 'building materials'. They are NOT intended for deployment.
