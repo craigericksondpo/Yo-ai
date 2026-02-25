@@ -41,4 +41,4 @@ The Data-Steward and the Vendor-Manager are designed to communicate with each ot
 
 ## Base Agents
 The base class of PlatformAgents and Yo-ai-agents is defined as 'Agent' in the /core folder.
-This class includes 'VisitingAgents' and 'RegisteredAgents' to support A2A interactions across domain boundaries.
+This class includes low-trust 'VisitingAgents' and high-trust 'RegisteredAgents' to support A2A interactions across domain boundaries.
