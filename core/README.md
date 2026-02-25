@@ -1,73 +1,154 @@
-## /core
+## /core/README.md
 
-This folder contains one base class for all agents: Agent,
-and two subclasses, PlatformAgent and YoAiAgent.
+This folder contains the foundational runtime for the entire Yo ai Platform. It defines:
+•	the base Agent class
+•	the PlatformAgent and YoAiAgent subclasses
+•	the runtime pipeline for validation, transformation, knowledge loading, and output shaping
+•	the AI provider orchestration layer
+•	the logging subsystem
+•	the schema loading and validation engine
+•	the envelope and tooling utilities used across all agents
 
-The purpose of these classes are to enforce this Core Principle:
-The agent should never decide whether it is “basic” or “extended.”
-The platform decides that by choosing which card to load.
+This folder is the authoritative implementation of the platform’s Core Principle:
+Agents never decide whether they are basic or extended.
+The platform decides that by choosing which card(s) to load.
+This principle ensures:
+•	privilege boundaries remain enforceable
+•	agents cannot escalate their own capabilities
+•	the platform controls authentication, authorization, and card exposure
+•	the Solicitor General controls the tool base class and prevents jailbreaks
+________________________________________
+1. Core Agent Classes
+agent.py
+  Defines the base Agent class shared by all agents.
+Implements:
+•	card loading
+•	capability dispatch
+•	message envelope handling
+•	runtime context binding
 
-This principle is used across the entire Yo-ai Platform:
--	Door-Keeper decides whether a visitor is authenticated
--	The platform decides whether to expose /auth/ resources
--	The platform decides whether to serve the extended card
--	The agent simply accepts whatever card(s) it is given
-
-This keeps the agent honest and prevents privilege escalation.
-
-Platform Agents differ only by the extended card and environment.
-Yo-ai Agents differ only by the extended card.
-Visiting Agents differ only by the absence of the extended card.
-
-Key points:
--	Platform runtime decides which cards to load
--	Agent class simply loads whatever it is given
--	Platform agents always receive extended cards
--	Yo-ai agents receive extended cards only when authenticated
--	Visiting agents never receive extended cards
--	Solicitor General controls the tool base class, preventing jailbreaks
-
-## Platform Agents (environment dependent, privileged, internal):
--	decision-master
--	door-keeper
--	incident-responder
--	solicitor-general
--	the-sentinel
--	workflow-builder
-
+platform_agent.py
+  Defines the privileged PlatformAgent subclass.
 Platform agents:
--	run inside the platform
--	have environmental bindings
--	have privileged tools
--	have access to /auth/ resources
--	always receive the extended card
+•	run inside the platform environment
+•	have privileged tools
+•	have access to /auth/ resources
+•	always receive extended cards
 
-## Yo-ai Agents 
-- complaint-manager
-- compliance-validator
-- darkweb-checker
-- data-anonymizer
-- databroker-monitor
-- data-steward
-- ip-inspector
-- profile-builder
-- purchasing-agent
-- rewards-seeker
-- risk-assessor
-- socialmedia-checker
-- talent-agent
-- tech-inspector
-- vendor-manager
+yoai_agent.py
+  Defines the unprivileged YoAiAgent subclass.
+Yo ai agents:
+•	run inside the Yo ai agent runtime
+•	do not depend on platform environment
+•	may receive extended cards only when authenticated
 
-Yo-ai agents:
--	run inside the Yo ai agent runtime
--	do not depend on platform environment
--	do not have platform privileges
--	may receive extended cards only when authenticated
--	otherwise run with only the public card
+Templates
+  These provide scaffolding for new agents.
+•	platform_agent_template.py.txt
+•	yoai_agent_template.py.txt
+________________________________________
+2. Envelope & Tooling
+envelope.py
+  Defines the message envelope format used across the platform:
+•	metadata
+•	capability routing
+•	card references
+•	provenance
 
-## Visiting Agents
--	external
--	untrusted
--	public card only
+tooling.py
+  Shared utilities for:
+•	capability execution
+•	safe tool invocation
+•	runtime helpers
+________________________________________
+3. Runtime Pipeline (/runtime)
+  The runtime/ folder implements the full execution pipeline for every agent call.
 
+Input Processing
+•	input_validator.py — validates incoming messages against schemas
+•	schema_loader.py — loads JSON schemas
+•	schema_validator.py — validates inputs/outputs
+
+Knowledge & Fingerprints
+•	load_knowledge.py — loads agent knowledge bundles
+•	knowledge_write.py — writes knowledge artifacts
+•	load_fingerprints.py — loads agent fingerprints
+
+AI Transformation
+•	ai_transform.py — orchestrates LLM calls and applies transformations
+•	output_shaper.py — shapes model output into schema compliant responses
+
+Logging
+Under runtime/logging/:
+•	log_sink.py — base sink
+•	json_file_sink.py
+•	s3_sink.py
+•	kafka_sink.py
+•	dynamodb_sink.py
+•	windows_event_sink.py
+•	sink_loader.py
+These provide a pluggable logging architecture.
+________________________________________
+4. AI Provider Layer (/runtime/ai_providers)
+  Implements the abstraction layer for all AI providers:
+•	base_ai_client.py — shared interface
+•	azure_openai_client.py
+•	openai_client.py
+•	claude_client.py
+•	provider_loader.py
+•	provider_orchestrator.py
+
+This allows the platform to:
+•	switch providers
+•	load provider configs
+•	orchestrate multi provider strategies
+________________________________________
+5. Core Principle Summary
+•	Platform runtime decides which cards to load
+•	Agent class simply loads whatever it is given
+•	Platform agents always receive extended cards
+•	Yo ai agents receive extended cards only when authenticated
+•	Visiting agents never receive extended cards
+•	Solicitor General controls the tool base class
+
+This ensures:
+•	privilege boundaries
+•	safety
+•	auditability
+•	consistent behavior across all agents
+________________________________________
+6. Agent Categories (for reference)
+
+Platform Agents (privileged, environment bound)
+•	decision-master
+•	door-keeper
+•	incident-responder
+•	solicitor-general
+•	the-advisor
+•	the-custodian
+•	the-oracle
+•	the-sentinel
+•	workflow-builder
+
+Yo ai Agents (unprivileged, runtime bound)
+•	complaint-manager
+•	compliance-validator
+•	darkweb-checker
+•	data-anonymizer
+•	databroker-monitor
+•	data-steward
+•	ip-inspector
+•	profile-builder
+•	purchasing-agent
+•	rewards-seeker
+•	risk-assessor
+•	socialmedia-checker
+•	talent-agent
+•	tech-inspector
+•	vendor-manager
+
+Visiting Agents
+•	external
+•	untrusted
+•	public card only
+________________________________________
