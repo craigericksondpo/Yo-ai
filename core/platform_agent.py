@@ -1,6 +1,7 @@
 # core/platform_agent.py
 
 from core.yoai_agent import YoAiAgent
+from core.runtime import logger
 
 
 class PlatformAgent(YoAiAgent):
@@ -46,14 +47,12 @@ class PlatformAgent(YoAiAgent):
         Emit a Platform.ConfigurationChanged event to notify all PlatformAgents.
         Required for NIST 800-53 CM-6 compliance.
         """
-        event = {
-            "type": change_type,
-            "details": details or {},
-            "source": self.card.get("name"),
-        }
-
-        # Platform runtime handles fan-out to all PlatformAgents
-        await self.runtime.broadcast_platform_event(
-            "Platform.ConfigurationChanged",
-            event
+        self.log.info(
+            f"[CM-6] Configuration changed: {change_type}",
+            extra={
+                "event_type": "platform_configuration_changed",
+                "change_type": change_type,
+                "details": details or {},
+                "source": self.name,
+            }
         )
