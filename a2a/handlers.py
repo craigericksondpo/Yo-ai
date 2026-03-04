@@ -1,11 +1,14 @@
-# handlers.py - request/response/event handlers
+# a2a/handlers.py - request/response/event handlers
 
-# yo_ai_main/a2a/handlers.py
+# THIS IS NOT the entry point for Yo-ai. 
+# It is for app.py which uses Starlette to route HTTP requests to these handlers. 
+# These handlers delegate to the FastA2AApp instance (a2a_app) which implements the A2A protocol logic.
+# Yo-ai does not use Starlette OR FastA2A any longer. This is only an option for other developers.
 
 from starlette.responses import JSONResponse
 from starlette.requests import Request
 
-from yo_ai_main.a2a.app import a2a_app
+from .app import a2a_app
 
 
 async def handle_a2a_request(request: Request) -> JSONResponse:
