@@ -1,5 +1,9 @@
 # core/platform_agent.py
 
+import json
+from pathlib import Path
+from typing import Dict, Any, Optional
+
 from core.yoai_agent import YoAiAgent
 from core.runtime import logger
 
@@ -56,3 +60,18 @@ class PlatformAgent(YoAiAgent):
                 "source": self.name,
             }
         )
+
+    async def authorize_call(self, envelope: Dict[str, Any]) -> bool:
+        """
+        Check if a specific A2A call is authorized.
+        
+        Args:
+            envelope: A2A call envelope with caller info
+            
+        Returns:
+            bool: True if authorized, False if denied
+        """
+        from runtime.authorize_call import run
+        
+        context = self._build_context(envelope)
+        return await run(envelope, context)
