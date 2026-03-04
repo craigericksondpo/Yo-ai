@@ -1,15 +1,14 @@
-# yo_ai_main/a2a/registry.py - agent registry for FastA2A
+# yo_ai_main/a2a/registry.py - runtime agent registry for Yo-ai Platform
 
 
 from typing import Dict, Optional
-from yo_ai_main.core.platform_agent import PlatformAgent
+from ..core.platform_agent import PlatformAgent
 
 
 class AgentRegistry:
     """
     In-memory registry of active agent instances.
-    Used by the Solicitor-General and FastA2A runtime
-    to route requests to the correct agent.
+    Used by the Solicitor-General to route requests to the correct agent.
     """
 
     _agents: Dict[str, PlatformAgent] = {}
