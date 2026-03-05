@@ -39,29 +39,3 @@ async def handle_a2a_event(request: Request) -> JSONResponse:
     response = await a2a_app.handle_event(payload)
     return JSONResponse(response)
 
-# old version below
-# Full A2A HTTP Handler - This is the glue layer between Starlette and FastA2A/Solicitor-General.
-
-from starlette.requests import Request
-from starlette.responses import JSONResponse
-from yo_ai_main.agents.solicitor_general.sg_agent import SolicitorGeneral
-
-sg = SolicitorGeneral()
-
-async def handle_a2a_http(request: Request):
-    """
-    HTTP → A2A bridge.
-    - Reads JSON body
-    - Extracts context from middleware
-    - Delegates to SG.handle_a2a
-    """
-    body = await request.json()
-
-    context = {
-        "correlationId": getattr(request.state, "correlation_id", None),
-        "principalId": getattr(request.state, "principal_id", None),
-        "trustTier": getattr(request.state, "trust_tier", None),
-    }
-
-    result = await sg.handle_a2a(body, context)
-    return JSONResponse(result)

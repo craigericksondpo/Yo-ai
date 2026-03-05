@@ -44,7 +44,6 @@ class A2ATransport:
     def _validate_envelope(self, request: dict) -> bool:
         """Validate incoming A2A request"""
         return self.validator.validate_request(request)
-
     
     def _success_response(self, result: Any, request_id: str) -> dict:
         """Wrap in A2A v1.0 response envelope"""
