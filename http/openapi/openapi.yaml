@@ -69,11 +69,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LiabilityDiscoverOutput'
+                oneOf:
+                  $ref: '#/components/schemas/LiabilityDiscoverOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -114,11 +124,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EnforcementAgencyGetOutput'
+                oneOf:
+                  $ref: '#/components/schemas/EnforcementAgencyGetOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -159,11 +179,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StakeholdersGetOutput'
+                oneOf:
+                  $ref: '#/components/schemas/StakeholdersGetOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -204,11 +234,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ComplaintGenerateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ComplaintGenerateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -249,11 +289,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ComplaintSubmitOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ComplaintSubmitOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -294,11 +344,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ComplaintPublishOutput'            
+                oneOf:
+                  $ref: '#/components/schemas/ComplaintPublishOutput'            
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -339,11 +399,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/StakeholderNotifyOutput'
+                oneOf:
+                  $ref: '#/components/schemas/StakeholderNotifyOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -387,11 +457,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ComplianceStandardGetOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ComplianceStandardGetOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -432,11 +512,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ComplianceValidateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ComplianceValidateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -480,11 +570,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DarkWebScanOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DarkWebScanOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -525,11 +625,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DataOriginsTraceOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DataOriginsTraceOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -570,11 +680,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DarkWebEvidenceCollectOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DarkWebEvidenceCollectOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -618,11 +738,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BrokerInventoryScanOutput'
+                oneOf:
+                  $ref: '#/components/schemas/BrokerInventoryScanOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -663,11 +793,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DownstreamVendorsIdentifyOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DownstreamVendorsIdentifyOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -708,11 +848,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BrokerEvidenceCollectOutput'
+                oneOf:
+                  $ref: '#/components/schemas/BrokerEvidenceCollectOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -756,11 +906,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IdentifiabilityAssessOutput'
+                oneOf:
+                  $ref: '#/components/schemas/IdentifiabilityAssessOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -801,11 +961,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DataForPurposeMinimizeOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DataForPurposeMinimizeOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -846,11 +1016,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AuxiliaryDataRiskEvaluateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/AuxiliaryDataRiskEvaluateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -891,11 +1071,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeidentificationReportGenerateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DeidentificationReportGenerateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -936,11 +1126,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeidentificationStandardMapOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DeidentificationStandardMapOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -981,11 +1181,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeidentificationTechniquesApplyOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DeidentificationTechniquesApplyOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1026,11 +1236,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/KAnonymityComputeOutput'
+                oneOf:
+                  $ref: '#/components/schemas/KAnonymityComputeOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1071,11 +1291,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReidentificationAttackSimulateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ReidentificationAttackSimulateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1116,11 +1346,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SafeReleaseRecommendOutput'
+                oneOf:
+                  $ref: '#/components/schemas/SafeReleaseRecommendOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1161,11 +1401,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeidentificationGuidancePublishOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DeidentificationGuidancePublishOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1205,15 +1455,25 @@ paths:
               $ref: '#/components/schemas/PhoneCallInput'
       responses:
         '200':
-          description: "Call initiated successfully. Returns call details including participant information and connection status"
+          description: "Success returns call details including participant information and connection status OR check output.error for validation failure."
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PhoneCallOutput'
+                oneOf:
+                  - $ref: '#/components/schemas/PhoneCallSuccessResponse'
+                  - $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1247,18 +1507,27 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PhoneAnswerInput'
       responses:
         '200':
           description: "Call processed successfully. Returns call record with timestamp and participant details"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PhoneAnswerOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PhoneAnswerInput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1299,11 +1568,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmailSendOutput'
+                oneOf:
+                  $ref: '#/components/schemas/EmailSendOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1337,18 +1616,27 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EmailReadInput'
       responses:
         '200':
           description: "Returns email content with metadata including sender, subject, and timestamp"
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EmailReadOutput'
+                oneOf:
+                  $ref: '#/components/schemas/EmailReadOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1389,11 +1677,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DataRequestGovernOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DataRequestGovernOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1437,11 +1735,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DecisionDiaryManageOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DecisionDiaryManageOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1482,11 +1790,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DecisionEventsIdentifyOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DecisionEventsIdentifyOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1527,11 +1845,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DecisionOutcomeIdentifyOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DecisionOutcomeIdentifyOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1572,11 +1900,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DecisionOutcomeAnalyzeOutput'
+                oneOf:
+                  $ref: '#/components/schemas/DecisionOutcomeAnalyzeOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1620,11 +1958,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VisitorIdentifyOutput'
+                oneOf:
+                  $ref: '#/components/schemas/VisitorIdentifyOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1665,11 +2013,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubscriberRegisterOutput'
+                oneOf:
+                  $ref: '#/components/schemas/SubscriberRegisterOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1710,11 +2068,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CredentialsGenerateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/CredentialsGenerateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1755,11 +2123,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubscriberAuthenticateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/SubscriberAuthenticateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1800,11 +2178,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AgentRegisterOutput'
+                oneOf:
+                  $ref: '#/components/schemas/AgentRegisterOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1845,11 +2233,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TrustAssignOutput'
+                oneOf:
+                  $ref: '#/components/schemas/TrustAssignOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1890,11 +2288,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AccessRightsManageOutput'
+                oneOf:
+                  $ref: '#/components/schemas/AccessRightsManageOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1935,11 +2343,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AgentAuthenticateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/AgentAuthenticateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -1983,11 +2401,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/HandleExceptionOutput'
+                oneOf:
+                  $ref: '#/components/schemas/HandleExceptionOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2031,11 +2459,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IPAssetsDiscoverOutput'
+                oneOf:
+                  $ref: '#/components/schemas/IPAssetsDiscoverOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2076,11 +2514,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IPToProductsMapOutput'
+                oneOf:
+                  $ref: '#/components/schemas/IPToProductsMapOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2121,11 +2569,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ImplementationInstancesSearchOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ImplementationInstancesSearchOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2166,11 +2624,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UseCasesInferOutput'
+                oneOf:
+                  $ref: '#/components/schemas/UseCasesInferOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2211,11 +2679,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IPProvenanceTraceOutput'
+                oneOf:
+                  $ref: '#/components/schemas/IPProvenanceTraceOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2256,11 +2734,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RelatedIPDiscoverOutput'
+                oneOf:
+                  $ref: '#/components/schemas/RelatedIPDiscoverOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2301,11 +2789,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IPRiskEvaluateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/IPRiskEvaluateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2346,11 +2844,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IPPortfolioClusterOutput'
+                oneOf:
+                  $ref: '#/components/schemas/IPPortfolioClusterOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2391,11 +2899,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IPReportGenerateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/IPReportGenerateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2439,11 +2957,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgProfileBuildOutput'
+                oneOf:
+                  $ref: '#/components/schemas/OrgProfileBuildOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2487,11 +3015,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PurchaseOptionsRecommendOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PurchaseOptionsRecommendOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2532,11 +3070,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BudgetCheckOutput'
+                oneOf:
+                  $ref: '#/components/schemas/BudgetCheckOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2577,11 +3125,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PurchaseEligibilityValidateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PurchaseEligibilityValidateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2622,11 +3180,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PurchaseInitiateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PurchaseInitiateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2667,11 +3235,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PurchaseRiskEvaluateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PurchaseRiskEvaluateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2712,11 +3290,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TransactionCompleteVerifyOutput'
+                oneOf:
+                  $ref: '#/components/schemas/TransactionCompleteVerifyOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2757,11 +3345,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PurchaseReceiptGenerateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PurchaseReceiptGenerateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2802,11 +3400,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BudgetAfterPurchaseUpdateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/BudgetAfterPurchaseUpdateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2847,11 +3455,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrderStatusTrackOutput'
+                oneOf:
+                  $ref: '#/components/schemas/OrderStatusTrackOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2892,11 +3510,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PurchaseHistoryGenerateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PurchaseHistoryGenerateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2937,11 +3565,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PurchaseIssuesResolveOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PurchaseIssuesResolveOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -2982,11 +3620,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PaymentCancelOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PaymentCancelOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3027,11 +3675,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ReturnOrRefundInitiateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ReturnOrRefundInitiateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3072,11 +3730,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MandateManageOutput'
+                oneOf:
+                  $ref: '#/components/schemas/MandateManageOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3120,11 +3788,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RewardsProfileRequestOutput'
+                oneOf:
+                  $ref: '#/components/schemas/RewardsProfileRequestOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3165,11 +3843,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RewardsDiscoverOutput'
+                oneOf:
+                  $ref: '#/components/schemas/RewardsDiscoverOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3210,11 +3898,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PromoEligibilityVerifyOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PromoEligibilityVerifyOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3255,11 +3953,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RedemptionPlanGenerateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/RedemptionPlanGenerateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3300,11 +4008,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RewardRedeemOutput'
+                oneOf:
+                  $ref: '#/components/schemas/RewardRedeemOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3348,11 +4066,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RisksAssessOutput'
+                oneOf:
+                  $ref: '#/components/schemas/RisksAssessOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3396,11 +4124,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PromotionalEngagementVerifyOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PromotionalEngagementVerifyOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3441,11 +4179,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MisappropriationDetectOutput'
+                oneOf:
+                  $ref: '#/components/schemas/MisappropriationDetectOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3486,11 +4234,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EvidenceCollectOutput'
+                oneOf:
+                  $ref: '#/components/schemas/EvidenceCollectOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3534,11 +4292,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JustAskOutput'
+                oneOf:
+                  $ref: '#/components/schemas/JustAskOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3579,11 +4347,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EventLogOutput'
+                oneOf:
+                  $ref: '#/components/schemas/EventLogOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3627,11 +4405,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/JobPostingsScanOutput'
+                oneOf:
+                  $ref: '#/components/schemas/JobPostingsScanOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3672,11 +4460,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ConsultingServicesPitchOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ConsultingServicesPitchOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3717,11 +4515,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApplicationSubmitOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ApplicationSubmitOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3762,11 +4570,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TalentProfileRequestOutput'
+                oneOf:
+                  $ref: '#/components/schemas/TalentProfileRequestOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3810,11 +4628,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AssetIntegrationsMapOutput'
+                oneOf:
+                  $ref: '#/components/schemas/AssetIntegrationsMapOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3855,11 +4683,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AssetPortfolioClusterOutput'
+                oneOf:
+                  $ref: '#/components/schemas/AssetPortfolioClusterOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3900,11 +4738,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ImplementationDetailsAnalyzeOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ImplementationDetailsAnalyzeOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3945,11 +4793,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IntegrationProvenanceTraceOutput'
+                oneOf:
+                  $ref: '#/components/schemas/IntegrationProvenanceTraceOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -3990,11 +4848,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/IntegrationRiskEvaluateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/IntegrationRiskEvaluateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -4035,11 +4903,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TechReportGenerateOutput'
+                oneOf:
+                  $ref: '#/components/schemas/TechReportGenerateOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -4080,11 +4958,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TechnicalImpactInferOutput'
+                oneOf:
+                  $ref: '#/components/schemas/TechnicalImpactInferOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -4125,11 +5013,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ThirdPartyAssetsDiscoverOutput'
+                oneOf:
+                  $ref: '#/components/schemas/ThirdPartyAssetsDiscoverOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -4170,11 +5068,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UsageInstancesSearchOutput'
+                oneOf:
+                  $ref: '#/components/schemas/UsageInstancesSearchOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -4215,11 +5123,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RelatedAssetsDetectOutput'
+                oneOf:
+                  $ref: '#/components/schemas/RelatedAssetsDetectOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -4263,11 +5181,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PlatformMonitorOutput'
+                oneOf:
+                  $ref: '#/components/schemas/PlatformMonitorOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -4311,11 +5239,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OrgProfileManageOutput'
+                oneOf:
+                  $ref: '#/components/schemas/OrgProfileManageOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -4359,11 +5297,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/WorkflowBuildOutput'
+                oneOf:
+                  $ref: '#/components/schemas/WorkflowBuildOutput'
+                  $ref: '#/components/schemas/A2AErrorResponse'
         '400':
-          $ref: '#/components/responses/Error400'
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '401':
-          $ref: '#/components/responses/Error401'
+          description: Authentication required
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '403':
           $ref: '#/components/responses/Error403'
         '404':
@@ -4401,6 +5349,7 @@ components:
 
     ErrorResponse:
       type: object
+      description: Generic HTTP error response for transport-level failures
       required: [error]
       properties:
         error:
@@ -4409,11 +5358,61 @@ components:
           properties:
             code:
               type: string
+              enum:
+                - INVALID_REQUEST
+                - AUTHENTICATION_REQUIRED
+                - AUTHORIZATION_FAILED
+                - NOT_FOUND
+                - METHOD_NOT_ALLOWED
+                - RATE_LIMIT_EXCEEDED
             message:
               type: string
             details:
               type: object
               additionalProperties: true
+
+    A2AErrorResponse:
+      type: object
+      description: A2A-compliant error envelope for agent capability failures
+      required: [agentId, capability, output, timestamp]
+      properties:
+        agentId:
+          type: string
+        capability:
+          type: string
+        output:
+          type: object
+          required: [result, error]
+          properties:
+            result:
+              nullable: true
+            error:
+              $ref: '#/components/schemas/A2AError'
+        timestamp:
+          type: string
+          format: date-time
+
+    A2AError:
+      type: object
+      description: Structured A2A error details
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          enum:
+            - AI_OUTPUT_VALIDATION_FAILED
+            - INPUT_VALIDATION_FAILED
+            - CAPABILITY_EXECUTION_FAILED
+            - HANDLER_EXCEPTION
+            - UNKNOWN_CAPABILITY
+            - UNKNOWN_AGENT
+            - AGENT_INVOCATION_FAILED
+            - SCHEMA_LOAD_FAILED
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
 
     Profile:
       title: ProfileWrapper
@@ -4519,6 +5518,7 @@ components:
     ComplaintGenerateOutput:
       type: object
       description: Profile-aware output for the Complaint.Generate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -4573,6 +5573,7 @@ components:
     ComplaintPublishOutput:
       type: object
       description: Profile-aware output for the Complaint.Publish capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -4625,6 +5626,7 @@ components:
     ComplaintSubmitOutput:
       type: object
       description: Profile-aware output for the Complaint.Submit capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -4676,6 +5678,7 @@ components:
     EnforcementAgencyGetOutput:
       type: object
       description: Profile-aware output for the EnforcementAgency.Get capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -4732,6 +5735,7 @@ components:
     LiabilityDiscoverOutput:
       type: object
       description: Profile-aware output for the Liability.Discover capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -4787,6 +5791,7 @@ components:
     StakeholderNotifyOutput:
       type: object
       description: Profile-aware output for the Stakeholder.Notify capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -4834,6 +5839,7 @@ components:
     StakeholdersGetOutput:
       type: object
       description: Profile-aware output for the Stakeholders.Get capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -4880,6 +5886,7 @@ components:
     ComplianceStandardGetOutput:
       type: object
       description: Profile-aware output for the Compliance-Standard.Get capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -4955,6 +5962,7 @@ components:
     ComplianceValidateOutput:
       type: object
       description: Profile-aware output for the Compliance.Validate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5055,6 +6063,7 @@ components:
     DarkWebScanOutput:
       type: object
       description: Profile-aware output for the Dark-Web.Scan capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5137,6 +6146,7 @@ components:
     DataOriginsTraceOutput:
       type: object
       description: Profile-aware output for the Data-Origins.Trace capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5203,6 +6213,7 @@ components:
     DarkWebEvidenceCollectOutput:
       type: object
       description: Profile-aware output for the Dark-Web-Evidence.Collect capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5269,6 +6280,7 @@ components:
     BrokerInventoryScanOutput:
       type: object
       description: Profile-aware output for the Broker-Inventory.Scan capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5341,6 +6353,7 @@ components:
     DownstreamVendorsIdentifyOutput:
       type: object
       description: Profile-aware output for the Downstream-Vendors.Identify capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5407,6 +6420,7 @@ components:
     BrokerEvidenceCollectOutput:
       type: object
       description: Profile-aware output for the Broker-Evidence.Collect capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5474,6 +6488,7 @@ components:
     IdentifiabilityAssessOutput:
       type: object
       description: Profile-aware output for Identifiability.Assess.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5547,6 +6562,7 @@ components:
     DeidentificationTechniquesApplyOutput:
       type: object
       description: Profile-aware output for Deidentification-Techniques.Apply.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5618,6 +6634,7 @@ components:
     KAnonymityComputeOutput:
       type: object
       description: Profile-aware output for K-Anonymity.Compute.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5702,6 +6719,7 @@ components:
     SafeReleaseRecommendOutput:
       type: object
       description: Profile-aware output for Safe-Release.Recommend.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5784,6 +6802,7 @@ components:
     DeidentificationReportGenerateOutput:
       type: object
       description: Profile-aware output for Deidentification-Report.Generate.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5873,6 +6892,7 @@ components:
     AuxiliaryDataRiskEvaluateOutput:
       type: object
       description: Profile-aware output for Auxiliary-Data-Risk.Evaluate.
+      strictMode: true
       properties:
         result:
           type: object
@@ -5967,6 +6987,7 @@ components:
     DataForPurposeMinimizeOutput:
       type: object
       description: Profile-aware output for Data-For-Purpose.Minimize.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6059,6 +7080,7 @@ components:
     ReidentificationAttackSimulateOutput:
       type: object
       description: Profile-aware output for Reidentification-Attack.Simulate.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6154,6 +7176,7 @@ components:
     DeidentificationStandardMapOutput:
       type: object
       description: Profile-aware output for Deidentification-Standard.Map.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6256,6 +7279,7 @@ components:
     DeidentificationGuidancePublishOutput:
       type: object
       description: Profile-aware output for Deidentification-Guidance.Publish.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6321,6 +7345,7 @@ components:
     PhoneCallOutput:
       type: object
       description: Profile-aware output for the Phone.Call capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6381,6 +7406,7 @@ components:
     PhoneAnswerOutput:
       type: object
       description: Profile-aware output for the Phone.Answer capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6447,6 +7473,7 @@ components:
     EmailSendOutput:
       type: object
       description: Profile-aware output for the Email.Send capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6503,6 +7530,7 @@ components:
     EmailReadOutput:
       type: object
       description: Profile-aware output for the Email.Read capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6571,6 +7599,7 @@ components:
     DataRequestGovernOutput:
       type: object
       description: Profile-aware output for the Data-Request.Govern capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6636,6 +7665,7 @@ components:
     DecisionDiaryManageOutput:
       type: object
       description: Profile-aware output for the Decision-Diary.Manage capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6687,6 +7717,7 @@ components:
     DecisionEventsIdentifyOutput:
       type: object
       description: Profile-aware output for the Decision-Events.Identify capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6742,6 +7773,7 @@ components:
     DecisionOutcomeAnalyzeOutput:
       type: object
       description: Profile-aware output for the Decision-Outcome.Analyze capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6790,6 +7822,7 @@ components:
     DecisionOutcomeIdentifyOutput:
       type: object
       description: Profile-aware output for the Decision-Outcome.Identify capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6843,6 +7876,7 @@ components:
     AccessRightsManageOutput:
       type: object
       description: Profile-aware output for the AccessRights.Manage capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6902,6 +7936,7 @@ components:
     AgentAuthenticateOutput:
       type: object
       description: Profile-aware output for the Agent.Authenticate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -6963,6 +7998,7 @@ components:
     AgentRegisterOutput:
       type: object
       description: Profile-aware output for the Agent.Register capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7019,6 +8055,7 @@ components:
     CredentialsGenerateOutput:
       type: object
       description: Profile-aware output for the Credentials.Generate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7075,6 +8112,7 @@ components:
     SubscriberAuthenticateOutput:
       type: object
       description: Profile-aware output for the Subscriber.Authenticate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7134,6 +8172,7 @@ components:
     SubscriberRegisterOutput:
       type: object
       description: Profile-aware output for the Subscriber.Register capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7188,6 +8227,7 @@ components:
     VisitorIdentifyOutput:
       type: object
       description: Profile-aware output for the Visitor.Identify capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7262,6 +8302,7 @@ components:
     TrustAssignOutput:
       type: object
       description: Profile-aware output for the Trust.Assign capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7349,6 +8390,7 @@ components:
     HandleExceptionOutput:
       type: object
       description: Profile-aware output for the Handle.Exception capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7407,6 +8449,7 @@ components:
     ImplementationInstancesSearchOutput:
       type: object
       description: Profile-aware output for the Implementation-Instances.Search capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7456,6 +8499,7 @@ components:
     IPAssetsDiscoverOutput:
       type: object
       description: Profile-aware output for the IP-Assets.Discover capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7509,6 +8553,7 @@ components:
     IPPortfolioClusterOutput:
       type: object
       description: Profile-aware output for the IP-Portfolio.Cluster capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7565,6 +8610,7 @@ components:
     IPProvenanceTraceOutput:
       type: object
       description: Profile-aware output for the IP-Provenance.Trace capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7623,6 +8669,7 @@ components:
     IPReportGenerateOutput:
       type: object
       description: Profile-aware output for the IP-Report.Generate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7663,6 +8710,7 @@ components:
     IPRiskEvaluateOutput:
       type: object
       description: Profile-aware output for the IP-Risk.Evaluate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7715,6 +8763,7 @@ components:
     IPToProductsMapOutput:
       type: object
       description: Profile-aware output for the IP-to-Products.Map capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7769,6 +8818,7 @@ components:
     UseCasesInferOutput:
       type: object
       description: Profile-aware output for the Use-Cases.Infer capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7823,6 +8873,7 @@ components:
     RelatedIPDiscoverOutput:
       type: object
       description: Profile-aware output for the Related-IP.Discover capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7879,6 +8930,7 @@ components:
     OrgProfileBuildOutput:
       type: object
       description: Profile-aware output for the Org-Profile.Build capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7935,6 +8987,7 @@ components:
     PurchaseOptionsRecommendOutput:
       type: object
       description: Profile-aware output for the Purchase-Options.Recommend capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -7989,6 +9042,7 @@ components:
     BudgetCheckOutput:
       type: object
       description: Profile-aware output for Budget.Check.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8035,6 +9089,7 @@ components:
     PurchaseEligibilityValidateOutput:
       type: object
       description: Profile-aware output for the Purchase-Eligibility.Validate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8085,6 +9140,7 @@ components:
     PurchaseInitiateOutput:
       type: object
       description: Profile-aware output for Purchase.Initiate.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8135,6 +9191,7 @@ components:
     PurchaseRiskEvaluateOutput:
       type: object
       description: Profile-aware output for the Purchase-Risk.Evaluate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8182,6 +9239,7 @@ components:
     TransactionCompleteVerifyOutput:
       type: object
       description: Profile-aware output for Transaction-Complete.Verify.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8228,6 +9286,7 @@ components:
     PurchaseReceiptGenerateOutput:
       type: object
       description: Profile-aware output for the Purchase-Receipt.Generate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8273,6 +9332,7 @@ components:
     BudgetAfterPurchaseUpdateOutput:
       type: object
       description: Profile-aware output for Budget-After-Purchase.Update.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8315,6 +9375,7 @@ components:
     OrderStatusTrackOutput:
       type: object
       description: Profile-aware output for Order-Status.Track.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8363,6 +9424,7 @@ components:
     PurchaseHistoryGenerateOutput:
       type: object
       description: Profile-aware output for the Purchase-History.Generate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8407,6 +9469,7 @@ components:
     PurchaseIssuesResolveOutput:
       type: object
       description: Profile-aware output for the Purchase-Issues.Resolve capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8468,6 +9531,7 @@ components:
     PaymentCancelOutput:
       type: object
       description: Profile-aware output for Payment.Cancel.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8535,6 +9599,7 @@ components:
     ReturnOrRefundInitiateOutput:
       type: object
       description: Profile-aware output for Return-Or-Refund.Initiate.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8614,6 +9679,7 @@ components:
     MandateManageOutput:
       type: object
       description: Profile-aware output for Mandate.Manage.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8696,6 +9762,7 @@ components:
     PromoEligibilityVerifyOutput:
       type: object
       description: Profile-aware output for the Promo-Eligibility.Verify capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8760,6 +9827,7 @@ components:
     RedemptionPlanGenerateOutput:
       type: object
       description: Profile-aware output for the Redemption-Plan.Generate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8831,6 +9899,7 @@ components:
     RewardRedeemOutput:
       type: object
       description: Profile-aware output for the Reward.Redeem capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8886,6 +9955,7 @@ components:
     RewardsProfileRequestOutput:
       type: object
       description: Profile-aware output for the Rewards-Profile.Request capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -8945,6 +10015,7 @@ components:
     RewardsDiscoverOutput:
       type: object
       description: Profile-aware output for the Rewards.Discover capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9093,6 +10164,7 @@ components:
     RisksAssessOutput:
       type: object
       description: Profile-aware output for the Risks.Assess capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9224,6 +10296,7 @@ components:
     PromotionalEngagementVerifyOutput:
       type: object
       description: Profile-aware output for the Promotional-Engagement.Verify capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9302,6 +10375,7 @@ components:
     MisappropriationDetectOutput:
       type: object
       description: Profile-aware output for the Misappropriation.Detect capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9381,6 +10455,7 @@ components:
     EvidenceCollectOutput:
       type: object
       description: Profile-aware output for the Evidence.Collect capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9444,6 +10519,7 @@ components:
     JustAskOutput:
       type: object
       description: Profile-aware output for the Just-Ask capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9525,6 +10601,7 @@ components:
     EventLogOutput:
       type: object
       description: Profile-aware output for the Event.Log capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9591,6 +10668,7 @@ components:
     JobPostingsScanOutput:
       type: object
       description: Profile-aware output for the Job-Postings.Scan capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9684,6 +10762,7 @@ components:
     ConsultingServicesPitchOutput:
       type: object
       description: Profile-aware output for the Consulting-Services.Pitch capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9761,6 +10840,7 @@ components:
     ApplicationSubmitOutput:
       type: object
       description: Profile-aware output for the Application.Submit capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9822,6 +10902,7 @@ components:
     TalentProfileRequestOutput:
       type: object
       description: Profile-aware output for the Talent-Profile.Request capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9876,6 +10957,7 @@ components:
     AssetIntegrationsMapOutput:
       type: object
       description: Profile-aware output for the Asset-Integrations.Map capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9931,6 +11013,7 @@ components:
     AssetPortfolioClusterOutput:
       type: object
       description: Profile-aware output for the Asset-Portfolio.Cluster capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -9987,6 +11070,7 @@ components:
     ImplementationDetailsAnalyzeOutput:
       type: object
       description: Profile-aware output for the Implementation-Details.Analyze capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -10047,6 +11131,7 @@ components:
     IntegrationProvenanceTraceOutput:
       type: object
       description: Profile-aware output for the Integration-Provenance.Trace capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -10104,6 +11189,7 @@ components:
     IntegrationRiskEvaluateOutput:
       type: object
       description: Profile-aware output for the Integration-Risk.Evaluate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -10151,6 +11237,7 @@ components:
     TechReportGenerateOutput:
       type: object
       description: Profile-aware output for the Tech-Report.Generate capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -10196,6 +11283,7 @@ components:
     TechnicalImpactInferOutput:
       type: object
       description: Profile-aware output for the Technical-Impact.Infer capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -10246,6 +11334,7 @@ components:
     ThirdPartyAssetsDiscoverOutput:
       type: object
       description: Profile-aware output for Third-Party-Assets.Discover.
+      strictMode: true
       properties:
         result:
           type: object
@@ -10305,6 +11394,7 @@ components:
     UsageInstancesSearchOutput:
       type: object
       description: Profile-aware output for the Usage-Instances.Search capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -10359,6 +11449,7 @@ components:
     RelatedAssetsDetectOutput:
       type: object
       description: Profile-aware output for the Related-Assets.Detect capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -10417,6 +11508,7 @@ components:
     PlatformMonitorOutput:
       type: object
       description: Profile-aware output for the Platform.Monitor capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -10483,6 +11575,7 @@ components:
     OrgProfileManageOutput:
       type: object
       description: Profile-aware output for the Org-Profile.Manage capability.
+      strictMode: true
       properties:
         result:
           type: object
@@ -10541,6 +11634,7 @@ components:
     WorkflowBuildOutput:
       type: object
       description: Profile-aware output for the Workflow.Build capability.
+      strictMode: true
       properties:
         result:
           type: object
