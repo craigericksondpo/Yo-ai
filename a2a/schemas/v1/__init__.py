@@ -1,0 +1,1 @@
+# Makes yo_ai_main/a2a/schemas/v1/ importable as a package
