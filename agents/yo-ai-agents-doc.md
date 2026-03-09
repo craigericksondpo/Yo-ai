@@ -18,7 +18,7 @@ Use https://privacyportfolio.com/.well-known/agent.json to find links to agent c
 
 
 /**  Registering A2A-enabled agents  */
-All agents that interact with Yo-ai agents MUST register with PrivacyPortfolio by:
+All agents that interact with Yo-ai agents are strongly encouraged to register with PrivacyPortfolio by:
 1.  emailing registrar with the contact information of a Responsible Human
 2.  creating an account for authentication and on-boarding
 3.  completing an agent-readiness test to verify A2A capabilities documented in agent cards.
