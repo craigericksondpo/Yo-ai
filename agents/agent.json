@@ -1,6 +1,6 @@
 {
-  "name": "PrivacyPortfolio's Agent Registry",
-  "description": "Registry of all agents hosted by PrivacyPortfolio on the Yo-ai.ai AI Assurance Platform for A2A discovery and compliance.",
+  "name": "PrivacyPortfolio's Agent Directory",
+  "description": "Directory of all registered agents hosted by PrivacyPortfolio on the Yo-ai.ai AI Assurance Platform for A2A discovery and compliance.",
   "provider": "PrivacyPortfolio",
   "url": "https://privacyportfolio.com/.well-known/agent.json",
   "version": "1.0.0",
@@ -99,4 +99,5 @@
       "url": "https://privacyportfolio.com/agent-registry/vendor-manager/agent.json"
     }
   ]
+
 }
