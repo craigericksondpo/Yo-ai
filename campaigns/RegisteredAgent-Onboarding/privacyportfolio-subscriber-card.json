@@ -1,0 +1,361 @@
+{
+  "$schema": "https://yo-ai.ai/schemas/registered-subscriber-card.schema.json",
+  "version": "1.0.0",
+  "status": "active",
+  
+  "_comment_identity": "=== SUBSCRIBER IDENTITY ===",
+  
+  "subscriber_id": "SUB00001",
+  "responsible_human_id": "RH-001",
+  
+  "contact": {
+    "name": "Craig Erickson",
+    "email": "craig-erickson@privacyportfolio.com",
+    "phone": "+1 (510) 330-8638",
+    "title": "Corporate Member, PrivacyPortfolio LLC"
+  },
+  
+  "org_id": "ORG-PRIVACYPORTFOLIO",
+  "org_name": "PrivacyPortfolio, LLC",
+  
+  "_comment_agents": "=== REGISTERED AGENTS UNDER THIS SUBSCRIBER ===",
+  
+  "registered_agents": [
+    {
+      "agent_id": "com.privacyportfolio.solicitor-general",
+      "agent_name": "Solicitor-General",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/solicitor-general/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.decision-master",
+      "agent_name": "Decision-Master",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/decision-master/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.door-keeper",
+      "agent_name": "Door-Keeper",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/door-keeper/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.incident-responder",
+      "agent_name": "Incident-Responder",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/incident-responder/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.the-sentinel",
+      "agent_name": "The-Sentinel",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/the-sentinel/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.workflow-builder",
+      "agent_name": "Workflow-Builder",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/workflow-builder/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.complaint-manager",
+      "agent_name": "Complaint-Manager",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/complaint-manager/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.compliance-validator",
+      "agent_name": "Compliance-Validator",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/compliance-validator/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.darkweb-checker",
+      "agent_name": "DarkWeb-Checker",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/darkweb-checker/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.data-anonymizer",
+      "agent_name": "Data-Anonymizer",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/data-anonymizer/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.data-steward",
+      "agent_name": "Data-Steward",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/data-steward/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.ip-inspector",
+      "agent_name": "IP-Inspector",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/ip-inspector/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.profile-builder",
+      "agent_name": "Profile-Builder",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/profile-builder/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.purchasing-agent",
+      "agent_name": "Purchasing-Agent",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/purchasing-agent/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.rewards-seeker",
+      "agent_name": "Rewards-Seeker",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/rewards-seeker/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.risk-assessor",
+      "agent_name": "Risk-Assessor",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/risk-assessor/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.socialmedia-checker",
+      "agent_name": "SocialMedia-Checker",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/socialmedia-checker/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.tech-inspector",
+      "agent_name": "Tech-Inspector",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/tech-inspector/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.talent-agent",
+      "agent_name": "Talent-Agent",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/talent-agent/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    },
+    {
+      "agent_id": "com.privacyportfolio.vendor-manager",
+      "agent_name": "Vendor-Manager",
+      "agent_card_url": "https://privacyportfolio.com/agent-registry/vendor-manager/agent.json",
+      "registered_at": "2025-03-11T00:00:00Z"
+    }
+  ],
+  
+  "_comment_agreements": "=== SIGNED AGREEMENTS ===",
+  
+  "agreements": {
+    "platform_terms": {
+      "version": "1.0.0",
+      "signed_at": "2025-03-11T00:00:00Z",
+      "signature": "PLATFORM_PROVIDER_SELF_SIGNED",
+      "ip_address": "127.0.0.1"
+    }
+  },
+  
+  "_comment_credentials": "=== CREDENTIAL MANAGEMENT ===",
+  
+  "credentials": {
+    "subscriber_auth": {
+      "auth_method": "Cognito",
+      "mfa_enabled": true,
+      "mfa_level": "high",
+      "last_password_change": "2025-03-11T00:00:00Z"
+    },
+    "agent_credentials": [
+      {
+        "agent_id": "com.privacyportfolio.solicitor-general",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.decision-master",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.door-keeper",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.incident-responder",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.the-sentinel",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.workflow-builder",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.complaint-manager",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.compliance-validator",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.darkweb-checker",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.data-anonymizer",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.data-steward",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.ip-inspector",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.profile-builder",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.purchasing-agent",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.rewards-seeker",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.risk-assessor",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.socialmedia-checker",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.tech-inspector",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.talent-agent",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "agent_id": "com.privacyportfolio.vendor-manager",
+        "credential_type": "APIKey",
+        "created_at": "2025-03-11T00:00:00Z",
+        "status": "active"
+      }
+    ]
+  },
+  
+  "_comment_kafka": "=== KAFKA TOPIC ACCESS ===",
+  
+  "kafka_access": {
+    "enabled": true,
+    "consumer_group": "subscriber-SUB00001",
+    "subscribed_topics": [
+      {
+        "topic_name": "agents.SUB00001.notifications",
+        "purpose": "notifications",
+        "subscribed_at": "2025-03-11T00:00:00Z",
+        "retention_days": 7
+      },
+      {
+        "topic_name": "agents.SUB00001.solicitor-general.activity",
+        "purpose": "agent_activity",
+        "subscribed_at": "2025-03-11T00:00:00Z",
+        "retention_days": 7
+      },
+      {
+        "topic_name": "agents.SUB00001.decision-master.activity",
+        "purpose": "agent_activity",
+        "subscribed_at": "2025-03-11T00:00:00Z",
+        "retention_days": 7
+      },
+      {
+        "topic_name": "agents.SUB00001.door-keeper.activity",
+        "purpose": "agent_activity",
+        "subscribed_at": "2025-03-11T00:00:00Z",
+        "retention_days": 7
+      },
+      {
+        "topic_name": "agents.SUB00001.the-sentinel.activity",
+        "purpose": "agent_activity",
+        "subscribed_at": "2025-03-11T00:00:00Z",
+        "retention_days": 7
+      },
+      {
+        "topic_name": "agents.SUB00001.*.metrics",
+        "purpose": "metrics",
+        "subscribed_at": "2025-03-11T00:00:00Z",
+        "retention_days": 30
+      },
+      {
+        "topic_name": "agents.SUB00001.*.errors",
+        "purpose": "errors",
+        "subscribed_at": "2025-03-11T00:00:00Z",
+        "retention_days": 90
+      },
+      {
+        "topic_name": "platform.events.all",
+        "purpose": "audit_logs",
+        "subscribed_at": "2025-03-11T00:00:00Z",
+        "retention_days": 365
+      }
+    ],
+    "connection_string": "kafka.yo-ai.internal:9092",
+    "auth_mechanism": "SASL_SSL"
+  },
+  
+  "_comment_verification": "=== IDENTITY VERIFICATION ===",
+  
+  "verification": {
+    "verified": true,
+    "verified_at": "2025-03-11T00:00:00Z",
+    "verification_method": "corporate_docs"
+  },
+  
+  "_comment_timestamps": "=== RECORD METADATA ===",
+  
+  "created_at": "2025-03-11T00:00:00Z",
+  "updated_at": "2025-03-11T00:00:00Z"
+}

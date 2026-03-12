@@ -1,0 +1,231 @@
+{
+  "$schema": "https://yo-ai.ai/schemas/registered-agent-card.schema.json",
+  "card_version": "1.0.0",
+  "status": "active",
+  
+  "_comment_registration": "=== YO-AI PLATFORM REGISTRATION METADATA ===",
+  
+  "agent_id": "com.privacyportfolio.solicitor-general",
+  "name": "Solicitor-General",
+  "agent_kind": "platform-coordinator",
+  "version": "1.0.0",
+  "url": "https://privacyportfolio.com/agent-registry/solicitor-general/a2a",
+  "domain": "privacyportfolio.com",
+  "description": "Agent that logs all platform events and correlates requests with responses for routing. Acts as the root authority for the Yo-ai Assurance Platform.",
+  
+  "registered_at": "2025-03-11T00:00:00Z",
+  "updated_at": "2025-03-11T00:00:00Z",
+  
+  "_comment_subscriber": "=== RESPONSIBLE HUMAN & ACCOUNTABILITY ===",
+  
+  "subscriber": {
+    "subscriber_id": "SUB00001",
+    "responsible_human_id": "RH-001",
+    "contact": {
+      "name": "Craig Erickson",
+      "email": "craig-erickson@privacyportfolio.com"
+    },
+    "org_id": "ORG-PRIVACYPORTFOLIO",
+    "org_name": "PrivacyPortfolio, LLC"
+  },
+  
+  "_comment_fingerprints": "=== INTEGRITY VERIFICATION (COMPUTED AT REGISTRATION) ===",
+  
+  "fingerprints": {
+    "identity_signature": "PLACEHOLDER_COMPUTE_AT_REGISTRATION",
+    "capability_signature": "PLACEHOLDER_COMPUTE_AT_REGISTRATION",
+    "tooling_signature": "PLACEHOLDER_COMPUTE_AT_REGISTRATION",
+    "schema_signature": "PLACEHOLDER_COMPUTE_AT_REGISTRATION",
+    "routing_signature": "PLACEHOLDER_COMPUTE_AT_REGISTRATION",
+    "contract_signature": "PLACEHOLDER_COMPUTE_AT_REGISTRATION",
+    "computed_at": "2025-03-11T00:00:00Z",
+    "verification_url": "https://yo-ai.ai/verify/agent/com.privacyportfolio.solicitor-general"
+  },
+  
+  "_comment_auth": "=== AUTHENTICATION CONFIGURATION ===",
+  
+  "auth": {
+    "method": "APIKey",
+    "token_type": "APIKey",
+    "token_endpoint": "https://yo-ai.ai/api/auth/token",
+    "scopes": [
+      "event:log",
+      "request:correlate",
+      "platform:monitor"
+    ],
+    "delegation": "full"
+  },
+  
+  "_comment_capabilities": "=== DECLARED CAPABILITIES (FROM A2A CARD SKILLS) ===",
+  
+  "capabilities": [
+    "Just-Ask",
+    "Event.Log",
+    "Request-Response.Correlate"
+  ],
+  
+  "_comment_schemas": "=== JSON SCHEMA REFERENCES ===",
+  
+  "schemas": [
+    {
+      "capability": "Just-Ask",
+      "input_schema_url": "https://yo-ai.ai/schemas/just-ask.input.schema.json",
+      "output_schema_url": "https://yo-ai.ai/schemas/just-ask.output.schema.json"
+    },
+    {
+      "capability": "Event.Log",
+      "input_schema_url": "https://yo-ai.ai/schemas/event.log.input.schema.json",
+      "output_schema_url": "https://yo-ai.ai/schemas/event.log.output.schema.json"
+    },
+    {
+      "capability": "Request-Response.Correlate",
+      "input_schema_url": "https://yo-ai.ai/schemas/request-response.correlate.input.schema.json",
+      "output_schema_url": "https://yo-ai.ai/schemas/request-response.correlate.output.schema.json"
+    }
+  ],
+  
+  "_comment_routes": "=== API ROUTES/ENDPOINTS ===",
+  
+  "routes": [
+    {
+      "path": "/agents/solicitorGeneral/justAsk",
+      "method": "POST",
+      "capability": "Just-Ask"
+    },
+    {
+      "path": "/agents/solicitorGeneral/eventLog",
+      "method": "POST",
+      "capability": "Event.Log"
+    },
+    {
+      "path": "/agents/solicitorGeneral/requestResponseCorrelate",
+      "method": "POST",
+      "capability": "Request-Response.Correlate"
+    }
+  ],
+  
+  "_comment_a2a_protocol": "=== A2A PROTOCOL COMPLIANCE ===",
+  
+  "a2a_protocol": {
+    "version": "1.0",
+    "discovery_url": "https://privacyportfolio.com/.well-known/agent.json",
+    "supports_async": true,
+    "base_card_url": "https://privacyportfolio.com/agent-registry/solicitor-general/agent.json"
+  },
+  
+  "_comment_kafka": "=== KAFKA INTEGRATION (NO SEPARATE MONITORING ENDPOINTS) ===",
+  
+  "kafka": {
+    "publishes_to": [
+      "agents.SUB00001.solicitor-general.activity",
+      "agents.SUB00001.solicitor-general.metrics",
+      "agents.SUB00001.solicitor-general.errors",
+      "platform.events.all",
+      "platform.correlations"
+    ],
+    "subscribes_to": [
+      "platform.requests.incoming",
+      "platform.responses.outgoing"
+    ]
+  },
+  
+  "_comment_compliance": "=== COMPLIANCE & GOVERNANCE ===",
+  
+  "compliance": {
+    "regimes": [
+      "CPRA",
+      "CCPA"
+    ],
+    "evidence_url": "https://privacyportfolio.com/AI-Policy.html"
+  },
+  
+  "_comment_metadata": "=== UI & DISCOVERY METADATA ===",
+  
+  "metadata": {
+    "logo": "https://privacyportfolio.com/agent-registry/solicitor-general/solicitor-general-agent-icon.png",
+    "documentation_url": "https://privacyportfolio.com/agent-registry/solicitor-general/Solicitor-General-AgentCard.md",
+    "tags": [
+      "platform-coordinator",
+      "event-logging",
+      "request-correlation",
+      "audit"
+    ]
+  },
+  
+  "_comment_base_card": "=== EMBEDDED A2A PROTOCOL v1.0 BASE CARD ===",
+  
+  "base_a2a_card": {
+    "name": "Solicitor-General",
+    "description": "Agent that log all platform events and correlates requests with responses for routing.",
+    "id": "com.privacyportfolio.solicitor-general",
+    "provider": {
+      "organization": "PrivacyPortfolio",
+      "url": "https://www.PrivacyPortfolio.com"
+    },
+    "iconUrl": "https://privacyportfolio.com/agent-registry/solicitor-general/solicitor-general-agent-icon.png",
+    "protocolVersion": "1.0.0",
+    "documentationUrl": "https://privacyportfolio.com/agent-registry/solicitor-general/Solicitor-General-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/solicitor-general/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
+    "capabilities": {
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
+    },
+    "securitySchemes": {
+      "yo-ai": {
+        "type": "apiKey",
+        "name": "yo-api",
+        "in": "header"
+      }
+    },
+    "security": [
+      { "yo-ai": [] }
+    ],
+    "defaultInputModes": ["application/json", "text/plain"],
+    "defaultOutputModes": ["application/json", "text/plain"],
+    "skills": [
+      {
+        "name": "Just-Ask",
+        "description": "Provides an introduction to the Yo-ai platform and guidance on how to interact with the Solicitor-General.",
+        "version": "1.0.0",
+        "tags": ["help", "introspection", "guidance"],
+        "examples": ["Help", "What can you do", "Introduce yourself"],
+        "inputModes": ["application/json", "text/plain"],
+        "outputModes": ["application/json", "text/plain"],
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/just-ask.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/just-ask.output.schema.json" }
+      },
+      {
+        "name": "Event.Log",
+        "description": "Inserts a record into the EventLog.",
+        "version": "1.0.0",
+        "tags": ["audit"],
+        "examples": ["Log event"],
+        "inputModes": ["application/json", "text/plain"],
+        "outputModes": ["application/json", "text/plain"],
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/event.log.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/event.log.output.schema.json" }
+      },
+      {
+        "name": "Request-Response.Correlate",
+        "description": "Agent that correlates responses with requests for routing.",
+        "version": "1.0.0",
+        "tags": ["logEntry", "topic", "request", "response"],
+        "examples": [
+          "Who responded to request [requestID] on topic [topicID].",
+          "Who requested request [responseID] on topic [topicID]."
+        ],
+        "inputModes": ["application/json"],
+        "outputModes": ["application/json", "text/plain"],
+        "inputSchema": { "$ref": "https://yo-ai.ai/schemas/request-response.correlate.input.schema.json" },
+        "outputSchema": { "$ref": "https://yo-ai.ai/schemas/request-response.correlate.output.schema.json" }
+      }
+    ]
+  }
+}
