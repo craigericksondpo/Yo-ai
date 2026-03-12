@@ -1,84 +1,97 @@
-# a2a/transport.py
+# /a2a/a2a_transport.py
 
-from typing import Any
-import uuid
 from datetime import datetime
-from .a2a_validator import A2AValidator
 
 class A2ATransport:
-    """Handles A2A v1.0 protocol envelope management"""
-    
-    def __init__(self, broker):
-        self.broker = broker  # Your Solicitor-General
-        self.validator = A2AValidator()
-        self.pending_requests = {}  # Correlation tracking
-    
-    def handle_request(self, raw_request: dict) -> dict:
-        """Public entry point - validates and routes"""
-        # 1. Validate A2A envelope
-        if not self._validate_envelope(raw_request):
-            return self._error_response("Invalid A2A request", 400)
-        
-        # 2. Extract and correlate
-        request_id = raw_request.get('id', str(uuid.uuid4()))
-        self.pending_requests[request_id] = {
-            'received_at': datetime.utcnow(),
-            'original_request': raw_request
-        }
-        
-        # 3. Hand to broker (unwrapped)
-        try:
-            result = self.broker.route_request(raw_request['params'])
-            return self._success_response(result, request_id)
-        except Exception as e:
-            return self._error_response(str(e), request_id)
-        finally:
-            # Cleanup correlation
-            self.pending_requests.pop(request_id, None)
-    
-    def handle_event(self, event: dict) -> None:
-        """Handle A2A events (notifications)"""
-        # Events don't need responses, but may need correlation
-        pass
-        
-    def _validate_envelope(self, request: dict) -> bool:
-        """Validate incoming A2A request"""
-        return self.validator.validate_request(request)
-    
-    def _success_response(self, result: Any, request_id: str) -> dict:
-        """Wrap in A2A v1.0 response envelope"""
-        return {
-            "jsonrpc": "2.0",
-            "result": result,
-            "id": request_id
-        }
-    
-        if not self.validator.validate_response(response):
-            return self._error_response(
-                "Internal error: invalid response",
-                request_id,
-                -32603
-            )
-    
-        return response
+    """
+    Protocol-only A2A transport.
 
-    
-    def _error_response(self, message: str, request_id: str, code: int = -32603) -> dict:
-        """A2A v1.0 error envelope"""
-        return {
-            "jsonrpc": "2.0",
-            "error": {
-                "code": code,
-                "message": message
-            },
-            "id": request_id
-        }
+    - Accepts raw JSON-RPC envelope
+    - Runs mandatory-but-non-blocking validation
+    - Extracts request_id (correlation_id)
+    - Hands off to the Solicitor-General (semantic boundary)
+    - Wraps the result in a JSON-RPC response envelope
+    """
 
-        if not self.validator.validate_error(error):
+    def __init__(self, solicitor_general, logger, validator):
+        self._sg = solicitor_general
+        self._logger = logger
+        self._validator = validator
+
+    async def handle_a2a(self, envelope: dict) -> dict:
+        # 0. Extract request_id once at the protocol boundary
+        request_id = envelope.get("id")
+
+        # 1. Mandatory-but-non-blocking validation
+        validation_info = self._run_validation(envelope)
+        self._logger.info("a2a.validation", extra={
+            "timestamp": datetime.utcnow().isoformat(),
+            "request_id": request_id,
+            "validation": validation_info,
+        })
+
+        # 2. If request_id is missing, do NOT call SG; return a JSON-RPC error with id = null
+        if request_id is None:
+            self._logger.error("a2a.missing_request_id", extra={
+                "timestamp": datetime.utcnow().isoformat(),
+                "envelope": envelope,
+            })
             return {
                 "jsonrpc": "2.0",
-                "error": {"code": -32603, "message": "Internal error"},
-                "id": request_id
+                "error": {
+                    "code": -32603,
+                    "message": "Missing request_id (JSON-RPC id)",
+                },
+                "id": None,
             }
-    
-        return error
+
+        # 3. Hand off to SG (semantic boundary) with a required request_id
+        try:
+            semantic_result = await self._sg.route(envelope, request_id=request_id)
+        except Exception as e:
+            self._logger.error("a2a.transport_error", extra={
+                "timestamp": datetime.utcnow().isoformat(),
+                "request_id": request_id,
+                "error": str(e),
+                "envelope": envelope,
+            })
+            return {
+                "jsonrpc": "2.0",
+                "error": {"code": -32603, "message": str(e)},
+                "id": request_id,
+            }
+
+        # 4. Wrap in JSON-RPC response
+        return {
+            "jsonrpc": "2.0",
+            "result": semantic_result,
+            "id": request_id,
+        }
+
+    def _run_validation(self, envelope: dict) -> dict:
+        """
+        Mandatory-but-non-blocking validation against A2A versions.
+        Never raises; always returns a structured info object.
+        """
+        info = {"v1_0_valid": False, "v0_3_valid": False, "errors": []}
+
+        try:
+            info["v1_0_valid"] = self._validator.validate_v1(envelope)
+        except Exception:
+            pass
+
+        try:
+            info["v0_3_valid"] = self._validator.validate_v03(envelope)
+        except Exception:
+            pass
+
+        if not info["v1_0_valid"] and not info["v0_3_valid"]:
+            try:
+                info["errors"] = (
+                    self._validator.errors_v1(envelope)
+                    + self._validator.errors_v03(envelope)
+                )
+            except Exception:
+                info["errors"] = ["validation failed unexpectedly"]
+
+        return info
