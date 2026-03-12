@@ -1,0 +1,98 @@
+{
+  "$id": "https://yo-ai.ai/schemas/a2a/error.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A2A.Error",
+  "description": "Standard error object for A2A communication. Used within the output envelope when capability execution fails.",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Machine-readable error code for programmatic handling by consuming agents",
+      "enum": [
+        "AI_OUTPUT_VALIDATION_FAILED",
+        "INPUT_VALIDATION_FAILED",
+        "CAPABILITY_EXECUTION_FAILED",
+        "HANDLER_EXCEPTION",
+        "UNKNOWN_CAPABILITY",
+        "UNKNOWN_AGENT",
+        "AGENT_INVOCATION_FAILED",
+        "SCHEMA_LOAD_FAILED",
+        "AUTHENTICATION_FAILED",
+        "AUTHORIZATION_FAILED",
+        "MISSING_TARGET_AGENT",
+        "INVALID_JSON",
+        "RESPONSE_HANDLER_ERROR",
+        "EVENT_HANDLER_ERROR"
+      ],
+      "examples": [
+        "AI_OUTPUT_VALIDATION_FAILED",
+        "UNKNOWN_AGENT"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable error message explaining what went wrong",
+      "examples": [
+        "Missing required nested fields: result.callId",
+        "Agent 'unknown-agent' not found in registry"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "description": "Additional context and debugging information. Structure varies by error code.",
+      "additionalProperties": true,
+      "properties": {
+        "validationErrors": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of specific validation failures (for validation errors)"
+        },
+        "rawAiOutput": {
+          "type": "object",
+          "description": "The unstructured AI output that failed validation (for AI validation errors)",
+          "additionalProperties": true
+        },
+        "exceptionType": {
+          "type": "string",
+          "description": "Python exception class name (for handler exceptions)"
+        },
+        "rawPath": {
+          "type": "string",
+          "description": "The API path that was invoked (for routing errors)"
+        },
+        "agentId": {
+          "type": "string",
+          "description": "The agent ID involved in the error (for agent errors)"
+        },
+        "availableAgents": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of available agent IDs (for unknown agent errors)"
+        }
+      }
+    }
+  },
+  "required": ["code", "message"],
+  "examples": [
+    {
+      "code": "AI_OUTPUT_VALIDATION_FAILED",
+      "message": "Missing required nested fields: result.callId",
+      "details": {
+        "validationErrors": ["Missing required nested fields: result.callId"],
+        "rawAiOutput": {
+          "result": {
+            "status": "completed"
+          }
+        }
+      }
+    },
+    {
+      "code": "UNKNOWN_AGENT",
+      "message": "Agent 'data-manager' not found in registry",
+      "details": {
+        "agentId": "data-manager",
+        "availableAgents": ["data-steward", "solicitor-general", "incident-responder"]
+      }
+    }
+  ]
+}

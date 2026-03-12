@@ -1,0 +1,95 @@
+{
+  "$id": "https://yo-ai.ai/schemas/a2a/error_response.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "A2A.ErrorResponse",
+  "description": "Complete A2A error response envelope. Always returns HTTP 200 OK (for protocol-level errors) or HTTP 500 (for handler exceptions) to ensure consuming agents receive structured error data.",
+  "type": "object",
+  "properties": {
+    "agentId": {
+      "type": "string",
+      "description": "The agent that was handling the request (or 'unknown' if routing failed)",
+      "examples": ["data-steward", "solicitor-general", "unknown"]
+    },
+    "capability": {
+      "type": "string",
+      "description": "The capability that was invoked (or 'unknown' if routing failed)",
+      "examples": ["Phone.Call", "Contract.Review", "unknown"]
+    },
+    "output": {
+      "type": "object",
+      "description": "Output envelope containing null result and error details",
+      "properties": {
+        "result": {
+          "type": "null",
+          "description": "Always null when error is present"
+        },
+        "error": {
+          "$ref": "https://yo-ai.ai/schemas/a2a/error.schema.json",
+          "description": "Structured error information"
+        }
+      },
+      "required": ["result", "error"]
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the error occurred",
+      "examples": ["2026-02-24T10:30:00Z"]
+    }
+  },
+  "required": ["agentId", "capability", "output", "timestamp"],
+  "examples": [
+    {
+      "agentId": "data-steward",
+      "capability": "Phone.Call",
+      "output": {
+        "result": null,
+        "error": {
+          "code": "AI_OUTPUT_VALIDATION_FAILED",
+          "message": "Missing required nested fields: result.callId",
+          "details": {
+            "validationErrors": ["Missing required nested fields: result.callId"],
+            "rawAiOutput": {
+              "result": {
+                "status": "completed"
+              }
+            }
+          }
+        }
+      },
+      "timestamp": "2026-02-24T10:30:00Z"
+    },
+    {
+      "agentId": "unknown",
+      "capability": "unknown",
+      "output": {
+        "result": null,
+        "error": {
+          "code": "UNKNOWN_AGENT",
+          "message": "Agent 'data-manager' not found in registry",
+          "details": {
+            "agentId": "data-manager",
+            "availableAgents": ["data-steward", "solicitor-general", "incident-responder"]
+          }
+        }
+      },
+      "timestamp": "2026-02-24T10:30:00Z"
+    },
+    {
+      "agentId": "data-steward",
+      "capability": "Phone.Call",
+      "output": {
+        "result": null,
+        "error": {
+          "code": "HANDLER_EXCEPTION",
+          "message": "Schema file not found",
+          "details": {
+            "exceptionType": "FileNotFoundError",
+            "rawPath": "/agents/data-steward/PhoneCall"
+          }
+        }
+      },
+      "timestamp": "2026-02-24T10:30:00Z"
+    }
+  ]
+}
