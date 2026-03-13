@@ -158,10 +158,10 @@ class ErrorHandler:
         Convert ANY exception into a structured JSON-RPC error envelope.
 
         This is the universal entrypoint used by:
-          - global error middleware
-          - SG runtime
-          - FastA2A transport
-          - agent execution wrappers
+        - global error middleware
+        - Solicitor-General runtime
+        - A2ATransport (JSON-RPC envelope parsing)
+        - agent execution wrappers
         """
 
         # Step 1: Coerce into canonical AnyException
