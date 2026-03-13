@@ -1,12 +1,7 @@
 # core/platform_agent.py
 
-import json
-from pathlib import Path
-from typing import Dict, Any, Optional
-
 from core.yoai_agent import YoAiAgent
-from core.runtime import logger
-
+from typing import Dict, Any
 
 class PlatformAgent(YoAiAgent):
     """
@@ -51,27 +46,14 @@ class PlatformAgent(YoAiAgent):
         Emit a Platform.ConfigurationChanged event to notify all PlatformAgents.
         Required for NIST 800-53 CM-6 compliance.
         """
-        self.log.info(
-            f"[CM-6] Configuration changed: {change_type}",
-            extra={
-                "event_type": "platform_configuration_changed",
-                "change_type": change_type,
-                "details": details or {},
-                "source": self.name,
-            }
-        )
+        event = {
+            "type": change_type,
+            "details": details or {},
+            "source": self.card.get("name"),
+        }
 
-    async def authorize_call(self, envelope: Dict[str, Any]) -> bool:
-        """
-        Check if a specific A2A call is authorized.
-        
-        Args:
-            envelope: A2A call envelope with caller info
-            
-        Returns:
-            bool: True if authorized, False if denied
-        """
-        from runtime.authorize_call import run
-        
-        context = self._build_context(envelope)
-        return await run(envelope, context)
+        # Platform runtime handles fan-out to all PlatformAgents
+        await self.runtime.broadcast_platform_event(
+            "Platform.ConfigurationChanged",
+            event
+        )
