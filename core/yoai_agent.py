@@ -51,7 +51,7 @@ class YoAiAgent(BaseAgent):
         self.knowledge = load_knowledge(self)
 
         # Platform-wide logging
-        self.logger = get_logger()
+        self.logger = get_logger(self.actor_name)
         self.logger.write( 
             {"actor": self.actor_name,
              "event_type": "agent_initialized",
