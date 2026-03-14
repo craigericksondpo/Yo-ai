@@ -3,7 +3,6 @@
 from datetime import datetime
 from .unified_capability_router import UnifiedCapabilityRouter
 from core.platform_agent import PlatformAgent
-from core.envelope import AgentContext
 
 
 class SolicitorGeneralAgent(PlatformAgent):
@@ -30,22 +29,6 @@ class SolicitorGeneralAgent(PlatformAgent):
             context=context,
         )
 
-        # capability_map is the vetted source of truth
-        # {
-        #   "capabilities": {
-        #       "Profile.Patch": {
-        #           "agent": "DataSteward",
-        #           "handler": "profile_patch_handler",
-        #           "input_schema": "profile-patch.input.schema.json",
-        #           ...
-        #       },
-        #       ...
-        #   },
-        #   "constructors": {
-        #       "DataSteward": data_steward_constructor,
-        #       ...
-        #   }
-        # }
         self.capability_map = capability_map or {}
         self.constructors = constructors or {}
 
@@ -77,6 +60,7 @@ class SolicitorGeneralAgent(PlatformAgent):
                 agent_name=agent_name,
                 agent_instance=agent_instance,
                 capability_name=capability_name,
+                payload=payload
             )
         except Exception as e:
             self.logger.error("sg.semantic_resolution_error", extra={
@@ -91,7 +75,6 @@ class SolicitorGeneralAgent(PlatformAgent):
                 }
             }
 
-        # Delegate to router for mechanical dispatch
         try:
             result = await self.router.route(
                 envelope=envelope,
@@ -127,38 +110,42 @@ class SolicitorGeneralAgent(PlatformAgent):
         return result
 
     # ------------------------------------------------------------------
-    # Capability extraction (from semantic envelope)
+    # Permissive capability extraction (v0.3, v1.0, future)
     # ------------------------------------------------------------------
     def _extract_capability(self, envelope: dict) -> tuple[str, dict]:
         """
-        Extract the semantic capability and payload from the envelope.
+        Permissive capability extraction supporting:
+          - A2A v0.3  (params = payload directly, method = capability)
+          - A2A v1.0  (params.message = { capability: payload })
+          - Future versions (ignore unknown fields)
 
-        Expected shape (inside A2A SendMessage, etc.):
-
-        params.message:
-          Profile.Patch: { ...payload... }
+        No normalization is performed. SG treats all versions identically
+        except for fields that exist.
         """
+
         params = envelope.get("params", {})
-        message_container = params.get("message", {})
 
-        if not isinstance(message_container, dict) or len(message_container) != 1:
-            raise ValueError("Invalid semantic message: expected exactly one capability")
+        # --- v1.0 shape: params.message = { capability: payload }
+        if isinstance(params, dict) and "message" in params:
+            message_container = params.get("message", {})
+            if isinstance(message_container, dict) and len(message_container) == 1:
+                capability_name = next(iter(message_container.keys()))
+                payload = message_container[capability_name]
+                return capability_name, payload
+            # If malformed, fall through to permissive fallback
 
-        capability_name = next(iter(message_container.keys()))
-        payload = message_container[capability_name]
+        # --- v0.3 shape: method = capability, params = payload
+        method = envelope.get("method")
+        if isinstance(method, str) and isinstance(params, dict):
+            return method, params
 
-        return capability_name, payload
+        # --- Future versions: fallback error
+        raise ValueError("Unable to extract capability from envelope")
 
     # ------------------------------------------------------------------
     # Capability → Agent resolution via capability_map
     # ------------------------------------------------------------------
     def _resolve_agent_for_capability(self, capability_name: str):
-        """
-        Use capability_map to resolve:
-          - owning agent
-          - handler name
-          - agent instance (via constructors)
-        """
         capabilities = self.capability_map.get("capabilities", {})
         constructors = self.capability_map.get("constructors", {})
 
@@ -193,20 +180,16 @@ class SolicitorGeneralAgent(PlatformAgent):
     # Context builder (PlatformAgents do NOT use profiles)
     # ------------------------------------------------------------------
     def _build_agent_context(
-    self,
-    envelope: dict,
-    request_id: str,
-    agent_name: str,
-    agent_instance,
-    capability_name: str,
-    payload: dict
-    ) -> AgentContext:
-
+        self,
+        envelope: dict,
+        request_id: str,
+        agent_name: str,
+        agent_instance,
+        capability_name: str,
+        payload: dict
+    ):
         params = envelope.get("params", {})
 
-        # Immutable task_id:
-        # - If payload includes task_id, use it.
-        # - Otherwise, default to correlation_id (request_id).
         task_id = payload.get("task_id", request_id)
 
         return AgentContext(
