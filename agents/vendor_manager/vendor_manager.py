@@ -1,49 +1,50 @@
 # agents/vendor_manager/vendor_manager.py
 
 from core.yoai_agent import YoAiAgent
-from core.envelope import AgentContext
+from core.base_agent import CapabilityContext
 
 
 class VendorManagerAgent(YoAiAgent):
     """
     Vendor-Manager: governs and maintains Org-Profiles for Responsible AI certification.
 
-    This agent is profile-aware: it may operate on behalf of an organization
-    or maintain an Org-Profile resource.
+    Profile-aware: may represent a person or an organization.
+    Instance identity: "Vendor-Manager.ABCCorp", "Vendor-Manager.ABCCorp-Legal", etc.
+
+    Developer contract — see YoAiAgent docstring for full details.
+    Key convenience properties available in every run() module:
+      self.profile        — org or person profile (the entity represented)
+      self.instance_id    — "Vendor-Manager.<profile.name>"
+      self.correlation_id — request correlation handle
+      self.task_id        — A2A task identifier
+      self.knowledge      — loaded knowledge base (empty if slim=True)
+      self.tools          — tool registry (None if slim=True)
     """
 
-    def __init__(self, card, extended_card=None, profile=None):
+    def __init__(
+        self,
+        *,
+        card: dict | None = None,
+        extended_card: dict | None = None,
+        capability_ctx: CapabilityContext | None = None,
+        profile=None,
+        slim: bool | None = None,
+        context=None,
+    ):
         super().__init__(
             card=card,
             extended_card=extended_card,
+            capability_ctx=capability_ctx,
             profile=profile,
+            slim=slim,
+            context=context,
         )
 
     # ------------------------------------------------------------------
     # Capability: Org-Profile.Manage
     # ------------------------------------------------------------------
-    async def org_profile_manage(self, envelope):
+    async def org_profile_manage(
+        self, payload: dict, agent_ctx, capability_ctx: CapabilityContext | None
+    ) -> dict:
         from .org_profile_manage import run
-        return await run(envelope, self._build_context(envelope))
-
-    # ------------------------------------------------------------------
-    # Context builder
-    # ------------------------------------------------------------------
-    def _build_context(self, envelope_dict):
-        """
-        Build AgentContext using:
-          - caller
-          - subject
-          - profile (from constructor or envelope)
-          - profilePatch
-          - governanceLabels
-          - correlationId
-        """
-        return AgentContext(
-            caller=envelope_dict.get("caller"),
-            subject=envelope_dict.get("subject"),
-            profile=self.profile or envelope_dict.get("profile"),
-            profile_patch=envelope_dict.get("profilePatch"),
-            governance_labels=envelope_dict.get("governanceLabels", []),
-            correlation_id=envelope_dict.get("correlationId"),
-        )
+        return await run(payload, agent_ctx, capability_ctx)
