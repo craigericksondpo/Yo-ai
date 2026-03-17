@@ -12,18 +12,25 @@
 {
     "name": "Vendor-Manager",
     "description": "Agent responsible for monitoring vendors to maintain Responsible AI certification status.",
-    "url": "https://privacyportfolio.com/agent-registry/vendor-manager/agent.json",
+    "id": "com.privacyportfolio.vendor-manager",
     "provider": {
       "organization": "PrivacyPortfolio",
       "url": "https://www.PrivacyPortfolio.com"
       },
     "iconUrl": "https://privacyportfolio.com/agent-registry/vendor-manager/vendor-manager-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/vendor-manager/Vendor-Manager-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url":   "https://privacyportfolio.com/agent-registry/vendor-manager/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
       "streaming": true,
       "pushNotifications": true,
-      "stateTransitionHistory": true
+      "extendedAgentCard": true
     },
     "securitySchemes": {
       "yo-ai": {
@@ -32,13 +39,16 @@
         "in": "header"
       }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
     {
         "name": "OrgProfile.Manage",
         "description": "Manage an organization profile as a resource (not as an agent).",
+        "version": "1.0.0", 
         "tags": ["verifyOrg", "shareData", "createTask", "buildWorkflow", "logEvent"],
         "examples": [
             "Identify the incorporated entity",
@@ -50,6 +60,5 @@
         "inputSchema": { "$ref": "https://yo-ai.ai/schemas/org-profile.manage.input.schema.json" },
         "outputSchema": { "$ref": "https://yo-ai.ai/schemas/org-profile.manage.output.schema.json" }
     }
-  ],
-  "supportsAuthenticatedExtendedCard": true
+  ]
 }
