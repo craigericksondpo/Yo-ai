@@ -22,7 +22,7 @@
     "documentationUrl": "https://privacyportfolio.com/agent-registry/vendor-manager/Vendor-Manager-AgentCard.md",
     "supportedInterfaces": [
       {
-        "url":   "https://privacyportfolio.com/agent-registry/vendor-manager/a2a",
+        "url": "https://privacyportfolio.com/agent-registry/vendor-manager/a2a",
         "protocolBinding": "JSONRPC",
         "protocolVersion": "1.0"
       }
