@@ -12,7 +12,7 @@
 {
   "name": "Door-Keeper",
   "description": "Profiles guests and decides who to allow in and for what purpose.",
-  "id": "com.privacyportfolio.vendor-manager",
+  "id": "com.privacyportfolio.door-keeper",
   "provider": {
     "organization": "PrivacyPortfolio",
     "url": "https://www.PrivacyPortfolio.com"
