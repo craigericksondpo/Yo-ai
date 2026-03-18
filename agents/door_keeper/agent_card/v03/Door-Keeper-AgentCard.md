@@ -1,3 +1,14 @@
+/**
+ * This Door-Keeper AgentCard conveys:
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ * - ExtendedCard contains tasks and messages for Registered Agents
+ */
+
+/**
+* Door-Keeper AgentCard¶
+*/
 {
     "name": "Door-Keeper",
     "description": "Profiles guests and decides who to allow in and for what purpose.",
@@ -7,7 +18,7 @@
         "url": "https://www.PrivacyPortfolio.com"
         },
     "iconUrl": "https://privacyportfolio.com/agent-registry/door-keeper/door-keeper-agent-icon.png",
-    "version": "1.0.0",
+    "version": "0.3.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/Door-Keeper-AgentCard.md",
     "capabilities": {
         "streaming": true,
