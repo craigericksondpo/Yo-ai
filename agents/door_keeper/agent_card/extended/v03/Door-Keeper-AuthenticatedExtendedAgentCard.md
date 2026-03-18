@@ -1,3 +1,14 @@
+/**
+ * This Door-Keeper AuthenticatedExtendedCard conveys:
+ * - AuthenticatedExtendedCard contains tasks and messages for Registered Agents
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+/**
+* Door-Keeper Authenticated Extended Agent Card¶
+*/
 {
   "name": "Door-Keeper",
   "description": "Profiles guests and decides who to allow in and for what purpose.",
