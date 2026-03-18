@@ -1,13 +1,13 @@
 /**
- * This Vendor-Manager Authenticated Extended Card conveys:
- * - AuthenticatedExtendedCard contains tasks, messages, artifacts, and tools for Registered Agents.
+ * This Vendor-Manager Extended Card conveys:
+ * - ExtendedCard contains tasks, messages, artifacts, and tools for Registered Agents.
  * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
  * - Messages: Messages are used for instructions, prompts, replies, and status updates.
  * - Artifacts: Collection of artifacts created by the agent.
  */
 
 /**
-* Vendor-Manager Authenticated Extended Agent Card¶
+* Vendor-Manager Extended Agent Card¶
 */
 {
     "name": "Vendor-Manager",
@@ -22,7 +22,7 @@
     "documentationUrl": "https://privacyportfolio.com/agent-registry/vendor-manager/auth/Vendor-Manager-AuthenticatedExtendedAgentCard.md",
     "supportedInterfaces": [
       {
-        "url":   "https://privacyportfolio.com/agent-registry/vendor-manager/a2a",
+        "url": "https://privacyportfolio.com/agent-registry/vendor-manager/a2a",
         "protocolBinding": "JSONRPC",
         "protocolVersion": "1.0"
       }
@@ -48,6 +48,34 @@
     "skills": [
         {"name": "Org-Profile.Manage"}
     ],
+    "x-ai": {
+      "providers": [
+        {
+          "provider": "google-gemini",
+          "model": "gemini-2.0-pro",
+          "api_key_env": "GEMINI_API_KEY",
+          "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro:generateContent"
+        },
+        {
+          "provider": "anthropic",
+          "model": "claude-3-sonnet-20240229",
+          "api_key_env": "ANTHROPIC_API_KEY"
+        },
+        {
+          "provider": "openai",
+          "model": "gpt-4-turbo",
+          "api_key_env": "OPENAI_API_KEY"
+        },
+        {
+          "provider": "azure-openai",
+          "deployment": "gpt-4o",
+          "endpoint": "https://my-azure.openai.azure.com",
+          "api_key_env": "AZURE_OPENAI_KEY"
+        }
+      ],
+      "strategy": "failover",
+      "health_ttl_seconds": 300
+    },  
     "x-capabilities": [
         {
             "Org-Profile.Manage": {
