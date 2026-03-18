@@ -1,3 +1,14 @@
+/**
+ * This Vendor-Manager AgentCard conveys:
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ * - Authentication requirements
+ */
+
+/**
+* Vendor-Manager AgentCard¶
+*/
 {
     "name": "Vendor-Manager",
     "description": "Agent responsible for monitoring vendors to maintain Responsible AI certification status.",
