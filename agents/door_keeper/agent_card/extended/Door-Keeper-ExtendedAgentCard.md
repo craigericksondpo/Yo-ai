@@ -57,33 +57,61 @@
     {"name": "Agent.Authenticate"}
   ],
   "x-ai": {
-    "providers": [
-      {
-        "provider": "google-gemini",
-        "model": "gemini-2.0-pro",
-        "api_key_env": "GEMINI_API_KEY",
-        "endpoint": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-pro:generateContent"
-      },
-      {
-        "provider": "anthropic",
-        "model": "claude-3-sonnet-20240229",
-        "api_key_env": "ANTHROPIC_API_KEY"
-      },
-      {
-        "provider": "openai",
-        "model": "gpt-4-turbo",
-        "api_key_env": "OPENAI_API_KEY"
-      },
-      {
-        "provider": "azure-openai",
-        "deployment": "gpt-4o",
-        "endpoint": "https://my-azure.openai.azure.com",
-        "api_key_env": "AZURE_OPENAI_KEY"
-      }
-    ],
+    "resolution": "env-first",
+    "env_prefix": "YO_AI_MODEL",
     "strategy": "failover",
-    "health_ttl_seconds": 300
-  },  
+    "health_ttl_seconds": 300,
+    "skills": {
+      "Visitor.Identify": {
+        "declared_defaults": [
+          { "provider": "google-gemini", "model": "gemini-2.0-pro", "role": "primary" },
+          { "provider": "anthropic", "model": "claude-sonnet-4-6", "role": "failover" }
+        ]
+      },
+      "Subscriber.Register": {
+        "declared_defaults": [
+          { "provider": "anthropic", "model": "claude-sonnet-4-6", "role": "primary" },
+          { "provider": "openai", "model": "gpt-4o", "role": "failover" }
+        ]
+      },
+      "Credentials.Generate": {
+        "declared_defaults": [
+          { "provider": "anthropic", "model": "claude-sonnet-4-6", "role": "primary" },
+          { "provider": "openai", "model": "gpt-4o", "role": "failover" }
+        ]
+      },
+      "Subscriber.Authenticate": {
+        "declared_defaults": [
+          { "provider": "anthropic", "model": "claude-sonnet-4-6", "role": "primary" },
+          { "provider": "openai", "model": "gpt-4o", "role": "failover" }
+        ]
+      },
+      "Agent.Register": {
+        "declared_defaults": [
+          { "provider": "anthropic", "model": "claude-sonnet-4-6", "role": "primary" },
+          { "provider": "openai", "model": "gpt-4o", "role": "failover" }
+        ]
+      },
+      "Trust.Assign": {
+        "declared_defaults": [
+          { "provider": "anthropic", "model": "claude-opus-4-6", "role": "primary" },
+          { "provider": "google-gemini", "model": "gemini-2.0-pro", "role": "failover" }
+        ]
+      },
+      "AccessRights.Manage": {
+        "declared_defaults": [
+          { "provider": "anthropic", "model": "claude-sonnet-4-6", "role": "primary" },
+          { "provider": "openai", "model": "gpt-4o", "role": "failover" }
+        ]
+      },
+      "Agent.Authenticate": {
+        "declared_defaults": [
+          { "provider": "anthropic", "model": "claude-sonnet-4-6", "role": "primary" },
+          { "provider": "openai", "model": "gpt-4o", "role": "failover" }
+        ]
+      }
+    }
+  },
   "x-capabilities": [
     {
       "Visitor.Identify": {
