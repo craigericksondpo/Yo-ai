@@ -1,17 +1,69 @@
 # agents/door_keeper/agent_authenticate.py
 
-async def run(envelope, context):
+async def run(payload, agent_ctx, capability_ctx):
     """
     Capability: Agent.Authenticate
-    Stub: authenticates an agent.
+    Authenticates a registered agent and monitors activity.
+
+    Two authentication paths (per Door-Keeper Training Manual):
+      1. RegisteredAgentCard authToken found
+         → trusted directly, bypasses Cognito
+      2. No registered card found
+         → falls back to Cognito validation (AWS Cognito, backend: AgentAuthenticator)
+
+    Every decision is logged and published to the agent-auth Kafka topic.
+
+    WARNING (stub): authenticated is hardcoded True.
+    Real implementation must check Cognito before returning.
+
+    Args:
+        payload        (dict): Pre-extracted capability input.
+        agent_ctx      (AgentContext): Governance context.
+        capability_ctx (CapabilityContext): Execution context — dry_run, trace.
     """
 
-    payload = envelope.get("payload", {})
-    agentId = payload.get("agentId")
+    agent_id        = payload.get("agentId")
+    auth_method     = payload.get("authMethod")    # "registered-card" | "cognito" | "api-key" | "mtls"
+    token           = payload.get("token")         # Not logged — credential material
+    cert_fingerprint = payload.get("certFingerprint")
+    ip_address      = payload.get("ipAddress")
 
-    return {
-        "message": "Stub agent authentication.",
-        "agentId": agentId,
-        "authenticated": True,
-        "correlationId": envelope.get("correlationId"),
+    # Stub: always authenticates.
+    # Real: check for RegisteredAgentCard authToken first,
+    # fall back to Cognito if not found.
+    authenticated    = True
+    auth_path        = "stub"          # "registered-card" | "cognito" | "denied"
+    failure_reason   = None
+
+    result = {
+        "agentId":         agent_id,
+        "authenticated":   authenticated,
+        "authMethod":      auth_method,
+        "authPath":        auth_path,
+        "certFingerprint": cert_fingerprint,
+        "failureReason":   failure_reason,
+        "correlationId":   agent_ctx.correlation_id,
+        "taskId":          agent_ctx.task_id,
+        "dryRun":          capability_ctx.dry_run,
+        "status":          "stub",
     }
+
+    agent_ctx.log(
+        event_type="Agent.Authenticate",
+        message="Agent authentication attempted.",
+        data={
+            "agentId":         agent_id,
+            "authMethod":      auth_method,
+            "authPath":        auth_path,
+            "authenticated":   authenticated,
+            "certFingerprint": cert_fingerprint,
+            "failureReason":   failure_reason,
+            "ipAddress":       ip_address,
+            # token intentionally excluded — never log credential material
+            "dryRun":          capability_ctx.dry_run,
+            "correlationId":   agent_ctx.correlation_id,
+            "taskId":          agent_ctx.task_id,
+        }
+    )
+
+    return result
