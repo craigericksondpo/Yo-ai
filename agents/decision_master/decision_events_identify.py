@@ -1,9 +1,6 @@
 # agents/decision_master/decision_events_identify.py
 
-import time
-
-
-async def run(envelope, context):
+async def run(payload, agent_ctx, capability_ctx):
     """
     Capability: Decision-Events.Identify
 
@@ -16,13 +13,25 @@ async def run(envelope, context):
       - emit decision-event artifacts
     """
 
-    payload = envelope.get("payload", {})
     logs = payload.get("logs", [])
 
-    return {
+    result={
         "message": "Stub decision-event identification.",
         "logsProcessed": len(logs),
         "decisionEvents": [],
-        "timestamp": time.time(),
-        "correlationId": envelope.get("correlationId"),
+        "correlationId": agent_ctx.correlation_id,
+        "taskId": agent_ctx.task_id,
     }
+
+    agent_ctx.log(
+        event_type="Decision-Event.Identify",
+        message="Decision event identified.",
+        data={
+            "logs":            logs,
+            "dryRun":          capability_ctx.dry_run,
+            "correlationId":   agent_ctx.correlation_id,
+            "taskId":          agent_ctx.task_id,
+        }
+    )
+
+    return result

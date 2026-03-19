@@ -1,9 +1,6 @@
 # agents/decision_master/decision_outcome_identify.py
 
-import time
-
-
-async def run(envelope, context):
+async def run(payload, agent_ctx, capability_ctx):
     """
     Capability: Decision-Outcome.Identify
 
@@ -15,13 +12,25 @@ async def run(envelope, context):
       - extract decision factors
     """
 
-    payload = envelope.get("payload", {})
-    decision_set = payload.get("decisionSet")
+    decision_set = payload.get("decisionSet", {})
 
-    return {
+    result = {
         "message": "Stub decision-outcome identification.",
         "decisionSet": decision_set,
         "outcome": "unknown",
-        "timestamp": time.time(),
-        "correlationId": envelope.get("correlationId"),
-    }
+        "correlationId": agent_ctx.correlation_id,
+        "taskId": agent_ctx.task_id,
+        }
+
+    agent_ctx.log(
+        event_type="Decision-Outcome.Identify",
+        message="Decision outcome identified.",
+        data={
+            "decisionSet": decision_set,
+            "dryRun":          capability_ctx.dry_run,
+            "correlationId":   agent_ctx.correlation_id,
+            "taskId":          agent_ctx.task_id,
+        }
+    )
+
+    return result

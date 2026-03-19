@@ -1,9 +1,6 @@
 # agents/decision_master/decision_diary_manage.py
 
-import time
-
-
-async def run(envelope, context):
+async def run(payload, agent_ctx, capability_ctx):
     """
     Capability: Decision-Diary.Manage
 
@@ -16,15 +13,28 @@ async def run(envelope, context):
       - emit governance artifacts
     """
 
-    payload = envelope.get("payload", {})
     action = payload.get("action")
     event = payload.get("event")
 
-    return {
-        "message": "Stub decision diary management.",
+    result = {
         "action": action,
         "event": event,
-        "status": "processed",
-        "timestamp": time.time(),
-        "correlationId": envelope.get("correlationId"),
+        "correlationId":   agent_ctx.correlation_id,
+        "taskId":          agent_ctx.task_id,
+        "dryRun":          capability_ctx.dry_run,
+        "status":          "stub",
     }
+
+    agent_ctx.log(
+        event_type="Decision-Diary.Manage",
+        message="Stub decision diary management.",
+        data={
+            "action": action,
+            "event": event,
+            "dryRun":          capability_ctx.dry_run,
+            "correlationId":   agent_ctx.correlation_id,
+            "taskId":          agent_ctx.task_id,
+        }
+    )
+
+    return result

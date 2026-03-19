@@ -1,7 +1,7 @@
 # agents/decision_master/decision_master.py
 
 from core.platform_agent import PlatformAgent
-from core.envelope import AgentContext
+
 
 class DecisionMasterAgent(PlatformAgent):
     """
@@ -10,60 +10,66 @@ class DecisionMasterAgent(PlatformAgent):
 
     This agent is profile-aware: decision analysis may depend on
     subject profile, caller identity, or governance labels.
+
+    AgentCard tags on capabilities (decision-event, decision-factor,
+    decision-outcome) are hints for this agent — they identify which
+    platform events carry decision-relevant signals.
     """
 
-    def __init__(self, card, extended_card=None):
+    def __init__(self, *, card=None, extended_card=None, slim=False):
         super().__init__(
             card=card,
             extended_card=extended_card,
+            slim=slim,
         )
 
     # ------------------------------------------------------------------
     # Capability: Decision-Diary.Manage
     # ------------------------------------------------------------------
-    async def decision_diary_manage(self, envelope):
+    async def decision_diary_manage(self, payload, agent_ctx, capability_ctx):
         from .decision_diary_manage import run
-        return await run(envelope, self._build_context(envelope))
+        return await run(payload, agent_ctx, capability_ctx)
 
     # ------------------------------------------------------------------
     # Capability: Decision-Events.Identify
     # ------------------------------------------------------------------
-    async def decision_events_identify(self, envelope):
+    async def decision_events_identify(self, payload, agent_ctx, capability_ctx):
         from .decision_events_identify import run
-        return await run(envelope, self._build_context(envelope))
+        return await run(payload, agent_ctx, capability_ctx)
 
     # ------------------------------------------------------------------
     # Capability: Decision-Outcome.Identify
     # ------------------------------------------------------------------
-    async def decision_outcome_identify(self, envelope):
+    async def decision_outcome_identify(self, payload, agent_ctx, capability_ctx):
         from .decision_outcome_identify import run
-        return await run(envelope, self._build_context(envelope))
+        return await run(payload, agent_ctx, capability_ctx)
 
     # ------------------------------------------------------------------
     # Capability: Decision-Outcome.Analyze
     # ------------------------------------------------------------------
-    async def decision_outcome_analyze(self, envelope):
+    async def decision_outcome_analyze(self, payload, agent_ctx, capability_ctx):
         from .decision_outcome_analyze import run
-        return await run(envelope, self._build_context(envelope))
+        return await run(payload, agent_ctx, capability_ctx)
 
     # ------------------------------------------------------------------
-    # Context builder
+    # Context builders
     # ------------------------------------------------------------------
-    def _build_context(self, envelope_dict):
-        """
-        Build AgentContext using:
-          - caller
-          - subject
-          - profile (constructor or envelope)
-          - profilePatch
-          - governanceLabels
-          - correlationId
-        """
-        return AgentContext(
-            caller=envelope_dict.get("caller"),
-            subject=envelope_dict.get("subject"),
-            profile=self.profile or envelope_dict.get("profile"),
-            profile_patch=envelope_dict.get("profilePatch"),
-            governance_labels=envelope_dict.get("governanceLabels", []),
-            correlation_id=envelope_dict.get("correlationId"),
+    def _build_agent_context(self, params: dict):
+        return self.context_class()(
+            caller=params.get("caller"),
+            subject_ref=params.get("subjectRef"),
+            profile=self.profile,
+            correlation_id=params.get("correlationId"),
+            task_id=params.get("taskId"),
+            governance_labels=[],
+            startup_mode=params.get("startupMode", "api"),
+        )
+
+    def _build_capability_context(self, capability_id: str, params: dict):
+        return self.capability_context_class()(
+            capability_id=capability_id,
+            dry_run=params.get("dryRun", False),
+            trace=params.get("trace", False),
+            task_id=params.get("taskId"),
+            startup_mode=params.get("startupMode", "api"),
         )

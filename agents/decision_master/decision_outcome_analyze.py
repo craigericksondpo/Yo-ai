@@ -1,9 +1,6 @@
 # agents/decision_master/decision_outcome_analyze.py
 
-import time
-
-
-async def run(envelope, context):
+async def run(payload, agent_ctx, capability_ctx):
     """
     Capability: Decision-Outcome.Analyze
 
@@ -16,18 +13,30 @@ async def run(envelope, context):
       - generate explanation artifacts
     """
 
-    payload = envelope.get("payload", {})
     decision_set = payload.get("decisionSet")
 
-    return {
+    result={
         "message": "Stub decision-outcome analysis.",
         "decisionSet": decision_set,
         "analysis": {
             "factors": [],
             "evidence": [],
             "mandatesApplied": [],
-            "explanation": "Stub explanation.",
+            "explanation": "Stub explanation."
         },
-        "timestamp": time.time(),
-        "correlationId": envelope.get("correlationId"),
+        "correlationId": agent_ctx.correlation_id,
+        "taskId": agent_ctx.task_id,
     }
+
+    agent_ctx.log(
+        event_type="Decision-Outcome.Analyze",
+        message="Decision outcome analyzed.",    
+        data={
+            "decisionSet":     decision_set,
+            "dryRun":          capability_ctx.dry_run,
+            "correlationId":   agent_ctx.correlation_id,
+            "taskId":          agent_ctx.task_id,
+        }
+    )
+
+    return result
