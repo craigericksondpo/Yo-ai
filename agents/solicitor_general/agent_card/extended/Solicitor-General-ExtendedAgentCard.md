@@ -1,3 +1,14 @@
+/**
+ * This Solicitor-General ExtendedCard conveys:
+ * - ExtendedCard contains tasks, messages, tools, and artifacts for Registered Agents
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+/**
+* Solicitor-General Extended AgentCard¶
+*/
 {
     "name": "Solicitor-General",
     "description": "Root Agent that logs all platform events, manages tasks and storage, and correlates requests with responses for routing.",
