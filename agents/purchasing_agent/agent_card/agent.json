@@ -1,33 +1,43 @@
 {
     "name": "Purchasing-Agent",
     "description": "Agent responsible for managing purchases and any follow-up actions if needed.",
-    "url":   "https://privacyportfolio.com/agent-registry/purchasing-agent/agent.json",
+    "id": "com.privacyportfolio.purchasing-agent",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
         },
     "iconUrl": "https://privacyportfolio.com/agent-registry/purchasing-agent/purchasing-agent-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/purchasing-agent/Purchasing-Agent-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/purchasing-agent/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
         {
             "name": "Budget.Check",
             "description": "Retrieves the current balance of the dedicated checking account and determines available purchasing power for online purchases.",
+            "version": "1.0.0", 
             "tags": ["budget", "accountBalance", "spendingLimit", "financialGovernance"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -41,6 +51,7 @@
         {
             "name": "Purchase-Eligibility.Validate",
             "description": "Confirms that a purchase is allowed based on budget, risk score, vendor trust tier, and user policy before creating an AP2 purchase intent.",
+            "version": "1.0.0", 
             "tags": ["riskAssessment", "budgetCheck", "vendorTrust", "policyEnforcement"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json"],
@@ -54,6 +65,7 @@
         {
             "name": "Purchase.Initiate",
             "description": "Creates and submits an AP2 purchase intent and executes the purchase via Stripe, PayPal, or vendor checkout flows.",
+            "version": "1.0.0", 
             "tags": ["checkout", "payment", "transaction", "AP2"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json"],
@@ -67,6 +79,7 @@
         {
             "name": "Transaction-Complete.Verify",
             "description": "Verifies AP2 transaction states, confirms that funds were transferred, and that the vendor acknowledged the order.",
+            "version": "1.0.0", 
             "tags": ["transactionVerification", "paymentConfirmation", "audit"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json"],
@@ -80,6 +93,7 @@
         {
             "name": "Budget-After-Purchase.Update",
             "description": "Updates the purchasing budget by deducting completed AP2 transaction amounts from the dedicated checking account balance.",
+            "version": "1.0.0", 
             "tags": ["budgetUpdate", "accounting", "spendingTracking"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json"],
@@ -93,6 +107,7 @@
         {
             "name": "Order-Status.Track",
             "description": "Monitors order status, shipping updates, delivery confirmations, and vendor notifications linked to AP2 transactions.",
+            "version": "1.0.0", 
             "tags": ["orderTracking", "shipping", "delivery", "notifications"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -106,6 +121,7 @@
         {
             "name": "Return-Or-Refund.Initiate",
             "description": "Creates AP2-compatible return/refund intents, starts vendor workflows, and tracks their progress.",
+            "version": "1.0.0", 
             "tags": ["returns", "refunds", "postPurchase", "vendorInteraction", "AP2"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json"],
@@ -119,6 +135,7 @@
         {
             "name": "Purchase-Issues.Resolve",
             "description": "Handles vendor disputes, missing items, incorrect shipments, or billing errors, and anchors all interactions to the AP2 transaction record.",
+            "version": "1.0.0", 
             "tags": ["disputeResolution", "postPurchase", "vendorSupport"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -132,6 +149,7 @@
         {
             "name": "Purchase-Receipt.Generate",
             "description": "Produces an AP2-compatible receipt artifact with transaction details, vendor metadata, and evidence for auditability.",
+            "version": "1.0.0", 
             "tags": ["receipt", "audit", "documentation", "evidence", "AP2"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json", "text/plain"],
@@ -145,6 +163,7 @@
         {
             "name": "Purchase-History.Generate",
             "description": "Generates an AP2-aligned history of past purchases, including receipts, vendor interactions, and follow-up actions.",
+            "version": "1.0.0", 
             "tags": ["history", "audit", "documentation", "spendingAnalysis"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json", "text/plain"],
@@ -158,6 +177,7 @@
         {
             "name": "Purchase-Risk.Evaluate",
             "description": "Assesses fraud risk, vendor legitimacy, unusual pricing, and suspicious patterns before allowing an AP2 purchase intent to proceed.",
+            "version": "1.0.0", 
             "tags": ["fraudDetection", "riskAssessment", "vendorLegitimacy"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -171,6 +191,7 @@
         {
             "name": "Purchase-Options.Recommend",
             "description": "Suggests alternative vendors, better prices, or safer purchasing paths consistent with budget and AP2-compatible channels.",
+            "version": "1.0.0", 
             "tags": ["recommendations", "priceComparison", "vendorAlternatives"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json", "text/plain"],
@@ -181,6 +202,5 @@
             "inputSchema": { "$ref": "https://yo-ai.ai/schemas/purchase-options.recommend.input.schema.json" },
             "outputSchema": { "$ref": "https://yo-ai.ai/schemas/purchase-options.recommend.output.schema.json" }
         }
-    ],
-    "supportsAuthenticatedExtendedCard": true
+    ]
 }
