@@ -1,3 +1,14 @@
+/**
+ * This Incident-Responder ExtendedCard conveys:
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ * - Tasks, messages, and tools for Registered Agents.
+ */
+
+/**
+* Incident-Responder Extended Agent Card¶
+*/
 {
     "name": "Incident-Responder",
     "description": "Handles all unhandled exceptions and responds to platform incidents. (aka Agent-terminator, Kill-switch, etc)",
