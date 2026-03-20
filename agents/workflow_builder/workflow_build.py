@@ -1,6 +1,6 @@
 # agents/workflow_builder/workflow_build.py
 
-import time
+from datetime import datetime, timezone
 
 
 async def run(envelope, context):
@@ -31,8 +31,8 @@ async def run(envelope, context):
             "registrationIdentifierRef": registration_identifier_ref,
             "nodes": nodes,
             "status": "created",
-            "createdAt": time.time(),
+            "createdAt": datetime.now(timezone.utc).isoformat()
         },
         "correlationId": envelope.get("correlationId"),
-        "governanceLabels": envelope.get("governanceLabels", []),
+        "governanceLabels": envelope.get("governanceLabels", [])
     }
