@@ -1,3 +1,15 @@
+/**
+ * This Data-Steward AuthenticatedExtendedCard conveys:
+ * - AuthenticatedExtendedCard contains tasks, messages, artifacts, and tools for Registered Agents.
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+/**
+* Data-Steward Authenticated Extended Agent Card¶
+*/
+
 {
   "name": "Data-Steward",
   "description": "Governs access to the personal data vault, evaluates intended use of personal data, and makes decisions and takes action on behalf of an individual person.",
