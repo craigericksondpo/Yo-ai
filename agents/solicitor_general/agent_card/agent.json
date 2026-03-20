@@ -1,53 +1,59 @@
 {
     "name": "Solicitor-General",
     "description": "Agent that log all platform events and correlates requests with responses for routing.",
-    "url":   "https://privacyportfolio.com/agent-registry/solicitor-general/agent.json",
+    "id": "com.privacyportfolio.solicitor-general",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://privacyportfolio.com"
     },
     "iconUrl": "https://privacyportfolio.com/agent-registry/solicitor-general/solicitor-general-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/solicitor-general/Solicitor-General-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/solicitor-general/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": false
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
         {
+            "name": "Just-Ask",
+            "description": "Provides an introduction to the Yo-ai platform and guidance on how to interact with the Solicitor-General.",
+            "version": "1.0.0", 
+            "tags": ["help", "introspection", "guidance"],
+            "examples": ["Help", "What can you do", "Introduce yourself"],
+            "inputModes": ["application/json", "text/plain"],
+            "outputModes": ["application/json", "text/plain"],
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/just-ask.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/just-ask.output.schema.json" }
+        },
+        {
             "name": "Event.Log",
             "description": "Inserts a record into the EventLog.",
-            "tags": ["audit"],
+            "version": "1.0.0", 
             "examples": ["Log event"],
             "inputModes": ["application/json", "text/plain"],
             "outputModes": ["application/json", "text/plain"],
-            "inputSchema": { "$ref": "#/schemas/Event.Log.Input" },
-            "outputSchema": { "$ref": "#/schemas/Event.Log.Output" }
-        },
-        {
-            "name": "Request-Response.Correlate",
-            "description": "Agent that correlates responses with requests for routing.",
-            "tags": ["logEntry", "topic", "request", "response"],
-            "examples": [
-                "Who responded to request [requestID] on topic [topicID].",
-                "Who requested request [responseID] on topic [topicID]."
-            ],
-            "inputModes": ["application/json"],
-            "outputModes": ["application/json", "text/plain"],
-            "inputSchema": { "$ref": "#/schemas/Request-Response.Correlate.Input" },
-            "outputSchema": { "$ref": "#/schemas/Request-Response.Correlate.Output" }
+            "inputSchema": { "$ref": "https://yo-ai.ai/schemas/event.log.input.schema.json" },
+            "outputSchema": { "$ref": "https://yo-ai.ai/schemas/event.log.output.schema.json" }
         }
-  ],
-  "supportsAuthenticatedExtendedCard": true
+    ]
 }
