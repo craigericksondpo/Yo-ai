@@ -45,7 +45,6 @@
   "security": [{ "yo-ai": [] }],
   "defaultInputModes": ["application/json", "text/plain"],
   "defaultOutputModes": ["application/json", "text/plain"],
-
   "skills": [
     {"name": "Visitor.Identify"},
     {"name": "Subscriber.Register"},
