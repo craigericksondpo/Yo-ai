@@ -1,6 +1,6 @@
 # agents/the_sentinel/platform_monitor.py
 
-import time
+from datetime import datetime, timezone
 
 
 async def run(envelope, context):
@@ -28,7 +28,7 @@ async def run(envelope, context):
         "signalsReceived": signals,
         "anomaliesDetected": [],
         "status": "healthy",
-        "timestamp": time.time(),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
         "correlationId": envelope.get("correlationId"),
-        "governanceLabels": envelope.get("governanceLabels", []),
+        "governanceLabels": envelope.get("governanceLabels", [])
     }
