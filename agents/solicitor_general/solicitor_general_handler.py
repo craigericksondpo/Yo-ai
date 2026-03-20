@@ -1,145 +1,433 @@
-# solicitor_general_handler.py
+# /http/agents/solicitor_general/solicitor_general_handler.py
 
 """
-AI‑first AWS Lambda handler for the Solicitor-General agent.
+AI-first Lambda handler for the Solicitor-General agent.
 
-Responsibilities:
-- Keep transport concerns out of agent logic
-- Support warm reuse (agent instantiated once per container)
-- Route capability requests to a generic AI‑first capability executor
-- Let the agent runtime + AI layer synthesize transformations
-- Shape output to the agent’s declared Output schema
+This is the per-agent Direct API handler (Mode B). It bypasses
+A2ATransport, the SG routing pipeline, and AgentContext construction.
+Use this for:
+  - Direct capability invocation in development and testing
+  - Isolated capability execution without platform overhead
+  - AI-first training cycles where call_ai() is being replaced with code
+
+When to use this vs api_handler.py (Mode 3):
+  Use THIS handler when:
+    - You want to invoke a single SG capability directly
+    - You don't need platform governance (AgentContext, correlation, fingerprints)
+    - You are developing or testing a capability in isolation
+    - call_ai() is still handling the transformation (training stage)
+
+  Use api_handler.py (Mode 3) when:
+    - You want full platform pipeline (AgentContext, UCR, governance)
+    - You need CapabilityContext injection with Mode 1 governance
+    - You are running an orchestrated workflow step
+    - The capability touches governed data or requires correlation
+
+Agent lifecycle:
+  The SG instance is a warm singleton — constructed once per Lambda
+  execution environment with slim=True (no fingerprints, knowledge,
+  or tool loading). This is correct for the AI-first execution path
+  which uses call_ai() rather than vault or tool access.
+
+  Note: This handler does NOT construct the full SolicitorGeneralAgent
+  with event_bus and capability_map — those are only needed for the
+  platform routing path (Mode 1/3). Here the SG is used purely as an
+  identity and AI execution carrier.
+
+Capabilities served:
+  Just-Ask                → just_ask
+  Event.Log               → event_log
+  Request-Response.Correlate → request_response_correlate
+
+  Capability routing is loaded from shared/artifacts/capability_map.yaml
+  (routes section) — no hard-coded path maps in this file.
 """
 
 import json
-import logging
+import asyncio
+from datetime import datetime, timezone
+from pathlib import Path
 
-from solicitor_general import SolicitorGeneral
-from core.runtime.schema_loader import load_capability_schema
+import yaml
+
+from agents.solicitor_general.solicitor_general import SolicitorGeneralAgent
+from core.platform_agent import PlatformEventBus
+from core.base_agent import CapabilityContext
+from core.runtime.logging.log_bootstrapper import get_logger
 from core.runtime.ai_transform import call_ai
 from core.runtime.output_shaper import shape_output
-from core.runtime.input_validator import validate_input
-from core.runtime.logger import log_event
+from core.runtime.schema_validator import validate_input, load_schema
 
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+# ---------------------------------------------------------------------------
+# Capability map loader — routes section only
+# ---------------------------------------------------------------------------
 
-# Warm reuse: instantiate the agent once per Lambda container
-AGENT = SolicitorGeneral()
-
-
-# ------------------------------------------------------------
-# Capability routing table
-# ------------------------------------------------------------
-# Maps capability names (from OpenAPI paths) to capability identifiers.
-# These identifiers correspond to schema folders, not Python methods.
-CAPABILITY_ROUTER = {
-"JustAsk": "Just-Ask",
-"EventLog": "Event.Log",
-"RequestResponseCorrelate": "Request-Response.Correlate"
-}
-
-
-# ------------------------------------------------------------
-# Lambda entrypoint
-# ------------------------------------------------------------
-def lambda_handler(event, context):
+def _load_sg_routes() -> dict[str, str]:
     """
-    Expected event format (API Gateway HTTP API):
-    {
-        "rawPath": "/agents/<agent-name>/<CapabilityName>",
-        "body": "{... JSON ...}"
+    Load the SG's capability route map from shared/artifacts/capability_map.yaml.
+    Returns a dict of { camelCasePath: canonical-capability-name }.
+    Falls back to hardcoded SG routes on any failure.
+    """
+    try:
+        map_path = (
+            Path(__file__).resolve().parents[3]
+            / "shared" / "artifacts" / "capability_map.yaml"
+        )
+        if map_path.exists():
+            with map_path.open("r", encoding="utf-8") as f:
+                raw = yaml.safe_load(f) or {}
+
+            path_map = {}
+            sg_routes = raw.get("routes", {}).get("solicitor-general", [])
+            for route in sg_routes:
+                path = route.get("path", "")
+                capability = route.get("capability", "")
+                if path and capability:
+                    segment = path.rstrip("/").split("/")[-1]
+                    if segment:
+                        path_map[segment] = capability
+            if path_map:
+                return path_map
+    except Exception as e:
+        print(f"[sg_handler] WARNING: capability_map.yaml failed to load: {e}")
+
+    # Hardcoded fallback — matches capability_map.yaml routes section
+    return {
+        "justAsk":                  "Just-Ask",
+        "eventLog":                 "Event.Log",
+        "requestResponseCorrelate": "Request-Response.Correlate",
     }
+
+
+# ---------------------------------------------------------------------------
+# Module-level singletons
+# One set per Lambda execution environment.
+# ---------------------------------------------------------------------------
+
+_logger = get_logger("solicitor-general-handler")
+
+# Slim SG instance — identity and AI execution only.
+# No event_bus, no capability_map, no routing pipeline.
+# This is correct for the AI-first Direct API path.
+_capability_ctx = CapabilityContext(slim=True)
+_sg = SolicitorGeneralAgent(
+    event_bus=PlatformEventBus(),   # required by PlatformAgent — unused in slim mode
+    capability_ctx=_capability_ctx,
+)
+
+# Route map — loaded once at cold start
+_ROUTES: dict[str, str] = _load_sg_routes()
+
+
+# ---------------------------------------------------------------------------
+# Capability executor
+# ---------------------------------------------------------------------------
+
+async def _execute_capability(
+    capability_id: str,
+    payload: dict,
+    capability_ctx: CapabilityContext,
+    aws_request_id: str | None,
+    raw_path: str,
+) -> dict:
     """
+    Execute a single SG capability using the AI-first pattern.
+
+    Steps:
+      1. Load input + output schemas for the capability
+      2. Validate input (non-blocking — logs warning on failure)
+      3. Dispatch to capability run() module if implemented,
+         otherwise fall back to call_ai() synthesis
+      4. Shape output to declared output schema
+      5. Log the capability event
+
+    The capability run() module is the convergence point between
+    AI-first (Mode B) and platform-governed (Mode A) execution.
+    Both paths ultimately call the same run(payload, agent_ctx, capability_ctx).
+    """
+
+    # 1. Load schemas
+    input_schema_name = _capability_id_to_schema(capability_id, "input")
+    output_schema_name = _capability_id_to_schema(capability_id, "output")
 
     try:
-        raw_path = event.get("rawPath", "")
-        capability_name = raw_path.split("/")[-1]
+        input_schema = load_schema(input_schema_name)
+    except FileNotFoundError:
+        input_schema = {}
 
-        if capability_name not in CAPABILITY_ROUTER:
-            raise ValueError(f"Unknown capability: {capability_name}")
+    try:
+        output_schema = load_schema(output_schema_name)
+    except FileNotFoundError:
+        output_schema = {}
 
-        capability_id = CAPABILITY_ROUTER[capability_name]
+    # 2. Validate input — non-blocking
+    validated_input = payload
+    if input_schema:
+        try:
+            validate_input(input_schema_name, payload)
+        except Exception as e:
+            _logger.write({
+                "actor": "solicitor-general-handler",
+                "event_type": "input_validation_warning",
+                "level": "WARNING",
+                "message": f"Input validation failed for {capability_id} — proceeding",
+                "payload": {"error": str(e), "capability": capability_id},
+            })
 
-        # Parse JSON body
-        body = event.get("body") or "{}"
-        payload = json.loads(body)
+    # 3. Dispatch — try run() module first, fall back to call_ai()
+    result = await _dispatch(
+        capability_id=capability_id,
+        payload=validated_input,
+        capability_ctx=capability_ctx,
+        aws_request_id=aws_request_id,
+        raw_path=raw_path,
+        output_schema=output_schema,
+    )
 
-        # ------------------------------------------------------------
-        # 1. Load capability schema (Input + Output messageTypes)
-        # ------------------------------------------------------------
-        capability_schema = load_capability_schema(
-            agent_id=AGENT.agent_id,
-            capability_id=capability_id
-        )
+    # 4. Shape output
+    shaped = shape_output(result, output_schema) if output_schema else result
 
-        # ------------------------------------------------------------
-        # 2. Validate input (non-blocking if configured)
-        # ------------------------------------------------------------
-        validated_input = validate_input(
-            payload,
-            capability_schema.input_schema
-        )
-
-        # ------------------------------------------------------------
-        # 3. Build AI prompt (persona + capability + input + context)
-        # ------------------------------------------------------------
-        ai_prompt = {
-            "persona": AGENT.persona,
-            "agentId": AGENT.agent_id,
+    # 5. Log
+    _logger.write({
+        "actor": _sg.instance_id,
+        "event_type": "capability_executed",
+        "level": "INFO",
+        "message": f"{capability_id} executed via direct handler",
+        "payload": {
             "capability": capability_id,
-            "input": validated_input,
-            "context": {
-                "awsRequestId": context.aws_request_id if context else None,
-                "rawPath": raw_path,
-            },
-            "instructions": capability_schema.instructions,
-        }
+            "slim": capability_ctx.slim,
+            "dry_run": capability_ctx.dry_run,
+            "aws_request_id": aws_request_id,
+        },
+    })
 
-        # ------------------------------------------------------------
-        # 4. AI Transformation Layer
-        # ------------------------------------------------------------
-        ai_result = call_ai(ai_prompt, AGENT)
+    return shaped
 
-        # ------------------------------------------------------------
-        # 5. Shape output to match Output schema
-        # ------------------------------------------------------------
-        shaped_output = shape_output(
-            ai_result,
-            capability_schema.output_schema
+
+async def _dispatch(
+    capability_id: str,
+    payload: dict,
+    capability_ctx: CapabilityContext,
+    aws_request_id: str | None,
+    raw_path: str,
+    output_schema: dict,
+) -> dict:
+    """
+    Dispatch to the capability's run() module if implemented.
+    Falls back to call_ai() synthesis when run() is not yet written.
+
+    This is the AI-first training cycle in action:
+      Stage 1: call_ai() handles everything        (training wheels)
+      Stage 2: run() module handles it in code     (production)
+
+    Switching from Stage 1 to Stage 2 requires no handler changes —
+    just implement the run() module and it takes precedence.
+    """
+    # Map capability_id to module path and try importing run()
+    module_name = _capability_id_to_module(capability_id)
+
+    try:
+        import importlib
+        mod = importlib.import_module(
+            f"agents.solicitor_general.{module_name}"
         )
-
-        # ------------------------------------------------------------
-        # 6. Log event for A2A governance
-        # ------------------------------------------------------------
-        log_event({
-            "agentId": AGENT.agent_id,
-            "capability": capability_id,
-            "input": validated_input,
-            "output": shaped_output,
-            "context": ai_prompt["context"],
+        if hasattr(mod, "run"):
+            # run() module exists — use it (Mode A convergence point)
+            return await mod.run(payload, None, capability_ctx)
+    except ModuleNotFoundError:
+        pass   # run() module not yet implemented — fall through to call_ai()
+    except Exception as e:
+        _logger.write({
+            "actor": "solicitor-general-handler",
+            "event_type": "run_module_error",
+            "level": "WARNING",
+            "message": f"run() module error for {capability_id} — falling back to call_ai()",
+            "payload": {"error": str(e)},
         })
 
-        # ------------------------------------------------------------
-        # 7. Return envelope
-        # ------------------------------------------------------------
-        response = {
-            "agentId": AGENT.agent_id,
-            "capability": capability_id,
-            "output": shaped_output,
-            "timestamp": AGENT.now_iso(),
+    # Fall back to call_ai() synthesis
+    if capability_ctx.dry_run:
+        return {"status": "dry_run", "capability": capability_id, "payload": payload}
+
+    ai_prompt = {
+        "agentId": _sg.name,
+        "capability": capability_id,
+        "input": payload,
+        "context": {
+            "awsRequestId": aws_request_id,
+            "rawPath": raw_path,
+            "slim": capability_ctx.slim,
+            "step": capability_ctx.step,
+        },
+    }
+
+    return call_ai(ai_prompt, _sg)
+
+
+# ---------------------------------------------------------------------------
+# Schema name helpers
+# ---------------------------------------------------------------------------
+
+def _capability_id_to_schema(capability_id: str, direction: str) -> str:
+    """Convert 'Just-Ask' → 'just-ask.input.schema.json'"""
+    slug = capability_id.lower().replace(".", "-").replace(" ", "-")
+    return f"{slug}.{direction}.schema.json"
+
+
+def _capability_id_to_module(capability_id: str) -> str:
+    """Convert 'Just-Ask' → 'just_ask'"""
+    return capability_id.lower().replace(".", "_").replace("-", "_").replace(" ", "_")
+
+
+# ---------------------------------------------------------------------------
+# Lambda entrypoint
+# ---------------------------------------------------------------------------
+
+def lambda_handler(event, context):
+    """
+    Direct API Lambda entrypoint for the Solicitor-General (Mode B).
+
+    Expected API Gateway HTTP API event:
+      {
+        "rawPath": "/agents/solicitorGeneral/<capabilityPath>",
+        "body": "{ ...payload... }",
+        "requestContext": { "requestId": "..." }
+      }
+
+    The body may optionally include a capability_ctx block:
+      {
+        "payload": { ... },
+        "capability_ctx": {
+          "slim": true,
+          "dry_run": false,
+          "trace": false,
+          "step": 1,
+          "prior_outputs": { ... },
+          "state": { ... }
+        }
+      }
+
+    Returns API Gateway Lambda proxy response.
+    """
+    try:
+        # --- Extract path and capability ---
+        raw_path = event.get("rawPath", "")
+        path_segment = raw_path.rstrip("/").split("/")[-1]
+
+        capability_id = _ROUTES.get(path_segment)
+        if not capability_id:
+            return {
+                "statusCode": 400,
+                "headers": {"Content-Type": "application/json"},
+                "body": json.dumps({
+                    "error": f"Unknown capability path: '{path_segment}'",
+                    "known_paths": sorted(_ROUTES.keys()),
+                }),
+            }
+
+        # --- Parse body ---
+        raw_body = event.get("body") or "{}"
+        try:
+            body = json.loads(raw_body) if isinstance(raw_body, str) else raw_body
+        except json.JSONDecodeError as e:
+            return {
+                "statusCode": 400,
+                "headers": {"Content-Type": "application/json"},
+                "body": json.dumps({"error": f"Invalid JSON body: {e}"}),
+            }
+
+        # --- Extract payload and capability_ctx ---
+        # Support both flat body (legacy) and structured body with capability_ctx
+        if "payload" in body:
+            payload = body.get("payload", {})
+            ctx_data = body.get("capability_ctx", {})
+        else:
+            # Flat body — treat entire body as payload, no capability_ctx
+            payload = body
+            ctx_data = {}
+
+        # --- Build CapabilityContext ---
+        # slim=True by default for Direct API — no governance artifacts needed
+        # Caller may override via capability_ctx block
+        capability_ctx = CapabilityContext(
+            slim=ctx_data.get("slim", True),
+            tools=ctx_data.get("tools"),
+            dry_run=ctx_data.get("dry_run", False),
+            trace=ctx_data.get("trace", False),
+            correlation_id=ctx_data.get("correlation_id"),
+            task_id=ctx_data.get("task_id"),
+            profile=ctx_data.get("profile"),
+            profile_patch=ctx_data.get("profile_patch"),
+            caller=ctx_data.get("caller"),
+            subject=ctx_data.get("subject"),
+            step=ctx_data.get("step"),
+            prior_outputs=ctx_data.get("prior_outputs"),
+            state=ctx_data.get("state"),
+        )
+
+        # --- AWS request context ---
+        request_context = event.get("requestContext") or {}
+        aws_request_id = (
+            getattr(context, "aws_request_id", None)
+            or request_context.get("requestId")
+        )
+
+        # --- Execute ---
+        result = asyncio.get_event_loop().run_until_complete(
+            _execute_capability(
+                capability_id=capability_id,
+                payload=payload,
+                capability_ctx=capability_ctx,
+                aws_request_id=aws_request_id,
+                raw_path=raw_path,
+            )
+        )
+
+        # --- Response envelope ---
+        response_body = {
+            "jsonrpc": "2.0",
+            "id": aws_request_id,
+            "method": "a2a.message",
+            "result": {
+                "agentId": _sg.name,
+                "capability": capability_id,
+                "output": result,
+            },
+            "metadata": {
+                "taskID": capability_ctx.task_id or aws_request_id,
+                "status": "completed",
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            },
         }
 
         return {
             "statusCode": 200,
             "headers": {"Content-Type": "application/json"},
-            "body": json.dumps(response),
+            "body": json.dumps(response_body),
         }
 
     except Exception as e:
-        logger.exception("Handler error")
+        _logger.write({
+            "actor": "solicitor-general-handler",
+            "event_type": "handler_error",
+            "level": "ERROR",
+            "message": str(e),
+            "payload": {"raw_path": event.get("rawPath", "")},
+        })
         return {
             "statusCode": 500,
-            "body": json.dumps({"error": str(e)}),
+            "headers": {"Content-Type": "application/json"},
+            "body": json.dumps({
+                "jsonrpc": "2.0",
+                "id": None,
+                "error": {
+                    "code": -32603,
+                    "message": str(e),
+                },
+                "metadata": {
+                    "taskID": None,
+                    "status": "failed",
+                },
+            }),
         }
