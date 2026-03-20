@@ -1,3 +1,14 @@
+/**
+ * This Purchasing-Agent Extended Card conveys:
+ * - ExtendedCard contains tasks, messages, artifacts, and tools for Registered Agents.
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+/**
+* Purchasing-Agent Extended Agent Card¶
+*/
 {
     "name": "Purchasing-Agent",
     "description": "Agent responsible for managing purchases and any follow-up actions if needed.",
