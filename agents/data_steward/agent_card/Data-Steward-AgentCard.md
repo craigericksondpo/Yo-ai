@@ -12,18 +12,25 @@
 {
     "name": "Data-Steward",
     "description": "Governs access to the personal data vault, evaluates intended use of personal data, and makes decisions and takes action on behalf of an individual person.",
-    "url": "https://privacyportfolio.com/agent-registry/data-steward/agent.json",
+    "id": "com.privacyportfolio.data-steward",
     "provider": {
       "organization": "PrivacyPortfolio",
       "url": "https://www.PrivacyPortfolio.com"
     },
     "iconUrl": "https://privacyportfolio.com/agent-registry/data-steward/data-steward-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/data-steward/Data-Steward-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/data-steward/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
       "streaming": true,
       "pushNotifications": true,
-      "stateTransitionHistory": true
+      "extendedAgentCard": true
     },
     "securitySchemes": {
       "yo-ai": {
@@ -32,7 +39,9 @@
         "in": "header"
       }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
@@ -55,6 +64,7 @@
       {
           "name": "Phone.Answer",
           "description": "Handle inbound phone calls, verify caller identity, and determine purpose of call.",
+          "version": "1.0.0", 
           "tags": ["verifyCaller", "shareData", "createTask", "buildWorkflow", "logEvent"],
           "examples": [
             "Identify the caller",
@@ -69,6 +79,7 @@
       {
           "name": "Data-Request.Govern",
           "description": "Evaluate intended use of personal data before granting access to the personal data vault.",
+          "version": "1.0.0", 
           "tags": ["verify", "authorize", "policyCheck", "riskAssessment", "logEvent"],
           "examples": [
             "Request to fill out a signup form",
@@ -83,6 +94,7 @@
       {
           "name": "Email.Send",
           "description": "Send outbound email as the authorized agent of the data subject.",
+          "version": "1.0.0", 
           "tags": ["pushNotification", "request", "verify", "solicitation", "logEvent"],
           "examples": [
             "YourRequestStatus",
@@ -99,6 +111,7 @@
       {
           "name": "Email.Read",
           "description": "Read inbound email, detect spam/phishing, and extract workflow triggers.",
+          "version": "1.0.0", 
           "tags": ["spam", "phishing", "solicitation", "verify", "survey", "logEvent"],
           "examples": [
             "Your Request Status",
@@ -112,6 +125,5 @@
           "inputSchema": { "$ref": "#/schemas/Email.Read.Input" },
           "outputSchema": { "$ref": "#/schemas/Email.Read.Output" }
       }
-    ],
-    "supportsAuthenticatedExtendedCard": true
+    ]
 }
