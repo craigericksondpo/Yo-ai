@@ -1,3 +1,14 @@
+/**
+ * The-Sentinel ExtendedCard conveys:
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ * - ExtendedCard contains tasks and messages for Registered Agents
+ */
+
+/**
+* The-Sentinel Extended Agent Card¶
+*/
 {
   "name": "The-Sentinel",
   "description": "Listens for dangerous incidents and trends, and issues alerts.",
