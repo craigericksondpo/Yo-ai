@@ -1,33 +1,43 @@
 {
     "name": "The-Sentinel",
     "description": "Listens for dangerous incidents and trends, and issues alerts.",
-    "url":   "https://privacyportfolio.com/agent-registry/the-sentinel/agent.json",
+    "id": "com.privacyportfolio.the-sentinel",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
         },
     "iconUrl": "https://privacyportfolio.com/agent-registry/the-sentinel/the-sentinel-agent-icon.png",
-    "version": "1.0.0",
-    "documentationUrl": "https://privacyportfolio.com/agent-registry/The-Sentinel-AgentCard.md",
+    "protocolVersion": "1.0.0",
+    "documentationUrl": "https://privacyportfolio.com/agent-registry/the-sentinel/The-Sentinel-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/the-sentinel/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
         {
             "name": "Platform.Monitor",
             "description": "Monitor platform for adverse events.",
+            "version": "1.0.0", 
             "tags": ["adverseEvent", "Listening"],
             "examples": [
                 "Listening",
@@ -38,6 +48,5 @@
             "inputSchema": { "$ref": "https://yo-ai.ai/schemas/platform.monitor.input.schema.json" },
             "outputSchema": { "$ref": "https://yo-ai.ai/schemas/platform.monitor.output.schema.json" }
         }
-    ],
-    "supportsAuthenticatedExtendedCard": true
+    ]
 }
