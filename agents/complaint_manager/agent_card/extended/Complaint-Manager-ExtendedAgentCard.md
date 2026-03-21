@@ -1,3 +1,14 @@
+/**
+ * This Complaint-Manager ExtendedCard conveys:
+ * - ExtendedCard contains tasks, messages, tools, and artifacts for Registered Agents
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+/**
+* Complaint-Manager Extended Agent Card¶
+*/
 {
     "name": "Complaint-Manager",
     "description": "Manages discovery, generation, submission, stakeholder notification, and publication of complaints to regulators, organizations, and named stakeholders.",
