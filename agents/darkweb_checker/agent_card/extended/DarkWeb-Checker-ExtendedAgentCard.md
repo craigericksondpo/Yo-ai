@@ -1,3 +1,14 @@
+/**
+ * This DarkWeb-Checker ExtendedCard conveys:
+ * - ExtendedCard contains tasks, messages, artifacts, and tools for Registered Agents.
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+/**
+* DarkWeb-Checker Extended Agent Card¶
+*/
 {
     "name": "DarkWeb-Checker",
     "description": "Search breach forums, marketplaces, and dark web sources for stolen PI — and collect evidence to support claims that an organization acquired or used stolen data.",
