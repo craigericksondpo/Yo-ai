@@ -8,7 +8,7 @@
         },
     "iconUrl": "https://privacyportfolio.com/agent-registry/vendor-manager/vendor-manager-agent-icon.png",
     "protocolVersion": "1.0.0",
-    "documentationUrl": "https://privacyportfolio.com/agent-registry/vendor-manager/auth/Vendor-Manager-AuthenticatedExtendedAgentCard.md",
+    "documentationUrl": "https://privacyportfolio.com/agent-registry/vendor-manager/auth/Vendor-Manager-ExtendedAgentCard.md",
     "supportedInterfaces": [
       {
         "url": "https://privacyportfolio.com/agent-registry/vendor-manager/a2a",
