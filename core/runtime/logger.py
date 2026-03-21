@@ -1,3 +1,5 @@
+# /core/runtime/logger.py -- Structured JSON logger for consistent logging across environments.
+
 """
 Simple, structured logger for Lambda and local dev.
 

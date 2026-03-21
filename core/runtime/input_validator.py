@@ -1,3 +1,4 @@
+# /core/runtime/input_validator.py -- Validate incoming payloads against JSON Schemas
 """
 Thin wrapper around jsonschema.validate with your platform conventions.
 
