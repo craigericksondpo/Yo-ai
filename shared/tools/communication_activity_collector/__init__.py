@@ -1,0 +1,1 @@
+# Makes yo_ai_main/shared/tools/communication_activity_collector importable as a package
