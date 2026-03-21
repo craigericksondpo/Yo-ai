@@ -1,3 +1,5 @@
+# /core/runtime/schema_loader.py -- Lightweight JSON Schema loader with caching
+
 """
 Lightweight JSON Schema loader with caching.
 
