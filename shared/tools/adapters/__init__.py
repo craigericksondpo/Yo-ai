@@ -1,0 +1,1 @@
+# Makes yo_ai_main/shared/tools/adapters importable as a package
