@@ -14,9 +14,10 @@ class PlatformEventBus:
     In-process async pub/sub event bus for PlatformAgents.
 
     Lifecycle:
-      - Instantiated once at platform startup.
-      - Injected into every PlatformAgent at construction.
+      - Instantiated once per Lambda execution environment (in handler).
+      - Injected into every PlatformAgent at construction via event_bus=.
       - Each PlatformAgent auto-registers its handler on init.
+      - Call shutdown() on teardown to release handler references.
 
     Usage:
       - Agents subscribe via subscribe(event_type, handler).
@@ -27,12 +28,21 @@ class PlatformEventBus:
       - Designed for single-process asyncio use.
       - Not safe for concurrent modification from multiple threads.
 
-    Note:
-      The PlatformEventBus handles intra-process coordination between
-      PlatformAgents (CM-6 config changes, lifecycle events).
-      Cross-agent platform events are published to Kafka via the
-      Kafka Observability Publisher (a separate component, not yet built).
-      These are two distinct layers — the event bus is NOT a log sink.
+    Scope:
+      The PlatformEventBus handles intra-process, intra-invocation
+      coordination between PlatformAgents (CM-6 config changes,
+      lifecycle events, trust signals, budget alerts).
+
+      Cross-invocation and cross-service events are published to Kafka
+      via the Kafka Observability Publisher (Gap Registry 🔲 — not yet built).
+
+      These are two distinct layers — the event bus is NOT a log sink
+      and is NOT a replacement for Kafka.
+
+    Canonical location:
+      This class lives in core/platform_agent.py alongside PlatformAgent.
+      Do NOT import from core/runtime/platform_event_bus.py — that file
+      is superseded by this definition.
     """
 
     def __init__(self):
@@ -57,8 +67,9 @@ class PlatformEventBus:
     async def broadcast(self, event_type: str, event: dict) -> None:
         """
         Fan out event to all handlers subscribed to event_type.
-        Handlers are awaited sequentially. Exceptions are not suppressed —
-        callers should wrap broadcast() in a try/except if isolation is needed.
+        Handlers are awaited sequentially.
+        Exceptions are NOT suppressed — callers should wrap broadcast()
+        in a try/except if listener isolation is needed.
         """
         for handler in list(self._subscribers.get(event_type, [])):
             await handler(event)
@@ -77,31 +88,36 @@ class PlatformEventBus:
 
 class PlatformAgent(YoAiAgent):
     """
-    PlatformAgent:
-    Privileged, long-lived, platform-service agent.
+    PlatformAgent: privileged, long-lived, platform-service agent.
 
     Responsibilities:
       - Inherit all loading behavior from YoAiAgent (skills, tools, schemas,
         fingerprints, knowledge)
       - Enforce platform-level constraints (call graph, trust tiers, etc.)
-      - Expose platform services to YoAiAgents and Visiting Agents
+      - Expose platform services to YoAiAgents and visiting agents
       - Maintain singleton-like lifecycle (managed by the platform)
-      - Receive and optionally react to platform configuration changes (CM-6)
+      - Receive and react to platform configuration changes (CM-6)
       - Emit configuration change events when modifying platform behavior
 
-    PlatformAgents do NOT use profiles — they do not represent people.
-    PlatformAgents act on behalf of the Platform as brokers and services.
+    PlatformAgents do NOT use profiles — they act on behalf of the Platform
+    as brokers and services, never representing a person or organization.
 
     Card Contract:
       PlatformAgents expose the basic card only — the extended card is
-      NEVER exposed externally, even to registered callers. Some PlatformAgents
-      may not have an extended card at all — this is always valid under A2A spec.
+      NEVER exposed externally, even to registered callers.
 
     Event Bus:
-      - A PlatformEventBus must be injected at construction.
-      - This agent auto-registers its on_platform_configuration_change handler
-        for the "Platform.ConfigurationChanged" event on init.
-      - On teardown, call shutdown() to unsubscribe and release references.
+      - A PlatformEventBus MUST be injected at construction (event_bus=).
+      - No default — missing event_bus raises TypeError immediately.
+      - This agent auto-registers on_platform_configuration_change for the
+        "Platform.ConfigurationChanged" event on init.
+      - Call shutdown() on teardown to unsubscribe and release references.
+
+    slim= flag:
+      When slim=True (used by Lambda execution environment singletons),
+      fingerprints/knowledge/tools are skipped at init. The event bus
+      is always wired regardless of slim — platform agents must always
+      be able to receive configuration change events.
     """
 
     PLATFORM_CONFIG_EVENT = "Platform.ConfigurationChanged"
@@ -112,6 +128,7 @@ class PlatformAgent(YoAiAgent):
         card: dict | None = None,
         extended_card: dict | None = None,
         context=None,
+        slim: bool = False,
         event_bus: PlatformEventBus,
     ):
         super().__init__(
@@ -119,17 +136,19 @@ class PlatformAgent(YoAiAgent):
             extended_card=extended_card,
             profile=None,       # PlatformAgents never use profiles
             context=context,
+            slim=slim,
         )
 
         if not isinstance(event_bus, PlatformEventBus):
             raise TypeError(
-                f"PlatformAgent '{self.actor_name}' requires a PlatformEventBus instance. "
-                f"Got: {type(event_bus).__name__}"
+                f"PlatformAgent '{self.actor_name}' requires a PlatformEventBus "
+                f"instance. Got: {type(event_bus).__name__}"
             )
 
         self.event_bus = event_bus
 
-        # Auto-register this instance for configuration change events
+        # Auto-register for configuration change events.
+        # Runs even when slim=True — config changes must always be receivable.
         self.event_bus.subscribe(
             self.PLATFORM_CONFIG_EVENT,
             self.on_platform_configuration_change,
@@ -137,7 +156,7 @@ class PlatformAgent(YoAiAgent):
 
         self.log(
             event_type="platform_agent_registered",
-            message=f"{self.actor_name} registered on PlatformEventBus",
+            message=f"{self.actor_name} registered on PlatformEventBus.",
             payload={"event_type": self.PLATFORM_CONFIG_EVENT},
         )
 
@@ -148,24 +167,12 @@ class PlatformAgent(YoAiAgent):
         """
         Return the basic card only.
 
-        PlatformAgent behavior:
-          - No card: fires NO_CARD alert event (three bells), returns {}.
-          - Any caller, any context: always returns the basic card only.
-            PlatformAgents never expose their extended card externally.
-            Some PlatformAgents may have no extended card — always valid.
-
-        The basic card is the public A2A advertised contract. It describes
-        what the PlatformAgent can do and how to reach it. The extended
-        card contains internal platform configuration and is not for
-        external consumption.
+        PlatformAgents never expose their extended card externally.
+        If no card is available, fires a NO_CARD alert and returns {}.
 
         Args:
-            context: AgentContext from the current request, if available.
-                     Not used for access decisions — included for API
-                     consistency with BaseAgent and YoAiAgent.
-
-        Returns:
-            dict: basic card, or {} if no card is available.
+            context: AgentContext, if available. Not used for access
+                     decisions — included for API consistency with BaseAgent.
         """
         if not self.card:
             self._fire_no_card_event(context)
@@ -174,12 +181,56 @@ class PlatformAgent(YoAiAgent):
         return self.card
 
     # ------------------------------------------------------------------
+    # Mode 2: handle_a2a — local dispatch entry point
+    # ------------------------------------------------------------------
+    async def handle_a2a(
+        self,
+        capability_id: str,
+        payload: dict,
+        agent_ctx,
+        capability_ctx,
+    ) -> dict:
+        """
+        Entry point for Mode 2 (A2A Direct) local dispatch.
+
+        Called by SolicitorGeneral._dispatch_local() when this agent is
+        registered as a local instance in AGENT_REGISTRY. Base implementation
+        raises NotImplementedError. Each PlatformAgent subclass overrides this
+        to dispatch to its own capability methods.
+
+        Override pattern (e.g. DoorKeeperAgent):
+
+            async def handle_a2a(self, capability_id, payload, agent_ctx, capability_ctx):
+                dispatch = {
+                    "Trust.Assign":       self.trust_assign,
+                    "Agent.Authenticate": self.agent_authenticate,
+                    # ... all capabilities this agent exposes via Mode 2
+                }
+                handler = dispatch.get(capability_id)
+                if handler is None:
+                    raise NotImplementedError(
+                        f"Capability '{capability_id}' not found on "
+                        f"{self.__class__.__name__}."
+                    )
+                return await handler(payload, agent_ctx, capability_ctx)
+
+        No capability run() modules are modified to support Mode 2.
+        The called agent's run() modules receive the same
+        (payload, agent_ctx, capability_ctx) args they always do.
+        startup_mode='a2a' on agent_ctx distinguishes this path for logging.
+        """
+        raise NotImplementedError(
+            f"{self.__class__.__name__} does not implement handle_a2a(). "
+            f"Override this method to support Mode 2 (A2A Direct) dispatch."
+        )
+
+    # ------------------------------------------------------------------
     # CM-6: Receive configuration change notifications
     # ------------------------------------------------------------------
     async def on_platform_configuration_change(self, event: dict) -> None:
         """
         Called when any PlatformAgent broadcasts a ConfigurationChanged event.
-        PlatformAgents may override this to react — base implementation logs only.
+        Base implementation logs only. Override to react.
 
         NIST 800-53 CM-6: Configuration Settings.
         """
@@ -201,16 +252,15 @@ class PlatformAgent(YoAiAgent):
         Broadcast a Platform.ConfigurationChanged event to all subscribed
         PlatformAgents via the injected PlatformEventBus.
 
-        This publishes to the in-process PlatformEventBus only.
-        Cross-agent Kafka publishing is handled by the Kafka Observability
-        Publisher (a separate component, not yet built).
+        In-process only. Cross-agent Kafka publishing is handled by the
+        Kafka Observability Publisher (Gap Registry 🔲 — not yet built).
 
         NIST 800-53 CM-6: Configuration Settings.
         """
         event = {
-            "type": change_type,
+            "type":    change_type,
             "details": details or {},
-            "source": self.actor_name,
+            "source":  self.actor_name,
         }
 
         self.log(
@@ -222,7 +272,7 @@ class PlatformAgent(YoAiAgent):
         await self.event_bus.broadcast(self.PLATFORM_CONFIG_EVENT, event)
 
     # ------------------------------------------------------------------
-    # Teardown: unsubscribe from event bus
+    # Teardown
     # ------------------------------------------------------------------
     def shutdown(self) -> None:
         """
@@ -237,6 +287,6 @@ class PlatformAgent(YoAiAgent):
 
         self.log(
             event_type="platform_agent_unregistered",
-            message=f"{self.actor_name} unsubscribed from PlatformEventBus",
+            message=f"{self.actor_name} unsubscribed from PlatformEventBus.",
             payload={"event_type": self.PLATFORM_CONFIG_EVENT},
         )
