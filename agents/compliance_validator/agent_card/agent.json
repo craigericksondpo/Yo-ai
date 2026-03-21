@@ -1,34 +1,43 @@
 {
     "name": "Compliance-Validator",
     "description": "Evaluates facts, evidence, and assessments regarding laws, regulations, mandates, policies, and contracts. Produces factual compliance rationales suitable for audit, challenge, or testimony.",
-    "url": "https://privacyportfolio.com/agent-registry/compliance-validator/agent.json",
+    "id": "com.privacyportfolio.compliance-validator",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
         },
     "iconUrl": "https://privacyportfolio.com/agent-registry/compliance-validator/compliance-validator-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/compliance-validator/Compliance-Validator-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/compliance-validator/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
         {
             "name": "Compliance-Standard.Get",
             "description": "Retrieves a compliance standard, mandate, regulation, law, policy, or contract clause from the agent's knowledge repository.",
-            "tags": ["compliance", "standards", "regulations", "knowledge"],
+            "version": "1.0.0", 
             "examples": [
                 "Get GDPR Article 5",
                 "Retrieve CCPA 1798.100",
@@ -42,6 +51,7 @@
         {
             "name": "Compliance.Validate",
             "description": "Evaluates facts and evidence against one or more compliance standards. Produces a factual compliance rationale suitable for audit or testimony.",
+            "version": "1.0.0", 
             "tags": [
                 "complianceValidation",
                 "legalMapping",
@@ -59,6 +69,5 @@
             "inputSchema": { "$ref": "https://yo-ai.ai/schemas/compliance.validate.input.schema.json" },
             "outputSchema": { "$ref": "https://yo-ai.ai/schemas/compliance.validate.output.schema.json" }
         }
-    ],
-    "supportsAuthenticatedExtendedCard": true
+    ]
 }
