@@ -1,3 +1,15 @@
+/**
+ * This Compliance-Validator AgentCard conveys:
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ * - Authentication requirements
+ * - ExtendedCard contains tasks and messages for Registered Agents
+ */
+
+/**
+* Compliance-Validator AgentCard¶
+*/
 {
     "name": "Compliance-Validator",
     "description": "Evaluates facts, evidence, and assessments regarding laws, regulations, mandates, policies, and contracts. Produces factual compliance rationales suitable for audit, challenge, or testimony.",
