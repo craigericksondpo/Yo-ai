@@ -1,3 +1,14 @@
+/**
+ * This Compliance-Validator ExtendedCard conveys:
+ * - ExtendedCard contains tasks, messages, tools, and artifacts for Registered Agents
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+/**
+* Compliance-Validator Extended Agent Card¶
+*/
 {
     "name": "Compliance-Validator",
     "description": "Evaluates facts, evidence, and assessments regarding laws, regulations, mandates, policies, and contracts. Produces factual compliance rationales suitable for audit, challenge, or testimony.",
