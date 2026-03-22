@@ -12,33 +12,43 @@
 {
     "name": "Data-Anonymizer",
     "description": "Uses a variety of tools and techniques for anonymizing and testing datasets of personal attributes.",
-    "url": "https://privacyportfolio.com/agent-registry/data-anonymizer/agent.json",
+    "id": "com.privacyportfolio.data-anonymizer",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
         },
     "iconUrl": "https://privacyportfolio.com/agent-registry/data-anonymizer/data-anonymizer-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/data-anonymizer/Data-Anonymizer-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/data-anonymizer/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
         {
             "name": "Identifiability.Assess",
             "description": "Evaluates whether a dataset or attribute can reasonably identify the data subject under contextual and linkage risks.",
+            "version": "1.0.0", 
             "tags": ["riskAssessment", "linkageRisk", "quasiIdentifiers", "contextualRisk", "audit"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -52,6 +62,7 @@
         {
             "name": "Deidentification-Techniques.Apply",
             "description": "Recommends appropriate transformations such as masking, generalization, suppression, perturbation, bucketing, hashing, or tokenization.",
+            "version": "1.0.0", 
             "tags": ["transformation", "minimization", "privacyTechniques", "dataSanitization"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -65,6 +76,7 @@
         {
             "name": "K-Anonymity.Compute",
             "description": "Computes k-anonymity, l-diversity, t-closeness, and related privacy metrics.",
+            "version": "1.0.0", 
             "tags": ["privacyMetrics", "kAnonymity", "lDiversity", "tCloseness", "riskScoring"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json"],
@@ -78,6 +90,7 @@
         {
             "name": "Safe-Release.Recommend",
             "description": "Determines whether a dataset is safe for release under CPRA, NIST, HIPAA, and A2A norms, and provides required mitigations.",
+            "version": "1.0.0", 
             "tags": ["policy", "releaseGuidance", "compliance", "riskMitigation"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -91,6 +104,7 @@
         {
             "name": "Deidentification-Report.Generate",
             "description": "Produces a structured, regulator-friendly report summarizing techniques applied, residual risk, and compliance posture.",
+            "version": "1.0.0", 
             "tags": ["audit", "reporting", "evidence", "documentation"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json", "text/plain"],
@@ -104,6 +118,7 @@
         {
             "name": "Auxiliary-Data-Risk.Evaluate",
             "description": "Assesses how external datasets could re-identify the subject through linkage or inference.",
+            "version": "1.0.0", 
             "tags": ["auxiliaryData", "linkageRisk", "openSourceIntelligence", "riskAssessment"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -117,6 +132,7 @@
         {
             "name": "Data-For-Purpose.Minimize",
             "description": "Determines the minimum necessary personal data required for a stated purpose and flags unnecessary fields.",
+            "version": "1.0.0", 
             "tags": ["purposeLimitation", "dataMinimization", "leastPrivilege"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -130,6 +146,7 @@
         {
             "name": "Reidentification-Attack.Simulate",
             "description": "Runs a simulated adversarial linkage attempt to estimate re-identification probability.",
+            "version": "1.0.0", 
             "tags": ["simulation", "adversarial", "riskAssessment", "attackModeling"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json"],
@@ -143,6 +160,7 @@
         {
             "name": "Deidentification-Standard.Map",
             "description": "Maps the organization's proposed de-identification approach to NIST, CCPA, HIPAA Safe Harbor, and A2A requirements.",
+            "version": "1.0.0", 
             "tags": ["standards", "mapping", "compliance", "policy"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -156,6 +174,7 @@
         {
             "name": "Deidentification-Guidance.Publish",
             "description": "Generates human-readable instructions explaining how to properly de-identify the user's data for a given purpose.",
+            "version": "1.0.0", 
             "tags": ["education", "guidance", "bestPractices", "documentation"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["text/plain"],
@@ -166,6 +185,5 @@
             "inputSchema": { "$ref": "https://yo-ai.ai/schemas/deidentification-guidance.publish.input.schema.json" },
             "outputSchema": { "$ref": "https://yo-ai.ai/schemas/deidentification-guidance.publish.output.schema.json" }
         }
-    ],
-    "supportsAuthenticatedExtendedCard": true
+    ]
 }
