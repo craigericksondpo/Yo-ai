@@ -1,3 +1,14 @@
+/**
+ * This Profile-Builder ExtendedCard conveys:
+ * - ExtendedCard contains tasks, messages, artifacts, and tools for Registered Agents.
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+/**
+* Profile-Builder Extended Agent Card¶
+*/
 {
   "name": "Profile-Builder",
   "description": "Builds and maintains organization profiles.",
