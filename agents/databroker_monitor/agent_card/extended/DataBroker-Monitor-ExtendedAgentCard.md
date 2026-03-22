@@ -1,3 +1,14 @@
+/**
+ * This DataBroker-Monitor Extended Agent Card conveys:
+ * - ExtendedCard contains tasks, messages, artifacts, and tools for Registered Agents
+ * - Overall details (version, name, description, uses)
+ * - Skills: A set of capabilities the agent can perform
+ * - Default modalities/content types supported by the agent.
+ */
+
+/**
+* DataBroker-Monitor Extended Agent Card¶
+*/
 {
     "name": "DataBroker-Monitor",
     "description": "Monitors registered data brokers to detect possession, sale, or distribution of personal information and identify downstream purchasers.",
