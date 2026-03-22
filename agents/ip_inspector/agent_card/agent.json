@@ -1,33 +1,43 @@
 {
     "name": "IP-Inspector",
     "description": "Discovers intellectual property and potential use cases, and searches for implementation instances.",
-    "url": "https://privacyportfolio.com/agent-registry/ip-inspector/agent.json",
+    "id": "com.privacyportfolio.ip-inspector",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
         },
     "iconUrl": "https://privacyportfolio.com/agent-registry/ip-inspector/ip-inspector-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/ip-inspector/IP-Inspector-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/ip-inspector/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-    "streaming": true,
-    "pushNotifications": true,
-    "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
         {
             "name": "IP-Assets.Discover",
             "description": "Identifies patents, trademarks, copyrights, trade dress, and proprietary technologies associated with an entity.",
+            "version": "1.0.0", 
             "tags": ["patents", "trademarks", "copyrights", "ipDiscovery", "portfolioAnalysis"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -41,6 +51,7 @@
         {
             "name": "IP-to-Products.Map",
             "description": "Determines which products, services, or features implement or rely on specific IP assets.",
+            "version": "1.0.0", 
             "tags": ["productMapping", "implementationDiscovery", "ipUsage", "portfolioLinkage"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -54,6 +65,7 @@
         {
             "name": "Implementation-Instances.Search",
             "description": "Searches for real-world implementations of an IP asset across products, SDKs, APIs, documentation, marketing materials, and technical artifacts.",
+            "version": "1.0.0", 
             "tags": ["implementationSearch", "competitiveIntelligence", "techDiscovery"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -67,6 +79,7 @@
         {
         "name": "Use-Cases.Infer",
         "description": "Analyzes IP assets to infer potential applications, commercial uses, and strategic value.",
+        "version": "1.0.0", 
         "tags": ["useCaseInference", "strategicAnalysis", "innovationMapping"],
         "input_modes": ["application/json", "text/plain"],
         "output_modes": ["application/json", "text/plain"],
@@ -80,6 +93,7 @@
         {
             "name": "IP-Portfolio.Cluster",
             "description": "Groups IP assets into themes, technologies, or product domains to reveal strategic clusters.",
+            "version": "1.0.0", 
             "tags": ["portfolioClustering", "taxonomy", "classification", "strategicThemes"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json"],
@@ -93,6 +107,7 @@
         {
             "name": "IP-Report.Generate",
             "description": "Produces a structured, regulator-friendly report summarizing discovered IP, implementations, inferred use cases, and strategic insights.",
+            "version": "1.0.0", 
             "tags": ["reporting", "audit", "documentation", "evidence"],
             "input_modes": ["application/json"],
             "output_modes": ["application/json", "text/plain"],
@@ -106,6 +121,7 @@
         {
             "name": "IP-Risk.Evaluate",
             "description": "Assesses potential infringement exposure, licensing obligations, exclusivity constraints, and competitive risks.",
+            "version": "1.0.0", 
             "tags": ["riskAssessment", "infringementRisk", "licensing", "competitiveRisk"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -119,6 +135,7 @@
         {
             "name": "IP-Provenance.Trace",
             "description": "Tracks ownership history, assignments, transfers, and corporate lineage of IP assets.",
+            "version": "1.0.0", 
             "tags": ["provenance", "ownership", "assignments", "corporateLineage"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -132,6 +149,7 @@
         {
             "name": "Related-IP.Discover",
             "description": "Identifies similar, adjacent, or competing IP assets across the market.",
+            "version": "1.0.0", 
             "tags": ["relatedPatents", "competitiveLandscape", "similaritySearch"],
             "input_modes": ["application/json", "text/plain"],
             "output_modes": ["application/json"],
@@ -142,6 +160,5 @@
             "inputSchema": { "$ref": "https://yo-ai.ai/schemas/related-ip.discover.input.schema.json" },
             "outputSchema": { "$ref": "https://yo-ai.ai/schemas/related-ip.discover.output.schema.json" }
         }
-    ],
-    "supportsAuthenticatedExtendedCard": true
+    ]
 }
