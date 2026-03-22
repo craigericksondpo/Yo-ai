@@ -1,3 +1,15 @@
+/**
+ * This Rewards-Seeker ExtendedCard conveys:
+ * - ExtendedCard contains tasks, messages, artifacts, and tools for Registered Agents.
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+
+/**
+* Rewards-Seeker Extended Agent Card¶
+*/
 {
     "name": "Rewards-Seeker",
     "description": "Agent responsible for managing loyalty programs, rewards, cashback, and promotional eligibility. Uses SocialMedia-Checker for promotional verification.",
