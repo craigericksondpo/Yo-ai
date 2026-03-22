@@ -1,28 +1,35 @@
 {
     "name": "Rewards-Seeker",
     "description": "Agent responsible for managing loyalty programs, rewards, cashback, and promotional eligibility. Uses SocialMedia-Checker for promotional verification.",
-    "url": "https://privacyportfolio.com/agent-registry/rewards-seeker/agent.json",
+    "id": "com.privacyportfolio.vendor-manager",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
     },
     "iconUrl": "https://privacyportfolio.com/agent-registry/rewards-seeker/rewards-seeker-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/rewards-seeker/Rewards-Seeker-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/rewards-seeker/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
     "security": [
-        { "yo-ai": ["apiKey", "yo-api", "header"] }
+      { "yo-ai": [] }
     ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
@@ -30,6 +37,7 @@
         {
             "name": "Rewards.Discover",
             "description": "Identify loyalty opportunities, cashback offers, and promotional benefits.",
+            "version": "1.0.0", 
             "tags": ["rewards", "loyalty", "opportunity", "logEvent"],
             "examples": [
                 "Find cashback offers",
@@ -44,6 +52,7 @@
         {
             "name": "Promo-Eligibility.Verify",
             "description": "Use SocialMedia-Checker to confirm promotional requirements.",
+            "version": "1.0.0", 
             "tags": ["promotion", "verification", "socialMedia", "logEvent"],
             "examples": [
                 "Check if user followed brand",
@@ -58,6 +67,7 @@
         {
             "name": "Reward.Redeem",
             "description": "Redeem loyalty points, cashback, or promotional credits.",
+            "version": "1.0.0", 
             "tags": ["redeem", "loyalty", "reward", "logEvent"],
             "examples": [
                 "Redeem points",
@@ -72,6 +82,7 @@
         {
             "name": "Rewards-Profile.Request",
             "description": "Request minimized loyalty profile from Data-Steward.",
+            "version": "1.0.0", 
             "tags": ["requestData", "loyalty", "logEvent"],
             "examples": [
                 "Request loyalty IDs",
@@ -95,6 +106,5 @@
             "inputSchema": { "$ref": "https://yo-ai.ai/schemas/redemption-plan.generate.input.schema.json" },
             "outputSchema": { "$ref": "https://yo-ai.ai/schemas/redemption-plan.generate.output.schema.json" }
         }
-    ],
-    "supportsAuthenticatedExtendedCard": true
+    ]
 }
