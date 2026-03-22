@@ -2,6 +2,13 @@
 
 import uuid
 from core.base_agent import BaseAgent, CapabilityContext
+# CapabilityContext is imported directly here because it appears in
+# method signatures as a type annotation (__init__ and handle_capability).
+# Type annotations require the actual class name — self.capability_context_class
+# is a runtime value and cannot be used in signatures. This is the only
+# legitimate exception to the 'use self.capability_context_class()' pattern.
+# AgentContext is NOT imported because it never appears in a YoAiAgent signature.
+from core.runtime.ai_client import AiClient
 from core.runtime.load_fingerprints import load_fingerprints
 from core.runtime.load_knowledge import load_knowledge
 from core.runtime.logging.log_bootstrapper import get_logger
@@ -162,6 +169,18 @@ class YoAiAgent(BaseAgent):
         self.actor_name = (self.card or {}).get("name", "unknown-agent")
 
         # ------------------------------------------------------------------
+        # AI client — constructed from x-ai block in extended card.
+        # Handles all missing/partial x-ai configurations gracefully.
+        # Used by call_ai() in ai_transform.py for model resolution and
+        # LLM dispatch. Per-capability resolution active for Door-Keeper;
+        # per-agent or platform fallback for all other agents.
+        # ------------------------------------------------------------------
+        self.ai_client = AiClient(
+            agent_name=self.actor_name,
+            xai_block=(self.extended or {}).get("x-ai"),
+        )
+
+        # ------------------------------------------------------------------
         # Profile — normalized, resolved, set once
         # self.profile is the single source of truth for capability handlers.
         # Never pull profile from the envelope inside run() — use self.profile.
@@ -219,7 +238,7 @@ class YoAiAgent(BaseAgent):
         if not _slim:
             registry = build_tool_registry(self.extended)
             self.tools = registry
-            self.tool_manager = ToolInvocationManager(registry._adapters)
+            self.tool_manager = ToolInvocationManager(registry)
             self.fingerprints = load_fingerprints(self.card, self.extended)
             self.knowledge = load_knowledge(self)
         else:

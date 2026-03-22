@@ -176,11 +176,15 @@ class CapabilityContext:
     def __init__(
         self,
         *,
+        # --- Capability identity ---
+        capability_id: str | None = None,
+
         # --- Execution configuration (CapabilityContext only) ---
         slim: bool = False,
         tools: list[str] | None = None,
         dry_run: bool = False,
         trace: bool = False,
+        startup_mode: str | None = None,
 
         # --- Identity and correlation (override AgentContext if set) ---
         correlation_id: str | None = None,
@@ -198,6 +202,10 @@ class CapabilityContext:
         prior_outputs: dict | None = None,
         state: dict | None = None,
     ):
+        # Capability identity
+        self.capability_id = capability_id
+        self.startup_mode = startup_mode
+
         # Execution configuration
         self.slim = slim
         self.tools = tools
@@ -219,6 +227,47 @@ class CapabilityContext:
         self.step = step
         self.prior_outputs = prior_outputs or {}
         self.state = state or {}
+
+    # ------------------------------------------------------------------
+    # Schema name properties (from patch: base_agent_capability_context_patch.py)
+    # ------------------------------------------------------------------
+    @property
+    def input_schema_name(self) -> str:
+        """
+        Canonical input schema filename for this capability.
+
+        Derived deterministically from capability_id:
+            "Trust.Assign"  →  "trust.assign.input.schema.json"
+
+        Use as event_type in Agent Log Entry 1 (capability received):
+            agent_ctx.log(event_type=capability_ctx.input_schema_name, ...)
+
+        Matches filenames in training/artifacts/messages/ and
+        $ref URLs in agent cards and extended cards.
+        Returns empty string if capability_id is not set.
+        """
+        if not self.capability_id:
+            return ""
+        return f"{self.capability_id.lower()}.input.schema.json"
+
+    @property
+    def output_schema_name(self) -> str:
+        """
+        Canonical output schema filename for this capability.
+
+        Derived deterministically from capability_id:
+            "Trust.Assign"  →  "trust.assign.output.schema.json"
+
+        Use as event_type in Agent Log Entry 2 (capability completed):
+            agent_ctx.log(event_type=capability_ctx.output_schema_name, ...)
+
+        Matches filenames in training/artifacts/messages/ and
+        $ref URLs in agent cards and extended cards.
+        Returns empty string if capability_id is not set.
+        """
+        if not self.capability_id:
+            return ""
+        return f"{self.capability_id.lower()}.output.schema.json"
 
     # ------------------------------------------------------------------
     # Context resolution helper
@@ -261,10 +310,12 @@ class CapabilityContext:
         Unknown keys are silently ignored — forward compatible.
         """
         return cls(
+            capability_id=data.get("capability_id"),
             slim=data.get("slim", False),
             tools=data.get("tools"),
             dry_run=data.get("dry_run", False),
             trace=data.get("trace", False),
+            startup_mode=data.get("startup_mode"),
             correlation_id=data.get("correlation_id"),
             task_id=data.get("task_id"),
             instance_id=data.get("instance_id"),
@@ -283,6 +334,8 @@ class CapabilityContext:
         and workflow state persistence.
         """
         return {
+            "capability_id": self.capability_id,
+            "startup_mode": self.startup_mode,
             "slim": self.slim,
             "tools": self.tools,
             "dry_run": self.dry_run,
