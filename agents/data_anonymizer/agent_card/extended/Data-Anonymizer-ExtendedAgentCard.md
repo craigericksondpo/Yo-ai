@@ -1,3 +1,15 @@
+/**
+ * This Data-Anonymizer ExtendedCard conveys:
+ * - Tasks, messages, artifacts, and tools for Registered Agents.
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+
+/**
+* Data-Anonymizer Extended Agent Card¶
+*/
 {
     "name": "Data-Anonymizer",
     "description": "Uses a variety of tools and techniques for anonymizing and testing datasets of personal attributes.",
