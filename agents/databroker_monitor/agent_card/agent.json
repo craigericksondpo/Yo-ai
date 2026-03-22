@@ -1,28 +1,35 @@
 {
     "name": "DataBroker-Monitor",
     "description": "Monitors registered data brokers to detect possession, sale, or distribution of personal information and identify downstream purchasers.",
-    "url": "https://privacyportfolio.com/agent-registry/databroker-monitor/agent.json",
+    "id": "com.privacyportfolio.databroker-monitor",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
     },
     "iconUrl": "https://privacyportfolio.com/agent-registry/databroker-monitor/databroker-monitor-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/databroker-monitor/DataBroker-Monitor-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/databroker-monitor/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
     "security": [
-        { "yo-ai": ["apiKey", "yo-api", "header"] }
+      { "yo-ai": [] }
     ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
@@ -30,7 +37,7 @@
         {
             "name": "Broker-Inventory.Scan",
             "description": "Searches registered data broker datasets for matches to minimized PI bundles provided by the Data-Steward.",
-            "tags": ["broker", "scan", "inventory", "logEvent"],
+            "version": "1.0.0", 
             "examples": [
                 "Search for email in broker dataset",
                 "Check if phone number appears in broker feed",
@@ -44,6 +51,7 @@
         {
             "name": "Downstream-Vendors.Identify",
             "description": "Determines which vendors are purchasing data from brokers and using it to make automated decisions.",
+            "version": "1.0.0", 
             "tags": ["vendors", "broker", "downstream", "logEvent"],
             "examples": [
                 "Identify vendor purchasing my data",
@@ -58,6 +66,7 @@
         {
             "name": "Broker-Evidence.Collect",
             "description": "Captures structured evidence of broker possession or sale of personal information for use in complaints or deletion requests.",
+            "version": "1.0.0", 
             "tags": ["evidence", "broker", "compliance", "logEvent"],
             "examples": [
                 "Record broker match",
@@ -69,6 +78,5 @@
         "inputSchema": { "$ref": "https://yo-ai.ai/schemas/broker-evidence.collect.input.schema.json" },
         "outputSchema": { "$ref": "https://yo-ai.ai/schemas/broker-evidence.collect.output.schema.json" }
         }
-    ],
-    "supportsAuthenticatedExtendedCard": true
+    ]
 }
