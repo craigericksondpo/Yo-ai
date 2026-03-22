@@ -1,33 +1,43 @@
 {
     "name": "SocialMedia-Checker",
     "description": "Evaluates social media activity to verify promotional requirements and detect potential misappropriation of personal data.",
-    "url": "https://privacyportfolio.com/agent-registry/socialmedia-checker/agent.json",
+    "id": "com.privacyportfolio.socialmedia-checker",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
     },
     "iconUrl": "https://privacyportfolio.com/agent-registry/socialmedia-checker/socialmedia-checker-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/socialmedia-checker/SocialMedia-Checker-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/socialmedia-checker/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
     {
         "name": "Promotional-Engagement.Verify",
         "description": "Checks whether required social media actions (follow, like, repost, hashtag usage) were completed for promotional eligibility.",
+        "version": "1.0.0", 
         "tags": ["promotion", "verification", "rewards", "logEvent"],
         "examples": [
             "Verify user followed brand",
@@ -42,6 +52,7 @@
     {
         "name": "Misappropriation.Detect",
         "description": "Searches social media for unauthorized use of personal information, impersonation, or leaked data indicators.",
+        "version": "1.0.0", 
         "tags": ["misappropriation", "fraud", "identity", "logEvent"],
         "examples": [
             "Search for impersonation accounts",
@@ -56,6 +67,7 @@
     {
         "name": "Evidence.Collect",
         "description": "Captures structured evidence of misappropriation or promotional compliance for downstream agents.",
+        "version": "1.0.0", 
         "tags": ["evidence", "compliance", "logEvent"],
         "examples": [
             "Capture screenshot metadata",
@@ -67,6 +79,5 @@
         "inputSchema": { "$ref": "https://yo-ai.ai/schemas/evidence.collect.input.schema.json" },
         "outputSchema": { "$ref": "https://yo-ai.ai/schemas/evidence.collect.output.schema.json" }
     }
-  ],
-  "supportsAuthenticatedExtendedCard": true
+  ]
 }
