@@ -143,6 +143,32 @@ _transport = A2ATransport(
 
 
 # ---------------------------------------------------------------------------
+# Agent directory
+# ---------------------------------------------------------------------------
+# The canonical agent card lives at the PrivacyPortfolio Agent Directory.
+# It is published on the website and maintained there — not in this codebase.
+# Any route that would serve agent card content redirects here instead.
+#
+# A2A callers that need the card fetch it directly from this URL.
+# No local copy is kept — updating the website is the only deployment needed.
+
+AGENT_DIRECTORY_URL = "https://privacyportfolio.com/.well-known/agent.json"
+
+# Routes served by this handler.
+# Mode 1 (/a2a) and Mode 4 (Starlette request object) are the primary paths.
+# The remaining routes are thin — they either redirect or stub identity
+# endpoints that will eventually route through Door-Keeper capabilities.
+_ROUTES = {
+    "/":                          "landing",
+    "/.well-known/agent-card.json": "redirect → AGENT_DIRECTORY_URL",
+    "/a2a":                        "Mode 1 — A2A envelope → A2ATransport",
+    "/register":                   "stub → Door-Keeper Agent.Register (future)",
+    "/auth":                       "stub → Door-Keeper Subscriber.Authenticate (future)",
+    "/permissions":                "stub → Door-Keeper AccessRights.Manage (future)",
+    "/agent/extended":             "stub → showCard() for authenticated callers (future)",
+}
+
+# ---------------------------------------------------------------------------
 # Envelope extraction
 # ---------------------------------------------------------------------------
 
@@ -205,6 +231,47 @@ async def yo_ai_handler(event, context=None):
             statusCode, headers, and JSON body.
         For Starlette (Mode 4): raw response dict from A2ATransport.
     """
+
+    # --- Route non-A2A paths ---
+    # Handle well-known card redirect and stub identity routes before
+    # attempting envelope extraction. Only dict events with rawPath apply.
+    if isinstance(event, dict):
+        raw_path = event.get("rawPath", "") or event.get("path", "")
+
+        if raw_path == "/.well-known/agent-card.json":
+            # Redirect to the canonical Agent Directory — no local copy maintained.
+            return {
+                "statusCode": 301,
+                "headers": {
+                    "Location":      AGENT_DIRECTORY_URL,
+                    "Cache-Control": "public, max-age=3600",
+                },
+                "body": "",
+            }
+
+        if raw_path == "/":
+            return {
+                "statusCode": 200,
+                "headers": {"Content-Type": "text/plain"},
+                "body": (
+                    f"Yo-ai Platform — Solicitor-General\n"
+                    f"Agent directory: {AGENT_DIRECTORY_URL}\n"
+                    f"A2A endpoint:    POST /a2a\n"
+                ),
+            }
+
+        if raw_path in ("/register", "/auth", "/permissions", "/agent/extended"):
+            # These will route through Door-Keeper capabilities when implemented.
+            # Returning 501 (not 404) signals: endpoint is known, not yet wired.
+            return {
+                "statusCode": 501,
+                "headers": {"Content-Type": "application/json"},
+                "body": json.dumps({
+                    "error":   "not_implemented",
+                    "message": f"{raw_path} is not yet wired to a Door-Keeper capability.",
+                    "route":   raw_path,
+                }),
+            }
 
     # --- Extract envelope ---
     envelope = _extract_envelope(event)
