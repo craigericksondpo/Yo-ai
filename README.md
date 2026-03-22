@@ -6,9 +6,9 @@ The Organization is represented by the Vendor-Manager, an AI Agent that acts as 
 
 Both sides use profiles to represent individual persons and corporate entities. These profiles are loaded, referenced, and updated by a team of cooperating AI Agents that can communicate:
 - directly with the real-world parties they represent, or
-- through A2A interchanges operatating inside isolated internal sandboxes.
+- through A2A interchanges operating inside isolated internal sandboxes.
 
-Real people use Yo-ai to interact with each other's agents when they are unavailable or unknown to each other.
+Real people use Yo-ai to interact with each others' agents when they are unavailable or unknown to each other.
 This drastically reduces latency in all processes, while also providing security, accountability, and privacy.
 
 ## What Yo-ai Enables
@@ -16,7 +16,7 @@ Yo-ai provides a structured way for individuals and organizations to:
 
 -	Open A2A communication channels
 -	Negotiate mutually agreed-upon data processing agreements
--	Train each other’s AI Agents to “play well with others”
+-	Train each others' AI Agents to “play well with others”
 -	Test for impacts to the corresponding party before, during, or after changes in processing
 -	Build trust through transparency, primarily by sharing event logs about their agents’ activities
 
@@ -31,7 +31,7 @@ Everyone who wants something, and anyone who cannot be everywhere all at once.
 As an evidence-based learning system for autonomous decision-making, Yo-ai provides 'explainability' through log-shipping for a unified system of truth for all participants in a process.  
 
 # **How This Repository Is Structured**
-Yo‑ai is a multi-agent, federated platform of FastA2A agents that can be cloned and run within any environment. 
+Yo‑ai is a multi-agent, federated platform of A2A agents that can be cloned and run within any environment. 
 A Makefile documents which modules are importable as Python packages.
 Every top‑level directory contains a README.md.
 
@@ -44,47 +44,33 @@ Every top‑level directory contains a README.md.
  All platform agents inherit from these classes.
 
  Contains: 
- - Agent — base class for all agents
+ - BaseAgent — base class for all agents
  - PlatformAgent — privileged platform‑side agent
  - YoAiAgent — consumer/organization‑side agent
- - AgentCard-Architecture.docx — architectural reference for agent cards
 
 ### **`/a2a`**
  Summary:
- Shared FastA2A runtime and the glue layer between Starlette and the Solicitor‑General.
+ Shared A2A runtime and the glue layer between the A2A Protocol and the Solicitor‑General.
 
  Usage:
- Imported by the Starlette app to mount the A2A runtime under /a2a/*.
- This is the primary machine‑facing entrypoint for A2A JSON‑RPC requests.
+ This is the semantic edge of the Yo-ai Platform.
+ The Solicitor-General owns unified_capability_router.py, a platform-wide semantic router.
+
 
  Contains:
- - app.py — shared FastA2A runtime instance
- - handlers.py — A2A HTTP handler bridging Starlette ↔ FastA2A ↔ Solicitor‑General
+ - a2a_transport.py — A2A JSON-RPC handler that bridges the http /a2a endpoint and Solicitor‑General.
 
-
-### **`/app`**
- Summary:
- Top‑level Starlette application and platform bootstrap.
- 
- Usage:
- Executed as the main application entrypoint.
- Initializes the Solicitor‑General, mounts A2A routes, and configures middleware.
-
- Contains:
- - main.py — Starlette app + FastA2A mounts + Solicitor‑General bootstrap
- - dependencies.py — external service wiring
- - config.py — environment variables, settings, logfire configuration
- - /middleware/ — authentication, logging, and error‑handling middleware
 
 ### **`/http`**
  Summary:
- HTTP‑facing routes, OpenAPI specification.
+ HTTP‑facing routes, API-Direct routes, OpenAPI specification.
 
  Usage:
- Imported by the Starlette app to expose public HTTP routes for agents and A2A operations.
+ Exposes public HTTP routes for agents and A2A operations.
  
  Contains:
- - /routes/http_router.py — public A2A JSON‑RPC endpoint that receives JSON‑RPC requests and forwards them to the Solicitor‑General
+ - /yo_ai_handler.py — HTTP A2A JSON‑RPC endpoint that receives JSON‑RPC requests and forwards them to the Solicitor‑General
+ - /openapi/api_handler.py — DIRECT A2A JSON‑RPC endpoint that receives JSON‑RPC requests and forwards them to the Solicitor‑General
  - /openapi/openapi.yaml — Yo‑API capability definitions
 
 ### **`/agents`**
@@ -125,7 +111,6 @@ Every top‑level directory contains a README.md.
   - Loaders
   - Ingestion systems
   - Publishing tools
-  - unified_capability_router.py  Platform-wide semantic router.
 
 ### **`/tests`**
  Summary:
