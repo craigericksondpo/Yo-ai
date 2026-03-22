@@ -1,3 +1,14 @@
+/**
+ * This SocialMedia-Checker ExtendedCard conveys:
+ * - ExtendedCard contains tasks, messages, artifacts, and tools for Registered Agents.
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+/**
+* SocialMedia-Checker Extended Agent Card¶
+*/
 {
     "name": "SocialMedia-Checker",
     "description": "Evaluates social media activity to verify promotional requirements and detect potential misappropriation of personal data.",
