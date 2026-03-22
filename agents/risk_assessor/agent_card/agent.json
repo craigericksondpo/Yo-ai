@@ -1,33 +1,43 @@
 {
     "name": "Risk-Assessor",
     "description": "Builds, conducts, and maintains risk assessments.",
-    "url": "https://privacyportfolio.com/agent-registry/risk-assessor/agent.json",
+    "id": "com.privacyportfolio.risk-assessor",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
         },
     "iconUrl": "https://privacyportfolio.com/agent-registry/risk-assessor/risk-assessor-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/risk-assessor/Risk-Assessor-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/risk-assessor/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
     {
         "name": "Risks.Assess",
         "description": "Conducts a structured risk assessment for a given organization using specified standards, evidence sources, and assessment models.",
+        "version": "1.0.0", 
         "tags": [
             "riskAssessment",
             "fraudDetection",
@@ -45,6 +55,5 @@
         "inputSchema": { "$ref": "https://yo-ai.ai/schemas/risks.assess.input.schema.json" },
         "outputSchema": { "$ref": "https://yo-ai.ai/schemas/risks.assess.output.schema.json" }
     }
-  ],
-  "supportsAuthenticatedExtendedCard": true
+  ]
 }
