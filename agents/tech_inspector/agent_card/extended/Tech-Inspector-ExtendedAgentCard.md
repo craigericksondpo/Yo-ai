@@ -1,3 +1,14 @@
+/**
+ * This Tech-Inspector ExtendedCard conveys:
+ * - ExtendedCard contains tasks, messages, tools, and artifacts for Registered Agents
+ * - Tasks: A task encapsulates the entire interaction related to a specific goal or request.
+ * - Messages: Messages are used for instructions, prompts, replies, and status updates.
+ * - Artifacts: Collection of artifacts created by the agent.
+ */
+
+/**
+* Tech-Inspector Extended Agent Card¶
+*/
 {
     "name": "Tech-Inspector",
     "description": "Discovers technology vendors of a specific organization.",
