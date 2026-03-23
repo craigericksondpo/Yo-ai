@@ -1,27 +1,34 @@
 {
     "name": "The-Advisor",
-    "description": "",
-    "url": "https://privacyportfolio.com/agent-registry/the-advisor/agent.json",
+    "description": "Provides advice on any issue to Yo-ai Registered Agents.",
+    "id": "com.privacyportfolio.the-advisor",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
         },
     "iconUrl": "https://privacyportfolio.com/agent-registry/the-advisor/the-advisor-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/the-advisor/The-Advisor-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/the-advisor/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
         "yo-ai": {
-        "type": "apiKey",
-        "name": "yo-api",
-        "in": "header"
+            "type": "apiKey",
+            "name": "yo-api",
+            "in": "header"
         }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [{ "yo-ai": [] }],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
@@ -53,6 +60,5 @@
             "inputSchema": { "$ref": "https://yo-ai.ai/schemas/outcome.learnfrom.input.schema.json" },
             "outputSchema": { "$ref": "https://yo-ai.ai/schemas/outcome.learnfrom.output.schema.json" }
         }
-    ],
-  "supportsAuthenticatedExtendedCard": true
+    ]
 }
