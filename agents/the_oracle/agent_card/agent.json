@@ -1,33 +1,43 @@
 {
     "name": "The-Oracle",
-    "description": "",
-    "url":   "https://privacyportfolio.com/agent-registry/the-oracle/agent.json",
+    "description": "Performs forecasting, consequence modeling, and machine-learning",
+    "id": "com.privacyportfolio.the-oracle",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://privacyportfolio.com"
     },
     "iconUrl": "https://privacyportfolio.com/agent-registry/the-oracle/the-oracle-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/the-oracle/The-Oracle-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/the-oracle/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": false
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": false
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
         {
             "name": "_call_llm_forecasting",
             "description": "Core forecasting logic.",
+            "version": "1.0.0", 
             "tags": [""],
             "examples": ["Tell me when I'll run out of LLM credits."],
             "inputModes": ["application/json", "text/plain"],
@@ -38,19 +48,19 @@
         {
             "name": "learn_from_outcome",
             "description": "Store the delta between forecast and outcome.",
+            "version": "1.0.0", 
             "tags": [""],
             "examples": [""],
             "inputModes": ["application/json", "text/plain"],
             "outputModes": ["application/json", "text/plain"],
             "inputSchema": "llm_prompt",
-            "outputSchema": [
-                {
+            "outputSchema": { 
+              "record": {
                 "forecastId": "forecast_id",
                 "actualOutcome": "actual_outcome",
                 "metadata": "metadata"
-                }
-            ]
+              }
+            }
         }
-    ],
-  "supportsAuthenticatedExtendedCard": false
+    ]
 }
