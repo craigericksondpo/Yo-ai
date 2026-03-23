@@ -1,1 +1,0 @@
-# Makes yo_ai_main/agents/<agent_name>/agent_card/extended importable as a package
