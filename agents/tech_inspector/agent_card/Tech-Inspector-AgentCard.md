@@ -4,7 +4,7 @@
  * - Skills: A set of capabilities the agent can perform
  * - Default modalities/content types supported by the agent.
  * - Authentication requirements
- * - AuthenticatedExtendedCard contains tasks and messages for Registered Agents
+ * - ExtendedCard contains tasks and messages for Registered Agents
  */
 
 /**
@@ -13,33 +13,43 @@
 {
     "name": "Tech-Inspector",
     "description": "Discovers technology vendors of a specific organization.",
-    "url": "https://privacyportfolio.com/agent-registry/tech-inspector/agent.json",
+    "id": "com.privacyportfolio.tech-inspector",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
     },
     "iconUrl": "https://privacyportfolio.com/agent-registry/tech-inspector/tech-inspector-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/tech-inspector/Tech-Inspector-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/tech-inspector/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
     {
         "name": "Third-Party-Assets.Discover",
         "description": "Identifies third-party technologies, services, SDKs, APIs, data feeds, modules, and vendor-provided assets used by an organization.",
+        "version": "1.0.0", 
         "tags": ["thirdParty", "assetDiscovery", "vendorTech", "integrationInventory"],
         "input_modes": ["application/json"],
         "output_modes": ["application/json"],
@@ -53,6 +63,7 @@
     {
         "name": "Asset-Integrations.Map",
         "description": "Determines how third-party assets are integrated into organizational systems, workflows, data flows, and technical domains.",
+        "version": "1.0.0", 
         "tags": ["integrationMapping", "systemArchitecture", "dependencyAnalysis"],
         "input_modes": ["application/json"],
         "output_modes": ["application/json"],
@@ -66,6 +77,7 @@
     {
         "name": "Implementation-Details.Analyze",
         "description": "Examines implementation patterns, configuration, data flows, and operational dependencies of third-party assets.",
+        "version": "1.0.0", 
         "tags": ["implementationAnalysis", "configuration", "dataFlow", "technicalAssessment"],
         "input_modes": ["application/json"],
         "output_modes": ["application/json"],
@@ -79,6 +91,7 @@
     {
         "name": "Usage-Instances.Search",
         "description": "Searches for real-world usage instances of third-party assets across systems, documentation, codebases, and operational artifacts.",
+        "version": "1.0.0", 
         "tags": ["usageDiscovery", "techDiscovery", "integrationSearch"],
         "input_modes": ["application/json", "text/plain"],
         "output_modes": ["application/json"],
@@ -92,6 +105,7 @@
     {
         "name": "Technical-Impact.Infer",
         "description": "Infers the operational, architectural, and compliance impact of integrating a third-party asset.",
+        "version": "1.0.0", 
         "tags": ["impactAnalysis", "architecture", "riskAssessment", "technicalDependencies"],
         "input_modes": ["application/json"],
         "output_modes": ["application/json"],
@@ -105,6 +119,7 @@
     {
         "name": "Asset-Portfolio.Cluster",
         "description": "Groups third-party assets into categories such as infrastructure, analytics, identity, data processing, or operational tooling.",
+        "version": "1.0.0", 
         "tags": ["portfolioClustering", "taxonomy", "classification", "techDomains"],
         "input_modes": ["application/json"],
         "output_modes": ["application/json"],
@@ -118,6 +133,7 @@
     {
         "name": "Integration-Risk.Evaluate",
         "description": "Assesses security, privacy, operational, and compliance risks associated with third-party integrations.",
+        "version": "1.0.0", 
         "tags": ["riskAssessment", "security", "privacy", "operationalRisk"],
         "input_modes": ["application/json"],
         "output_modes": ["application/json"],
@@ -131,6 +147,7 @@
     {
         "name": "Integration-Provenance.Trace",
         "description": "Tracks the origin, version history, update lineage, and vendor changes for third-party assets.",
+        "version": "1.0.0", 
         "tags": ["provenance", "versioning", "vendorLineage"],
         "input_modes": ["application/json"],
         "output_modes": ["application/json"],
@@ -144,6 +161,7 @@
     {
         "name": "Related-Assets.Detect",
         "description": "Identifies similar or alternative third-party assets across the market, including competing or complementary technologies.",
+        "version": "1.0.0", 
         "tags": ["competitiveLandscape", "similaritySearch", "alternatives"],
         "input_modes": ["application/json"],
         "output_modes": ["application/json"],
@@ -157,6 +175,7 @@
     {
         "name": "Tech-Report.Generate",
         "description": "Produces a structured, regulator-friendly report summarizing discovered assets, integrations, risks, and technical impact.",
+        "version": "1.0.0", 
         "tags": ["reporting", "audit", "documentation", "evidence"],
         "input_modes": ["application/json"],
         "output_modes": ["application/json"],
@@ -167,6 +186,5 @@
         "inputSchema": { "$ref": "https://yo-ai.ai/schemas/tech-report.generate.input.schema.json" },
         "outputSchema": { "$ref": "https://yo-ai.ai/schemas/tech-report.generate.output.schema.json" }
     }
-  ],
-  "supportsAuthenticatedExtendedCard": true
+  ]
 }
