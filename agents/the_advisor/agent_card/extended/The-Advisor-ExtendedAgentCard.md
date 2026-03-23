@@ -1,3 +1,11 @@
+/**
+ * The-Advisor ExtendedCard conveys:
+ * - tasks, messages, tools, handlers, and artifacts for Registered Agents
+ */
+
+/**
+* The-Advisor Extended Agent Card¶
+*/
 {
     "name": "The-Advisor",
     "description": "Provides advice on any issue to Yo-ai Registered Agents.",
