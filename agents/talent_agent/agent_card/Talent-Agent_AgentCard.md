@@ -12,28 +12,35 @@
 {
     "name": "Talent-Agent",
     "description": "Agent responsible for responding to job postings, pitching consulting services, and managing professional opportunities.",
-    "url": "https://privacyportfolio.com/agent-registry/talent-agent/agent.json",
+    "id": "com.privacyportfolio.talent-agent",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://www.PrivacyPortfolio.com"
     },
     "iconUrl": "https://privacyportfolio.com/agent-registry/talent-agent/talent-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/talent-agent/Talent-Agent-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/talent-agent/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": true
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": true
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
     "security": [
-        { "yo-ai": ["apiKey", "yo-api", "header"] }
+      { "yo-ai": [] }
     ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
@@ -41,6 +48,7 @@
     {
         "name": "Job-Postings.Scan",
         "description": "Identify job opportunities that match the subject’s skills and preferences.",
+        "version": "1.0.0", 
         "tags": ["jobs", "opportunity", "matching", "logEvent"],
         "examples": [
             "Scan LinkedIn postings",
@@ -55,6 +63,7 @@
     {
         "name": "Consulting-Services.Pitch",
         "description": "Generate and send consulting pitches to prospective clients.",
+        "version": "1.0.0", 
         "tags": ["consulting", "pitch", "outreach", "logEvent"],
         "examples": [
             "Send consulting proposal",
@@ -69,6 +78,7 @@
     {
         "name": "Application.Submit",
         "description": "Submit job applications using minimized profile from Data-Steward.",
+        "version": "1.0.0", 
         "tags": ["application", "submit", "logEvent"],
         "examples": [
             "Apply to job",
@@ -83,6 +93,7 @@
     {
         "name": "Talent-Profile.Request",
         "description": "Request minimized resume, skills, and professional profile from Data-Steward.",
+        "version": "1.0.0", 
         "tags": ["requestData", "resume", "skills", "logEvent"],
         "examples": [
             "Request resume bundle",
@@ -93,6 +104,5 @@
         "inputSchema": { "$ref": "https://yo-ai.ai/schemas/talent-profile.request.input.schema.json" },
         "outputSchema": { "$ref": "https://yo-ai.ai/schemas/talent-profile.request.output.schema.json" }
     }
-  ],
-  "supportsAuthenticatedExtendedCard": true
+  ]
 }
