@@ -1,39 +1,29 @@
 # core/runtime/ai_client.py
 #
-# AI client for Yo-ai agents.
-# Constructed by YoAiAgent at init from the agent's x-ai block (if present).
-# Provides chat_completion(system, user, capability_id=None) consumed by call_ai().
+# AI client for Yo-ai agents. Constructed by YoAiAgent at init.
+# Provides chat_completion(system, user, capability_id=None) for call_ai().
 #
-# Model resolution order (env-first, per resolution design):
+# Resolution order (env-first):
 #   1. YO_AI_MODEL_<AGENT>_<SKILL>   e.g. YO_AI_MODEL_DOOR_KEEPER_TRUST_ASSIGN
 #   2. YO_AI_MODEL_<AGENT>           e.g. YO_AI_MODEL_DOOR_KEEPER
 #   3. x-ai.skills.<skill>.declared_defaults[role=primary]   (per-capability)
-#   4. x-ai.declared_defaults[role=primary]                  (per-agent flat list)
+#   4. x-ai.declared_defaults[role=primary]                  (per-agent)
 #   5. Platform fallback: anthropic / claude-sonnet-4-6
 #
-# Graceful degradation — nothing crashes when x-ai is:
-#   absent entirely          → platform fallback
-#   present, no skills key   → per-agent declared_defaults or fallback
-#   present, skill missing   → per-agent declared_defaults or fallback
-#   declared_defaults empty  → fallback
-#   declared_defaults has no "primary" role → first entry used
-#   api_key_env / endpoint fields present (legacy) → silently ignored
+# Dispatch (merged from ai_providers/):
+#   _invoke() → load_ai_provider() → BaseAIClient subclass (SDK-based)
+#   Multiple declared_defaults → ProviderOrchestrator (health TTL + round-robin)
+#   Single entry → direct dispatch (fast path)
 #
-# Per-agent vs per-capability:
-#   Door-Keeper: x-ai.skills.<capability>.declared_defaults (per-capability)
-#   All others:  x-ai.declared_defaults flat list (per-agent)
-#   Both resolve transparently — per-capability tried first, per-agent fallback.
-#
-# api_key_env and endpoint:
-#   Must NOT appear in publishable cards (API_KEYS.docx ruling).
-#   Silently ignored if present in legacy cards.
-#   API keys read from environment only:
-#     ANTHROPIC_API_KEY, GEMINI_API_KEY, OPENAI_API_KEY, AZURE_OPENAI_KEY
+# api_key_env / endpoint silently ignored (banned from publishable cards).
 
 import logging
 import os
 import re
 from typing import Any, Dict, List, Optional, Tuple
+
+from core.runtime.ai_providers.provider_loader import load_ai_provider
+from core.runtime.ai_providers.provider_orchestrator import ProviderOrchestrator
 
 logger = logging.getLogger(__name__)
 
@@ -73,6 +63,11 @@ class AiClient:
         # Normalise: always a dict internally, never None
         self._xai = xai_block if isinstance(xai_block, dict) else {}
 
+        self._strategy    = self._xai.get("strategy", "failover")
+        self._health_ttl  = int(self._xai.get("health_ttl_seconds", 300))
+        self._temperature = float(self._xai.get("temperature", 0.2))
+        self._max_tokens  = int(self._xai.get("max_tokens", 1024))
+
         if not self._xai:
             logger.debug(
                 "AiClient(%s): no x-ai block — platform fallback %s/%s.",
@@ -80,11 +75,13 @@ class AiClient:
             )
         elif "skills" in self._xai:
             logger.debug(
-                "AiClient(%s): per-capability x-ai (%d skill(s)).",
-                agent_name, len(self._xai["skills"])
+                "AiClient(%s): per-capability x-ai (%d skill(s)) strategy=%s.",
+                agent_name, len(self._xai["skills"]), self._strategy
             )
         else:
-            logger.debug("AiClient(%s): per-agent x-ai.", agent_name)
+            logger.debug(
+                "AiClient(%s): per-agent x-ai strategy=%s.", agent_name, self._strategy
+            )
 
     # ------------------------------------------------------------------
     # Public interface — called by call_ai() in ai_transform.py
@@ -106,42 +103,56 @@ class AiClient:
         Never raises. Returns an error JSON string on total failure so
         call_ai() can wrap it in {"rawText": ...} cleanly.
         """
-        primary_provider, primary_model = self._resolve(capability_id, role="primary")
+        defaults = self._get_defaults_for_capability(capability_id)
 
-        logger.info(
-            "AiClient(%s): %s/%s  capability=%s",
-            self.agent_name, primary_provider, primary_model,
-            capability_id or "none"
-        )
-
-        try:
-            return _invoke(primary_provider, primary_model, system, user)
-        except Exception as primary_exc:
-            logger.warning(
-                "AiClient(%s): primary %s/%s failed — %s. Trying failover.",
-                self.agent_name, primary_provider, primary_model, primary_exc
+        # Single entry — direct dispatch (fast path, no orchestrator overhead)
+        if len(defaults) <= 1:
+            provider, model = self._resolve(capability_id, role="primary")
+            logger.info(
+                "AiClient(%s): %s/%s  capability=%s",
+                self.agent_name, provider, model, capability_id or "none"
             )
-
-        # Try failover model from x-ai block
-        failover_provider, failover_model = self._resolve(capability_id, role="failover")
-        if (failover_provider, failover_model) != (primary_provider, primary_model):
             try:
-                return _invoke(failover_provider, failover_model, system, user)
-            except Exception as failover_exc:
-                logger.error(
-                    "AiClient(%s): failover %s/%s also failed — %s.",
-                    self.agent_name, failover_provider, failover_model, failover_exc
+                return _invoke(
+                    provider, model, system, user, capability_id,
+                    self._temperature, self._max_tokens,
                 )
+            except Exception as exc:
+                logger.error(
+                    "AiClient(%s): %s/%s failed — %s",
+                    self.agent_name, provider, model, exc
+                )
+                return f'{{"error": "AiClient: {exc}"}}'
 
-        # All providers exhausted
-        return (
-            f'{{"error": "AiClient({self.agent_name}): all providers failed '
-            f'for capability {capability_id}"}}'
+        # Multiple entries — ProviderOrchestrator (health TTL + strategy)
+        orch = ProviderOrchestrator(
+            defaults=defaults,
+            strategy=self._strategy,
+            health_ttl_seconds=self._health_ttl,
+            temperature=self._temperature,
+            max_tokens=self._max_tokens,
         )
+        return orch.chat_completion(system, user, capability_id)
 
     # ------------------------------------------------------------------
     # Model resolution
     # ------------------------------------------------------------------
+
+    def _get_defaults_for_capability(
+        self, capability_id: Optional[str],
+    ) -> List[Dict[str, Any]]:
+        """Return declared_defaults list for capability — per-skill first, per-agent fallback."""
+        if capability_id and self._xai:
+            skills = self._xai.get("skills")
+            if isinstance(skills, dict):
+                d = skills.get(capability_id, {}).get("declared_defaults")
+                if isinstance(d, list) and d:
+                    return d
+        if self._xai:
+            d = self._xai.get("declared_defaults")
+            if isinstance(d, list) and d:
+                return d
+        return []
 
     def _resolve(
         self,
@@ -251,72 +262,27 @@ def _pick_from_defaults(
 
 
 # ---------------------------------------------------------------------------
-# LLM invocation — one function per provider
+# LLM dispatch — via provider_loader + BaseAIClient subclasses
+# (merged from core/runtime/ai_providers/)
 # ---------------------------------------------------------------------------
 
-def _invoke(provider: str, model: str, system: str, user: str) -> str:
-    """Dispatch to the correct provider SDK. Raises on failure."""
-    p = provider.lower().replace("-", "_")
-    if p == "anthropic":
-        return _call_anthropic(model, system, user)
-    if p in ("google_gemini", "gemini"):
-        return _call_gemini(model, system, user)
-    if p == "openai":
-        return _call_openai(model, system, user)
-    if p in ("azure_openai", "azure"):
-        return _call_azure(model, system, user)
-    logger.warning(
-        "AiClient: unknown provider '%s' — falling back to anthropic.", provider
-    )
-    return _call_anthropic(_FALLBACK_MODEL, system, user)
-
-
-def _call_anthropic(model: str, system: str, user: str) -> str:
-    import anthropic
-    client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
-    msg = client.messages.create(
+def _invoke(
+    provider: str,
+    model: str,
+    system: str,
+    user: str,
+    capability_id: Optional[str] = None,
+    temperature: float = 0.2,
+    max_tokens: int = 1024,
+) -> str:
+    """
+    Instantiate the correct BaseAIClient subclass and call chat_completion().
+    Raises on failure — callers wrap in try/except.
+    """
+    client = load_ai_provider(
+        provider=provider,
         model=model,
-        max_tokens=1024,
-        system=system,
-        messages=[{"role": "user", "content": user}],
+        temperature=temperature,
+        max_tokens=max_tokens,
     )
-    return msg.content[0].text
-
-
-def _call_gemini(model: str, system: str, user: str) -> str:
-    import google.generativeai as genai
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-    m = genai.GenerativeModel(model, system_instruction=system)
-    return m.generate_content(user).text
-
-
-def _call_openai(model: str, system: str, user: str) -> str:
-    from openai import OpenAI
-    client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-    resp = client.chat.completions.create(
-        model=model,
-        max_tokens=1024,
-        messages=[
-            {"role": "system", "content": system},
-            {"role": "user",   "content": user},
-        ],
-    )
-    return resp.choices[0].message.content
-
-
-def _call_azure(model: str, system: str, user: str) -> str:
-    from openai import AzureOpenAI
-    client = AzureOpenAI(
-        api_key=os.environ["AZURE_OPENAI_KEY"],
-        azure_endpoint=os.environ.get("AZURE_OPENAI_ENDPOINT", ""),
-        api_version="2024-02-01",
-    )
-    resp = client.chat.completions.create(
-        model=model,
-        max_tokens=1024,
-        messages=[
-            {"role": "system", "content": system},
-            {"role": "user",   "content": user},
-        ],
-    )
-    return resp.choices[0].message.content
+    return client.chat_completion(system, user, capability_id)
