@@ -12,33 +12,43 @@
 {
     "name": "The-Custodian",
     "description": "A privileged PlatformAgent responsible for platform maintenance, storage pruning, trace pruning, DLQ management, and emitting configuration_change and housekeeping events. No profiles, no REST endpoints.",
-    "url":   "https://privacyportfolio.com/agent-registry/the-custodian/agent.json",
+    "id": "com.privacyportfolio.the-custodian",
     "provider": {
         "organization": "PrivacyPortfolio",
         "url": "https://privacyportfolio.com"
     },
     "iconUrl": "https://privacyportfolio.com/agent-registry/the-custodian/the-custodian-agent-icon.png",
-    "version": "1.0.0",
+    "protocolVersion": "1.0.0",
     "documentationUrl": "https://privacyportfolio.com/agent-registry/the-custodian/The-Custodian-AgentCard.md",
+    "supportedInterfaces": [
+      {
+        "url": "https://privacyportfolio.com/agent-registry/the-custodian/a2a",
+        "protocolBinding": "JSONRPC",
+        "protocolVersion": "1.0"
+      }
+    ],
     "capabilities": {
-        "streaming": true,
-        "pushNotifications": true,
-        "stateTransitionHistory": false
+      "streaming": true,
+      "pushNotifications": true,
+      "extendedAgentCard": false
     },
     "securitySchemes": {
-        "yo-ai": {
+      "yo-ai": {
         "type": "apiKey",
         "name": "yo-api",
         "in": "header"
-        }
+      }
     },
-    "security": [{ "yo-ai": ["apiKey", "yo-api", "header"] }],
+    "security": [
+      { "yo-ai": [] }
+    ],
     "defaultInputModes": ["application/json", "text/plain"],
     "defaultOutputModes": ["application/json", "text/plain"],
     "skills": [
         {
             "name": "prune_storage",
             "description": "Prune storage older than retention_days and emit housekeeping event.",
+            "version": "1.0.0", 
             "tags": ["system", "privileged", "maintenance"],
             "examples": ["Prune storage older than retention_days and emit housekeeping event."],
             "inputModes": ["application/json", "text/plain"],
@@ -49,6 +59,7 @@
         {
             "name": "prune_traces",
             "description": "Prune traces older than retention_days and emit housekeeping event.",
+            "version": "1.0.0", 
             "tags": ["trace"],
             "examples": ["Prune traces older than retention_days"],
             "inputModes": ["application/json", "text/plain"],
@@ -59,6 +70,7 @@
         {
             "name": "dlq_inspect",
             "description": "Inspect the dead-letter-queue without consuming messages.",
+            "version": "1.0.0", 
             "tags": ["dlq"],
             "examples": ["Inspect the dead-letter-queue"],
             "inputModes": ["application/json", "text/plain"],
@@ -69,6 +81,7 @@
         {
             "name": "dlq_reprocess",
             "description": "Attempt to reprocess dead-letter-queue messages.",
+            "version": "1.0.0", 
             "tags": ["dlq"],
             "examples": ["Reprocess dead-letter-queue messages"],
             "inputModes": ["application/json", "text/plain"],
@@ -79,6 +92,7 @@
         {
             "name": "generate_config_change_event",
             "description": "Emit a configuration_change event owned by The-Custodian.",
+            "version": "1.0.0", 
             "tags": ["config_change"],
             "examples": ["config_change"],
             "inputModes": ["application/json", "text/plain"],
@@ -86,6 +100,5 @@
             "inputSchema": { "$ref": "https://yo-ai.ai/schemas/generate_config_change_event.input.schema.json" },
             "outputSchema": { "$ref": "https://yo-ai.ai/schemas/generate_config_change_event.output.schema.json" }
         }
-  ],
-  "supportsAuthenticatedExtendedCard": false
+  ]
 }
