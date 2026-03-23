@@ -1,114 +1,154 @@
 # core/runtime/ai_providers/provider_orchestrator.py
-
-"""
-ProviderOrchestrator
-
-Coordinates multiple AI providers for a single agent.
-
-Responsibilities:
-- Load provider configs from agent x-ai block
-- Select a provider based on strategy (failover, round-robin)
-- Cache provider health in-memory (per process / Lambda container)
-- Retry with alternate providers on failure
-"""
+#
+# ProviderOrchestrator — multi-provider coordination for AiClient.
+#
+# Merge changes from original:
+#   - x-ai config shape updated from "providers" flat list to
+#     "declared_defaults" (per-agent) or "skills.<cap>.declared_defaults"
+#     (per-capability) — matching the current ExtendedAgentCard format
+#     and AiClient resolution chain
+#   - api_key_env removed from provider config shape — API keys are read
+#     from environment by convention, not from config (API_KEYS.docx)
+#   - capability_id threaded through chat_completion() so per-skill health
+#     tracking is possible in future
+#   - health TTL cache and round-robin strategy preserved exactly from original
+#   - load_ai_provider() from provider_loader.py replaces inline construction
+#   - f-string logging replaced with % formatting (Lambda best practice)
+#
+# Used by: AiClient (ai_client.py) when strategy != "failover-simple"
+# Not instantiated directly by agent code.
 
 import logging
 import time
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 from .provider_loader import load_ai_provider
+from .base_ai_client import BaseAIClient
 
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
 
 class ProviderOrchestrator:
     """
-    Orchestrates multiple AI providers for an agent.
+    Coordinates multiple AI providers for a single agent.
 
-    Expected config structure (from agent card x-ai):
+    Reads from the resolved declared_defaults list — the same list
+    AiClient._pick_from_defaults() reads. Each entry has:
+        { "role": "primary"|"failover", "provider": "...", "model": "..." }
 
-    {
-        "providers": [
-            {
-                "provider": "anthropic",
-                "model": "claude-3-sonnet-20240229",
-                "api_key_env": "ANTHROPIC_API_KEY"
-            },
-            {
-                "provider": "openai",
-                "model": "gpt-4.2",
-                "api_key_env": "OPENAI_API_KEY"
-            }
-        ],
-        "strategy": "failover" | "round-robin",
-        "health_ttl_seconds": 300
-    }
+    Supports two strategies:
+        failover    — try providers in order, skip unhealthy ones
+        round-robin — distribute calls across healthy providers
+
+    Health is tracked in-memory per process/Lambda execution environment.
+    Unhealthy providers are re-enabled after health_ttl_seconds.
     """
 
-    def __init__(self, config: Dict[str, Any]):
-        self.config = config or {}
-        self.providers_config: List[Dict[str, Any]] = self.config.get("providers", [])
-        self.strategy: str = self.config.get("strategy", "failover")
-        self.health_ttl_seconds: int = self.config.get("health_ttl_seconds", 300)
+    def __init__(
+        self,
+        defaults: List[Dict[str, Any]],
+        strategy: str = "failover",
+        health_ttl_seconds: int = 300,
+        temperature: float = 0.2,
+        max_tokens: int = 2048,
+    ):
+        """
+        Args:
+            defaults           : declared_defaults list from x-ai block.
+                                 Each entry: {"role": ..., "provider": ..., "model": ...}
+            strategy           : "failover" (default) or "round-robin"
+            health_ttl_seconds : Seconds before an unhealthy provider is retried
+            temperature        : Passed to all provider clients
+            max_tokens         : Passed to all provider clients
+        """
+        if not defaults:
+            raise ValueError("ProviderOrchestrator requires at least one entry in declared_defaults")
 
-        if not self.providers_config:
-            raise ValueError("ProviderOrchestrator requires at least one provider in x-ai.providers")
+        self._defaults          = defaults
+        self.strategy           = strategy
+        self.health_ttl_seconds = health_ttl_seconds
+        self.temperature        = temperature
+        self.max_tokens         = max_tokens
 
-        # In-memory health + round-robin state (per process / Lambda container)
+        # In-memory health + round-robin state (per Lambda execution environment)
         self._health_cache: Dict[int, Dict[str, Any]] = {}
         self._rr_index: int = 0
 
-    # ------------------------------------------------------------------
-    # Public API
-    # ------------------------------------------------------------------
-    def chat_completion(self, system: str, user: str) -> str:
+    def chat_completion(
+        self,
+        system: str,
+        user: str,
+        capability_id: Optional[str] = None,
+    ) -> str:
         """
-        Execute a chat completion using the configured strategy and providers.
+        Execute a chat completion using the configured strategy.
+        Never raises — returns error string if all providers fail.
         """
-
-        if self.strategy == "round-robin":
-            return self._chat_completion_round_robin(system, user)
-
-        # Default: failover
-        return self._chat_completion_failover(system, user)
+        try:
+            if self.strategy == "round-robin":
+                return self._round_robin(system, user, capability_id)
+            return self._failover(system, user, capability_id)
+        except RuntimeError as exc:
+            logger.error("ProviderOrchestrator: all providers exhausted — %s", exc)
+            return f'{{"error": "ProviderOrchestrator: {exc}"}}'
 
     # ------------------------------------------------------------------
-    # Strategy: Failover
+    # Strategy: failover
     # ------------------------------------------------------------------
-    def _chat_completion_failover(self, system: str, user: str) -> str:
+
+    def _failover(
+        self,
+        system: str,
+        user: str,
+        capability_id: Optional[str],
+    ) -> str:
         last_error: Optional[Exception] = None
 
-        for idx, provider_cfg in enumerate(self.providers_config):
-            if not self._is_provider_healthy(idx):
-                logger.info(f"[ProviderOrchestrator] Skipping unhealthy provider index={idx}")
+        for idx, entry in enumerate(self._defaults):
+            if not self._is_healthy(idx):
+                logger.info(
+                    "ProviderOrchestrator: skipping unhealthy provider idx=%d (%s/%s)",
+                    idx, entry.get("provider"), entry.get("model")
+                )
+                continue
+
+            provider, model = entry.get("provider", ""), entry.get("model", "")
+            if not provider or not model:
+                logger.warning("ProviderOrchestrator: skipping entry idx=%d — missing provider or model", idx)
                 continue
 
             try:
-                client = load_ai_provider(provider_cfg)
-                logger.info(f"[ProviderOrchestrator] Using provider index={idx} cfg={provider_cfg}")
-                result = client.chat_completion(system, user)
-                self._mark_provider_healthy(idx)
+                client = self._build_client(provider, model)
+                logger.info(
+                    "ProviderOrchestrator: [failover] idx=%d %s/%s capability=%s",
+                    idx, provider, model, capability_id or "none"
+                )
+                result = client.chat_completion(system, user, capability_id)
+                self._mark_healthy(idx)
                 return result
 
-            except Exception as e:
-                logger.warning(f"[ProviderOrchestrator] Provider index={idx} failed: {e}")
-                self._mark_provider_unhealthy(idx)
-                last_error = e
-                continue
+            except Exception as exc:
+                logger.warning(
+                    "ProviderOrchestrator: idx=%d %s/%s failed — %s",
+                    idx, provider, model, exc
+                )
+                self._mark_unhealthy(idx)
+                last_error = exc
 
-        # If we exhausted all providers
-        if last_error:
-            raise RuntimeError(f"All AI providers failed. Last error: {last_error}") from last_error
-
-        raise RuntimeError("No available AI providers")
+        raise RuntimeError(f"All providers failed. Last error: {last_error}")
 
     # ------------------------------------------------------------------
-    # Strategy: Round-robin (with health awareness)
+    # Strategy: round-robin
     # ------------------------------------------------------------------
-    def _chat_completion_round_robin(self, system: str, user: str) -> str:
-        attempts = 0
-        total = len(self.providers_config)
+
+    def _round_robin(
+        self,
+        system: str,
+        user: str,
+        capability_id: Optional[str],
+    ) -> str:
+        total      = len(self._defaults)
+        attempts   = 0
         last_error: Optional[Exception] = None
 
         while attempts < total:
@@ -116,60 +156,70 @@ class ProviderOrchestrator:
             self._rr_index += 1
             attempts += 1
 
-            if not self._is_provider_healthy(idx):
-                logger.info(f"[ProviderOrchestrator] Skipping unhealthy provider index={idx}")
+            if not self._is_healthy(idx):
+                logger.info(
+                    "ProviderOrchestrator: [rr] skipping unhealthy idx=%d", idx
+                )
                 continue
 
-            provider_cfg = self.providers_config[idx]
+            entry = self._defaults[idx]
+            provider, model = entry.get("provider", ""), entry.get("model", "")
+            if not provider or not model:
+                continue
 
             try:
-                client = load_ai_provider(provider_cfg)
-                logger.info(f"[ProviderOrchestrator] (RR) Using provider index={idx} cfg={provider_cfg}")
-                result = client.chat_completion(system, user)
-                self._mark_provider_healthy(idx)
+                client = self._build_client(provider, model)
+                logger.info(
+                    "ProviderOrchestrator: [rr] idx=%d %s/%s capability=%s",
+                    idx, provider, model, capability_id or "none"
+                )
+                result = client.chat_completion(system, user, capability_id)
+                self._mark_healthy(idx)
                 return result
 
-            except Exception as e:
-                logger.warning(f"[ProviderOrchestrator] (RR) Provider index={idx} failed: {e}")
-                self._mark_provider_unhealthy(idx)
-                last_error = e
-                continue
+            except Exception as exc:
+                logger.warning(
+                    "ProviderOrchestrator: [rr] idx=%d %s/%s failed — %s",
+                    idx, provider, model, exc
+                )
+                self._mark_unhealthy(idx)
+                last_error = exc
 
-        if last_error:
-            raise RuntimeError(f"All AI providers failed (round-robin). Last error: {last_error}") from last_error
-
-        raise RuntimeError("No available AI providers (round-robin)")
+        raise RuntimeError(f"All providers failed (round-robin). Last error: {last_error}")
 
     # ------------------------------------------------------------------
-    # Health tracking
+    # Health tracking — preserved exactly from original
     # ------------------------------------------------------------------
-    def _is_provider_healthy(self, idx: int) -> bool:
-        """
-        Returns True if provider is considered healthy or health has expired.
-        """
+
+    def _is_healthy(self, idx: int) -> bool:
         entry = self._health_cache.get(idx)
         if not entry:
-            return True  # no history → assume healthy
-
+            return True                         # no history → assume healthy
         if entry.get("healthy", True):
             return True
-
-        # If unhealthy, check TTL
-        ts = entry.get("timestamp", 0)
-        if (time.time() - ts) > self.health_ttl_seconds:
-            logger.info(f"[ProviderOrchestrator] Health TTL expired for provider index={idx}, re-enabling")
+        # Unhealthy — check if TTL has expired
+        if (time.time() - entry.get("timestamp", 0)) > self.health_ttl_seconds:
+            logger.info(
+                "ProviderOrchestrator: health TTL expired for idx=%d — re-enabling", idx
+            )
             return True
-
         return False
 
-    def _mark_provider_unhealthy(self, idx: int):
-        self._health_cache[idx] = {
-            "healthy": False,
-            "timestamp": time.time()
-        }
+    def _mark_unhealthy(self, idx: int) -> None:
+        self._health_cache[idx] = {"healthy": False, "timestamp": time.time()}
 
-    def _mark_provider_healthy(self, idx: int):
-        self._health_cache[idx] = {
-            "healthy": True,
-            "timestamp": time.time()
-        }
+    def _mark_healthy(self, idx: int) -> None:
+        self._health_cache[idx] = {"healthy": True, "timestamp": time.time()}
+
+    # ------------------------------------------------------------------
+    # Client construction
+    # ------------------------------------------------------------------
+
+    def _build_client(self, provider: str, model: str) -> BaseAIClient:
+        """Instantiate a provider client via provider_loader."""
+        return load_ai_provider(
+            provider=provider,
+            model=model,
+            temperature=self.temperature,
+            max_tokens=self.max_tokens,
+        )

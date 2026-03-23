@@ -1,66 +1,81 @@
 # core/runtime/ai_providers/claude_client.py
+#
+# ClaudeClient — Anthropic Claude via official SDK.
+#
+# Merge changes from original:
+#   - requests.post() replaced with anthropic SDK (handles retries,
+#     rate limits, API version negotiation automatically)
+#   - api_key and endpoint constructor args removed — api_key read
+#     from ANTHROPIC_API_KEY env var by convention; endpoint is not
+#     a constructor concern for the SDK client
+#   - Default model updated: claude-3-sonnet-20240229 → claude-sonnet-4-6
+#   - capability_id added to chat_completion() per BaseAIClient contract
+#   - temperature and max_tokens passed through to SDK call
+#   - Never raises — error string returned on failure
 
-"""
-ClaudeClient
+import logging
+import os
+from typing import Optional
 
-Implements BaseAIClient using Anthropic's Claude API (Sonnet, Opus, Haiku).
-"""
-
-import requests
 from .base_ai_client import BaseAIClient
+
+logger = logging.getLogger(__name__)
+
+_DEFAULT_MODEL = "claude-sonnet-4-6"
+_API_KEY_ENV   = "ANTHROPIC_API_KEY"
 
 
 class ClaudeClient(BaseAIClient):
+    """
+    Anthropic Claude client using the official anthropic SDK.
+
+    Constructed by provider_loader.py — not directly by agent code.
+
+    API key is read from the ANTHROPIC_API_KEY environment variable.
+    Never passed through config or agent cards (API_KEYS.docx ruling).
+    """
 
     def __init__(
         self,
-        api_key: str,
-        model: str = "claude-3-sonnet-20240229",
-        endpoint: str = "https://api.anthropic.com/v1/messages",
+        model: str = _DEFAULT_MODEL,
         temperature: float = 0.2,
-        max_tokens: int = 2048
+        max_tokens: int = 2048,
     ):
         super().__init__(model, temperature, max_tokens)
-        self.api_key = api_key
-        self.endpoint = endpoint
 
-    def chat_completion(self, system: str, user: str) -> str:
+    def chat_completion(
+        self,
+        system: str,
+        user: str,
+        capability_id: Optional[str] = None,
+    ) -> str:
         """
-        Executes a Claude message completion request.
-
-        Anthropic uses a "system" field + a list of messages.
+        Execute a Claude message completion.
+        Returns raw text. Never raises — returns error string on failure.
         """
-
-        headers = {
-            "x-api-key": self.api_key,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json"
-        }
-
-        payload = {
-            "model": self.model,
-            "max_tokens": self.max_tokens,
-            "temperature": self.temperature,
-            "system": system,
-            "messages": [
-                {"role": "user", "content": user}
-            ]
-        }
-
-        response = requests.post(self.endpoint, headers=headers, json=payload)
-        response.raise_for_status()
-
-        data = response.json()
-
-        # Claude returns content as a list of blocks
-        if "content" in data and isinstance(data["content"], list):
-            # Extract only text blocks
+        try:
+            import anthropic
+            client = anthropic.Anthropic(api_key=os.environ[_API_KEY_ENV])
+            msg = client.messages.create(
+                model=self.model,
+                max_tokens=self.max_tokens,
+                temperature=self.temperature,
+                system=system,
+                messages=[{"role": "user", "content": user}],
+            )
+            # Claude returns content as a list of typed blocks
             text_blocks = [
-                block.get("text", "")
-                for block in data["content"]
-                if block.get("type") == "text"
+                block.text
+                for block in msg.content
+                if hasattr(block, "type") and block.type == "text"
             ]
-            return "\n".join(text_blocks)
+            return "\n".join(text_blocks) if text_blocks else str(msg.content)
 
-        # Fallback: return raw JSON
-        return str(data)
+        except KeyError:
+            err = f"ClaudeClient: {_API_KEY_ENV} environment variable not set."
+            logger.error(err)
+            return f'{{"error": "{err}"}}'
+        except Exception as exc:
+            err = f"ClaudeClient: {self.model} failed — {exc}"
+            logger.error(err)
+            return f'{{"error": "{err}"}}'
