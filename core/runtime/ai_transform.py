@@ -78,6 +78,7 @@ def call_ai(prompt: dict, agent) -> dict:
             agent_name=agent_name,
             capability_id=capability_id,
             payload=prompt.get("input", {}),
+            agent=agent,   # passes agent.knowledge (MergedKnowledgeBase)
         )
 
         # ----------------------------------------------------------
